@@ -50,6 +50,8 @@ public class FeedbackController extends BaseController {
 	public ResponseEntity<Object> addMotivationFeedback(@RequestBody @ModelAttribute CreateMotivationFeedbackTO createMotivationFeedbackTO) {
 		Set<String> errorMessages = checkErrorsInsertMotivationFeedback.validate(createMotivationFeedbackTO);
 		Optional<String> error = errorMessages.stream().findFirst();
+		
+		/* TEST 2022-10-10 */
 
 		if (error.isPresent()) {
 			return new ResponseEntity<>(new BaseResponseRTO(null, error.get()), HttpStatus.OK);
