@@ -1,0 +1,203 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	    <meta charset="UTF-8"/>
+	    <title>Interview</title>
+		<link th:href="@{/form2.css}" rel="stylesheet" />
+        <link th:href="@{/sidebar.css}" rel="stylesheet" />
+        <link th:href="@{/home-container.css}" rel="stylesheet" />
+        <link th:href="@{/form-container.css}" rel="stylesheet" />
+        <link th:href="@{/header.css}" rel="stylesheet" />
+        <link th:rel="stylesheet" th:href="@{assets/bootstrap-select-1.13.9/dist/css/bootstrap-select.css}" />
+        <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
+        <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+        <script src="https://kit.fontawesome.com/ee5a107043.js" crossorigin="anonymous"></script>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" th:src="@{/js/funzionalita2.js}"></script>
+        <script type="text/javascript" th:src="@{/js/funzionalita.js}"></script>
+        <script type="text/javascript" th:src="@{/js/sidebar.js}"></script>
+        <script type="text/javascript" th:src="@{/js/charts.js}"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		
+
+	</head>
+    <body>
+    
+    <div class="interview-html">
+		<div class="interview-wrap">
+
+			
+			<!-- HEADER SUPERIORE -->
+			<div class="row" id="headerRow">
+		            	<div class="col-lg-8 col-lg-offset-2" id="imageColumn">		            		
+		            		 <img id="accentureLogo" src="../static/images/accenture-logo.png" th:src="@{/images/accenture-logo.png}" /> 
+		            	</div>
+		            	
+		            	<div class="col-lg-8 col-lg-offset-2" id="titleColumn">
+		            		
+		            	</div>
+		            	
+		            	<div class="col-lg-8 col-lg-offset-2" id="userColumn">
+		            		<div id="userContainer">
+		            			<div class="row" id="iconRow">
+			            			<i id="userIcon" class="fa-solid fa-circle-user"></i>
+			            		</div>
+			            		<div class="row" id="nicknameRow">
+			                    	<label th:text="${interviewer.enterpriseId}" id="nickname">User</label>
+			                    </div>
+		                    </div>
+		            	</div>
+	         </div>
+	   		<div class="row" id="pageRow">
+	   		<!-- SIDEBAR (LATERALE) -->
+	   			<div class="col-lg-8 col-lg-offset-2" id="sidebarColumn">
+                        <div class="sidebar close">
+                            <header id="sidebarHeader">
+                                <i id="sidebarMenuIcon" class="bx bx-menu"></i>
+                            </header>
+
+                            <ul class="nav-links">
+                                <li onclick="RedirectHome()">
+                                    <a>
+                                        <i class="bx bx-home" style="color: #3c4ffd;"></i>
+                                        <span class="link_name">Home</span>
+                                    </a>
+                                    <ul class="sub-menu blank">
+                                        <li onclick="RedirectHome()"><a class="link_name">Home</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <div class="iocn-link">
+                                        <a>
+                                            <i class="bx bx-collection" style="color: #3c4ffd;"></i>
+                                            <span class="link_name">Interview</span>
+                                        </a>
+                                        <i class="bx bxs-chevron-down arrow" id="interviewArrow" style="color: #3c4ffd;"></i>
+                                    </div>
+                                    <ul class="sub-menu">
+                                        <li onclick="RedirectManage()"><a>New/Search</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <div class="iocn-link">
+                                        <a>
+                                            <i class="bx bx-history" style="color: #3c4ffd;"></i>
+                                            <span class="link_name">History</span>
+                                        </a>
+                                        <i class="bx bxs-chevron-down arrow" style="color: #3c4ffd;"></i>
+                                    </div>
+                                    <ul class="sub-menu">
+                                        <li onclick="RedirectMyInterviews()"><a>Completed</a></li>
+                                        <li onclick="RedirectInProgress()"><a>In Progress</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a>
+                                        <i class="bx bx-log-out" style="color: #3c4ffd;"></i>
+                                        <span class="link_name">Logout</span>
+                                    </a>
+                                    <ul class="sub-menu blank">
+                                        <li><a class="link_name">Logout</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <section class="home-section">
+                            <div class="home-content"></div>
+                        </section>
+                    </div>
+                <!-- CONTAINER CENTRALE -->    
+                <div class="col-lg-8 col-lg-offset-2" id="containerColumn">
+                       <div class="container" id="containerHome">
+
+							<div class="row" id="homeContainerFirstRow">
+								 <div class="col-lg-8 col-lg-offset-2" id="userInfoColumn">								 		
+								 		<div class="row" id="userLogoRow">
+								 	    <i id="userLogoIcon" class="fa-solid fa-user"></i>
+								 				<ul id="userInfoList">
+								 					<li>
+								 						 <span th:text="${interviewer.enterpriseId}">Enterprise id</span>								 					
+								 					</li>
+								 					<li id="entIdList">
+								 						 <span th:text="${interviewer.mail}">Enterprise id</span>								 					
+								 					</li>
+								 				</ul>
+								 		</div> 
+								 </div>
+								  <div class="col-lg-8 col-lg-offset-2" id="yearGraphColumn">
+								 	<div id="visualization"></div>
+								  </div>
+						    </div>
+							<div class="row">	
+								  <div class="col-lg-8 col-lg-offset-2" id="totInterviewsGraphColumn">
+								 		<div id="totalInterviewsChart"></div>
+								  </div>
+								   <div class="col-lg-8 col-lg-offset-2" id="monthInterviewsGraphColumn">
+								 		<div id="monthInterviewsChart"></div>
+								  </div>	
+	
+							</div>
+						</div>
+				</div>
+                        
+          </div>
+          <div style="display: none">
+          		 <span th:text="${inProgressInterviews}" id="inProgressNumber"></span>
+				 <span th:text="${myInterviews}" id="completedNumber"></span>
+				 <span th:text="${myInterviewsMonth}" id="completedMonthNumber"></span>
+				 <span th:text="${inProgressInterviewsMonth}" id="inProgressMonthNumber"></span>
+          </div>
+	   		
+	   		</div>
+					
+		</div>
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+			google.load("visualization", "1", {packages:["corechart"]});
+			google.setOnLoadCallback(drawVisualization);
+			
+			function drawVisualization() {
+			    var months = [];
+			    var interviews = [];
+			    
+			    var monthList = /*[[${yearMonthInterviews}]]*/ 'default';
+			    for (i = 0; i < monthList.length; i++) {
+			    	months.push(monthList[i].monthName);
+			    	interviews.push(monthList[i].interviews);
+			    }
+		    
+		    	  var data = new google.visualization.DataTable();
+		    	  data.addColumn('string', 'Months');
+		    	  data.addColumn('number', 'Interviews');
+	
+		    	  for(i = 0; i < months.length; i++)
+		    	    data.addRow([months[i], interviews[i]]);
+		    	  
+		    	  var options = {
+		    		        title: "Interviews per Month",
+		    		        vAxis: {'minValue': 0, 'maxValue': 10},
+		    		        hAxis: {
+		    		            textStyle: {
+		    		                color: '#3c4ffd'
+		    		            }
+		    		        },
+		    		        width: 800,
+		    		        height: 350,
+		    		        chartArea: {'width': '100%', 'height': '80%'},
+		    		        bar: {groupWidth: "50%"},
+		    		        legend: { position: "none" },
+		    				titleTextStyle: {
+		    		    		color: '#3c4ffd'
+		    				},
+		    		  		colors: ['#3c4ffd']
+		    		      };
+		    	 
+		    	  new google.visualization.ColumnChart(document.getElementById('visualization')).
+		    	    draw(data, options);
+			}
+		/*]]>*/
+	</script>
+    </body>
+</html>

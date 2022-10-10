@@ -1,0 +1,250 @@
+package com.accenture.interview.service;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
+
+import com.accenture.interview.entity.CandidateType;
+import com.accenture.interview.entity.Interview;
+import com.accenture.interview.entity.Interviewer;
+import com.accenture.interview.entity.MotivationFeedback;
+import com.accenture.interview.entity.TechFeedback;
+import com.accenture.interview.repository.InterviewRepository;
+import com.accenture.interview.rto.general.StartEndDateRTO;
+import com.accenture.interview.rto.interview.InterviewAndFeedbackRTO;
+import com.accenture.interview.rto.interview.InterviewMonthRTO;
+import com.accenture.interview.rto.interview.SearchInterviewResponse;
+import com.accenture.interview.to.interview.CreateInterviewTO;
+import com.accenture.interview.to.interview.SearchInterviewTO;
+import com.accenture.interview.utils.date.DateUtils;
+import com.accenture.interview.utils.enums.InterviewTypeEnum;
+
+/**
+ * The Class InterviewService.
+ */
+@Service
+public class InterviewService {
+
+	/** The interview repository. */
+	@Autowired
+	private InterviewRepository interviewRepository;
+
+	/**
+	 * Gets the interview from id.
+	 *
+	 * @param idColloquio the id colloquio
+	 * @return the interview from id
+	 */
+	public Interview findInterviewById(long idColloquio) {
+		Optional<Interview> opt = interviewRepository.findInterviewById(idColloquio);
+
+		if (opt.isPresent()) {
+			return opt.get();
+		}
+		return null;
+	}
+
+	/**
+	 * Update interview tech feedback.
+	 *
+	 * @param interview     the interview
+	 * @param feedback      the feedback
+	 * @param finalFeedback the final feedback
+	 */
+	public void updateInterviewTechFeedback(Interview interview, TechFeedback feedback, String finalFeedback) {
+		interview.setFinalFeedback(finalFeedback);
+		interview.setTechFeedbackId(feedback);
+		interview.setDueDate(new Date());
+		interviewRepository.save(interview);
+	}
+
+	/**
+	 * Update interview mot feedback.
+	 *
+	 * @param interview     the interview
+	 * @param feedback      the feedback
+	 * @param finalFeedback the final feedback
+	 */
+	public void updateInterviewMotFeedback(Interview interview, MotivationFeedback feedback, String finalFeedback) {
+		interview.setFinalFeedback(finalFeedback);
+		interview.setMotivationFeedbackId(feedback);
+		interview.setDueDate(new Date());
+		interviewRepository.save(interview);
+	}
+
+	/**
+	 * Find interview by name surname and mail.
+	 *
+	 * @param name    the name
+	 * @param surname the surname
+	 * @param email   the email
+	 * @return the interview
+	 */
+	public Interview findInterviewByNameSurnameAndMail(String name, String surname, String email) {
+		Optional<Interview> opt = interviewRepository.findInterviewByNameSurnameAndMail(name, surname, email);
+
+		if (opt.isPresent()) {
+			return opt.get();
+		}
+		return null;
+	}
+
+	/**
+	 * Adds the new interview.
+	 *
+	 * @param request       the request
+	 * @param candidateType the candidate type
+	 * @param interviewer   the interviewer
+	 * @return the creates the interview response
+	 */
+	public Interview addNewInterview(CreateInterviewTO request, CandidateType candidateType, Interviewer interviewer) {
+		Interview interview = new Interview(request);
+		interview.setCandidateTypeId(candidateType);
+		interview.setInterviewerId(interviewer);
+		interview.setInterviewType(getInterviewTypeFromString(request.getInterviewType()));
+		return interviewRepository.save(interview);
+	}
+
+	/**
+	 * Search interview.
+	 *
+	 * @param searchInterviewTO the search interview
+	 * 
+	 * @return the list
+	 */
+	public List<SearchInterviewResponse> searchInterview(SearchInterviewTO searchInterviewTO) {
+		List<SearchInterviewResponse> interviewList = new ArrayList<>();
+		Long interviewType = getInterviewTypeFromString(searchInterviewTO.getInterviewType());
+		List<Interview> entityList = interviewRepository.findInterviewByParams(
+				searchInterviewTO.getCandidateName(), searchInterviewTO.getCandidateSurname(),
+				searchInterviewTO.getEmail(), interviewType, searchInterviewTO.getFirstDate(),
+				searchInterviewTO.getSecondDate(), searchInterviewTO.getEnterpriseId());
+
+		for (Interview interview : entityList) {
+			interviewList.add(new SearchInterviewResponse(interview));
+		}
+
+		return interviewList;
+	}
+
+	/**
+	 * Gets the my interviews.
+	 *
+	 * @param enterpriseId the enterprise id
+	 * @return the my interviews
+	 */
+	public List<InterviewAndFeedbackRTO> getMyInterviews(String enterpriseId) {
+		return this.interviewRepository.getMyInterviewsByEnterpriseId(enterpriseId);
+
+	}
+
+	/**
+	 * Gets the in progress interviews.
+	 *
+	 * @param enterpriseId the enterprise id
+	 * @return the in progress interviews
+	 */
+	public List<Interview> getInProgressInterviews(String enterpriseId) {
+		return interviewRepository.getInProgressInterviewsByEnterpriseId(enterpriseId);
+	}
+
+	/**
+	 * Gets the in progress interviews count.
+	 *
+	 * @param enterpriseId the enterprise id
+	 * @return the in progress interviews count
+	 */
+	public int getInProgressInterviewsCount(String enterpriseId) {
+		return interviewRepository.getInProgressInterviewsCount(enterpriseId);
+	}
+
+	/**
+	 * Gets the my interviews count.
+	 *
+	 * @param enterpriseId the enterprise id
+	 * @return the my interviews count
+	 */
+	public int getMyInterviewsCount(String enterpriseId) {
+		return interviewRepository.getMyInterviewsCount(enterpriseId);
+	}
+
+	/**
+	 * Gets the in progress interviews month count.
+	 *
+	 * @param enterpriseId the enterprise id
+	 * @return the in progress interviews month count
+	 */
+	public Integer getMyInterviewsMonthCount(String enterpriseId) {
+		StartEndDateRTO dates = DateUtils.calculateMonthDateIntervals();
+		return interviewRepository.getMyInterviewsMonthCount(enterpriseId, dates.getStartDate(), dates.getEndDate());
+	}
+
+	/**
+	 * Gets the in progress interviews month count.
+	 *
+	 * @param enterpriseId the enterprise id
+	 * @return the in progress interviews month count
+	 */
+	public Integer getInProgressInterviewsMonthCount(String enterpriseId) {
+		StartEndDateRTO dates = DateUtils.calculateMonthDateIntervals();
+		return interviewRepository.getInProgressMonthCount(enterpriseId, dates.getStartDate(), dates.getEndDate());
+	}
+
+	/**
+	 * Gets the completed year interviews.
+	 *
+	 * @param enterpriseId the enterprise id
+	 * @return the completed year interviews
+	 */
+	public List<InterviewMonthRTO> getCompletedYearInterviews(String enterpriseId) {
+		StartEndDateRTO dates = DateUtils.calculateYearDateIntervals();
+		List<Interview> interviews = interviewRepository.findYearInterviews(enterpriseId, dates.getStartDate(), dates.getEndDate());
+		List<InterviewMonthRTO> interviewMonth = DateUtils.createEmptyInterviewMonthList();
+		Map<Integer, List<Interview>> interviewsPerMonth = interviews
+				.stream()
+				.collect(Collectors.groupingBy(Interview::getMonth));
+
+		for (Entry<Integer, List<Interview>> entry : interviewsPerMonth.entrySet()) {
+			Optional<InterviewMonthRTO> intRto = interviewMonth.stream().filter(a -> a.getMonth().equals(entry.getKey())).findFirst();
+			if (intRto.isPresent()) {
+				intRto.get().setInterviews(entry.getValue().size());
+			}
+		}
+
+		return interviewMonth;
+	}
+
+	/**
+	 * Gets the interview type from string.
+	 *
+	 * @param description the description
+	 * @return the interview type from string
+	 */
+	public Long getInterviewTypeFromString(String description) {
+
+		if (!ObjectUtils.isEmpty(description)) {
+
+			try {
+				Optional<Long> optType = Optional
+						.of(InterviewTypeEnum.valueOf(description))
+						.map(InterviewTypeEnum::getId);
+
+				if (optType.isPresent()) {
+					return optType.get();
+				}
+			} catch (Exception e) {
+				return null;
+			}
+		}
+		return null;
+	}
+
+}

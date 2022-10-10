@@ -1,0 +1,237 @@
+@charset "ISO-8859-1";
+
+.container {
+	width: 100%;
+	display: flex;
+	border-bottom-right-radius: 15px;
+	border-bottom-left-radius: 15px;
+	border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+  	background-color: white;
+  	text-align:left;
+ 	position: relative;
+  	color:#3c4ffd;
+  	border: 1px solid #3c4ffd;
+  	
+}
+
+
+.container label{
+	font-family: sans-serif;
+	font-size:15px;
+	margin:4px;
+	padding: 2px 2px 2px 0;
+  	display: inline-block;
+}
+
+/*CONTAINER INSERT */
+#containerInsert {
+    width: 100%;
+    margin-left: 5%;
+    margin-right: 5%;
+    padding-bottom: 10px;
+}
+
+
+#containerInsertHeader {
+    height: 45px;
+    position: relative;
+    width: 100.2%;
+    margin-bottom: 20px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    margin-top: -1px;
+    margin-left: -1px;
+}
+
+#insertInterview {
+	padding-left: 30px;
+    padding-right: 30px;
+}
+
+
+#anagRow .column {
+	width: 33%;
+}
+
+#mailRow .column{
+	width: 100%;
+}
+
+#insBackgroundRow .column{
+	width: 50%;
+}
+
+#interviewRow .column {
+	width: 33%;
+}
+
+#enterpriseIdRow .column{
+	width: 100%;
+}
+
+#buttonRow .column{
+	width: 50%;
+}
+
+
+/*CONTAINER SEARCH */
+#containerSearchHeader {
+	height: 45px;
+    position: relative;
+    width: 100.2%;
+    margin-bottom: 20px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    margin-top: -1px;
+    margin-left: -1px;
+}
+
+#searchInterview {
+	padding-left: 30px;
+    padding-right: 30px;
+}
+
+#containerSearch{
+	display: none;
+	margin-left: 5%;
+    margin-right: 5%;
+    padding-bottom: 10px;
+}    
+
+
+#searchButtonRow {
+	padding-top: 12px;
+}
+
+#mytable {
+    margin-top: 50px;
+}
+
+
+/* CONTAINER IN PROGRESS*/
+
+#containerInProgress {
+	width: 100%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+#containerInProgressHeader {
+	 height: 45px;
+    position: relative;
+    width: 100.2%;
+    margin-bottom: 20px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    margin-top: -1px;
+    margin-left: -1px;
+}
+
+#inProgressColumn {
+	padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 20px;
+}
+
+
+/* CONTAINER MY INTERVIEWS*/
+
+#containerMyInterviews {
+	width: 100%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+#containerMyInterviewsHeader {
+	height: 45px;
+    position: relative;
+    width: 100.2%;
+    margin-bottom: 20px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    margin-top: -1px;
+    margin-left: -1px;
+}
+
+#myInterviewsColumn {
+	padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 20px;
+}
+
+
+
+/*MOTIVATIONAL FEEDBACK CONTAINER */
+#containerInsertMotHeader {
+	height: 45px;
+    position: relative;
+    width: 100.2%;
+    margin-bottom: 20px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    margin-top: -1px;
+    margin-left: -1px;
+}
+
+
+#containerMotivationF {
+	width: 100%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+#backgroundRow .column {
+	width: 33%;
+}
+
+#questionRow .column {
+	width: 33%;
+}
+
+#insertMotivationalFeedback {
+	padding-left: 30px;
+    padding-right: 30px;
+}
+
+/*TECH FEEDBACK CONTAINER */
+#containerTechF{
+	width: 100%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+
+#containerInsertTechHeader {
+	height: 45px;
+    position: relative;
+    width: 100.2%;
+    margin-bottom: 20px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    margin-top: -1px;
+    margin-left: -1px;
+}
+
+#backendRow .column {
+	width: 33%;
+}
+
+#insertTechFeedback {
+	padding-left: 30px;
+    padding-right: 30px;
+}
+
+
+#titleRow {
+	align-items: center;
+	width: 100%;
+	display: flex;
+	height: 5%;
+	margin-bottom: 20px;
+}
+
+#titleContainer {
+	width: 100%;
+	position: relative;
+}

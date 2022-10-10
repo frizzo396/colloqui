@@ -1,0 +1,54 @@
+@charset "ISO-8859-1";
+
+
+#snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    min-height: 50px;
+    margin-left: -125px;
+    color: #fff;
+    text-align: center;
+    font-size: 12px;
+    border-radius: 10px;
+    padding: 26px;
+    position: fixed;
+    left: 90%;
+    bottom: 30px;
+    line-height: 1.1em;
+}
+
+#snackbar-interview{
+    font-size: 20px;
+    position: absolute;
+    top: 9px;
+    left: 5px;
+}
+
+#snackbar-v{
+    font-size: 20px;
+    position: absolute;
+    top: 9px;
+    left: 5px;
+}
+
+
+#snackbar-cross{
+    font-size: 20px;
+    position: absolute;
+    top: 12px;
+    left: 8px;
+}
+
+#snackbar-warning{
+    font-size: 20px;
+    position: absolute;
+    top: 12px;
+    left: 12px;
+}
+
+
+#snackbar.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
