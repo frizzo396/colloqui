@@ -59,7 +59,9 @@ public class CheckErrorsInsertInterview {
 			return new HashSet<>(Arrays.asList("Intervista già presente."));
 		}
 		Optional<CandidateType> candidateType = candidateService.getCandidateType(createInterviewTO.getCandidateType());
-		if (candidateType.isEmpty()) {
+		
+		/** if (candidateType.isEmpty()) { */
+		if (!(candidateType.isPresent())) {
 			return new HashSet<>(Arrays.asList("Tipo di candidato non valido."));
 		}
 		Interviewer interviewer = interviewerService.findInterviewerByEnterpriseId(createInterviewTO.getEnterpriseId());

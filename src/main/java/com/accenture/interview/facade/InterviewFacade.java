@@ -60,7 +60,9 @@ public class InterviewFacade {
 		CreateInterviewResponse response = null;
 		Optional<CandidateType> optCandidate = candidateService.getCandidateType(request.getCandidateType());
 		Interviewer interviewer = interviewerService.findInterviewerByEnterpriseId(request.getEnterpriseId());
-		if (!(ObjectUtils.isEmpty(interviewer)) && !(optCandidate.isEmpty())) {
+		
+		/** if (!(ObjectUtils.isEmpty(interviewer)) && !(optCandidate.isEmpty())) { */
+		if (!(ObjectUtils.isEmpty(interviewer)) && (optCandidate.isPresent())) {
 			// Interview interview =
 			interviewService.addNewInterview(request, optCandidate.get(), interviewer);
 			CreateInterviewResponse createInterviewResponse = new CreateInterviewResponse(request);

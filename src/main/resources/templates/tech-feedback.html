@@ -22,7 +22,14 @@
    <body>
       <div class="interview-html">
          <div class="interview-wrap">
-            <div class="row" id="headerRow">
+         
+			<!-- NUOVO DIV PER HEADER SUPERIORE E SIDEBAR (LATERALE) -->
+			<!-- <div th:replace="fragments/header-sidebar"></div> -->         
+         
+			<!-- NUOVO DIV PER HEADER SUPERIORE -->
+			<div th:replace="fragments/header"></div>         
+         
+<!--             <div class="row" id="headerRow">
 		            	<div class="col-lg-8 col-lg-offset-2" id="imageColumn">
 		            		 <img id="accentureLogo" src="../static/images/accenture-logo.png" th:src="@{/images/accenture-logo.png}" /> 
 		            	</div>
@@ -41,9 +48,13 @@
 			                    </div>
 		                    </div>
 		            	</div>
-	        </div>
+	        </div> -->
             <div class="row" id="pageRow">
-               <div class="col-lg-8 col-lg-offset-2" id="sidebarColumn">
+            
+			<!-- NUOVO DIV PER SIDEBAR (LATERALE) -->
+			<div th:replace="fragments/sidebar"></div>            
+            
+<!--                <div class="col-lg-8 col-lg-offset-2" id="sidebarColumn">
                   <div class="sidebar close">
                      <header id="sidebarHeader">
                         <i id="sidebarMenuIcon" class="bx bx-menu"></i>
@@ -97,7 +108,7 @@
                   <section class="home-section">
                      <div class="home-content"></div>
                   </section>
-               </div>
+               </div> -->
                <div class="col-lg-8 col-lg-offset-2" id="containerColumn">
                   <div class="container" id ="containerTechF">
                      <div class="row">

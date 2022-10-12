@@ -22,7 +22,14 @@
     </head>
     <body>
         <div class="interview-html">
-            <div class="row" id="headerRow">
+        
+			<!-- NUOVO DIV PER HEADER SUPERIORE E SIDEBAR (LATERALE) -->
+			<!-- <div th:replace="fragments/header-sidebar"></div> -->        
+        
+			<!-- NUOVO DIV PER HEADER SUPERIORE -->
+			<div th:replace="fragments/header"></div>        
+        
+<!--             <div class="row" id="headerRow">
             	<div class="col-lg-8 col-lg-offset-2" id="imageColumn">
             		<img src="images/accenture-logo.png" id="accentureLogo" />
             	</div>
@@ -41,7 +48,7 @@
 	                    </div>
                     </div>
             	</div>
-            </div>
+            </div> -->
             <div class="row" id="titleRow">
             	<div id="titleContainer">
             			<input onclick="openInsertContainer()" id="tab-1" type="radio" name="tab" class="interview" checked /><label id="newInterviewHeder" for="tab-1" class="tab">New Interview</label>
@@ -49,7 +56,11 @@
             	</div>
             </div>
             <div class="row" id="pageRow">
-                <div class="col-lg-8 col-lg-offset-2" id="sidebarColumn">
+            
+				<!-- NUOVO DIV PER SIDEBAR (LATERALE) -->
+				<div th:replace="fragments/sidebar"></div>            
+            
+<!--                 <div class="col-lg-8 col-lg-offset-2" id="sidebarColumn">
                     <div class="sidebar close">
                         <header id="sidebarHeader">
                             <i id="sidebarMenuIcon" class="bx bx-menu"></i>
@@ -104,7 +115,7 @@
                     <section class="home-section">
                         <div class="home-content"></div>
                     </section>
-                </div>
+                </div> -->
                 <div class="col-lg-8 col-lg-offset-2" id="containerColumn">
                     <!-- New Interview -->
                     <div class="container" id="containerInsert">
