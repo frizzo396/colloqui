@@ -21,94 +21,16 @@
    </head>
    <body>
       <div class="interview-html">
-         <div class="interview-wrap">
-         
-			<!-- NUOVO DIV PER HEADER SUPERIORE E SIDEBAR (LATERALE) -->
-			<!-- <div th:replace="fragments/header-sidebar"></div> -->         
+         <div class="interview-wrap">                
          
 			<!-- NUOVO DIV PER HEADER SUPERIORE -->
 			<div th:replace="fragments/header"></div>         
          
-<!--             <div class="row" id="headerRow">
-		            	<div class="col-lg-8 col-lg-offset-2" id="imageColumn">
-		            		 <img id="accentureLogo" src="../static/images/accenture-logo.png" th:src="@{/images/accenture-logo.png}" /> 
-		            	</div>
-		            	
-		            	<div class="col-lg-8 col-lg-offset-2" id="titleColumn">
-		            		
-		            	</div>
-		            	
-		            	<div class="col-lg-8 col-lg-offset-2" id="userColumn">
-		            		<div id="userContainer">
-		            			<div class="row" id="iconRow">
-			            			<i id="userIcon" class="fa-solid fa-circle-user"></i>
-			            		</div>
-			            		<div class="row" id="nicknameRow">
-			                    	<label th:text="${interviewer.enterpriseId}" id="nickname">User</label>
-			                    </div>
-		                    </div>
-		            	</div>
-	        </div> -->
             <div class="row" id="pageRow">
             
 			<!-- NUOVO DIV PER SIDEBAR (LATERALE) -->
 			<div th:replace="fragments/sidebar"></div>            
             
-<!--                <div class="col-lg-8 col-lg-offset-2" id="sidebarColumn">
-                  <div class="sidebar close">
-                     <header id="sidebarHeader">
-                        <i id="sidebarMenuIcon" class="bx bx-menu"></i>
-                     </header>
-                     <ul class="nav-links">
-                        <li onclick="RedirectHome()">
-                           <a>
-                           <i class="bx bx-home" style="color: #3c4ffd;"></i>
-                           <span class="link_name">Home</span>
-                           </a>
-                           <ul class="sub-menu blank">
-                              <li onclick="RedirectHome()"><a class="link_name">Home</a></li>
-                           </ul>
-                        </li>
-                        <li>
-                           <div class="iocn-link">
-                              <a>
-                              <i class="bx bx-collection" style="color: #3c4ffd;"></i>
-                              <span class="link_name">Interview</span>
-                              </a>
-                              <i class="bx bxs-chevron-down arrow" id="interviewArrow" style="color: #3c4ffd;"></i>
-                           </div>
-                           <ul class="sub-menu">
-                              <li onclick="RedirectManage()"><a>New/Search</a></li>
-                           </ul>
-                        </li>
-                        <li>
-                           <div class="iocn-link">
-                              <a>
-                              <i class="bx bx-history" style="color: #3c4ffd;"></i>
-                              <span class="link_name">History</span>
-                              </a>
-                              <i class="bx bxs-chevron-down arrow" style="color: #3c4ffd;"></i>
-                           </div>
-                           <ul class="sub-menu">
-                              <li onclick="RedirectMyInterviews()"><a>Completed</a></li>
-                              <li onclick="RedirectInProgress()"><a>In Progress</a></li>
-                           </ul>
-                        </li>
-                        <li>
-                           <a>
-                           <i class="bx bx-log-out" style="color: #3c4ffd;"></i>
-                           <span class="link_name">Logout</span>
-                           </a>
-                           <ul class="sub-menu blank">
-                              <li><a class="link_name">Logout</a></li>
-                           </ul>
-                        </li>
-                     </ul>
-                  </div>
-                  <section class="home-section">
-                     <div class="home-content"></div>
-                  </section>
-               </div> -->
                <div class="col-lg-8 col-lg-offset-2" id="containerColumn">
                   <div class="container" id ="containerTechF">
                      <div class="row">
