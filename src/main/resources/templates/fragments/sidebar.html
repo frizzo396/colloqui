@@ -1,0 +1,56 @@
+	   			<div class="col-lg-8 col-lg-offset-2" id="sidebarColumn">
+                        <div class="sidebar close">
+                            <header id="sidebarHeader">
+                                <i id="sidebarMenuIcon" class="bx bx-menu"></i>
+                            </header>
+
+                            <ul class="nav-links">
+                                <li onclick="RedirectHome()">
+                                    <a>
+                                        <i class="bx bx-home" style="color: #3c4ffd;"></i>
+                                        <span class="link_name">Home</span>
+                                    </a>
+                                    <ul class="sub-menu blank">
+                                        <li onclick="RedirectHome()"><a class="link_name">Home</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <div class="iocn-link">
+                                        <a>
+                                            <i class="bx bx-collection" style="color: #3c4ffd;"></i>
+                                            <span class="link_name">Interview</span>
+                                        </a>
+                                        <i class="bx bxs-chevron-down arrow" id="interviewArrow" style="color: #3c4ffd;"></i>
+                                    </div>
+                                    <ul class="sub-menu">
+                                        <li onclick="RedirectManage()"><a>New/Search</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <div class="iocn-link">
+                                        <a>
+                                            <i class="bx bx-history" style="color: #3c4ffd;"></i>
+                                            <span class="link_name">History</span>
+                                        </a>
+                                        <i class="bx bxs-chevron-down arrow" style="color: #3c4ffd;"></i>
+                                    </div>
+                                    <ul class="sub-menu">
+                                        <li onclick="RedirectMyInterviews()"><a>Completed</a></li>
+                                        <li onclick="RedirectInProgress()"><a>In Progress</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a>
+                                        <i class="bx bx-log-out" style="color: #3c4ffd;"></i>
+                                        <span class="link_name">Logout</span>
+                                    </a>
+                                    <ul class="sub-menu blank">
+                                        <li><a class="link_name">Logout</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <section class="home-section">
+                            <div class="home-content"></div>
+                        </section>
+                    </div>                 

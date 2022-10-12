@@ -1,0 +1,22 @@
+			<div class="row" id="headerRow">
+		            	<div class="col-lg-8 col-lg-offset-2" id="imageColumn">		            		
+		            		 <img id="accentureLogo" src="../static/images/accenture-logo.png" th:src="@{/images/accenture-logo.png}" /> 
+		            	</div>
+		            	
+		            	<div class="col-lg-8 col-lg-offset-2" id="titleColumn">
+		            		
+		            	</div>
+		            	
+		            	<div class="col-lg-8 col-lg-offset-2" id="userColumn">
+		            		<div id="userContainer">
+		            			<div class="row" id="iconRow">
+			            			<i id="userIcon" class="fa-solid fa-circle-user"></i>
+			            		</div>
+			            		<div class="row" id="nicknameRow">
+			                    	<!-- <label th:text="${interviewer.enterpriseId}" id="nickname">User</label> -->
+			                    	<label th:if="${interviewer == null}" id="nickname">User</label>
+			                    	<label th:unless="${interviewer == null}" th:text="${interviewer.enterpriseId}" id="nickname">User</label>
+			                    </div>
+		                    </div>
+		            	</div>
+	         </div>	         
