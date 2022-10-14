@@ -1,5 +1,7 @@
 package com.accenture.interview.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -7,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.accenture.interview.controller.base.BaseController;
+import com.accenture.interview.entity.Site;
 import com.accenture.interview.facade.FeedbackFacade;
 import com.accenture.interview.facade.InterviewFacade;
 import com.accenture.interview.facade.InterviewerFacade;
@@ -30,8 +33,8 @@ public class PaginationController extends BaseController {
 	private InterviewFacade interviewFacade;
 
 	@Autowired
-	private InterviewerFacade interviewerFacade;
-
+	private InterviewerFacade interviewerFacade;	
+	
 	/**
 	 * Show form.
 	 *
@@ -46,6 +49,12 @@ public class PaginationController extends BaseController {
 		modelAndView.addObject("createInterviewTO", new CreateInterviewTO());
 		modelAndView.addObject("searchInterviewTO", new SearchInterviewTO());
 		modelAndView.setViewName("search-insert.html");
+		
+		/** 2022-10-14 NUOVA COLONNA site - START */
+		List<Site> listSitesCombo = interviewFacade.getComboSites();
+		modelAndView.addObject("comboSitesDB", listSitesCombo);
+		/** 2022-10-14 NUOVA COLONNA site - END */
+		
 		return modelAndView;
 	}
 

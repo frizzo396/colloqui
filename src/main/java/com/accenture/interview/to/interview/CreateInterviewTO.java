@@ -7,6 +7,8 @@ import javax.validation.constraints.NotEmpty;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.accenture.interview.entity.Site;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,6 +20,11 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class CreateInterviewTO {
+	
+	/** 2022-10-13 NUOVA COLONNA site - START */
+//	@NotEmpty(message = "Il nome della sede di assunzione deve essere valorizzato.")
+	private Site site;
+	/** 2022-10-13 NUOVA COLONNA site - END */	
 
 	/** The candidate name. */
 	@NotEmpty(message = "Il nome del candidato deve essere valorizzato.")

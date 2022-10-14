@@ -29,7 +29,14 @@ public class Interview {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-
+	
+	/** 2022-10-13 NUOVA COLONNA site - START */
+	@NotNull
+	@OneToOne
+	@JoinColumn(name = "site", referencedColumnName = "site_id")	
+	private Site site;
+	/** 2022-10-13 NUOVA COLONNA site - END */
+	
 	/** The candidate name. */
 	@NotNull
 	@Column(name = "candidate_name")
@@ -119,6 +126,10 @@ public class Interview {
 		this.qualification = createInterviewRequest.getEduQualification();
 		this.status = 1;
 		this.scheduledDate = createInterviewRequest.getScheduledDate();
+		
+		/** 2022-10-13 NUOVA COLONNA site - START */
+		this.site = createInterviewRequest.getSite();
+		/** 2022-10-13 NUOVA COLONNA site - END */		
 	}
 
 	public Integer getMonth() {
@@ -252,4 +263,14 @@ public class Interview {
 	public void setFinalFeedback(String finalFeedback) {
 		this.finalFeedback = finalFeedback;
 	}
+
+	/** 2022-10-13 NUOVA COLONNA site - START */
+	public Site getSite() {
+		return site;
+	}
+
+	public void setSite(Site site) {
+		this.site = site;
+	}
+	/** 2022-10-13 NUOVA COLONNA site - END */
 }

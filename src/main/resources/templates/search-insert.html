@@ -121,6 +121,23 @@
                                                         <small th:if="${#fields.hasErrors('interviewType')}" th:errors="*{interviewType}">Interview type Error</small>
                                                     </div>
                                                 </div>
+                                                
+                                                <!-- 2022-10-13 NUOVA COLONNA site - START -->
+                                                <div class="column">
+                                                    <div class="form-group">
+                                                        <label><i class="fa fa-briefcase"></i> Place of employment</label>
+                                                        <select class="formcontrol selectpicker" th:field="*{site}" id="site">
+                                                            <option value="">Nothing selected</option>
+                                                            <!-- <option th:each="siteElem : ${(new com.accenture.interview.service.SiteService()).findSitesFromDB()}" th:value="${siteElem.site_id}" th:text="${siteElem.site_name}"> -->                                                            
+                                                            <option th:each="siteElem : ${comboSitesDB}" th:value="${siteElem.site_id}" th:text="${siteElem.site_name}">
+                                                               site
+                                                            </option>
+                                                        </select>
+                                                        <small th:if="${#fields.hasErrors('site')}" th:errors="*{site}">Site Error</small>
+                                                    </div>
+                                                </div>                                                
+                                                <!-- 2022-10-13 NUOVA COLONNA site - END -->                                                
+                                                
                                                 <div class="column">
                                                     <div class="form-group">
                                                         <label><i class="fa fa-calendar-times-o"></i> Scheduled date</label>

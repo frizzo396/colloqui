@@ -10,6 +10,7 @@ import org.springframework.util.ObjectUtils;
 import com.accenture.interview.entity.CandidateType;
 import com.accenture.interview.entity.Interview;
 import com.accenture.interview.entity.Interviewer;
+import com.accenture.interview.entity.Site;
 import com.accenture.interview.rto.interview.CreateInterviewResponse;
 import com.accenture.interview.rto.interview.InterviewAndFeedbackRTO;
 import com.accenture.interview.rto.interview.SearchInterviewResponse;
@@ -17,6 +18,7 @@ import com.accenture.interview.service.CandidateService;
 import com.accenture.interview.service.FeedbackService;
 import com.accenture.interview.service.InterviewService;
 import com.accenture.interview.service.InterviewerService;
+import com.accenture.interview.service.SiteService;
 import com.accenture.interview.to.interview.CreateInterviewTO;
 import com.accenture.interview.to.interview.SearchInterviewTO;
 
@@ -25,6 +27,11 @@ import com.accenture.interview.to.interview.SearchInterviewTO;
  */
 @Component
 public class InterviewFacade {
+	
+	/** 2022-10-14 NUOVA COLONNA site - START */
+	@Autowired
+	private SiteService siteService;	
+	/** 2022-10-14 NUOVA COLONNA site - END */
 
 	/** The candidate service. */
 	@Autowired
@@ -49,7 +56,20 @@ public class InterviewFacade {
 	 * @return the creates the interview response
 	 * @Autowired private EventService eventService;
 	 */
-
+	
+	/** 2022-10-14 NUOVA COLONNA site - START */
+	/**
+	 * Return list of sites.
+	 *
+	 * @return list of sites from table site
+	 */
+	public List<Site> getComboSites() {
+		List<Site> result;
+		result = siteService.findSitesFromDB();
+		return result;
+	}
+	/** 2022-10-14 NUOVA COLONNA site - END */
+	
 	/**
 	 * Adds the new interview.
 	 *
