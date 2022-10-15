@@ -11,8 +11,19 @@ import com.accenture.interview.rto.general.StartEndDateRTO;
 import com.accenture.interview.rto.interview.InterviewMonthRTO;
 import com.accenture.interview.utils.enums.Months;
 
+/**
+ * The Class DateUtils.
+ */
 public class DateUtils {
-
+	
+	
+	/**
+	 * Instantiates a new date utils.
+	 */
+	private DateUtils() {
+		
+	}
+	
 	/**
 	 * Calculate date intervals.
 	 *

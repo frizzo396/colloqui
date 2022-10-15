@@ -22,7 +22,7 @@ public interface SiteRepository extends JpaRepository<Site, Long> {
 	 *
 	 * @return the list
 	 */
-	@Query("SELECT new com.accenture.interview.rto.site.SiteRTO(s.site_id, s.site_name) FROM Site s ORDER BY s.site_name")
+	@Query("SELECT new com.accenture.interview.rto.site.SiteRTO(s.id, s.siteName) FROM Site s ORDER BY s.siteName")
 	List<SiteRTO> findSites();
 
 }

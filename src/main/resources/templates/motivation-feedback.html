@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="it>
     <head>
         <meta charset="UTF-8" />
         <title>Motivation Feedback</title>
@@ -43,14 +43,14 @@
                                         <div class="row">
                                             <div class="column">
                                                 <div class="form-group">
-                                                    <label><i class="fa fa-edit"></i> Standing</label>
+                                                    <label><em class="fa fa-edit"></em> Standing</label>
                                                     <input type="number" min="0" max="10" th:field="*{standing}" placeholder="standing" />
                                                     <small th:if="${#fields.hasErrors('standing')}" th:errors="*{standing}">Standing Error</small>
                                                 </div>
                                             </div>
                                              <div class="column">
                                                 <div class="form-group">
-                                                    <label><i class="fa fa-tachometer"></i> Motivation</label>
+                                                    <label><em class="fa fa-tachometer"></em> Motivation</label>
                                                     <input type="number" min="0" max="10" th:field="*{motivation}" placeholder="motivation" />
                                                     <small th:if="${#fields.hasErrors('motivation')}" th:errors="*{motivation}">Motivation Error</small>
                                                 </div>
@@ -59,21 +59,21 @@
                                         <div class="row" id="backgroundRow">
                                          	<div class="column">
                                                 <div class="form-group">
-                                                    <label><i class="fa fa-mortar-board"></i> School Background</label>
+                                                    <label><em class="fa fa-mortar-board"></em> School Background</label>
                                                     <input type="number" min="0" max="10" th:field="*{schoolBackground}" placeholder="School Background" />
                                                     <small th:if="${#fields.hasErrors('schoolBackground')}" th:errors="*{schoolBackground}">School Background Error</small>
                                                 </div>
                                             </div>
                                      		<div class="column">
                                                 <div class="form-group">
-                                                    <label><i class="fa fa-language"></i> English Level</label>
+                                                    <label><em class="fa fa-language"></em> English Level</label>
                                                     <input type="number" min="0" max="10" th:field="*{englishLevel}" placeholder="English Level" />
                                                     <small th:if="${#fields.hasErrors('englishLevel')}" th:errors="*{englishLevel}">English Level Error</small>
                                                 </div>
                                             </div>
                                             <div class="column">
                                                 <div class="form-group">
-                                                    <label><i class="fa fa-code"></i> Soft Skills</label>
+                                                    <label><em class="fa fa-code"></em> Soft Skills</label>
                                                     <input type="number" min="0" max="10" th:field="*{softSkills}" placeholder="Soft Skills" />
                                                     <small th:if="${#fields.hasErrors('softSkills')}" th:errors="*{softSkills}">Soft Skills Error</small>
                                                 </div>
@@ -84,21 +84,21 @@
                                   
                                             <div class="column">
                                                 <div class="form-group">
-                                                    <label><i class="fa fa-gear"></i> Logic Question</label>
+                                                    <label><em class="fa fa-gear"></em> Logic Question</label>
                                                     <input type="number" min="0" max="10" th:field="*{logicQuestion}" placeholder="Logic question" />
                                                     <small th:if="${#fields.hasErrors('logicQuestion')}" th:errors="*{logicQuestion}">Logic Question Error</small>
                                                 </div>
                                             </div>
                                              <div class="column">
                                             <div class="form-group">
-                                                <label><i class="fa fa-microchip"></i> Tech Question</label>
+                                                <label><em class="fa fa-microchip"></em> Tech Question</label>
                                                 <input type="number" min="0" max="10" th:field="*{techQuestion}" placeholder="Tech question" />
                                                 <small th:if="${#fields.hasErrors('techQuestion')}" th:errors="*{techQuestion}">Tech Question Error</small>
                                             </div>
                                         </div>
                                         <div class="column">
                                             <div class="form-group">
-                                                <label for="finalFeedback"><i class="fa fa-briefcase"></i> Final feedback</label>
+                                                <label for="finalFeedback"><em class="fa fa-briefcase"></em> Final feedback</label>
                                                 <select class="formcontrol selectpicker" th:field="*{finalFeedback}" id="finalFeedback">
                                                     <option value="">Nothing selected</option>
                                                     <option value="OK">OK</option>
@@ -112,7 +112,7 @@
                                         <div class="row">
                                             <div class="one-column">
                                                 <div class="form-group">
-                                                    <label><i class="fa-solid fa-square-code"></i> Comment</label>
+                                                    <label><em class="fa-solid fa-square-code"></em> Comment</label>
                                                     <textarea id="subject" th:field="*{comment}" name="subject" placeholder="Write something.." style="height: 200px;"></textarea>
                                                     <small th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}">Comment Error</small>
                                                 </div>
@@ -121,12 +121,12 @@
                                         <div class="row">
                                             <div class="column">
                                                 <div class="form-group">
-                                                    <button class="submit-button" type="submit">Submit <i class="fa fa-check"></i></button>
+                                                    <button class="submit-button" type="submit">Submit <em class="fa fa-check"></em></button>
                                                 </div>
                                             </div>
                                             <div class="column">
                                                 <div class="form-group">
-                                                    <button class="clear-button" type="reset" value="Reset">Clear <i class="fa fa-trash"></i></button>
+                                                    <button class="clear-button" type="reset" value="Reset">Clear <em class="fa fa-trash"></em></button>
                                                 </div>
                                             </div>
                                         </div>

@@ -107,7 +107,7 @@
 	margin-left: -17px;
 }
 
-.sidebar .nav-links li i{
+.sidebar .nav-links li em{
   height: 50px;
   min-width: 78px;
   text-align: center;
@@ -117,10 +117,10 @@
   cursor: pointer;
   transition: all 0.3s ease;
 }
-.sidebar .nav-links li.showMenu i.arrow{
+.sidebar .nav-links li.showMenu em.arrow{
   transform: rotate(-180deg);
 }
-.sidebar.close .nav-links i.arrow{
+.sidebar.close .nav-links em.arrow{
   display: none;
 }
 .sidebar .nav-links li a{

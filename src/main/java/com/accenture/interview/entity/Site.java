@@ -19,28 +19,27 @@ public class Site {
 	@Id
 	@NotNull
 	@Column(name = "site_id")
-	private Long site_id;
+	private Long id;
 
 	/** The site name. */
 	@NotNull
 	@Column(name = "site_name")
-	private String site_name;
+	private String siteName;
 
-	public Long getSite_id() {
-		return site_id;
+	public Long getId() {
+		return id;
 	}
 
-	public void setSite_id(Long site_id) {
-		this.site_id = site_id;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getSite_name() {
-		return site_name;
+	public String getSiteName() {
+		return siteName;
 	}
 
-	public void setSite_name(String site_name) {
-		this.site_name = site_name;
+	public void setSiteName(String siteName) {
+		this.siteName = siteName;
 	}
+
 }
-
-/** 2022-10-13 NUOVA COLONNA site - END */

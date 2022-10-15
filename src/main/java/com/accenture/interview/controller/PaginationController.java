@@ -72,7 +72,7 @@ public class PaginationController extends BaseController {
 	 * @throws Exception the exception
 	 */
 	@GetMapping("/feedback/motivational")
-	public ModelAndView showInsertMotivationFeedbackForm(@RequestParam("idColloquio") String idColloquio) throws Exception {
+	public ModelAndView showInsertMotivationFeedbackForm(@RequestParam("idColloquio") String idColloquio) {
 		ModelAndView modelAndView = new ModelAndView();
 		updateInterviewId(Integer.parseInt(idColloquio));
 		String username = System.getProperty("user.name");

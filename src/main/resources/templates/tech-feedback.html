@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="it>
    <head>
       <meta charset="UTF-8"/>
       <title>Technical Feedback</title>
@@ -42,21 +42,21 @@
                                    <div class="row" id="backendRow">
                                        <div class="column">
                                           <div class="form-group">
-                                             <label><i class="fa-brands fa-java"></i> Java</label>
+                                             <label><em class="fa-brands fa-java"></em> Java</label>
                                              <input type="number" min="0" max="10" th:field="*{java}" placeholder="java"/>
                                              <small th:if="${#fields.hasErrors('java')}" th:errors="*{java}">java Error</small>
                                           </div>
                                        </div>
                                        <div class="column">
                                           <div class="form-group">
-                                             <label><i class="fa-solid fa-laptop-code"></i> Spring</label>
+                                             <label><em class="fa-solid fa-laptop-code"></em> Spring</label>
                                              <input type="number" min="0" max="10" th:field="*{spring}" placeholder="spring"/>
                                              <small th:if="${#fields.hasErrors('spring')}" th:errors="*{spring}">Spring Level Error</small>
                                           </div>
                                        </div>
                                        <div class="column">
                                           <div class="form-group">
-                                             <label><i class="fa-solid fa-database"></i> SQL</label>
+                                             <label><em class="fa-solid fa-database"></em> SQL</label>
                                              <input type="number" min="0" max="10" th:field="*{sqlVoto}" placeholder="sqlVoto"/>
                                              <small th:if="${#fields.hasErrors('sqlVoto')}" th:errors="*{sqlVoto}">SQL Voto Error</small>
                                           </div>
@@ -65,14 +65,14 @@
                                     <div class="row">
                                        <div class="column">
                                           <div class="form-group">
-                                             <label><i class="fa fa-html5"></i> HTML <i class="fa-brands fa-css3-alt"></i> CSS</label>
+                                             <label><em class="fa fa-html5"></em> HTML <em class="fa-brands fa-css3-alt"></em> CSS</label>
                                              <input type="number" min="0" max="10" th:field="*{htmlCss}" placeholder="htmlCss" />
                                              <small th:if="${#fields.hasErrors('htmlCss')}" th:errors="*{htmlCss}">htmlCss Error</small>
                                           </div>
                                        </div>
                                        <div class="column">
                                           <div class="form-group">
-                                             <label><i class="fa-brands fa-angular"></i> Angular</label>
+                                             <label><em class="fa-brands fa-angular"></em> Angular</label>
                                              <input type="number" min="0" max="10" th:field="*{angular}"  placeholder="angular"/>
                                              <small th:if="${#fields.hasErrors('angular')}" th:errors="*{angular}">Angular Error</small>
                                           </div>
@@ -81,14 +81,14 @@
                                     <div class="row">                                     
                                        <div class="column">
                                           <div class="form-group">
-                                             <label><i class="fa-solid fa-code"></i> Other</label>
+                                             <label><em class="fa-solid fa-code"></em> Other</label>
                                              <input type="number" min="0" max="10" th:field="*{other}"  placeholder="other question">
                                              <small th:if="${#fields.hasErrors('other')}" th:errors="*{other}">Other Error</small>
                                           </div>
                                        </div>
                                         <div class="column">
                                         <div class="form-group">
-                                             <label for="finalFeedback"><i class="fa fa-briefcase"></i> Final feedback</label>
+                                             <label for="finalFeedback"><em class="fa fa-briefcase"></em> Final feedback</label>
                                              <select class="formcontrol selectpicker" th:field="*{finalFeedback}" id="finalFeedback">
                                                 <option value="">Nothing selected</option>
                                                 <option value="OK">OK</option>
@@ -101,7 +101,7 @@
                                     <div class="row">
                                           <div class="one-column">
                                              <div class="form-group">
-                                                <label><i class="fa-solid fa-pen-to-square"></i> Comment</label>
+                                                <label><em class="fa-solid fa-pen-to-square"></em> Comment</label>
                                                 <textarea th:field="*{comment}" name="subject" placeholder="Write something.." style="height:200px"></textarea>
                                                 <small th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}">Comment Error</small>
                                              </div>
@@ -110,12 +110,12 @@
                                        <div class="row">
                                           <div class="column">
                                              <div class="form-group">
-                                                <button class="submit-button" type="submit">Submit <i class="fa fa-check"></i></button>	
+                                                <button class="submit-button" type="submit">Submit <em class="fa fa-check"></em></button>	
                                              </div>
                                           </div>
                                           <div class="column">
                                              <div class="form-group">
-                                                <button class="clear-button" type="reset" value="Reset" >Clear <i class="fa fa-trash"></i></button>	
+                                                <button class="clear-button" type="reset" value="Reset" >Clear <em class="fa fa-trash"></em></button>	
                                              </div>
                                           </div>
                                        </div>

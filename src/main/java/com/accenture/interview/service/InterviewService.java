@@ -30,7 +30,6 @@ import com.accenture.interview.to.interview.SearchInterviewTO;
 import com.accenture.interview.utils.date.DateUtils;
 import com.accenture.interview.utils.enums.InterviewTypeEnum;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class InterviewService.
  */
