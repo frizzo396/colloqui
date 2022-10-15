@@ -9,13 +9,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class CreateInterviewResponse.
  */
 @Getter
 @Setter
+
+/**
+ * Instantiates a new creates the interview RTO.
+ */
 @NoArgsConstructor
-public class CreateInterviewResponse {
+public class CreateInterviewRTO {
 
 	/** The candidate name. */
 	private String candidateName;
@@ -52,7 +57,7 @@ public class CreateInterviewResponse {
 	 * @param createInterviewRequest the create interview
 	 *                               request
 	 */
-	public CreateInterviewResponse(CreateInterviewTO createInterviewRequest) {
+	public CreateInterviewRTO(CreateInterviewTO createInterviewRequest) {
 		this.candidateName = createInterviewRequest.getCandidateName();
 		this.candidateSurname = createInterviewRequest.getCandidateSurname();
 		this.candidateBirth = createInterviewRequest.getCandidateBirth();

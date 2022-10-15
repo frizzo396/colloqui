@@ -2,6 +2,7 @@ package com.accenture.interview.rto.interviewer;
 
 import com.accenture.interview.entity.Interviewer;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +13,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class SearchInterviewerResponse {
+@AllArgsConstructor
+public class InterviewerRTO {
 
 	/** The id. */
 	private long id;
@@ -28,7 +30,7 @@ public class SearchInterviewerResponse {
 	 *
 	 * @param interviewer the interviewer
 	 */
-	public SearchInterviewerResponse(Interviewer interviewer) {
+	public InterviewerRTO(Interviewer interviewer) {
 		this.id = interviewer.getId();
 		this.enterpriseId = interviewer.getEnterpriseId();
 		this.mail = interviewer.getMail();

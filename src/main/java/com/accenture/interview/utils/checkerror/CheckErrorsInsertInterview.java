@@ -17,6 +17,8 @@ import org.springframework.util.ObjectUtils;
 import com.accenture.interview.entity.CandidateType;
 import com.accenture.interview.entity.Interview;
 import com.accenture.interview.entity.Interviewer;
+import com.accenture.interview.rto.candidate.CandidateTypeRTO;
+import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.service.CandidateService;
 import com.accenture.interview.service.InterviewService;
 import com.accenture.interview.service.InterviewerService;
@@ -58,13 +60,12 @@ public class CheckErrorsInsertInterview {
 		if (!ObjectUtils.isEmpty(interview)) {
 			return new HashSet<>(Arrays.asList("Intervista già presente."));
 		}
-		Optional<CandidateType> candidateType = candidateService.getCandidateType(createInterviewTO.getCandidateType());
+		CandidateTypeRTO candidateType = candidateService.getCandidateType(createInterviewTO.getCandidateType());
 		
-		/** if (candidateType.isEmpty()) { */
-		if (!(candidateType.isPresent())) {
+		if (ObjectUtils.isEmpty(candidateType)) {
 			return new HashSet<>(Arrays.asList("Tipo di candidato non valido."));
 		}
-		Interviewer interviewer = interviewerService.findInterviewerByEnterpriseId(createInterviewTO.getEnterpriseId());
+		InterviewerRTO interviewer = interviewerService.findInterviewerByEnterpriseId(createInterviewTO.getEnterpriseId());
 		if (ObjectUtils.isEmpty(interviewer)) {
 			return new HashSet<>(Arrays.asList("Intervistatore non presente."));
 		}

@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.accenture.interview.entity.Interview;
-import com.accenture.interview.entity.Interviewer;
 import com.accenture.interview.repository.InterviewRepository;
 import com.accenture.interview.repository.InterviewerRepository;
+import com.accenture.interview.rto.interviewer.InterviewerRTO;
 
 /**
  * The Class InterviewerService.
@@ -30,13 +30,8 @@ public class InterviewerService {
 	 * @param enterpriseId the enterprise id
 	 * @return the interviewer
 	 */
-	public Interviewer findInterviewerByEnterpriseId(String enterpriseId) {
-		Optional<Interviewer> opt = interviewerRepository.findInterviewerByEnterpriseId(enterpriseId);
-
-		if (opt.isPresent()) {
-			return opt.get();
-		}
-		return null;
+	public InterviewerRTO findInterviewerByEnterpriseId(String enterpriseId) {
+		return interviewerRepository.findInterviewerByEnterpriseId(enterpriseId);
 	}
 
 	/**

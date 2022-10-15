@@ -1,15 +1,6 @@
 
 
 jQuery(document).ready(function($){
-	const enterpriseId = document.getElementById("nickname").outerText;	
-	
-	var a = "a";
-	var fieldFormToAutoComplete= document.getElementsByClassName("fieldEnterpriseId");
-	for (var i=0; i<fieldFormToAutoComplete.length; i++){
-		fieldFormToAutoComplete[i].value=enterpriseId;
-	}
-
-
 	$('.cd-popup-trigger').on('click', function(event){
 		event.preventDefault();
 		$('.cd-popup').addClass('is-visible');
@@ -102,15 +93,6 @@ function showToast(message, state) {
 	}
 	x.className = "show";
 	setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-	
-	const url_string = window.location.href;
-	const url = new URL(url_string);
-	const enterpriseId = url.searchParams.get("enterpriseId");
-	var fieldFormToAutoComplete= document.getElementsByClassName("fieldEnterpriseId");
-	for (var i=0; i<fieldFormToAutoComplete.length; i++){
-		fieldFormToAutoComplete[i].value=enterpriseId;
-	}
-
 }
 
 //Ricerca colloquio

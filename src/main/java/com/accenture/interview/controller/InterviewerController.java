@@ -6,9 +6,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.accenture.interview.entity.Interviewer;
 import com.accenture.interview.facade.InterviewerFacade;
-import com.accenture.interview.rto.interviewer.SearchInterviewerResponse;
+import com.accenture.interview.rto.interviewer.InterviewerRTO;
 
 /**
  * The Class InterviewerController.
@@ -29,7 +28,7 @@ public class InterviewerController {
 	 * @return the search interviewer response
 	 */
 	@GetMapping("/searchInterviewer")
-	public SearchInterviewerResponse searchInterviewer(@RequestParam("candidateName") String candidateName,
+	public InterviewerRTO searchInterviewer(@RequestParam("candidateName") String candidateName,
 			@RequestParam("candidateSurname") String candidateSurname,
 			@RequestParam("mail") String mail) {
 		return interviewerFacade.searchInterviewer(candidateName, candidateSurname, mail);
@@ -62,7 +61,7 @@ public class InterviewerController {
 	 * @return the interviewer
 	 */
 	@GetMapping("/getUserInfo")
-	public Interviewer interviewerInfo(@RequestParam("enterpriseId") String enterpriseId) {
+	public InterviewerRTO interviewerInfo(@RequestParam("enterpriseId") String enterpriseId) {
 		return interviewerFacade.interviewerInfo(enterpriseId);
 	}
 

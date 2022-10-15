@@ -2,6 +2,7 @@ package com.accenture.interview.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.accenture.interview.entity.Interview;
 import com.accenture.interview.entity.MotivationFeedback;
 import com.accenture.interview.entity.TechFeedback;
+import com.accenture.interview.repository.InterviewRepository;
 import com.accenture.interview.repository.MotivationFeedbackRepository;
 import com.accenture.interview.repository.TechFeedbackRepository;
 import com.accenture.interview.rto.feedback.MotivationalFeedbackRTO;
@@ -17,6 +19,7 @@ import com.accenture.interview.rto.interview.InterviewAndFeedbackRTO;
 import com.accenture.interview.to.feedback.CreateMotivationFeedbackTO;
 import com.accenture.interview.to.feedback.CreateTechFeedbackTO;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class FeedbackService.
  */
@@ -30,32 +33,42 @@ public class FeedbackService {
 	/** The tech feedback repository. */
 	@Autowired
 	private TechFeedbackRepository techFeedbackRepository;
+	
+	/** The interview repository. */
+	@Autowired
+	private InterviewRepository interviewRepository;
 
 	/**
 	 * Insert tech feedback.
 	 *
-	 * @param request     the request
+	 * @param createTechFeedbackTO the create tech feedback TO
 	 * @param interview   the interview
 	 * @param idColloquio the id colloquio
 	 * @return the creates the tech feedback response
 	 */
-	public TechFeedback insertTechFeedback(CreateTechFeedbackTO createTechFeedbackTO, Interview interview, int idColloquio) {
+	public TechFeedback insertTechFeedback(CreateTechFeedbackTO createTechFeedbackTO, int idColloquio) {
 		TechFeedback techFeedback = new TechFeedback(createTechFeedbackTO);
-		techFeedback.setInterview(interview);
+		Optional<Interview> optInterview = interviewRepository.findInterviewById(idColloquio);		
+		if(optInterview.isPresent()) {
+			techFeedback.setInterview(optInterview.get());
+		}
 		return techFeedbackRepository.save(techFeedback);
 	}
 
 	/**
 	 * Insert motivation feedback.
 	 *
-	 * @param request     the request
+	 * @param feedbackTO the feedback TO
 	 * @param interview   the interview
 	 * @param idColloquio the id colloquio
 	 * @return the creates the motivation feedback response
 	 */
-	public MotivationFeedback insertMotivationFeedback(CreateMotivationFeedbackTO feedbackTO, Interview interview, int idColloquio) {
+	public MotivationFeedback insertMotivationFeedback(CreateMotivationFeedbackTO feedbackTO, int idColloquio) {
 		MotivationFeedback motFeedback = new MotivationFeedback(feedbackTO);
-		motFeedback.setInterview(interview);
+		Optional<Interview> optInterview = interviewRepository.findInterviewById(idColloquio);		
+		if(optInterview.isPresent()) {
+			motFeedback.setInterview(optInterview.get());
+		}
 		return motivationFeedbackRepository.save(motFeedback);
 	}
 

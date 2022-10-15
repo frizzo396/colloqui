@@ -15,7 +15,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class SearchInterviewResponse {
+public class SearchInterviewRTO {
 
 	/** The id colloquio. */
 	private long idColloquio;
@@ -47,7 +47,7 @@ public class SearchInterviewResponse {
 	 *
 	 * @param interview the interview
 	 */
-	public SearchInterviewResponse(Interview interview) {
+	public SearchInterviewRTO(Interview interview) {
 		this.idColloquio = interview.getId();
 		this.candidateName = interview.getCandidateName();
 		this.candidateSurname = interview.getCandidateSurname();

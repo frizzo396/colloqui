@@ -18,15 +18,19 @@ import com.accenture.interview.entity.Interviewer;
 import com.accenture.interview.entity.MotivationFeedback;
 import com.accenture.interview.entity.TechFeedback;
 import com.accenture.interview.repository.InterviewRepository;
+import com.accenture.interview.rto.candidate.CandidateTypeRTO;
 import com.accenture.interview.rto.general.StartEndDateRTO;
+import com.accenture.interview.rto.interview.InProgressInterviewRTO;
 import com.accenture.interview.rto.interview.InterviewAndFeedbackRTO;
 import com.accenture.interview.rto.interview.InterviewMonthRTO;
-import com.accenture.interview.rto.interview.SearchInterviewResponse;
+import com.accenture.interview.rto.interview.SearchInterviewRTO;
+import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.to.interview.CreateInterviewTO;
 import com.accenture.interview.to.interview.SearchInterviewTO;
 import com.accenture.interview.utils.date.DateUtils;
 import com.accenture.interview.utils.enums.InterviewTypeEnum;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class InterviewService.
  */
@@ -55,29 +59,37 @@ public class InterviewService {
 	/**
 	 * Update interview tech feedback.
 	 *
-	 * @param interview     the interview
+	 * @param idColloquio the id colloquio
 	 * @param feedback      the feedback
 	 * @param finalFeedback the final feedback
 	 */
-	public void updateInterviewTechFeedback(Interview interview, TechFeedback feedback, String finalFeedback) {
-		interview.setFinalFeedback(finalFeedback);
-		interview.setTechFeedbackId(feedback);
-		interview.setDueDate(new Date());
-		interviewRepository.save(interview);
+	public void updateInterviewTechFeedback(int idColloquio, TechFeedback feedback, String finalFeedback) {
+		Optional<Interview> optInterview = interviewRepository.findInterviewById(idColloquio);
+		if(optInterview.isPresent()) {
+			Interview interview = optInterview.get();
+			interview.setFinalFeedback(finalFeedback);
+			interview.setTechFeedbackId(feedback);
+			interview.setDueDate(new Date());
+			interviewRepository.save(interview);
+		}
 	}
 
 	/**
 	 * Update interview mot feedback.
 	 *
-	 * @param interview     the interview
+	 * @param idColloquio the id colloquio
 	 * @param feedback      the feedback
 	 * @param finalFeedback the final feedback
 	 */
-	public void updateInterviewMotFeedback(Interview interview, MotivationFeedback feedback, String finalFeedback) {
-		interview.setFinalFeedback(finalFeedback);
-		interview.setMotivationFeedbackId(feedback);
-		interview.setDueDate(new Date());
-		interviewRepository.save(interview);
+	public void updateInterviewMotFeedback(int idColloquio, MotivationFeedback feedback, String finalFeedback) {
+		Optional<Interview> optInterview = interviewRepository.findInterviewById(idColloquio);
+		if(optInterview.isPresent()) {
+			Interview interview = optInterview.get();
+			interview.setFinalFeedback(finalFeedback);
+			interview.setMotivationFeedbackId(feedback);
+			interview.setDueDate(new Date());
+			interviewRepository.save(interview);
+		}
 	}
 
 	/**
@@ -96,19 +108,36 @@ public class InterviewService {
 		}
 		return null;
 	}
+	
+	/**
+	 * Find interviewer by name surname and mail.
+	 *
+	 * @param name the name
+	 * @param surname the surname
+	 * @param email the email
+	 * @return the string
+	 */
+	public String findEnterpriseIdByNameSurnameAndMail(String name, String surname, String email) {
+		Optional<Interview> opt = interviewRepository.findInterviewByNameSurnameAndMail(name, surname, email);
+		
+		if(opt.isPresent()) {
+			return opt.get().getInterviewerId().getEnterpriseId();
+		}
+		return null;
+	}
 
 	/**
 	 * Adds the new interview.
 	 *
 	 * @param request       the request
-	 * @param candidateType the candidate type
+	 * @param type the type
 	 * @param interviewer   the interviewer
 	 * @return the creates the interview response
 	 */
-	public Interview addNewInterview(CreateInterviewTO request, CandidateType candidateType, Interviewer interviewer) {
+	public Interview addNewInterview(CreateInterviewTO request, CandidateTypeRTO type, InterviewerRTO interviewer) {
 		Interview interview = new Interview(request);
-		interview.setCandidateTypeId(candidateType);
-		interview.setInterviewerId(interviewer);
+		interview.setCandidateTypeId(new CandidateType(type.getId(), type.getDescription()));
+		interview.setInterviewerId(new Interviewer(interviewer.getId(), interviewer.getEnterpriseId(), interviewer.getMail()));
 		interview.setInterviewType(getInterviewTypeFromString(request.getInterviewType()));
 		return interviewRepository.save(interview);
 	}
@@ -120,8 +149,8 @@ public class InterviewService {
 	 * 
 	 * @return the list
 	 */
-	public List<SearchInterviewResponse> searchInterview(SearchInterviewTO searchInterviewTO) {
-		List<SearchInterviewResponse> interviewList = new ArrayList<>();
+	public List<SearchInterviewRTO> searchInterview(SearchInterviewTO searchInterviewTO) {
+		List<SearchInterviewRTO> interviewList = new ArrayList<>();
 		Long interviewType = getInterviewTypeFromString(searchInterviewTO.getInterviewType());
 		List<Interview> entityList = interviewRepository.findInterviewByParams(
 				searchInterviewTO.getCandidateName(), searchInterviewTO.getCandidateSurname(),
@@ -129,7 +158,7 @@ public class InterviewService {
 				searchInterviewTO.getSecondDate(), searchInterviewTO.getEnterpriseId());
 
 		for (Interview interview : entityList) {
-			interviewList.add(new SearchInterviewResponse(interview));
+			interviewList.add(new SearchInterviewRTO(interview));
 		}
 
 		return interviewList;
@@ -152,7 +181,7 @@ public class InterviewService {
 	 * @param enterpriseId the enterprise id
 	 * @return the in progress interviews
 	 */
-	public List<Interview> getInProgressInterviews(String enterpriseId) {
+	public List<InProgressInterviewRTO> getInProgressInterviews(String enterpriseId) {
 		return interviewRepository.getInProgressInterviewsByEnterpriseId(enterpriseId);
 	}
 

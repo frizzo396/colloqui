@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.accenture.interview.entity.Site;
+import com.accenture.interview.rto.site.SiteRTO;
 
 /** 2022-10-13 NUOVA COLONNA site - START */
 
@@ -21,9 +22,7 @@ public interface SiteRepository extends JpaRepository<Site, Long> {
 	 *
 	 * @return the list
 	 */
-	@Query("SELECT s FROM Site s ORDER BY s.site_name")
-	List<Site> findSites();
+	@Query("SELECT new com.accenture.interview.rto.site.SiteRTO(s.site_id, s.site_name) FROM Site s ORDER BY s.site_name")
+	List<SiteRTO> findSites();
 
 }
-
-/** 2022-10-13 NUOVA COLONNA site - END */

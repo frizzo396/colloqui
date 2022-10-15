@@ -10,11 +10,14 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.NoArgsConstructor;
+
 /**
  * The Class CandidateType.
  */
 @Entity(name = "Candidate_type")
 @Table(name = "candidate_type")
+@NoArgsConstructor
 public class CandidateType {
 
 	/** The id. */
@@ -54,5 +57,12 @@ public class CandidateType {
 	public void setInterview(List<Interview> interview) {
 		this.interview = interview;
 	}
+
+	public CandidateType(@NotNull long id, @NotNull String description) {
+		super();
+		this.id = id;
+		this.description = description;
+	}
+	
 
 }

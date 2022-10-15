@@ -6,10 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
-import com.accenture.interview.entity.Interview;
-import com.accenture.interview.entity.Interviewer;
 import com.accenture.interview.rto.interview.InterviewMonthRTO;
-import com.accenture.interview.rto.interviewer.SearchInterviewerResponse;
+import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.service.InterviewService;
 import com.accenture.interview.service.InterviewerService;
 
@@ -35,17 +33,13 @@ public class InterviewerFacade {
 	 * @param mail             the mail
 	 * @return the search interviewer response
 	 */
-	public SearchInterviewerResponse searchInterviewer(String candidateName, String candidateSurname, String mail) {
-		SearchInterviewerResponse response = null;
-
-		Interview interview = interviewService.findInterviewByNameSurnameAndMail(candidateName, candidateSurname, mail);
-		if (!ObjectUtils.isEmpty(interview)) {
-			Interviewer interviewer = interviewerService.findInterviewerByEnterpriseId(interview.getInterviewerId().getEnterpriseId());
-			response = new SearchInterviewerResponse(interviewer);
+	public InterviewerRTO searchInterviewer(String candidateName, String candidateSurname, String mail) {
+		String enterpriseId = interviewService.findEnterpriseIdByNameSurnameAndMail(candidateName, candidateSurname, mail);
+		if (!ObjectUtils.isEmpty(enterpriseId)) {
+			return interviewerService.findInterviewerByEnterpriseId(enterpriseId);
 		} else {
-			throw new IllegalStateException("Intervista non presente.");
+			throw new IllegalStateException("Intervistatore non presente.");
 		}
-		return response;
 	}
 
 	/**
@@ -54,7 +48,7 @@ public class InterviewerFacade {
 	 * @param enterpriseId the enterprise id
 	 * @return the interviewer
 	 */
-	public Interviewer interviewerInfo(String enterpriseId) {
+	public InterviewerRTO interviewerInfo(String enterpriseId) {
 		return interviewerService.findInterviewerByEnterpriseId(enterpriseId);
 	}
 

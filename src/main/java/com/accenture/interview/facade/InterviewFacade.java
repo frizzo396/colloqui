@@ -1,19 +1,18 @@
 package com.accenture.interview.facade;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
-import com.accenture.interview.entity.CandidateType;
-import com.accenture.interview.entity.Interview;
-import com.accenture.interview.entity.Interviewer;
-import com.accenture.interview.entity.Site;
-import com.accenture.interview.rto.interview.CreateInterviewResponse;
+import com.accenture.interview.rto.candidate.CandidateTypeRTO;
+import com.accenture.interview.rto.interview.CreateInterviewRTO;
+import com.accenture.interview.rto.interview.InProgressInterviewRTO;
 import com.accenture.interview.rto.interview.InterviewAndFeedbackRTO;
-import com.accenture.interview.rto.interview.SearchInterviewResponse;
+import com.accenture.interview.rto.interview.SearchInterviewRTO;
+import com.accenture.interview.rto.interviewer.InterviewerRTO;
+import com.accenture.interview.rto.site.SiteRTO;
 import com.accenture.interview.service.CandidateService;
 import com.accenture.interview.service.FeedbackService;
 import com.accenture.interview.service.InterviewService;
@@ -28,10 +27,9 @@ import com.accenture.interview.to.interview.SearchInterviewTO;
 @Component
 public class InterviewFacade {
 	
-	/** 2022-10-14 NUOVA COLONNA site - START */
+	/** The site service. */
 	@Autowired
 	private SiteService siteService;	
-	/** 2022-10-14 NUOVA COLONNA site - END */
 
 	/** The candidate service. */
 	@Autowired
@@ -57,18 +55,14 @@ public class InterviewFacade {
 	 * @Autowired private EventService eventService;
 	 */
 	
-	/** 2022-10-14 NUOVA COLONNA site - START */
 	/**
 	 * Return list of sites.
 	 *
 	 * @return list of sites from table site
 	 */
-	public List<Site> getComboSites() {
-		List<Site> result;
-		result = siteService.findSitesFromDB();
-		return result;
+	public List<SiteRTO> getComboSites() {
+		return siteService.findAllSites();
 	}
-	/** 2022-10-14 NUOVA COLONNA site - END */
 	
 	/**
 	 * Adds the new interview.
@@ -76,21 +70,20 @@ public class InterviewFacade {
 	 * @param request the request
 	 * @return the creates the interview response
 	 */
-	public CreateInterviewResponse addNewInterview(CreateInterviewTO request) {
-		CreateInterviewResponse response = null;
-		Optional<CandidateType> optCandidate = candidateService.getCandidateType(request.getCandidateType());
-		Interviewer interviewer = interviewerService.findInterviewerByEnterpriseId(request.getEnterpriseId());
+	public CreateInterviewRTO addNewInterview(CreateInterviewTO request) {
+		CreateInterviewRTO response = null;
+		CandidateTypeRTO candidateType = candidateService.getCandidateType(request.getCandidateType());
+		InterviewerRTO interviewer = interviewerService.findInterviewerByEnterpriseId(request.getEnterpriseId());
 		
-		/** if (!(ObjectUtils.isEmpty(interviewer)) && !(optCandidate.isEmpty())) { */
-		if (!(ObjectUtils.isEmpty(interviewer)) && (optCandidate.isPresent())) {
+		if (!(ObjectUtils.isEmpty(interviewer)) && !(ObjectUtils.isEmpty(candidateType))) {
 			// Interview interview =
-			interviewService.addNewInterview(request, optCandidate.get(), interviewer);
-			CreateInterviewResponse createInterviewResponse = new CreateInterviewResponse(request);
+			interviewService.addNewInterview(request, candidateType, interviewer);
+			CreateInterviewRTO createInterviewResponse = new CreateInterviewRTO(request);
 			createInterviewResponse.setEnterpriseId(request.getEnterpriseId());
 			// eventService.sendTeamsInvitation(interview.getScheduledDate(),
 			// interview.getMail(), interview.getCandidateName(),
 			// interview.getCandidateSurname());
-			response = new CreateInterviewResponse(request);
+			response = new CreateInterviewRTO(request);
 		}
 
 		return response;
@@ -102,7 +95,7 @@ public class InterviewFacade {
 	 * @param searchInterviewTO the search interview TO
 	 * @return the list
 	 */
-	public List<SearchInterviewResponse> searchInterviews(SearchInterviewTO searchInterviewTO) {
+	public List<SearchInterviewRTO> searchInterviews(SearchInterviewTO searchInterviewTO) {
 		return interviewService.searchInterview(searchInterviewTO);
 	}
 
@@ -112,7 +105,7 @@ public class InterviewFacade {
 	 * @param enterpriseId the enterprise id
 	 * @return the my interviews
 	 */
-	public List<InterviewAndFeedbackRTO> getMyInterviews(String enterpriseId) {
+	public List<InterviewAndFeedbackRTO> getCompletedInterviews(String enterpriseId) {
 		List<InterviewAndFeedbackRTO> interviewAndFeedbackList = interviewService.getMyInterviews(enterpriseId);
 
 		return feedbackService.getFeedbacks(interviewAndFeedbackList);
@@ -124,7 +117,7 @@ public class InterviewFacade {
 	 * @param enterpriseId the enterprise id
 	 * @return the in progress interviews
 	 */
-	public List<Interview> getInProgressInterviews(String enterpriseId) {
+	public List<InProgressInterviewRTO> getInProgressInterviews(String enterpriseId) {
 		return interviewService.getInProgressInterviews(enterpriseId);
 	}
 }

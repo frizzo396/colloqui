@@ -1,12 +1,10 @@
 package com.accenture.interview.service;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.accenture.interview.entity.CandidateType;
 import com.accenture.interview.repository.CandidateTypeRepository;
+import com.accenture.interview.rto.candidate.CandidateTypeRTO;
 
 /**
  * The Class CandidateTypeService.
@@ -24,7 +22,7 @@ public class CandidateService {
 	 * @param description the description
 	 * @return the candidate type
 	 */
-	public Optional<CandidateType> getCandidateType(String description) {
+	public CandidateTypeRTO getCandidateType(String description) {
 		return candidateTypeRepository.findCandidateTypeByString(description);
 	}
 }

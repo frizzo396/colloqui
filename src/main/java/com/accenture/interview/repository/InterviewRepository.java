@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.accenture.interview.entity.Interview;
+import com.accenture.interview.rto.interview.InProgressInterviewRTO;
 import com.accenture.interview.rto.interview.InterviewAndFeedbackRTO;
 
 /**
@@ -83,9 +84,10 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 	 *
 	 * @param enterpriseId the enterprise id
 	 * @return the in progress interviews by enterprise id
-	 */
-	@Query("select i from Interview i where i.interviewerId.enterpriseId=:enterpriseId and i.finalFeedback is null order by i.scheduledDate")
-	List<Interview> getInProgressInterviewsByEnterpriseId(@Param("enterpriseId") String enterpriseId);
+	 */	
+	@Query("select new com.accenture.interview.rto.interview.InProgressInterviewRTO(i.id, i.candidateName, i.candidateSurname, i.interviewType, i.scheduledDate) "
+			+ "from Interview i where i.interviewerId.enterpriseId=:enterpriseId and i.finalFeedback is null order by i.scheduledDate")
+	List<InProgressInterviewRTO> getInProgressInterviewsByEnterpriseId(@Param("enterpriseId") String enterpriseId);
 
 	/**
 	 * Gets the in progress interviews count.

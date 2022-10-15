@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.accenture.interview.entity.Site;
 /** 2022-10-13 NUOVA COLONNA site - START */
 import com.accenture.interview.repository.SiteRepository;
 /** 2022-10-13 NUOVA COLONNA site - END */
+import com.accenture.interview.rto.site.SiteRTO;
 
 /**
  * The Class SiteService.
@@ -16,20 +16,17 @@ import com.accenture.interview.repository.SiteRepository;
 @Service
 public class SiteService {
 	
-	/** 2022-10-13 NUOVA COLONNA site - START */
 	/** The site repository. */
-	@Autowired private SiteRepository siteRepository;
+	@Autowired 
+	private SiteRepository siteRepository;
 	
 	/**
 	 * Gets the all sites.
 	 *
 	 * @return list of sites
 	 */
-	// 2022-10-14 PROVO A TOGLIERE static AL METODO
-	public List<Site> findSitesFromDB() {		
-
+	public List<SiteRTO> findAllSites() {		
 		return siteRepository.findSites();		
 	}	
-	/** 2022-10-13 NUOVA COLONNA site - END */	
 
 }
