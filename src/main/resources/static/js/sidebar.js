@@ -26,6 +26,27 @@ $(document).ready(function (){
 	  	document.getElementById("containerColumn").style.width = '90%';
 	}
 	});
+	
+	$(window).resize(function() {
+			let sidebar = document.querySelector(".sidebar");
+  			if ($(window).width() < 960 && !(sidebar.classList.contains('close'))) {
+     				sidebar.classList.toggle("close");
+     				document.getElementById('sidebarMenuIcon').style.pointerEvents = 'none';
+     				document.getElementById("sidebarColumn").style.width = '10%';
+	  				document.getElementById("containerColumn").style.width = '90%';
+ 		 	}
+ 		 	if ($(window).width() > 960 && (sidebar.classList.contains('close'))) { //se sibar chiusa
+					    sidebar.classList.toggle("close");
+					    document.getElementById('sidebarMenuIcon').style.pointerEvents = 'auto';
+		  				document.getElementById("sidebarColumn").style.width = '20%';
+		  				document.getElementById("containerColumn").style.width = '80%';
+			}
+		/* else {
+	    				sidebar.classList.toggle("close");
+		  				document.getElementById("sidebarColumn").style.width = '20%';
+		  				document.getElementById("containerColumn").style.width = '80%';
+		 }*/
+	});
 
 });
 

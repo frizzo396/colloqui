@@ -9,7 +9,7 @@
     left: 0;
     margin-left: 3%;
     height: 100%;
-    width: 87%;
+    width: 70%;
     transition: all 0.5s ease;
     background-color: white;
     border-radius: 15px;
@@ -26,16 +26,24 @@
     margin-right: -1px;
     margin-top: -1px;
     margin-left: -1px;
+    align-items: center;
 }
 
 #sidebarMenuIcon{
     color: white;
     font-size: 25px;
-    margin: auto;
     position: relative;
     cursor: pointer;
+    margin-left: 13px;
 }
 
+.sidebar.close #sidebarMenuIcon {
+    color: white;
+    font-size: 25px;
+    position: relative;
+    cursor: pointer;
+    margin-left: 25px;
+}
 
 .sidebar.close{
     width: 78px;
@@ -109,6 +117,17 @@
 
 .sidebar .nav-links li em{
   height: 50px;
+  min-width: 50px;
+  text-align: center;
+  line-height: 50px;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.sidebar.close .nav-links li em{
+  height: 50px;
   min-width: 78px;
   text-align: center;
   line-height: 50px;
@@ -130,7 +149,7 @@
   color: #3c4ffd;
 }
 .sidebar .nav-links li a .link_name{
-	font-size: 20px;
+	font-size: 18px;
     font-family: sans-serif;
     font-weight: 600;
     color: #3c4ffd;
@@ -141,7 +160,8 @@
   pointer-events: none;
 }
 .sidebar .nav-links li .sub-menu{
-  padding: 6px 6px 14px 80px;
+  padding: 6px 6px 14px 65px;
+  
   margin-top: -10px;
   background: white;
   display: none;
@@ -151,7 +171,7 @@
 }
 .sidebar .nav-links li .sub-menu a{
   color: #3c4ffd;
-  font-size: 15px;
+  font-size: 14px;
   padding: 8px 0;
   white-space: nowrap;
   transition: all 0.3s ease;
@@ -245,7 +265,6 @@
 }
 
 
-/*@media (max-width: 49em) { */
 @media only screen and (max-width:980px){
   	#sidebarColumn{
 	display: flex;
@@ -257,17 +276,20 @@
     width: 90%;
     margin-left: 10%;
   }	
-  .sidebar.close .nav-links li .sub-menu{
+  /*.sidebar .nav-links li .sub-menu{
     display: none;
   }
+	.sidebar .nav-links li a .link_name{
+		display: none;
+	}
   .sidebar{
     width: 78px;
-    
+   
   }
   .sidebar.close{
    	width: 78px;
    	margin-right: 100px;
-  }
+  }*/
   .home-section{
     left: 78px;
     width: calc(100% - 78px);
@@ -279,11 +301,15 @@
   }
   
   #sidebarMenuIcon {
-      margin: auto;
-      font-size: 50px;
+      margin-left: 25px;
       cursor: pointer;
     }
-    
+    /*.sidebar .nav-links li em{
+	  min-width: 78px;
+    }
+	.sidebar .nav-links li.showMenu .sub-menu{
+  display: block;
+  }*/
 
 }
 

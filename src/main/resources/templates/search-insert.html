@@ -65,7 +65,7 @@
                                                 </div>
                                                 <div class="column">
                                                     <div class="form-group">
-                                                        <label><em class="fa fa-calendar datePicker"></em> Date of birth</label>
+                                                        <label><em class="fa fa-calendar datePicker"></em> Birth</label>
                                                         <input type="date" th:field="*{candidateBirth}" />
                                                         <small th:if="${#fields.hasErrors('candidateBirth')}" th:errors="*{candidateBirth} ">Birth Error</small>
                                                     </div>
@@ -99,7 +99,7 @@
                                             <div class="row" id="interviewRow">
                                                 <div class="column">
                                                     <div class="form-group">
-                                                        <label for="candidateType"><em class="fa fa-briefcase"></em> Candidate Type</label>
+                                                        <label for="candidateType"><em class="fa fa-briefcase"></em> Level</label>
                                                         <select class="formcontrol selectpicker" th:field="*{candidateType}" id="candidateType">
                                                             <option value="">Nothing selected</option>
                                                             <option th:each="candidateType : ${T(com.accenture.interview.utils.enums.CandidateTypeEnum).values()}" th:value="${candidateType}" th:text="${candidateType}">
@@ -111,7 +111,7 @@
                                                 </div>
                                                 <div class="column">
                                                     <div class="form-group">
-                                                        <label><em class="fa fa-handshake-o"></em> Interview Type</label>
+                                                        <label><em class="fa fa-handshake-o"></em> Interview</label>
                                                         <select class="form-control selectpicker" th:field="*{interviewType}" id="interviewType">
                                                             <option value="">Nothing selected</option>
                                                             <option th:each="interviewType : ${T(com.accenture.interview.utils.enums.InterviewTypeEnum).values()}" th:value="${interviewType}" th:text="${interviewType}">
@@ -125,7 +125,7 @@
                                                 <!-- 2022-10-13 NUOVA COLONNA site - START -->
                                                 <div class="column">
                                                     <div class="form-group">
-                                                        <label><em class="fa-solid fa-building-user"></em>Place of employment</label>
+                                                        <label><em class="fa-solid fa-building-user"></em>Site</label>
                                                         <select class="formcontrol selectpicker" th:field="*{site}" id="site">
                                                             <option value="">Nothing selected</option>
                                                              <option th:each="siteElem : ${comboSitesDB}" th:value="${siteElem.id}" th:text="${siteElem.name}">
