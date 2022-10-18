@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -21,17 +22,15 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CreateInterviewTO {
 	
-	/** 2022-10-13 NUOVA COLONNA site - START */
-//	@NotEmpty(message = "Il nome della sede di assunzione deve essere valorizzato.")
+    @NotNull(message = "interview.site.notempty")
 	private Site site;
-	/** 2022-10-13 NUOVA COLONNA site - END */	
 
 	/** The candidate name. */
-	@NotEmpty(message = "Il nome del candidato deve essere valorizzato.")
+	@NotEmpty(message = "candidate.name.notempty")
 	private String candidateName;
 
 	/** The candidate surname. */
-	@NotEmpty(message = "Il nome del candidato deve essere valorizzato.")
+	@NotEmpty(message = "candidate.surname.notempty")
 	private String candidateSurname;
 
 	/** The candidate birth. */
@@ -39,31 +38,32 @@ public class CreateInterviewTO {
 	private Date candidateBirth;
 
 	/** The mail. */
-	@Email(message = "L'email inserita deve essere valida")
-	@NotEmpty(message = "L'email del candidato deve essere valorizzato.")
+	@Email(message = "candidate.mail.invalid")
+	@NotEmpty(message = "candidate.mail.notempty")
 	private String mail;
 
 	/** The cv. */
 	private String cv;
 
 	/** The edu qualification. */
-	@NotEmpty(message = "La qualifica deve essere valorizzata.")
+	@NotEmpty(message = "candidate.qualification.notempty")
 	private String eduQualification;
 
 	/** The candidate type. */
-	@NotEmpty(message = "Il tipo di candidato deve essere specificato.")
+	@NotEmpty(message = "candidate.type.notempty")
 	private String candidateType;
 
 	/** The interview type. */
-	@NotEmpty(message = "Il tipo di intervista deve essere specificata.")
+	@NotEmpty(message = "interview.type.notempty")
 	private String interviewType;
 
 	/** The enterprise id. */
-	@NotEmpty(message = "L'enterpriseId dell'intervistatore deve essere specificato.")
+	@NotEmpty(message = "interviewer.enterpriseid.notempty")
 	private String enterpriseId;
 
 	/** The scheduled date. */
 	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+	@NotNull(message = "interview.scheduleddate.notempty")
 	private Date scheduledDate;
 
 }

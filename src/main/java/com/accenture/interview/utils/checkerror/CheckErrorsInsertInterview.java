@@ -1,20 +1,19 @@
 package com.accenture.interview.utils.checkerror;
 
-import java.util.Arrays;
-import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.ValidatorFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
-import com.accenture.interview.entity.Interview;
 import com.accenture.interview.rto.candidate.CandidateTypeRTO;
+import com.accenture.interview.rto.general.ErrorRTO;
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.service.CandidateService;
 import com.accenture.interview.service.InterviewService;
@@ -38,35 +37,77 @@ public class CheckErrorsInsertInterview {
 	/** The interviewer service. */
 	@Autowired
 	private InterviewerService interviewerService;
+	
+	/** The message source. */
+	@Autowired
+	private MessageSource messageSource;
 
 	/**
 	 * Validate insert interview request.
 	 *
-	 * @param request the request
+	 * @param createInterviewTO the create interview TO
 	 * @return the sets the
 	 */
-	public Set<String> validate(CreateInterviewTO createInterviewTO) {
+	public ErrorRTO validate(CreateInterviewTO createInterviewTO) {
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Set<ConstraintViolation<CreateInterviewTO>> violations = factory.getValidator().validate(createInterviewTO);
 
-		if (!violations.isEmpty()) {
-			return violations.stream().map(ConstraintViolation::getMessage).collect(Collectors.toSet());
+		if (!violations.isEmpty()) {		
+			String errorMsg = messageSource.getMessage(violations.stream().findFirst().get().getMessage(), null, Locale.getDefault());
+			return new ErrorRTO(errorMsg);
 		}
 
-		Interview interview = interviewService.findInterviewByNameSurnameAndMail(createInterviewTO.getCandidateName(), createInterviewTO.getCandidateSurname(), createInterviewTO.getMail());
-		if (!ObjectUtils.isEmpty(interview)) {
-			return new HashSet<>(Arrays.asList("Intervista già presente."));
+		if(interviewAlreadyExists(createInterviewTO.getCandidateName(), 
+				createInterviewTO.getCandidateSurname(), 
+				createInterviewTO.getMail())) {
+			return new ErrorRTO(messageSource.getMessage("interview.alreadyexists", null, Locale.getDefault()));
 		}
-		CandidateTypeRTO candidateType = candidateService.getCandidateType(createInterviewTO.getCandidateType());
 		
-		if (ObjectUtils.isEmpty(candidateType)) {
-			return new HashSet<>(Arrays.asList("Tipo di candidato non valido."));
+		if(!candidateTypeExists(createInterviewTO.getCandidateType())) {
+			return new ErrorRTO(messageSource.getMessage("candidate.type.invalid", null, Locale.getDefault()));
 		}
-		InterviewerRTO interviewer = interviewerService.findInterviewerByEnterpriseId(createInterviewTO.getEnterpriseId());
-		if (ObjectUtils.isEmpty(interviewer)) {
-			return new HashSet<>(Arrays.asList("Intervistatore non presente."));
+
+		if(!interviewerExists(createInterviewTO.getEnterpriseId())) {
+			return new ErrorRTO(messageSource.getMessage("interviewer.notexists", null, Locale.getDefault())); 
 		}
-		return new HashSet<>();
+		return null;
+	}
+	
+	
+	/**
+	 * Interview already exists.
+	 *
+	 * @param name the name
+	 * @param surname the surname
+	 * @param mail the mail
+	 * @return true, if successful
+	 */
+	private boolean interviewAlreadyExists(String name, String surname, String mail) {
+		return !ObjectUtils.isEmpty(interviewService.findInterviewByNameSurnameAndMail(name, surname, mail));
+	}
+	
+	
+	/**
+	 * Interviewer exists.
+	 *
+	 * @param enterpriseId the enterprise id
+	 * @return true, if successful
+	 */
+	private boolean interviewerExists(String enterpriseId) {
+		InterviewerRTO interviewer = interviewerService.findInterviewerByEnterpriseId(enterpriseId);
+		return interviewer != null;	
+	}
+	
+	
+	/**
+	 * Candidate type exists.
+	 *
+	 * @param candidateTypeName the candidate type name
+	 * @return true, if successful
+	 */
+	private boolean candidateTypeExists(String candidateTypeName) {
+		CandidateTypeRTO candidateType = candidateService.getCandidateType(candidateTypeName);
+		return candidateType != null;	
 	}
 
 }

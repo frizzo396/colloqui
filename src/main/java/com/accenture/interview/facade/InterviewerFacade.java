@@ -92,6 +92,12 @@ public class InterviewerFacade {
 		return interviewService.getMyInterviewsMonthCount(enterpriseId);
 	}
 
+	/**
+	 * Gets the year completed interviews.
+	 *
+	 * @param enterpriseId the enterprise id
+	 * @return the year completed interviews
+	 */
 	public List<InterviewMonthRTO> getYearCompletedInterviews(String enterpriseId) {
 		return interviewService.getCompletedYearInterviews(enterpriseId);
 	}

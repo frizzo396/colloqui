@@ -1,11 +1,9 @@
 package com.accenture.interview.controller;
 
-import java.util.Optional;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,10 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.accenture.interview.controller.base.BaseController;
 import com.accenture.interview.facade.FeedbackFacade;
 import com.accenture.interview.rto.general.BaseResponseRTO;
+import com.accenture.interview.rto.general.ErrorRTO;
 import com.accenture.interview.to.feedback.CreateMotivationFeedbackTO;
 import com.accenture.interview.to.feedback.CreateTechFeedbackTO;
-import com.accenture.interview.utils.checkerror.CheckErrorsInsertMotivationFeedback;
-import com.accenture.interview.utils.checkerror.CheckErrorsInsertTechFeedback;
+import com.accenture.interview.utils.checkerror.CheckErrorsInsertFeedback;
 
 /**
  * The Class FeedbackController.
@@ -33,11 +31,7 @@ public class FeedbackController extends BaseController {
 
 	/** The check errors insert motivation feedback. */
 	@Autowired
-	private CheckErrorsInsertMotivationFeedback checkErrorsInsertMotivationFeedback;
-
-	/** The check errors insert tech feedback. */
-	@Autowired
-	private CheckErrorsInsertTechFeedback checkErrorsInsertTechFeedback;
+	private CheckErrorsInsertFeedback checkErrorsInsertFeedback;
 
 	/**
 	 * Adds the motivation feedback.
@@ -48,13 +42,10 @@ public class FeedbackController extends BaseController {
 	 */
 	@PostMapping("/motivational/insert")
 	public ResponseEntity<Object> addMotivationFeedback(@RequestBody @ModelAttribute CreateMotivationFeedbackTO createMotivationFeedbackTO) {
-		Set<String> errorMessages = checkErrorsInsertMotivationFeedback.validate(createMotivationFeedbackTO);
-		Optional<String> error = errorMessages.stream().findFirst();
+		ErrorRTO errorRTO = checkErrorsInsertFeedback.validate(createMotivationFeedbackTO);
 		
-		/* TEST 2022-10-10 */
-
-		if (error.isPresent()) {
-			return new ResponseEntity<>(new BaseResponseRTO(null, error.get()), HttpStatus.OK);
+		if (!ObjectUtils.isEmpty(errorRTO)) {
+			return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
 		}
 		return new ResponseEntity<>(new BaseResponseRTO(feedbackFacade.insertMotivationFeedback(createMotivationFeedbackTO, interviewId)), HttpStatus.OK);
 
@@ -68,11 +59,10 @@ public class FeedbackController extends BaseController {
 	 */
 	@PostMapping("/technical/insert")
 	public ResponseEntity<BaseResponseRTO> addTechFeedback(@RequestBody @ModelAttribute CreateTechFeedbackTO createTechFeedbackTO) {
-		Set<String> errorMessages = checkErrorsInsertTechFeedback.validate(createTechFeedbackTO);
-		Optional<String> error = errorMessages.stream().findFirst();
+		ErrorRTO errorRTO = checkErrorsInsertFeedback.validate(createTechFeedbackTO);
 
-		if (error.isPresent()) {
-			return new ResponseEntity<>(new BaseResponseRTO(null, error.get()), HttpStatus.OK);
+		if (!ObjectUtils.isEmpty(errorRTO)) {
+			return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
 		}
 		return new ResponseEntity<>(new BaseResponseRTO(feedbackFacade.insertTechFeedback(createTechFeedbackTO, interviewId)), HttpStatus.OK);
 	}

@@ -13,7 +13,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories(basePackages = "com.accenture.interview.repository")
 @EntityScan(basePackages = "com.accenture.interview.entity")
 public class InterviewApplication {
-
+	
+	
 	/**
 	 * The main method.
 	 *
@@ -22,5 +23,7 @@ public class InterviewApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(InterviewApplication.class, args);
 	}
+	
+
 
 }

@@ -85,7 +85,6 @@ public class InterviewFacade {
 			// interview.getCandidateSurname());
 			response = new CreateInterviewRTO(request);
 		}
-
 		return response;
 	}
 
@@ -107,7 +106,6 @@ public class InterviewFacade {
 	 */
 	public List<InterviewAndFeedbackRTO> getCompletedInterviews(String enterpriseId) {
 		List<InterviewAndFeedbackRTO> interviewAndFeedbackList = interviewService.getMyInterviews(enterpriseId);
-
 		return feedbackService.getFeedbacks(interviewAndFeedbackList);
 	}
 

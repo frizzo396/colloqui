@@ -27,7 +27,7 @@ $(document).ready(function (){
 		e.preventDefault(e);
 		$.post($(this).attr('action'), $(this).serialize(), function (response){
 			if(response.error == null){
-					showToast("Operazione avvenuta con successo, controllare se l'email è stata recapitata correttamente.", "SUCCESS");
+					showToast("Operazione avvenuta con successo, controllare se l'email è stata recapitata correttamente", "SUCCESS");
 					setTimeout(function(){RedirectHome()}, 1700);
 				}
 				else {
@@ -47,7 +47,7 @@ $(document).ready(function (){
 		e.preventDefault(e);
 			$.post($(this).attr('action'), $(this).serialize(), function (response){
 				if(response.error == null){
-					showToast("Operazione avvenuta con successo.", "SUCCESS");
+					showToast("Operazione avvenuta con successo", "SUCCESS");
 					setTimeout(function(){RedirectHome()}, 1700);
 				}
 				else {
@@ -66,7 +66,7 @@ $(document).ready(function (){
 		e.preventDefault(e);
 		$.post($(this).attr('action'), $(this).serialize(), function (response){
 			if(response.error == null){
-					showToast("Operazione avvenuta con successo.", "SUCCESS");
+					showToast("Operazione avvenuta con successo", "SUCCESS");
 					setTimeout(function(){RedirectHome()}, 1700);
 				}
 			else {
@@ -79,20 +79,24 @@ $(document).ready(function (){
 
 
 function showToast(message, state) {
-	var x = document.getElementById("snackbar");
-	
+	var snackB = document.getElementById("snackbar");
+	var iconColumn = document.getElementById("snackbarIconColumn");
+	var textColumn = document.getElementById("snackbarTextColumn");
+	snackB.className = "show";
 	if(state === "SUCCESS"){
-		x.style.backgroundColor="#008000";
-		x.innerHTML = "<p id='snackbar-v'>&#10004;</p>"+message;
-	} else if (state === "ERROR") {
-		x.style.backgroundColor="#b20000";
-		x.innerHTML = "<p id='snackbar-cross'>&#10006;</p>"+message;
+		snackB.style.backgroundColor="#008000";
+		iconColumn.innerHTML = "<em id='successIcon' class='fa-solid fa-circle-check'></em>";
+		textColumn.innerHTML = message;
+	} else if (state === "ERROR") { 
+		snackB.style.backgroundColor="#b20000";
+		iconColumn.innerHTML = "<em id='errorIcon' class='fa-solid fa-circle-exclamation'></em>";
+		textColumn.innerHTML = message;
 	} else if(state === "WARNING"){
-		x.style.backgroundColor="#FFCC00";
-		x.innerHTML = "<p id='snackbar-warning'>&#9888;</p>"+message;
+		snackB.style.backgroundColor="#FFCC00";
+		iconColumn.innerHTML  = "<em id='warningIcon' class='fa-solid fa-circle-exclamation'></em>";
+		textColumn.innerHTML = message;
 	}
-	x.className = "show";
-	setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+	setTimeout(function(){ snackB.className = snackB.className.replace("show", ""); }, 3000);
 }
 
 //Ricerca colloquio
@@ -110,11 +114,11 @@ $(document).ready(function () {
 							$(".pager").remove();
 						}
 						else if((response.body).length===0){
-							showToast("La ricerca non ha prodotto alcun risultato.", "WARNING");
+							showToast("La ricerca non ha prodotto alcun risultato", "WARNING");
 							$("#mytable tr").remove();
 							$(".pager").remove();
 						}else{
-							showToast("Operazione avvenuta con successo.", "SUCCESS")
+							showToast("Operazione avvenuta con successo", "SUCCESS")
 							let table = '<table> <thead> <tr> <th>Candidate Name</th> <th>Candidate Surname</th> <th>Feedback</th> </tr> </thead><tbody>';
 							(response.body).forEach(function (d) {
 								table += '<tr class="mytable-row"><td>' + d.candidateName + '</td>';
@@ -169,11 +173,11 @@ $(document).ready(function () {
 					$(".pager").remove();
 				}
 				else if((response.body).length===0){
-					showToast("La ricerca non ha prodotto alcun risultato.", "WARNING");
+					showToast("La ricerca non ha prodotto alcun risultato", "WARNING");
 					$("#mytable tr").remove();
 					$(".pager").remove();
 				}else{
-					showToast("Operazione avvenuta con successo.", "SUCCESS")
+					showToast("Operazione avvenuta con successo", "SUCCESS")
 					
 					let table = '<table> <thead> <tr> <th>Candidate Name</th> <th>Candidate Surname</th> <th>Interview Type</th> <th>Interview Date</th> <th>Interviewer</th> <th>Feedback</th> </tr> </thead><tbody>';
 

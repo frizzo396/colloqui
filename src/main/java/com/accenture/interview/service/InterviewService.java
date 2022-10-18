@@ -107,7 +107,6 @@ public class InterviewService {
 		}
 		return null;
 	}
-	
 	/**
 	 * Find interviewer by name surname and mail.
 	 *

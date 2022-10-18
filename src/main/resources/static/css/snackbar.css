@@ -1,0 +1,104 @@
+@charset "ISO-8859-1";
+
+
+#snackbar {
+     visibility: hidden; 
+    width: 20%;
+    height: 13%;
+    color: #fff;
+    text-align: center;
+    font-size: 12px;
+    border-radius: 10px;
+    position: fixed;
+    right: 2%;
+    bottom: 1%;
+    line-height: 1.1em;
+}
+
+#snackbarRow {
+	width: 100%;
+	height: 100%;
+	display:flex;
+}
+
+#snackbarIconColumn {
+	width: 10%;
+	display: flex;
+	align-items: center;
+}
+
+#errorIcon {
+	font-size: 20px;
+	margin-left: 30%;
+}
+
+#successIcon {
+	font-size: 20px;
+	margin-left: 30%;
+}
+
+#warningIcon {
+	font-size: 20px;
+	margin-left: 30%;
+}
+
+#snackbarTextColumn {
+	width: 90%;
+    margin: auto;
+}
+
+#snackbar-interview{
+    font-size: 20px;
+    position: absolute;
+    top: 9px;
+    left: 5px;
+}
+
+#snackbar-v{
+    font-size: 20px;
+    position: absolute;
+    top: 9px;
+    left: 5px;
+}
+
+
+#snackbar-cross{
+    font-size: 20px;
+    position: absolute;
+    top: 12px;
+    left: 8px;
+}
+
+#snackbar-warning{
+    font-size: 20px;
+    position: absolute;
+    top: 12px;
+    left: 12px;
+}
+
+
+#snackbar.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+    from {bottom: 2.5%; opacity: 0;}
+    to {bottom: 1%; opacity: 1;}
+}
+
+@keyframes fadein {
+    from {bottom:  2.5%; opacity: 0;}
+    to {bottom: 1%; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+    from {bottom: 1%; opacity: 1;}
+    to {bottom: 2.5%; opacity: 0;}
+}
+
+@keyframes fadeout {
+    from {bottom: 1%; opacity: 1;}
+    to {bottom: 2.5%; opacity: 0;}
+}

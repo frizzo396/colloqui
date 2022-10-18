@@ -27,6 +27,28 @@ public class PaginationController extends BaseController {
 	@Autowired
 	private InterviewerFacade interviewerFacade;	
 	
+	
+	/**
+	 * Account page.
+	 *
+	 * @param enterpriseId the enterprise id
+	 * @return the model and view
+	 */
+	@GetMapping("/home")
+	public ModelAndView accountPage() {
+		ModelAndView modelAndView = new ModelAndView();
+		String username = System.getProperty("user.name");
+		modelAndView.setViewName("home.html");
+		modelAndView.addObject("interviewer", interviewerFacade.interviewerInfo(username));
+		modelAndView.addObject("inProgressInterviews", interviewerFacade.getInProgressInterviewsNumber(username));
+		modelAndView.addObject("myInterviews", interviewerFacade.getMyInterviewsNumber(username));
+		modelAndView.addObject("myInterviewsMonth", interviewerFacade.getMonthCompletedInterviewsNumber(username));
+		modelAndView.addObject("inProgressInterviewsMonth", interviewerFacade.getMonthInProgressInterviewsNumber(username));
+		modelAndView.addObject("yearMonthInterviews", interviewerFacade.getYearCompletedInterviews(username));
+		return modelAndView;
+	}
+
+	
 	/**
 	 * Show form.
 	 *

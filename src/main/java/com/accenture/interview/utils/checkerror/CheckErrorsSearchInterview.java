@@ -1,11 +1,13 @@
 package com.accenture.interview.utils.checkerror;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Locale;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
+import com.accenture.interview.rto.general.ErrorRTO;
 import com.accenture.interview.to.interview.SearchInterviewTO;
 
 /**
@@ -13,19 +15,22 @@ import com.accenture.interview.to.interview.SearchInterviewTO;
  */
 @Component
 public class CheckErrorsSearchInterview {
-
+	
+	/** The message source. */
+	@Autowired
+	private MessageSource messageSource;
+	
 	/**
 	 * Validate.
 	 *
 	 * @param searchInterviewTO the search interview TO
-	 * @return the sets the
+	 * @return the error RTO
 	 */
-	public Set<String> validate(SearchInterviewTO searchInterviewTO) {
-		Set<String> errorsSet = new HashSet<>();
+	public ErrorRTO validate(SearchInterviewTO searchInterviewTO) {
 		if (this.searchInterviewsEmptyFields(searchInterviewTO)) {
-			errorsSet.add("Almeno un campo deve essere valorizzato.");
+			return new ErrorRTO(messageSource.getMessage("interview.search.almostonefield", null, Locale.getDefault()));
 		}
-		return errorsSet;
+		return null;
 	}
 
 	/**

@@ -36,11 +36,11 @@ public class CreateMotivationFeedbackTO {
 	private int techQuestion;
 
 	/** The final feedback. */
-	@NotEmpty(message = "Il campo final feedback deve essere valorizzato.")
+	@NotEmpty(message = "feedback.final.notempty")
 	private String finalFeedback;
 
 	/** The comment. */
-	@NotEmpty(message = "Il campo comment deve essere valorizzato.")
+	@NotEmpty(message = "feedback.comment.notempty")
 	private String comment;
 
 }

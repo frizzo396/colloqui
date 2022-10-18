@@ -4,11 +4,11 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <title>Interview</title>
-        <link th:href="@{/form2.css}" rel="stylesheet" />
-        <link th:href="@{/sidebar.css}" rel="stylesheet" />
-        <link th:href="@{/form-container.css}" rel="stylesheet" />
-        <link th:href="@{/header.css}" rel="stylesheet" />
-        <link th:href="@{/snackbar.css}" rel="stylesheet" />
+        <link th:href="@{/css/form2.css}" rel="stylesheet" />
+        <link th:href="@{/css/sidebar.css}" rel="stylesheet" />
+        <link th:href="@{/css/form-container.css}" rel="stylesheet" />
+        <link th:href="@{/css/header.css}" rel="stylesheet" />
+        <link th:href="@{/css/snackbar.css}" rel="stylesheet" />
         <link th:rel="stylesheet" th:href="@{assets/bootstrap-select-1.13.9/dist/css/bootstrap-select.css}" />
         <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -264,7 +264,16 @@
                         </div>
                     </div>
                 </div>
-                <div id="snackbar"></div>
+               <div  id="snackbar">
+               		<div  id="snackbarRow">
+               				 <div class="col-lg-8 col-lg-offset-2" id="snackbarIconColumn">
+               				 
+               				 </div>
+               				  <div class="col-lg-8 col-lg-offset-2" id="snackbarTextColumn">
+               				 
+               				 </div>    				 
+               		</div>
+               </div>
             </div>
         </div>
     </body>

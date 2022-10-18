@@ -1,11 +1,9 @@
 package com.accenture.interview.controller;
 
-import java.util.Optional;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.accenture.interview.facade.InterviewFacade;
 import com.accenture.interview.rto.general.BaseResponseRTO;
+import com.accenture.interview.rto.general.ErrorRTO;
 import com.accenture.interview.to.interview.CreateInterviewTO;
 import com.accenture.interview.to.interview.SearchInterviewTO;
 import com.accenture.interview.utils.checkerror.CheckErrorsInsertInterview;
@@ -46,11 +45,10 @@ public class InterviewController {
 	 */
 	@PostMapping("/create")
 	public ResponseEntity<Object> createInterview(@RequestBody @ModelAttribute CreateInterviewTO createInterviewTO) {
-		Set<String> errorMessages = checkErrorsInsertInterview.validate(createInterviewTO);
-		Optional<String> error = errorMessages.stream().findFirst();
+		ErrorRTO errorRTO = checkErrorsInsertInterview.validate(createInterviewTO);
 
-		if (error.isPresent()) {
-			return new ResponseEntity<>(new BaseResponseRTO(null, error.get()), HttpStatus.OK);
+		if (!ObjectUtils.isEmpty(errorRTO)) {
+			return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
 		}
 		return new ResponseEntity<>(new BaseResponseRTO(interviewFacade.addNewInterview(createInterviewTO)), HttpStatus.OK);
 	}
@@ -63,11 +61,10 @@ public class InterviewController {
 	 */
 	@PostMapping("/search")
 	public ResponseEntity<Object> searchInterview(@RequestBody @ModelAttribute SearchInterviewTO searchInterviewTO) {
-		Set<String> errorMessages = checkErrorsSearchInterview.validate(searchInterviewTO);
-		Optional<String> error = errorMessages.stream().findFirst();
+		ErrorRTO errorRTO = checkErrorsSearchInterview.validate(searchInterviewTO);
 
-		if (error.isPresent()) {
-			return new ResponseEntity<>(new BaseResponseRTO(null, error.get()), HttpStatus.OK);
+		if (!ObjectUtils.isEmpty(errorRTO)) {
+			return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
 		}
 		return new ResponseEntity<>(new BaseResponseRTO(interviewFacade.searchInterviews(searchInterviewTO)), HttpStatus.OK);
 	}
