@@ -77,8 +77,19 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 	 * @param enterpriseId the enterprise id
 	 * @return the my interviews by enterprise id
 	 */
-	@Query("select new com.accenture.interview.rto.interview.InterviewAndFeedbackRTO(i.id, i.candidateName, i.candidateSurname, i.interviewType, i.scheduledDate, i.finalFeedback)" +
-			" from Interview i where i.interviewerId.enterpriseId=:enterpriseId and i.finalFeedback is not null order by i.scheduledDate desc")
+	@Query("select new com.accenture.interview.rto.interview.InterviewAndFeedbackRTO(i.id, i.candidateName, "
+			+ "i.candidateSurname, "
+			+ "ct.description, "
+			+ "i.interviewType, "
+			+ "i.scheduledDate, "
+			+ "s.siteName, "
+			+ "i.finalFeedback)" 
+			+ "from Interview i, CandidateType ct, Site s "
+			+ "where i.candidateTypeId.id = ct.id "
+			+ "and i.interviewerId.enterpriseId=:enterpriseId "
+			+ "and s.id = i.site.id "
+			+ "and i.finalFeedback is not null "
+			+ "order by i.scheduledDate desc")
 	List<InterviewAndFeedbackRTO> getMyInterviewsByEnterpriseId(@Param("enterpriseId") String enterpriseId);
 
 	/**
@@ -87,8 +98,20 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 	 * @param enterpriseId the enterprise id
 	 * @return the in progress interviews by enterprise id
 	 */	
-	@Query("select new com.accenture.interview.rto.interview.InProgressInterviewRTO(i.id, i.candidateName, i.candidateSurname, i.interviewType, i.scheduledDate) "
-			+ "from Interview i where i.interviewerId.enterpriseId=:enterpriseId and i.finalFeedback is null order by i.scheduledDate")
+	@Query("select new com.accenture.interview.rto.interview.InProgressInterviewRTO"
+			+ "(i.id, "
+			+ "i.candidateName, "
+			+ "i.candidateSurname, "
+			+ "ct.description, "
+			+ "i.interviewType, "
+			+ "i.scheduledDate, "
+			+ "s.siteName) "
+			+ "from Interview i, CandidateType ct, Site s "
+			+ "where i.interviewerId.enterpriseId=:enterpriseId "
+			+ "and i.candidateTypeId.id = ct.id "
+			+ "and s.id = i.site.id "
+			+ "and i.finalFeedback is null "
+			+ "order by i.scheduledDate desc")
 	List<InProgressInterviewRTO> getInProgressInterviewsByEnterpriseId(@Param("enterpriseId") String enterpriseId);
 
 	/**

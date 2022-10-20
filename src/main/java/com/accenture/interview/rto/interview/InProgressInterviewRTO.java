@@ -26,12 +26,16 @@ public class InProgressInterviewRTO {
 	/** The candidate surname. */
 	private String candidateSurname;
 	
+	/** The candidate level. */
+	private String candidateLevel;
+	
 	/** The interview type. */
 	private Long interviewType;
 
 	/** The scheduled date. */
 	private Date scheduledDate;
 	
-
-
+	/** The site. */
+	private String site;
+	
 }

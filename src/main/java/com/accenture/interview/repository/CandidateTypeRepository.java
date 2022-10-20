@@ -20,7 +20,7 @@ public interface CandidateTypeRepository extends JpaRepository<CandidateType, Lo
 	 * @param description the description
 	 * @return the optional
 	 */
-	@Query("select new com.accenture.interview.rto.candidate.CandidateTypeRTO(c.id, c.description) from Candidate_type c where c.description=:description")
+	@Query("select new com.accenture.interview.rto.candidate.CandidateTypeRTO(c.id, c.description) from CandidateType c where c.description=:description")
 	CandidateTypeRTO findCandidateTypeByString(@Param("description") String description);
 
 }

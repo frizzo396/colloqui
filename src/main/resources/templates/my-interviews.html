@@ -39,26 +39,28 @@
                                     <label id="interviewInformations">Interview informations </label>
                                 </header>
                                 <div class="col-lg-8 col-lg-offset-2" id="myInterviewsColumn">
-                                    <table id="tableResult" class="mytable paginated">
+                                    <table id="completedTable" class="mytable paginated">
                                         <thead>
                                             <tr>
-                                                <th>Candidate Name</th>
-                                                <th>Candidate Surname</th>
+                                                <th>Candidate</th>
+                                                <th>Level</th>
                                                 <th class="remove">Interview Type</th>
-                                                <th>Scheduled date</th>
+                                                <th>Interview date</th>
+                                                <th>Site</th>
                                                 <th class="remove">Feedback</th>
                                                 <th>Detail</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr class="tableRows" th:each="interview: ${interviews}">
-                                                <td th:text="${interview.candidateName}" />
-                                                <td th:text="${interview.candidateSurname}" />
+                                                <td th:text="${interview.candidateName} + ' ' + ${interview.candidateSurname}" />                                               
+                                                <td th:text= "${interview.candidateLevel}"/>
                                                 <td class="remove">
                                                     <span th:if="${interview.interviewType == 1}">MOTIVAZIONALE</span>
                                                     <span th:unless="${interview.interviewType == 1}">TECNICO</span>
                                                 </td>
                                                 <td class="dateInterview" th:text="${#dates.format(interview.scheduledDate, 'MM-dd-YYYY HH:mm')}" />
+                                                 <td th:text= "${interview.site}"/>
                                                 <td class="remove" th:style="${interview.finalFeedback} eq 'OK' ? 'color: #008000' : 'color: #b20000'" th:text="${interview.finalFeedback}" />
                                                 <td>
                                                     <span th:if="${interview.interviewType == 1}">

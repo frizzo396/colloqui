@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 /**
  * The Class CandidateType.
  */
-@Entity(name = "Candidate_type")
+@Entity(name = "CandidateType")
 @Table(name = "candidate_type")
 @NoArgsConstructor
 public class CandidateType {

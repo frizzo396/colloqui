@@ -25,12 +25,18 @@ public class InterviewAndFeedbackRTO {
 
 	/** The candidate surname. */
 	private String candidateSurname;
+	
+	/** The candidate level. */
+	private String candidateLevel;
 
 	/** The interview type. */
 	private long interviewType;
 
 	/** The scheduled date. */
 	private Date scheduledDate;
+	
+	/** The site. */
+	private String site;
 
 	/** The final feedback. */
 	private String finalFeedback;
@@ -44,22 +50,28 @@ public class InterviewAndFeedbackRTO {
 	/**
 	 * Instantiates a new interview and feedback RTO.
 	 *
-	 * @param idColloquio      the id colloquio
-	 * @param candidateName    the candidate name
+	 * @param idColloquio the id colloquio
+	 * @param candidateName the candidate name
 	 * @param candidateSurname the candidate surname
-	 * @param interviewType    the interview type
-	 * @param scheduledDate    the scheduled date
-	 * @param feedback         the feedback
+	 * @param candidateLevel the candidate level
+	 * @param interviewType the interview type
+	 * @param scheduledDate the scheduled date
+	 * @param site the site
+	 * @param finalFeedback the final feedback
 	 */
-	public InterviewAndFeedbackRTO(long idColloquio, String candidateName, String candidateSurname, long interviewType, Date scheduledDate, String feedback) {
+	public InterviewAndFeedbackRTO(long idColloquio, String candidateName, String candidateSurname, String candidateLevel, long interviewType, Date scheduledDate, String site, String finalFeedback) {
+		super();
 		this.idColloquio = idColloquio;
 		this.candidateName = candidateName;
 		this.candidateSurname = candidateSurname;
+		this.candidateLevel = candidateLevel;
 		this.interviewType = interviewType;
 		this.scheduledDate = scheduledDate;
-		this.finalFeedback = feedback;
-		this.technicalFeedback = null;
-		this.motivationalFeedback = null;
+		this.site = site;
+		this.finalFeedback = finalFeedback;
 	}
+
+	
+	
 
 }

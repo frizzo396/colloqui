@@ -39,22 +39,24 @@
                                 <label id="interviewInformations">Interview informations </label>
                             </header>
                             <div class="col-lg-8 col-lg-offset-2" id="inProgressColumn">
-                                <table id="mytable" class="mytable paginated">
+                                <table id="inProgressTable" class="mytable paginated">
                                     <tr>
-                                        <th>Candidate Name</th>
-                                        <th>Candidate Surname</th>
+                                        <th>Candidate </th>
+                                        <th>Level</th>
                                         <th class="remove">Interview Type</th>
                                         <th>Scheduled date</th>
+                                        <th>Site</th>
                                         <th>Feedback</th>
                                     </tr>
                                     <tr class="tableRows" th:each="interview: ${interviews}">
-                                        <td th:text="${interview.candidateName}" />
-                                        <td th:text="${interview.candidateSurname}" />
+ 										<td th:text="${interview.candidateName} + ' ' + ${interview.candidateSurname}" />       
+ 										<td th:text= "${interview.candidateLevel}"/>   
                                         <td class="remove">
                                             <span th:if="${interview.interviewType == 1}">MOTIVAZIONALE</span>
                                             <span th:unless="${interview.interviewType == 1}">TECNICO</span>
                                         </td>
                                         <td class="dateInterview" th:text="${#dates.format(interview.scheduledDate, 'MM-dd-YYYY HH:mm')}" />
+                                        <td th:text= "${interview.site}"/>   
                                         <td>
                                             <span th:if="${interview.interviewType == 1}">
                                                 <button type="submit" class="cd-popup-trigger" th:data-parameter1="${interview.id}" onclick="GotoMotivationalFeedback(this.getAttribute('data-parameter1'));">+</button>

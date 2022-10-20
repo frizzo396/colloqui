@@ -130,6 +130,7 @@ public class PaginationController extends BaseController {
 	public ModelAndView inProgressPage() {
 		ModelAndView modelAndView = new ModelAndView();
 		String username = System.getProperty("user.name");
+		modelAndView.addObject("interviewer", interviewerFacade.interviewerInfo(username));
 		modelAndView.addObject("interviews", interviewFacade.getInProgressInterviews(username));
 		modelAndView.setViewName("in-progress-interviews.html");
 		return modelAndView;
