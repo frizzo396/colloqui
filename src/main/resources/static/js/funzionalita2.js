@@ -92,14 +92,14 @@ function GotoMotivationalFeedback(id) {
 
 function createMotivationalModal(motivationalInterview){
     var obj = JSON.parse(motivationalInterview);
-    var table = document.getElementById('motivationalTableModal');
-    table.innerHTML='<a href="#" onclick="closeMotivationModal()"  class="close" ></a>'
-    table.innerHTML+="<p>Motivation Feedback scores</p>"
-    table.innerHTML+='<table> <thead> <tr> <th>Standing</th> <th>School background</th> <th>Motivation</th> <th>Soft skills</th> ' +
-        '<th>English level</th> <th>Logic question</th> <th>Tech question</th> <th>Comment</th></tr> </thead><tbody>' +
-        '<tr><td>' + obj.standing + '</td><td>' + obj.schoolBackground + '</td><td>' + obj.motivation + '</td>' +
-        '<td>' + obj.softSkills + '</td><td>' + obj.englishLevel + '</td><td>' + obj.logicQuestion + '</td>' +
-        '<td>' + obj.techQuestion + '</td><td>' + obj.comment + '</td></tr></tbody>';
+	document.getElementById('motStanding').value = obj.standing; 
+	document.getElementById('motMotivation').value = obj.motivation;
+	document.getElementById('motSchool').value = obj.schoolBackground;
+	document.getElementById('motEnglish').value = obj.englishLevel;
+	document.getElementById('motSkills').value = obj.softSkills;
+	document.getElementById('motLogic').value = obj.logicQuestion;
+	document.getElementById('motTech').value = obj.techQuestion;
+	document.getElementById('motComment').value = obj.comment;
 }
 
 function createTechnicalModal(technicalInterview){

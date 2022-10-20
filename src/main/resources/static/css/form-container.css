@@ -257,3 +257,20 @@
 	width: 100%;
 	position: relative;
 }
+
+
+/*MODALS*/
+
+#motivationalTableModal {
+	padding: 0.1px !important;
+	border-radius: 10px !important;
+}
+#containerDetailMotFeedback {
+	width: 100%;
+}
+
+#closeMotModal {
+	color: white;
+    font-size: 15px;
+    margin-top: -10px;
+}
