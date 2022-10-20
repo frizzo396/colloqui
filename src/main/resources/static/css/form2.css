@@ -42,7 +42,7 @@ body {
 }
 
 #operationsHeader{
-	background-color: #3c4ffd;
+	background-color: #1429eb;
 	position: absolute;
     height: 13%;
     width: 100%;
@@ -52,22 +52,22 @@ body {
 
 
 button {
-    background-color: #3c4ffd;
-    width: 50%;
+    background-color: #1429eb;
+    width: 45%;
     border: none;
     color: white;
-    padding: 10px 15px;
+    padding: 8px 15px;
     text-align: center;
     font-size: 260%;
-    border-radius: 25px;
+    border-radius: 10px;
     transition: 0.3s;
     display: inline-block;
     text-decoration: none;
     cursor: pointer;
-  
+    margin-right: 40px;
 }
 
-button:hover {background-color: black;}
+button:hover {background-color: #2d3bb5;}
 
 .submit-button{
 	float:right;
@@ -81,7 +81,7 @@ button:hover {background-color: black;}
 input, select, textarea {
   width: 100%;
   padding-left: 5px;
-  border: 1px solid #3c4ffd;
+  border: 1px solid #1429eb;
   border-radius: 20px;
   box-sizing: border-box;
   height: 2em;
@@ -97,7 +97,7 @@ select{
 	background-position: right 5% bottom 45%; 
 }
 input:focus {
-  border: 2px solid #3c4ffd;
+  border: 2px solid #1429eb;
 }
 
 /*sidenav*/
@@ -105,7 +105,7 @@ input:focus {
 /*open button*/
 .span-menu {
 	margin-top: 0%;
-	color:#3c4ffd;
+	color:#1429eb;
 	float:top;
 	text-align:left;
 }
@@ -167,7 +167,7 @@ a{color:inherit;text-decoration:none}
 
 .interview-html .interview:checked + .tab,
 .interview-html .search:checked + .tab{
-	color:#3c4ffd;
+	color:#1429eb;
 	text-decoration: underline;
 }
 .interview-form{
@@ -229,7 +229,7 @@ a{color:inherit;text-decoration:none}
 	color:#fff;
 }
 .interview-form .group .check:checked + label .icon{
-	background:#3c4ffd;
+	background:#1429eb;
 }
 .interview-form .group .check:checked + label .icon:before{
 	transform:scale(1) rotate(45deg);
@@ -253,20 +253,20 @@ a{color:inherit;text-decoration:none}
 	text-align:center;
 }
 .form-group input, .form-group select{
-	color:#3c4ffd;
+	color:#1429eb;
 }
 
 ::placeholder {
-  color:#3c4ffd;
+  color:#1429eb;
   opacity: 1; /* Firefox */
 }
 
 :-ms-input-placeholder { /* Internet Explorer 10-11 */
- color:#3c4ffd;
+ color:#1429eb;
 }
 
 ::-ms-input-placeholder { /* Microsoft Edge */
- color:#3c4ffd;
+ color:#1429eb;
 }
 
 /*Search table*/
@@ -281,7 +281,7 @@ th{
     line-height: 1.5em;
 	padding: 4px;
 	text-align:center;
-	background-color: #3c4ffd;
+	background-color: #1429eb;
   	color: white;
   	height: 3em;
 }
@@ -336,20 +336,20 @@ tr:hover {background-color: #f2f2fb;}
 }
 
 .search-group input:focus {
-  border-color: #3c4ffd;
+  border-color: #1429eb;
 }
 
 
 /*select file button*/
 input[type=file]::file-selector-button {
-  border: 1px solid #3c4ffd;
-  border-radius: 20px;
-  background-color:#3c4ffd;
+  border: 1px solid #1429eb;
+  border-radius: 15px;
+  background-color:#1429eb;
   color: white;
   transition: 1s;
 }
 input[type=file]::file-selector-button:hover {
-  background-color: #003399;
+  background-color: #2d3bb5;
   color: white;
 }
 
@@ -396,7 +396,7 @@ body{
 .inline input,.inline label{
 	width:auto;
 	font-size:11px;
-	color:#3c4ffd;
+	color:#1429eb;
 	
 }
 .inline input{
@@ -406,12 +406,9 @@ body{
 	width:32px;
 	padding: 9px;
 	text-align: center;
-	border-radius: 30px;
+	border-radius: 10px;
 	font-size:12px;
 	
-}
-#myTable{
-	padding-top: 30px;
 }
 #myTable td{
   padding: 6px;
@@ -460,19 +457,6 @@ body{
     width: 100% !important;
     margin-top: 0;
   }
- /* #anagRow .column {
-  width: 100%
-  }
-  #insBackgroundRow  .column {
-  width: 100%
-  }
-  #interviewRow  .column {
-  width: 100%
-  }
-  #enterpriseIdRow .column {
-  width: 100%
-  }*/
-  
 }
 
 .cd-popup, .cd-popup2 {

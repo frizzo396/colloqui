@@ -41,6 +41,12 @@ public class SearchInterviewRTO {
 
 	/** The final feedback. */
 	private String finalFeedback;
+	
+	/** The site. */
+	private String site;
+	
+	/** The candidate type. */
+	private String candidateType;
 
 	/**
 	 * Instantiates a new search interview response.
@@ -56,6 +62,8 @@ public class SearchInterviewRTO {
 		this.interviewType = interview.getInterviewType();
 		this.enterpriseId = interview.getInterviewerId().getEnterpriseId();
 		this.finalFeedback = interview.getFinalFeedback();
+		this.candidateType = interview.getCandidateTypeId().getDescription();
+		this.site = interview.getSite().getSiteName();
 	}
 
 }

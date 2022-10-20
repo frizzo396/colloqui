@@ -33,14 +33,14 @@ function drawTotalChart() {
   		'width':450, 
   		'height':300,
   		legend: {
-        	textStyle: { color: '#3c4ffd' },
+        	textStyle: { color: '#1429eb' },
         	position: "bottom"
 		}, 
 		chartArea: {'width': '100%', 'height': '80%'},
 		titleTextStyle: {
-    		color: '#3c4ffd'
+    		color: '#1429eb'
 		},
-  		'colors': ['#bac', '#3c4ffd']
+  		'colors': ['#bac', '#1429eb']
   };
 
   // Display the chart inside the <div> element with id="piechart"
@@ -68,14 +68,14 @@ function drawMonthChart() {
   		'width':450, 
   		'height':300,
   		legend: {
-        	textStyle: { color: '#3c4ffd' },
+        	textStyle: { color: '#1429eb' },
 			position: "bottom"
 		}, 
 		chartArea: {'width': '100%', 'height': '80%'},
 		titleTextStyle: {
-    		color: '#3c4ffd'
+    		color: '#1429eb'
 		},
-  		'colors': ['#bac', '#3c4ffd']
+  		'colors': ['#bac', '#1429eb']
   };
 
   // Display the chart inside the <div> element with id="piechart"

@@ -42,11 +42,12 @@ public class CheckErrorsSearchInterview {
 	private boolean searchInterviewsEmptyFields(SearchInterviewTO searchInterviewTO) {
 		return (ObjectUtils.isEmpty(searchInterviewTO.getCandidateName()) &&
 				ObjectUtils.isEmpty(searchInterviewTO.getCandidateSurname()) &&
-				ObjectUtils.isEmpty(searchInterviewTO.getEmail()) &&
 				ObjectUtils.isEmpty(searchInterviewTO.getInterviewType()) &&
 				ObjectUtils.isEmpty(searchInterviewTO.getFirstDate()) &&
 				ObjectUtils.isEmpty(searchInterviewTO.getSecondDate()) &&
-				ObjectUtils.isEmpty(searchInterviewTO.getEnterpriseId()));
+				ObjectUtils.isEmpty(searchInterviewTO.getEnterpriseId()) &&
+				ObjectUtils.isEmpty(searchInterviewTO.getCandidateType()) &&
+				ObjectUtils.isEmpty(searchInterviewTO.getSite()));
 	}
 
 }

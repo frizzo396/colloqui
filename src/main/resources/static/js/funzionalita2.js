@@ -68,6 +68,7 @@ function openSearchContainer() {
 function openInsertContainer() {
 	document.getElementById("containerInsert").style.display = 'flex';
 	document.getElementById("containerSearch").style.display = 'none';
+	document.getElementById("searchTableContainer").style.display = 'none';
 }
 
 

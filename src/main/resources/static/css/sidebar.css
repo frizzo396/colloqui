@@ -12,16 +12,16 @@
     width: 70%;
     transition: all 0.5s ease;
     background-color: white;
-    border-radius: 15px;
-    border: 1px solid #3c4ffd;
-    color: #3c4ffd;
+    border-radius: 10px;
+    border: 1px solid #1429eb;
+    color: #1429eb;
 }
 
 #sidebarHeader {
 	height: 45px;
 	margin-bottom: 0;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
     padding-top: -4px;
     margin-right: -1px;
     margin-top: -1px;
@@ -146,13 +146,13 @@
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: #3c4ffd;
+  color: #1429eb;
 }
 .sidebar .nav-links li a .link_name{
 	font-size: 18px;
     font-family: sans-serif;
     font-weight: 600;
-    color: #3c4ffd;
+    color: #1429eb;
   	transition: all 0.4s ease;
 }
 .sidebar.close .nav-links li a .link_name{
@@ -170,7 +170,7 @@
   display: block;
 }
 .sidebar .nav-links li .sub-menu a{
-  color: #3c4ffd;
+  color: #1429eb;
   font-size: 14px;
   padding: 8px 0;
   white-space: nowrap;
@@ -202,13 +202,13 @@
   display: none;
 }
 .sidebar.close .nav-links li .sub-menu .link_name{
-  font-size: 18px;
+  font-size: 15px;
   opacity: 1;
   display: block;
 }
 
 .sidebar.close .nav-links li .sub-menu a {
-	font-size: 18px;
+	font-size: 15px;
 	cursor: pointer;
 }
 
@@ -265,7 +265,7 @@
 }
 
 
-@media only screen and (max-width:980px){
+@media only screen and (max-width:1000px){
   	#sidebarColumn{
 	display: flex;
     width: 10%;
@@ -276,20 +276,6 @@
     width: 90%;
     margin-left: 10%;
   }	
-  /*.sidebar .nav-links li .sub-menu{
-    display: none;
-  }
-	.sidebar .nav-links li a .link_name{
-		display: none;
-	}
-  .sidebar{
-    width: 78px;
-   
-  }
-  .sidebar.close{
-   	width: 78px;
-   	margin-right: 100px;
-  }*/
   .home-section{
     left: 78px;
     width: calc(100% - 78px);
@@ -304,13 +290,6 @@
       margin-left: 25px;
       cursor: pointer;
     }
-    /*.sidebar .nav-links li em{
-	  min-width: 78px;
-    }
-	.sidebar .nav-links li.showMenu .sub-menu{
-  display: block;
-  }*/
-
 }
 
 

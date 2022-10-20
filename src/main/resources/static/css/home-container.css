@@ -15,7 +15,7 @@
 #userLogoIcon {
 	position:relative;
 	font-size: 100px;
-	color: #3c4ffd;
+	color: #1429eb;
 	margin-left: 10%;
     margin-top: 10%;
 }
@@ -45,6 +45,8 @@
 	height: 30%;
 	display: inline-block !important;
 }
+
+
 
 #userInfoList {
 	position:relative;

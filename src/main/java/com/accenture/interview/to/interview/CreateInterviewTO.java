@@ -8,8 +8,6 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.accenture.interview.entity.Site;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,8 +20,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CreateInterviewTO {
 	
+    /** The site. */
     @NotNull(message = "interview.site.notempty")
-	private Site site;
+	private String site;
 
 	/** The candidate name. */
 	@NotEmpty(message = "candidate.name.notempty")

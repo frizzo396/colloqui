@@ -22,9 +22,6 @@ public class SearchInterviewTO {
 	/** The candidate surname. */
 	private String candidateSurname;
 
-	/** The email. */
-	private String email;
-
 	/** The interview type. */
 	private String interviewType;
 
@@ -38,5 +35,11 @@ public class SearchInterviewTO {
 
 	/** The enterprise id. */
 	private String enterpriseId;
+	
+	/** The candidate type. */
+	private String candidateType;
+	
+	/** The site. */
+	private String site;
 
 }

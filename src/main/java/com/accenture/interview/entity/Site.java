@@ -6,6 +6,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 /** 2022-10-13 NUOVA COLONNA site - START */
 
 /**
@@ -13,6 +16,8 @@ import javax.validation.constraints.NotNull;
  */
 @Entity(name = "Site")
 @Table(name = "site")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Site {
 
 	/** The site id. */

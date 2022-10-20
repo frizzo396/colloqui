@@ -118,6 +118,7 @@ $(document).ready(function () {
 							$("#mytable tr").remove();
 							$(".pager").remove();
 						}else{
+							document.getElementById("searchTableContainer").style.display = 'block';
 							showToast("Operazione avvenuta con successo", "SUCCESS")
 							let table = '<table> <thead> <tr> <th>Candidate Name</th> <th>Candidate Surname</th> <th>Feedback</th> </tr> </thead><tbody>';
 							(response.body).forEach(function (d) {
@@ -177,13 +178,14 @@ $(document).ready(function () {
 					$("#mytable tr").remove();
 					$(".pager").remove();
 				}else{
+					document.getElementById("searchTableContainer").style.display = 'block';
 					showToast("Operazione avvenuta con successo", "SUCCESS")
 					
-					let table = '<table> <thead> <tr> <th>Candidate Name</th> <th>Candidate Surname</th> <th>Interview Type</th> <th>Interview Date</th> <th>Interviewer</th> <th>Feedback</th> </tr> </thead><tbody>';
+					let table = '<table> <thead> <tr> <th>Candidate</th> <th>Level</th> <th>Interview Type</th> <th>Interview Date</th> <th>Site</th> <th>Interviewer</th> <th>Feedback</th> </tr> </thead><tbody>';
 
 					(response.body).forEach(function (d) {
-						table += '<tr class="mytable-row"><td>' + d.candidateName + '</td>';
-						table += '<td>' + d.candidateSurname + '</td>';
+						table += '<tr class="mytable-row"><td>' + d.candidateName + ' ' + d.candidateSurname + '</td>';
+						table += '<td>' + d.candidateType +'</td>';
 						if (d.interviewType === 1) {
 							table += '<td>MOTIVAZIONALE</td>';
 						} else if (d.interviewType === 2) {
@@ -196,15 +198,22 @@ $(document).ready(function () {
 						} else {
 							table += '<td>' + d.scheduledDate + '</td>';
 						}
+						table += '<td>' + d.site + '</td>';
 						table += '<td>' + d.enterpriseId + '</td>';
 						if (d.finalFeedback === null) {
-							if (d.interviewType === 1 ){
-								table += '<td><button type="button" class="a" onclick="sendValue(d.idColloquio)" > <span class="sr-only">'+d.idColloquio+'</span>Add</button></td></tr>';
-							}else if (d.interviewType === 2 ){
-								table += '<td><button type="button" class="b" onclick="sendValue(d.idColloquio)" > <span class="sr-only">'+d.idColloquio+'</span>Add</button></td></tr>';
+							var enterpriseId = document.getElementById("nickname").innerText;
+							if(enterpriseId == d.enterpriseId) {
+								if (d.interviewType === 1 ){
+									table += '<td><button type="button" class="a" onclick="sendValue(d.idColloquio)" > <span class="sr-only">'+d.idColloquio+'</span>Add</button></td></tr>';
+								}else if (d.interviewType === 2 ){
+									table += '<td><button type="button" class="b" onclick="sendValue(d.idColloquio)" > <span class="sr-only">'+d.idColloquio+'</span>Add</button></td></tr>';
+								}
+							} else {
+									table += '<td>No feedback</td>';
 							}
 
 						} else {
+							
 							if (d.finalFeedback==="OK"){
 								table += '<td style="color:#008000">'+d.finalFeedback+'</td></tr>';
 							}else{

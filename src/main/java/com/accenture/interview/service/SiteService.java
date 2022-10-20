@@ -1,13 +1,13 @@
 package com.accenture.interview.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/** 2022-10-13 NUOVA COLONNA site - START */
+import com.accenture.interview.entity.Site;
 import com.accenture.interview.repository.SiteRepository;
-/** 2022-10-13 NUOVA COLONNA site - END */
 import com.accenture.interview.rto.site.SiteRTO;
 
 /**
@@ -27,6 +27,20 @@ public class SiteService {
 	 */
 	public List<SiteRTO> findAllSites() {		
 		return siteRepository.findSites();		
-	}	
+	}
+	
+	/**
+	 * Find site by id.
+	 *
+	 * @param id the id
+	 * @return the site RTO
+	 */
+	public SiteRTO findSiteById(Long id) {
+		Optional<Site> opt = siteRepository.findById(id);
+		if(opt.isPresent()) {
+			return new SiteRTO(opt.get().getId(), opt.get().getSiteName());
+		}
+		return null;
+	}
 
 }

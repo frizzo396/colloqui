@@ -30,12 +30,10 @@ public class Interview {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	/** 2022-10-13 NUOVA COLONNA site - START */
 	@NotNull
 	@OneToOne
 	@JoinColumn(name = "site", referencedColumnName = "site_id")	
 	private Site site;
-	/** 2022-10-13 NUOVA COLONNA site - END */
 	
 	/** The candidate name. */
 	@NotNull
@@ -126,10 +124,6 @@ public class Interview {
 		this.qualification = createInterviewRequest.getEduQualification();
 		this.status = 1;
 		this.scheduledDate = createInterviewRequest.getScheduledDate();
-		
-		/** 2022-10-13 NUOVA COLONNA site - START */
-		this.site = createInterviewRequest.getSite();
-		/** 2022-10-13 NUOVA COLONNA site - END */		
 	}
 
 	public Integer getMonth() {

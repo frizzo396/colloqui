@@ -16,6 +16,7 @@ import com.accenture.interview.entity.CandidateType;
 import com.accenture.interview.entity.Interview;
 import com.accenture.interview.entity.Interviewer;
 import com.accenture.interview.entity.MotivationFeedback;
+import com.accenture.interview.entity.Site;
 import com.accenture.interview.entity.TechFeedback;
 import com.accenture.interview.repository.InterviewRepository;
 import com.accenture.interview.rto.candidate.CandidateTypeRTO;
@@ -25,6 +26,7 @@ import com.accenture.interview.rto.interview.InterviewAndFeedbackRTO;
 import com.accenture.interview.rto.interview.InterviewMonthRTO;
 import com.accenture.interview.rto.interview.SearchInterviewRTO;
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
+import com.accenture.interview.rto.site.SiteRTO;
 import com.accenture.interview.to.interview.CreateInterviewTO;
 import com.accenture.interview.to.interview.SearchInterviewTO;
 import com.accenture.interview.utils.date.DateUtils;
@@ -132,8 +134,9 @@ public class InterviewService {
 	 * @param interviewer   the interviewer
 	 * @return the creates the interview response
 	 */
-	public Interview addNewInterview(CreateInterviewTO request, CandidateTypeRTO type, InterviewerRTO interviewer) {
+	public Interview addNewInterview(CreateInterviewTO request, CandidateTypeRTO type, InterviewerRTO interviewer, SiteRTO site) {
 		Interview interview = new Interview(request);
+		interview.setSite(new Site(site.getId(), site.getName()));
 		interview.setCandidateTypeId(new CandidateType(type.getId(), type.getDescription()));
 		interview.setInterviewerId(new Interviewer(interviewer.getId(), interviewer.getEnterpriseId(), interviewer.getMail()));
 		interview.setInterviewType(getInterviewTypeFromString(request.getInterviewType()));
@@ -152,8 +155,9 @@ public class InterviewService {
 		Long interviewType = getInterviewTypeFromString(searchInterviewTO.getInterviewType());
 		List<Interview> entityList = interviewRepository.findInterviewByParams(
 				searchInterviewTO.getCandidateName(), searchInterviewTO.getCandidateSurname(),
-				searchInterviewTO.getEmail(), interviewType, searchInterviewTO.getFirstDate(),
-				searchInterviewTO.getSecondDate(), searchInterviewTO.getEnterpriseId());
+				interviewType, searchInterviewTO.getFirstDate(),
+				searchInterviewTO.getSecondDate(), searchInterviewTO.getEnterpriseId(),
+				searchInterviewTO.getCandidateType(), searchInterviewTO.getSite());
 
 		for (Interview interview : entityList) {
 			interviewList.add(new SearchInterviewRTO(interview));

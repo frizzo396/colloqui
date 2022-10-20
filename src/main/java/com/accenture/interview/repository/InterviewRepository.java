@@ -55,7 +55,8 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 	@Query("SELECT i FROM Interview i WHERE "
 			+ "(i.candidateName = :name OR :name = '') AND "
 			+ "(i.candidateSurname = :surname OR :surname = '') AND "
-			+ "(i.mail = :mail OR :mail = '') AND "
+			+ "(i.candidateTypeId.description = :candidateType OR :candidateType = '') AND "
+			+ "(i.site.siteName = :site OR :site = '') AND "
 			+ "(:intType is null OR i.interviewType = :intType) AND "
 			+ "(i.interviewerId.enterpriseId = :entId OR :entId = '') AND "
 			+ "(:schedDate is null OR i.scheduledDate>=:schedDate) AND "
@@ -63,11 +64,12 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 			+ "ORDER BY i.scheduledDate")
 	List<Interview> findInterviewByParams(@Param("name") String candidateName,
 			@Param("surname") String candidateSurname,
-			@Param("mail") String mail,
 			@Param("intType") Long interviewType,
 			@Param("schedDate") Date firstDate,
 			@Param("dueDate") Date secondDate,
-			@Param("entId") String enterpriseId);
+			@Param("entId") String enterpriseId,
+			@Param("candidateType") String candidateType,
+			@Param("site") String site);
 
 	/**
 	 * Gets the my interviews by enterprise id.

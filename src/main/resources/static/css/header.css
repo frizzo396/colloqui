@@ -2,7 +2,7 @@
 
 
 #headerRow {
-	background-color: #3c4ffd;
+	background-color: #1429eb;
 	width: 100%;
     display: flex;
     height: 5%;
@@ -61,14 +61,14 @@
 }
 
 #accentureLogo {	
-    width: 100%;
+    width: 80%;
     position: relative;
     margin-left: 10px;
 }
 
 header{
     display: flex; 
-	background-color: #3c4ffd;
+	background-color: #1429eb;
     justify-content: space-between;
     align-items: center;
         margin-bottom: 50px;

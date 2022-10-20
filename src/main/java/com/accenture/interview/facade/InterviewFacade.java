@@ -46,14 +46,8 @@ public class InterviewFacade {
 	/** The interview service. */
 	@Autowired
 	private InterviewService interviewService;
+	
 
-	/**
-	 * The event service.
-	 *
-	 * @param request the request
-	 * @return the creates the interview response
-	 * @Autowired private EventService eventService;
-	 */
 	
 	/**
 	 * Return list of sites.
@@ -74,10 +68,13 @@ public class InterviewFacade {
 		CreateInterviewRTO response = null;
 		CandidateTypeRTO candidateType = candidateService.getCandidateType(request.getCandidateType());
 		InterviewerRTO interviewer = interviewerService.findInterviewerByEnterpriseId(request.getEnterpriseId());
+		SiteRTO site = siteService.findSiteById(Long.parseLong(request.getSite()));
 		
-		if (!(ObjectUtils.isEmpty(interviewer)) && !(ObjectUtils.isEmpty(candidateType))) {
+		if (!(ObjectUtils.isEmpty(interviewer)) 
+				&& !(ObjectUtils.isEmpty(candidateType)) 
+				&& !(ObjectUtils.isEmpty(site))) {
 			// Interview interview =
-			interviewService.addNewInterview(request, candidateType, interviewer);
+			interviewService.addNewInterview(request, candidateType, interviewer, site);
 			CreateInterviewRTO createInterviewResponse = new CreateInterviewRTO(request);
 			createInterviewResponse.setEnterpriseId(request.getEnterpriseId());
 			// eventService.sendTeamsInvitation(interview.getScheduledDate(),
