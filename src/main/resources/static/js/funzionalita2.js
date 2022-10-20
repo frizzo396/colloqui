@@ -104,14 +104,13 @@ function createMotivationalModal(motivationalInterview){
 
 function createTechnicalModal(technicalInterview){
     var obj = JSON.parse(technicalInterview);
-    var table= document.getElementById("techTableModal");
-    table.innerHTML='<a href="#" onclick="closeTechModal()"  class="close"></a>'
-    table.innerHTML+="<br><p>Technical Feedback scores</p><br>"
-    table.innerHTML+='<table> <thead> <tr> <th>Java</th> <th>Sql</th> <th>Html & CSS</th> <th>Angular</th> ' +
-        '<th>Spring</th> <th>Other</th><th>Comment</th></tr> </thead><tbody>' +
-        '<tr><td>' + obj.java + '</td><td>' + obj.sql + '</td><td>' + obj.htmlCss + '</td>' +
-        '<td>' + obj.angular + '</td><td>' + obj.spring + '</td><td>' + obj.other + '</td>' +
-        '</td><td>' + obj.comment + '</td></tr></tbody>';
+    document.getElementById('techJava').value = obj.java; 
+    document.getElementById('techSql').value = obj.sql; 
+    document.getElementById('techHtml').value = obj.htmlCss; 
+    document.getElementById('techAngular').value = obj.angular; 
+    document.getElementById('techSpring').value = obj.spring;
+    document.getElementById('techOther').value = obj.other;  
+    document.getElementById('techComment').value = obj.comment; 
 }
 
 function pagination(){
