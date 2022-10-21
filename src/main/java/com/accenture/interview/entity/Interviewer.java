@@ -27,6 +27,10 @@ public class Interviewer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+	
+	/** The type: 1 (Responsabile), 2 (Utente normale). */
+	@Column(name = "type")
+	private long type;
 
 	/** The enterprise id. */
 	@NotNull
@@ -63,6 +67,14 @@ public class Interviewer {
 	public void setId(long id) {
 		this.id = id;
 	}
+		
+	public long getType() {
+		return type;
+	}
+
+	public void setType(long type) {
+		this.type = type;
+	}	
 
 	/**
 	 * Gets the enterprise id.
@@ -149,8 +161,5 @@ public class Interviewer {
 		this.enterpriseId = enterpriseId;
 		this.mail = mail;
 	}
-	
-	
-	
 
 }
