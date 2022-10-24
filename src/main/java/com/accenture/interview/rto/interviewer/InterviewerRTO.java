@@ -24,6 +24,9 @@ public class InterviewerRTO {
 
 	/** The mail. */
 	private String mail;
+	
+	/** The type. */
+	private long type;	
 
 	/**
 	 * Instantiates a new search interviewer response.
@@ -34,6 +37,8 @@ public class InterviewerRTO {
 		this.id = interviewer.getId();
 		this.enterpriseId = interviewer.getEnterpriseId();
 		this.mail = interviewer.getMail();
+		
+		this.type = interviewer.getType();
 	}
 
 }

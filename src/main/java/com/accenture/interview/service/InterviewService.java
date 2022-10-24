@@ -138,7 +138,9 @@ public class InterviewService {
 		Interview interview = new Interview(request);
 		interview.setSite(new Site(site.getId(), site.getName()));
 		interview.setCandidateTypeId(new CandidateType(type.getId(), type.getDescription()));
-		interview.setInterviewerId(new Interviewer(interviewer.getId(), interviewer.getEnterpriseId(), interviewer.getMail()));
+		
+		interview.setInterviewerId(new Interviewer(interviewer.getId(), interviewer.getEnterpriseId(), interviewer.getMail(), interviewer.getType()));			
+		
 		interview.setInterviewType(getInterviewTypeFromString(request.getInterviewType()));
 		return interviewRepository.save(interview);
 	}

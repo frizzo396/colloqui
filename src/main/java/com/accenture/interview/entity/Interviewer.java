@@ -32,6 +32,10 @@ public class Interviewer {
 	@NotNull
 	@Column(name = "enterprise_id")
 	private String enterpriseId;
+	
+	/** The type: 1 (Responsabile), 2 (Utente normale). */
+	@Column(name = "type")	
+	private long type;	
 
 	/** The mail. */
 	@NotNull
@@ -63,6 +67,14 @@ public class Interviewer {
 	public void setId(long id) {
 		this.id = id;
 	}
+	
+	public long getType() {
+		return type;
+	}
+
+	public void setType(long type) {
+		this.type = type;
+	}	
 
 	/**
 	 * Gets the enterprise id.
@@ -143,11 +155,13 @@ public class Interviewer {
 	 * @param enterpriseId the enterprise id
 	 * @param mail the mail
 	 */
-	public Interviewer(long id, @NotNull String enterpriseId, @NotNull String mail) {
+	public Interviewer(long id, @NotNull String enterpriseId, @NotNull String mail, long type) {
 		super();
 		this.id = id;
 		this.enterpriseId = enterpriseId;
 		this.mail = mail;
+		
+		this.type = type;
 	}
 	
 	
