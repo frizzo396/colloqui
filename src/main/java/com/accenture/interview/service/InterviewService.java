@@ -150,20 +150,13 @@ public class InterviewService {
 	 * 
 	 * @return the list
 	 */
-	public List<SearchInterviewRTO> searchInterview(SearchInterviewTO searchInterviewTO) {
-		List<SearchInterviewRTO> interviewList = new ArrayList<>();
+	public List<InterviewAndFeedbackRTO> searchInterview(SearchInterviewTO searchInterviewTO) {
 		Long interviewType = getInterviewTypeFromString(searchInterviewTO.getInterviewType());
-		List<Interview> entityList = interviewRepository.findInterviewByParams(
-				searchInterviewTO.getCandidateName(), searchInterviewTO.getCandidateSurname(),
+		return interviewRepository.findInterviewByParams(searchInterviewTO.getCandidateName(), 
+				searchInterviewTO.getCandidateSurname(),
 				interviewType, searchInterviewTO.getFirstDate(),
 				searchInterviewTO.getSecondDate(), searchInterviewTO.getEnterpriseId(),
 				searchInterviewTO.getCandidateType(), searchInterviewTO.getSite());
-
-		for (Interview interview : entityList) {
-			interviewList.add(new SearchInterviewRTO(interview));
-		}
-
-		return interviewList;
 	}
 
 	/**

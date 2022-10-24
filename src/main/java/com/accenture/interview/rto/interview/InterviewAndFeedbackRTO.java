@@ -14,6 +14,10 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+
+/**
+ * Instantiates a new interview and feedback RTO.
+ */
 @NoArgsConstructor
 public class InterviewAndFeedbackRTO {
 
@@ -37,6 +41,9 @@ public class InterviewAndFeedbackRTO {
 	
 	/** The site. */
 	private String site;
+	
+	/** The enterprise id. */
+	private String enterpriseId;
 
 	/** The final feedback. */
 	private String finalFeedback;
@@ -57,9 +64,39 @@ public class InterviewAndFeedbackRTO {
 	 * @param interviewType the interview type
 	 * @param scheduledDate the scheduled date
 	 * @param site the site
+	 * @param enterpriseId the enterprise id
 	 * @param finalFeedback the final feedback
 	 */
-	public InterviewAndFeedbackRTO(long idColloquio, String candidateName, String candidateSurname, String candidateLevel, long interviewType, Date scheduledDate, String site, String finalFeedback) {
+	public InterviewAndFeedbackRTO(long idColloquio, String candidateName, String candidateSurname, String candidateLevel, long interviewType, Date scheduledDate, String site, String enterpriseId,
+			String finalFeedback) {
+		super();
+		this.idColloquio = idColloquio;
+		this.candidateName = candidateName;
+		this.candidateSurname = candidateSurname;
+		this.candidateLevel = candidateLevel;
+		this.interviewType = interviewType;
+		this.scheduledDate = scheduledDate;
+		this.site = site;
+		this.enterpriseId = enterpriseId;
+		this.finalFeedback = finalFeedback;
+	}
+
+	/**
+	 * Instantiates a new interview and feedback RTO.
+	 *
+	 * @param idColloquio the id colloquio
+	 * @param candidateName the candidate name
+	 * @param candidateSurname the candidate surname
+	 * @param candidateLevel the candidate level
+	 * @param interviewType the interview type
+	 * @param scheduledDate the scheduled date
+	 * @param site the site
+	 * @param finalFeedback the final feedback
+	 * @param technicalFeedback the technical feedback
+	 * @param motivationalFeedback the motivational feedback
+	 */
+	public InterviewAndFeedbackRTO(long idColloquio, String candidateName, String candidateSurname, String candidateLevel, 
+			long interviewType, Date scheduledDate, String site, String finalFeedback) {
 		super();
 		this.idColloquio = idColloquio;
 		this.candidateName = candidateName;
@@ -70,6 +107,11 @@ public class InterviewAndFeedbackRTO {
 		this.site = site;
 		this.finalFeedback = finalFeedback;
 	}
+	
+	
+
+
+
 
 	
 	

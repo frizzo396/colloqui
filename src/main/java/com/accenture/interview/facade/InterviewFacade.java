@@ -91,8 +91,9 @@ public class InterviewFacade {
 	 * @param searchInterviewTO the search interview TO
 	 * @return the list
 	 */
-	public List<SearchInterviewRTO> searchInterviews(SearchInterviewTO searchInterviewTO) {
-		return interviewService.searchInterview(searchInterviewTO);
+	public List<InterviewAndFeedbackRTO> searchInterviews(SearchInterviewTO searchInterviewTO) {
+		 List<InterviewAndFeedbackRTO> interviews = interviewService.searchInterview(searchInterviewTO);
+		 return feedbackService.getFeedbacks(interviews);
 	}
 
 	/**

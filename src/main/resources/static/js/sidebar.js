@@ -58,12 +58,20 @@ function RedirectHome() {
     window.location.href = "/interview-ms/home";
 }
 
-function RedirectManage() {
+function RedirectInsert() {
     const url_string = window.location.href;
     const url = new URL(url_string);
     const enterpriseId = url.searchParams.get("enterpriseId");
    // window.location.href = "/interview-ms/manage-interview?enterpriseId=" + enterpriseId;
-   window.location.href = "/interview-ms/manage-interview";
+   window.location.href = "/interview-ms/interview/new";
+}
+
+function RedirectSearch() {
+    const url_string = window.location.href;
+    const url = new URL(url_string);
+    const enterpriseId = url.searchParams.get("enterpriseId");
+   // window.location.href = "/interview-ms/manage-interview?enterpriseId=" + enterpriseId;
+   window.location.href = "/interview-ms/interview/search";
 }
 
 function RedirectMyInterviews() {

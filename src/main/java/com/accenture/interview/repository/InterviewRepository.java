@@ -52,7 +52,16 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 	 * @param enterpriseId     the enterprise id
 	 * @return the list
 	 */
-	@Query("SELECT i FROM Interview i WHERE "
+	@Query("SELECT new com.accenture.interview.rto.interview.InterviewAndFeedbackRTO(i.id, i.candidateName, "
+			+ "i.candidateSurname, "
+			+ "ct.description, "
+			+ "i.interviewType, "
+			+ "i.scheduledDate, "
+			+ "s.siteName, "
+			+ "i.interviewerId.enterpriseId, "
+			+ "i.finalFeedback) FROM Interview i, CandidateType ct, Site s WHERE "
+			+ "i.candidateTypeId.id = ct.id and "
+			+ "s.id = i.site.id and "
 			+ "(i.candidateName = :name OR :name = '') AND "
 			+ "(i.candidateSurname = :surname OR :surname = '') AND "
 			+ "(i.candidateTypeId.description = :candidateType OR :candidateType = '') AND "
@@ -62,7 +71,7 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 			+ "(:schedDate is null OR i.scheduledDate>=:schedDate) AND "
 			+ "(i.dueDate is null OR :dueDate is null OR i.dueDate<=:dueDate) "
 			+ "ORDER BY i.scheduledDate")
-	List<Interview> findInterviewByParams(@Param("name") String candidateName,
+	List<InterviewAndFeedbackRTO> findInterviewByParams(@Param("name") String candidateName,
 			@Param("surname") String candidateSurname,
 			@Param("intType") Long interviewType,
 			@Param("schedDate") Date firstDate,

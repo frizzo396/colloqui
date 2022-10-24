@@ -55,15 +55,25 @@ public class PaginationController extends BaseController {
 	 * @param enterpriseId the enterprise id
 	 * @return the model and view
 	 */
-	@GetMapping("/manage-interview")
-	public ModelAndView manageInterviews() {
+	@GetMapping("/interview/new")
+	public ModelAndView insertInterview() {
 		ModelAndView modelAndView = new ModelAndView();
 		String username = System.getProperty("user.name");
 		modelAndView.addObject("interviewer", interviewerFacade.interviewerInfo(username));
 		modelAndView.addObject("createInterviewTO", new CreateInterviewTO());
+		modelAndView.addObject("comboSitesDB", interviewFacade.getComboSites());	
+		modelAndView.setViewName("insert.html");
+		return modelAndView;
+	}
+	
+	@GetMapping("/interview/search")
+	public ModelAndView searchInterview() {
+		ModelAndView modelAndView = new ModelAndView();
+		String username = System.getProperty("user.name");
+		modelAndView.addObject("interviewer", interviewerFacade.interviewerInfo(username));
 		modelAndView.addObject("searchInterviewTO", new SearchInterviewTO());	
 		modelAndView.addObject("comboSitesDB", interviewFacade.getComboSites());	
-		modelAndView.setViewName("search-insert.html");
+		modelAndView.setViewName("search.html");
 		return modelAndView;
 	}
 

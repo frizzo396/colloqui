@@ -1,18 +1,29 @@
 package com.accenture.interview.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.accenture.interview.facade.InterviewFacade;
+import com.accenture.interview.facade.InterviewerFacade;
 import com.accenture.interview.rto.general.BaseResponseRTO;
 import com.accenture.interview.rto.general.ErrorRTO;
+import com.accenture.interview.rto.interview.InterviewAndFeedbackRTO;
 import com.accenture.interview.to.interview.CreateInterviewTO;
 import com.accenture.interview.to.interview.SearchInterviewTO;
 import com.accenture.interview.utils.checkerror.CheckErrorsInsertInterview;
@@ -21,13 +32,16 @@ import com.accenture.interview.utils.checkerror.CheckErrorsSearchInterview;
 /**
  * The Class InterviewController.
  */
-@RestController
+@Controller
 @RequestMapping("/interview")
 public class InterviewController {
 
 	/** The interview facade. */
 	@Autowired
 	private InterviewFacade interviewFacade;
+	
+	@Autowired
+	private InterviewerFacade interviewerFacade;
 
 	/** The check errors insert interview. */
 	@Autowired
@@ -44,6 +58,7 @@ public class InterviewController {
 	 * @return the response entity
 	 */
 	@PostMapping("/create")
+	@ResponseBody
 	public ResponseEntity<Object> createInterview(@RequestBody @ModelAttribute CreateInterviewTO createInterviewTO) {
 		ErrorRTO errorRTO = checkErrorsInsertInterview.validate(createInterviewTO);
 
@@ -60,13 +75,28 @@ public class InterviewController {
 	 * @return the response entity
 	 */
 	@PostMapping("/search")
-	public ResponseEntity<Object> searchInterview(@RequestBody @ModelAttribute SearchInterviewTO searchInterviewTO) {
+	public String searchInterview(@RequestBody @ModelAttribute SearchInterviewTO searchInterviewTO, Model model) {
 		ErrorRTO errorRTO = checkErrorsSearchInterview.validate(searchInterviewTO);
+		List<InterviewAndFeedbackRTO> searchInterviews = new ArrayList<>();
+		if(!ObjectUtils.isEmpty(errorRTO)) {
+			model.addAttribute("resultMessage", errorRTO.getMessage());
+			model.addAttribute("resultStatus", "ERROR");
+		} else {
+			searchInterviews = interviewFacade.searchInterviews(searchInterviewTO);
+			if(CollectionUtils.isEmpty(searchInterviews)) {
+				model.addAttribute("resultMessage", "La ricerca non ha prodotto risultati");
+				model.addAttribute("resultStatus", "WARNING");
+			} else {
+				model.addAttribute("resultMessage", "Operazione eseguita con successo");
+				model.addAttribute("resultStatus", "SUCCESS");
+			}
 
-		if (!ObjectUtils.isEmpty(errorRTO)) {
-			return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
-		}
-		return new ResponseEntity<>(new BaseResponseRTO(interviewFacade.searchInterviews(searchInterviewTO)), HttpStatus.OK);
+		}		
+		model.addAttribute("interviewer", interviewerFacade.interviewerInfo(System.getProperty("user.name")));
+		model.addAttribute("searchInterviews", searchInterviews);
+		model.addAttribute("searchInterviewTO", new SearchInterviewTO());
+		model.addAttribute("comboSitesDB", interviewFacade.getComboSites());	
+		return "search";
 	}
 
 }

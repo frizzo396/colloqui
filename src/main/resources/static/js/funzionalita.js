@@ -20,6 +20,7 @@ jQuery(document).ready(function($){
 	});
 });
 
+
 //Salvataggio colloquio
 $(document).ready(function (){
 	var $form= $('#insertInterview');
@@ -77,6 +78,31 @@ $(document).ready(function (){
 	});
 });
 
+$(document).ready(function (){
+	var $form= $('#insertInterview');
+	$form.submit(function (e) {
+		e.preventDefault(e);
+		$.post($(this).attr('action'), $(this).serialize(), function (response){
+			if(response.error == null){
+					showToast("Operazione avvenuta con successo", "SUCCESS");
+					setTimeout(function(){RedirectHome()}, 1700);
+				}
+			else {
+					showToast(response.error, "ERROR");
+			}
+		}, 'json');
+		return false;
+	});
+});
+
+
+function validationSearch() {
+		var b = "a";
+		var val = $('#searchTO').val();
+		
+		var a = "AA";
+}
+
 
 function showToast(message, state) {
 	var snackB = document.getElementById("snackbar");
@@ -98,154 +124,6 @@ function showToast(message, state) {
 	}
 	setTimeout(function(){ snackB.className = snackB.className.replace("show", ""); }, 3000);
 }
-
-//Ricerca colloquio
-$(document).ready(function () {
-	if ($(window).width() < 767) {
-		$(document).ready(function () {
-			var $form = $('#searchInterview');
-			var $table = $('#mytable');
-			$form.submit(function (e) {
-				e.preventDefault(e);
-				$.post($(this).attr('action'), $(this).serialize(), function (response) {
-						if(response.error != null){
-							showToast(response.error, "ERROR");
-							$("#mytable tr").remove();
-							$(".pager").remove();
-						}
-						else if((response.body).length===0){
-							showToast("La ricerca non ha prodotto alcun risultato", "WARNING");
-							$("#mytable tr").remove();
-							$(".pager").remove();
-						}else{
-							document.getElementById("searchTableContainer").style.display = 'block';
-							showToast("Operazione avvenuta con successo", "SUCCESS")
-							let table = '<table> <thead> <tr> <th>Candidate Name</th> <th>Candidate Surname</th> <th>Feedback</th> </tr> </thead><tbody>';
-							(response.body).forEach(function (d) {
-								table += '<tr class="mytable-row"><td>' + d.candidateName + '</td>';
-								table += '<td>' + d.candidateSurname + '</td>';
-								if (d.finalFeedback === null) {
-									if (d.interviewType === 1 ){
-										table += '<td><button type="button" class="a" onclick="sendValue(d.idColloquio)" > <span class="sr-only">'+d.idColloquio+'</span>Add</button></td></tr>';
-									}else if (d.interviewType === 2 ){
-										table += '<td><button type="button" class="b" onclick="sendValue(d.idColloquio)" > <span class="sr-only">'+d.idColloquio+'</span>Add</button></td></tr>';
-									}
-	
-								} else {
-									if (d.finalFeedback==="OK"){
-										table += '<td style="color:#008000">'+d.finalFeedback+'</td></tr>';
-									}else{
-										table += '<td style="color:#b20000">'+d.finalFeedback+'</td></tr>';
-									}
-								}
-							})
-						
-
-							table += '</tbody>';
-							$('#mytable').empty().html(table);
-							pagination();
-						}
-						
-				}, 'json');
-				return false;
-			});
-
-			let idA;
-
-			function sendValue(id) {
-				idA=id;
-			}
-			$table.on('click', '.a', function () {
-				window.location.href = "/interview-ms/feedback/motivational?idColloquio="+$(this).children('span').text();
-			});
-			$table.on('click', '.b', function () {
-				window.location.href = "/interview-ms/feedback/technical?idColloquio="+$(this).children('span').text();
-			});
-		});
-    } else {
-        var $form = $('#searchInterview');
-    	var $table = $('#mytable');
-    	$form.submit(function (e) {
-    	    e.preventDefault(e);
-    	    $.post($(this).attr('action'), $(this).serialize(), function (response) {
-    	        if(response.error != null){
-					showToast(response.error, "ERROR");
-					$("#mytable tr").remove();
-					$(".pager").remove();
-				}
-				else if((response.body).length===0){
-					showToast("La ricerca non ha prodotto alcun risultato", "WARNING");
-					$("#mytable tr").remove();
-					$(".pager").remove();
-				}else{
-					document.getElementById("searchTableContainer").style.display = 'block';
-					showToast("Operazione avvenuta con successo", "SUCCESS")
-					
-					let table = '<table> <thead> <tr> <th>Candidate</th> <th>Level</th> <th>Interview Type</th> <th>Interview Date</th> <th>Site</th> <th>Interviewer</th> <th>Feedback</th> </tr> </thead><tbody>';
-
-					(response.body).forEach(function (d) {
-						table += '<tr class="mytable-row"><td>' + d.candidateName + ' ' + d.candidateSurname + '</td>';
-						table += '<td>' + d.candidateType +'</td>';
-						if (d.interviewType === 1) {
-							table += '<td>MOTIVAZIONALE</td>';
-						} else if (d.interviewType === 2) {
-							table += '<td>TECNICO</td>';
-						} else {
-							table += '<td></td>';
-						}
-						if (d.scheduledDate === null) {
-							table += '<td></td>';
-						} else {
-							table += '<td>' + d.scheduledDate + '</td>';
-						}
-						table += '<td>' + d.site + '</td>';
-						table += '<td>' + d.enterpriseId + '</td>';
-						if (d.finalFeedback === null) {
-							var enterpriseId = document.getElementById("nickname").innerText;
-							if(enterpriseId == d.enterpriseId) {
-								if (d.interviewType === 1 ){
-									table += '<td><button type="button" class="a" onclick="sendValue(d.idColloquio)" > <span class="sr-only">'+d.idColloquio+'</span>Add</button></td></tr>';
-								}else if (d.interviewType === 2 ){
-									table += '<td><button type="button" class="b" onclick="sendValue(d.idColloquio)" > <span class="sr-only">'+d.idColloquio+'</span>Add</button></td></tr>';
-								}
-							} else {
-									table += '<td>No feedback</td>';
-							}
-
-						} else {
-							
-							if (d.finalFeedback==="OK"){
-								table += '<td style="color:#008000">'+d.finalFeedback+'</td></tr>';
-							}else{
-								table += '<td style="color:#b20000">'+d.finalFeedback+'</td></tr>';
-							}
-
-						}
-					})
-
-    	        	table += '</tbody>';
-    	        	$('#mytable').empty().html(table);
-					pagination();
-				}
-				
-    	    }, 'json');
-    	    return false;
-    	});
-
-   		let idA;
-
-   		function sendValue(id) {
-   		    idA=id;
-   		}
-   		$table.on('click', '.a', function () {
-			window.location.href = "/interview-ms/feedback/motivational?idColloquio="+$(this).children('span').text();
-   		});
-   		$table.on('click', '.b', function () {
-   		    window.location.href = "/interview-ms/feedback/technical?idColloquio="+$(this).children('span').text();
-   		});
-	}
-});
-
 
 //Paginazione tabella
 function pagination(){

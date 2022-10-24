@@ -3,6 +3,8 @@ package com.accenture.interview.rto.interview;
 import java.util.Date;
 
 import com.accenture.interview.entity.Interview;
+import com.accenture.interview.rto.feedback.MotivationalFeedbackRTO;
+import com.accenture.interview.rto.feedback.TechnicalFeedbackRTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Getter;
@@ -47,6 +49,10 @@ public class SearchInterviewRTO {
 	
 	/** The candidate type. */
 	private String candidateType;
+	
+	private MotivationalFeedbackRTO motivationalFeedback;
+	
+	private TechnicalFeedbackRTO technicalFeedback;
 
 	/**
 	 * Instantiates a new search interview response.

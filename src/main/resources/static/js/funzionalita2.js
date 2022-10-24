@@ -60,16 +60,6 @@ function searchDateAlternative() {
 
 }
 
-function openSearchContainer() {
-	document.getElementById("containerSearch").style.display = 'flex';
-	document.getElementById("containerInsert").style.display = 'none';
-}
-
-function openInsertContainer() {
-	document.getElementById("containerInsert").style.display = 'flex';
-	document.getElementById("containerSearch").style.display = 'none';
-	document.getElementById("searchTableContainer").style.display = 'none';
-}
 
 
 function closeTechModal(){
