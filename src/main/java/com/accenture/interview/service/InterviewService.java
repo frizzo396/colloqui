@@ -1,6 +1,5 @@
 package com.accenture.interview.service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +23,6 @@ import com.accenture.interview.rto.general.StartEndDateRTO;
 import com.accenture.interview.rto.interview.InProgressInterviewRTO;
 import com.accenture.interview.rto.interview.InterviewAndFeedbackRTO;
 import com.accenture.interview.rto.interview.InterviewMonthRTO;
-import com.accenture.interview.rto.interview.SearchInterviewRTO;
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.rto.site.SiteRTO;
 import com.accenture.interview.to.interview.CreateInterviewTO;

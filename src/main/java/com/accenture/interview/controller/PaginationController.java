@@ -12,6 +12,7 @@ import com.accenture.interview.facade.InterviewerFacade;
 import com.accenture.interview.to.feedback.CreateMotivationFeedbackTO;
 import com.accenture.interview.to.feedback.CreateTechFeedbackTO;
 import com.accenture.interview.to.interview.CreateInterviewTO;
+import com.accenture.interview.to.interview.CreateRegisterTO;
 import com.accenture.interview.to.interview.SearchInterviewTO;
 
 /**
@@ -76,6 +77,17 @@ public class PaginationController extends BaseController {
 		modelAndView.setViewName("search.html");
 		return modelAndView;
 	}
+	
+	@GetMapping("/interview/register")
+	public ModelAndView registerUser() {
+		ModelAndView modelAndView = new ModelAndView();
+		String username = System.getProperty("user.name");
+		modelAndView.addObject("interviewer", interviewerFacade.interviewerInfo(username));
+		modelAndView.addObject("registerUserTO", new CreateRegisterTO());
+		modelAndView.addObject("comboSitesDB", interviewFacade.getComboSites());	
+		modelAndView.setViewName("register-user.html");
+		return modelAndView;
+	}	
 
 	/**
 	 * Show tech feedback form.

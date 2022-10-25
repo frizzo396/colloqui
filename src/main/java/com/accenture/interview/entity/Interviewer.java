@@ -41,10 +41,6 @@ public class Interviewer {
 	@NotNull
 	private String mail;
 
-	/** The password. */
-	@NotNull
-	private String password;
-
 	/** The interview list. */
 	@OneToMany(mappedBy = "interviewerId")
 	@JsonIgnore
@@ -110,24 +106,6 @@ public class Interviewer {
 	 */
 	public void setMail(String mail) {
 		this.mail = mail;
-	}
-
-	/**
-	 * Gets the password.
-	 *
-	 * @return the password
-	 */
-	public String getPassword() {
-		return password;
-	}
-
-	/**
-	 * Sets the password.
-	 *
-	 * @param password the new password
-	 */
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	/**

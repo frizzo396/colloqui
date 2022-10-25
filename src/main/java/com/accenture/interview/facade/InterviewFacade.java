@@ -10,7 +10,6 @@ import com.accenture.interview.rto.candidate.CandidateTypeRTO;
 import com.accenture.interview.rto.interview.CreateInterviewRTO;
 import com.accenture.interview.rto.interview.InProgressInterviewRTO;
 import com.accenture.interview.rto.interview.InterviewAndFeedbackRTO;
-import com.accenture.interview.rto.interview.SearchInterviewRTO;
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.rto.site.SiteRTO;
 import com.accenture.interview.service.CandidateService;

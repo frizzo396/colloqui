@@ -35,6 +35,19 @@
                                 <li>
                                     <div class="iocn-link">
                                         <a>
+                                            <em class="bx bx-save" style="color: #1429eb;"></em>
+                                            <span class="link_name">Register</span>
+                                        </a>
+                                    </div>
+                                    <ul class="sub-menu">
+                                    <div th:if="${interviewer.type==T(com.accenture.interview.utils.enums.InterviewerTypeEnum).getIdFromDescription('RESPONSABILE')}">                                    
+                                        <li onclick="RedirectRegister()"><a>Register</a></li>
+                                    </div>
+                                    </ul>
+                                </li>                                
+                                <li>
+                                    <div class="iocn-link">
+                                        <a>
                                             <em class="bx bx-history" style="color: #1429eb;"></em>
                                             <span class="link_name">History</span>
                                         </a>
