@@ -18,6 +18,22 @@ jQuery(document).ready(function($){
 			$('.cd-popup').removeClass('is-visible');
 		}
 	});
+	
+	/*$('#searchInterview').on('submit', function (e) {
+    var form = this;
+    var validation = validationSearch();
+    		
+		
+    if(validation) {
+		showToast("Operazione avvenuta con successo", "SUCCESS", 2000);
+	    setTimeout(function () {
+	        form.submit();
+	    }, 1000);
+	    return false;
+    } else {
+		showToast("Almeno un campo deve essere valorizzato", "ERROR", 3000);
+	}
+	});*/
 });
 
 
@@ -28,11 +44,11 @@ $(document).ready(function (){
 		e.preventDefault(e);
 		$.post($(this).attr('action'), $(this).serialize(), function (response){
 			if(response.error == null){
-					showToast("Operazione avvenuta con successo, controllare se l'email è stata recapitata correttamente", "SUCCESS");
+					showToast("Operazione avvenuta con successo, controllare se l'email è stata recapitata correttamente", "SUCCESS", 3000);
 					setTimeout(function(){RedirectHome()}, 1700);
 				}
 				else {
-					showToast(response.error, "ERROR");
+					showToast(response.error, "ERROR", 3000);
 				}
 
 		}, 'json');
@@ -48,11 +64,11 @@ $(document).ready(function (){
 		e.preventDefault(e);
 			$.post($(this).attr('action'), $(this).serialize(), function (response){
 				if(response.error == null){
-					showToast("Operazione avvenuta con successo", "SUCCESS");
+					showToast("Operazione avvenuta con successo", "SUCCESS", 3000);
 					setTimeout(function(){RedirectHome()}, 1700);
 				}
 				else {
-					showToast(response.error, "ERROR");
+					showToast(response.error, "ERROR", 3000);
 				}
 
 		}, 'json');
@@ -67,16 +83,19 @@ $(document).ready(function (){
 		e.preventDefault(e);
 		$.post($(this).attr('action'), $(this).serialize(), function (response){
 			if(response.error == null){
-					showToast("Operazione avvenuta con successo", "SUCCESS");
+					showToast("Operazione avvenuta con successo", "SUCCESS", 3000);
 					setTimeout(function(){RedirectHome()}, 1700);
 				}
 			else {
-					showToast(response.error, "ERROR");
+					showToast(response.error, "ERROR", 3000);
 			}
 		}, 'json');
 		return false;
 	});
 });
+
+
+
 
 $(document).ready(function (){
 	var $form= $('#insertInterview');
@@ -84,11 +103,11 @@ $(document).ready(function (){
 		e.preventDefault(e);
 		$.post($(this).attr('action'), $(this).serialize(), function (response){
 			if(response.error == null){
-					showToast("Operazione avvenuta con successo", "SUCCESS");
+					showToast("Operazione avvenuta con successo", "SUCCESS", 3000);
 					setTimeout(function(){RedirectHome()}, 1700);
 				}
 			else {
-					showToast(response.error, "ERROR");
+					showToast(response.error, "ERROR", 3000);
 			}
 		}, 'json');
 		return false;
@@ -96,15 +115,33 @@ $(document).ready(function (){
 });
 
 
-function validationSearch() {
-		var b = "a";
-		var val = $('#searchTO').val();
-		
-		var a = "AA";
+function validationSearch() {	
+  let empty = "";
+  let candidateName = document.forms["searchInterview"]["candidateNameId"].value;
+  let candidateSurname = document.forms["searchInterview"]["candidateSurnameId"].value;
+  let candidateType = document.forms["searchInterview"]["candidateType"].value;
+  let interviewType = document.forms["searchInterview"]["interviewType2"].value;
+  let enterpriseId = document.forms["searchInterview"]["enterpriseIdS"].value;
+  let site = document.forms["searchInterview"]["site"].value;
+  let firstDate = document.forms["searchInterview"]["firstDate"].value;
+  let secondDate = document.forms["searchInterview"]["secondDate"].value;
+  
+ if(candidateName == empty &&  candidateSurname == empty &&  candidateType == empty &&  interviewType == empty &&  
+ 	enterpriseId  == empty &&  site == empty && firstDate == empty &&  secondDate == empty) {
+		showToast("Almeno un campo deve essere valorizzato", "ERROR", 3000);
+		return false;
+	} else {
+		showToast("Operazione avvenuta con successo", "SUCCESS", 2000);
+		window.setTimeout(function () { document.getElementById('searchInterview').submit(); }, 400); 
+		return false;
+	}
 }
 
+function resetSearchTable() {
+	document.getElementById("searchTableContainer").style.display = 'none';
+}
 
-function showToast(message, state) {
+function showToast(message, state, delay) {
 	var snackB = document.getElementById("snackbar");
 	var iconColumn = document.getElementById("snackbarIconColumn");
 	var textColumn = document.getElementById("snackbarTextColumn");
@@ -122,7 +159,7 @@ function showToast(message, state) {
 		iconColumn.innerHTML  = "<em id='warningIcon' class='fa-solid fa-circle-exclamation'></em>";
 		textColumn.innerHTML = message;
 	}
-	setTimeout(function(){ snackB.className = snackB.className.replace("show", ""); }, 3000);
+	setTimeout(function(){ snackB.className = snackB.className.replace("show", ""); }, delay);
 }
 
 //Paginazione tabella

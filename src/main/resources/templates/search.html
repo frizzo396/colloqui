@@ -38,7 +38,7 @@
                                 <label id="interviewInformations">Interview informations </label>
                             </header>
                             <div class="col-lg-8 col-lg-offset-2">
-                                <form id="searchInterview" action="#" th:action="@{/interview/search}" th:object="${searchInterviewTO}" method="post">
+                                <form id="searchInterview" action="#" th:action="@{/interview/search}" th:object="${searchInterviewTO}" method="post" onsubmit="return validationSearch()" > 
                                     <div class="search-group">
                                         <div class="row">
                                             <div class="column" id="searchName">
@@ -79,7 +79,7 @@
                                             <div class="column"  id="searchEnt">
                                                <div class="form-group">
                                                    <label><em class="fa fa-drivers-license"></em> Interviewer</label>
-                                                   <input type="text" th:field="*{enterpriseId}" placeholder="enterprise.id" />
+                                                   <input type="text" th:field="*{enterpriseId}" placeholder="enterprise.id" id="enterpriseIdS"/>
                                                </div>
                                              </div>
                                              <div class="column" id="searchSite">
@@ -98,13 +98,13 @@
                                             <div class="column">
                                                 <div class="form-group">
                                                     <label><em class="fa fa-calendar"></em> Date between</label>
-                                                    <input type="date" th:field="*{firstDate}" />
+                                                    <input type="date" th:field="*{firstDate}" id="firstDate" />
                                                 </div>
                                             </div>
                                             <div class="column">
                                                 <div class="form-group">
                                                     <label><em class="fa fa-calendar"></em> and</label>
-                                                    <input type="date" th:field="*{secondDate}" />
+                                                    <input type="date" th:field="*{secondDate}" id="secondDate" />
                                                 </div>
                                             </div>
                                         </div>                                      
@@ -112,25 +112,27 @@
                                         	<input type="hidden" id="searchTO" th:value="${searchInterviewTO}"/>
                                             <div class="button-column">
                                                 <div class="form-group">
-                                                    <button  class="search-button" type="submit"  onclick="validationSearch()" >Search</button>
+                                                    <button  class="search-button" type="submit" >Search</button>
                                                 </div>
                                             </div>
                                             <div class="button-column">
                                                 <div class="form-group">
-                                                    <button class="clear-button" type="reset" value="Reset">Clear</button>
+                                                    <button class="clear-button" type="reset" value="Reset" onclick="resetSearchTable()">Clear</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </form>
                                 <div id="searchTableContainer" class="responsive">
+                                <div th:if= "${not #lists.isEmpty(searchInterviews)}">
+                               
                                     <table id="mytable" class="mytable paginated">
                                         <thead>
                                             <tr>
                                                 <th>Candidate</th>
                                                 <th>Level</th>
                                                 <th class="remove">Interview Type</th>
-                                                <th>Interview date</th>
+                                                <th  class="remove">Interview date </th>
                                                 <th>Site</th>
                                                 <th class="remove">Feedback</th>
                                                 <th>Detail</th>
@@ -173,6 +175,7 @@
                                             </tr>
                                         </tbody>
                                     </table>
+                                    </div>
                                 </div>
                                 <div id="pagination"></div>
                             </div>

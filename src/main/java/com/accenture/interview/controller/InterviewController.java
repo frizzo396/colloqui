@@ -76,24 +76,8 @@ public class InterviewController {
 	 */
 	@PostMapping("/search")
 	public String searchInterview(@RequestBody @ModelAttribute SearchInterviewTO searchInterviewTO, Model model) {
-		ErrorRTO errorRTO = checkErrorsSearchInterview.validate(searchInterviewTO);
-		List<InterviewAndFeedbackRTO> searchInterviews = new ArrayList<>();
-		if(!ObjectUtils.isEmpty(errorRTO)) {
-			model.addAttribute("resultMessage", errorRTO.getMessage());
-			model.addAttribute("resultStatus", "ERROR");
-		} else {
-			searchInterviews = interviewFacade.searchInterviews(searchInterviewTO);
-			if(CollectionUtils.isEmpty(searchInterviews)) {
-				model.addAttribute("resultMessage", "La ricerca non ha prodotto risultati");
-				model.addAttribute("resultStatus", "WARNING");
-			} else {
-				model.addAttribute("resultMessage", "Operazione eseguita con successo");
-				model.addAttribute("resultStatus", "SUCCESS");
-			}
-
-		}		
 		model.addAttribute("interviewer", interviewerFacade.interviewerInfo(System.getProperty("user.name")));
-		model.addAttribute("searchInterviews", searchInterviews);
+		model.addAttribute("searchInterviews", interviewFacade.searchInterviews(searchInterviewTO));
 		model.addAttribute("searchInterviewTO", new SearchInterviewTO());
 		model.addAttribute("comboSitesDB", interviewFacade.getComboSites());	
 		return "search";
