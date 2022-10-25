@@ -2,6 +2,10 @@ jQuery(document).ready(function ($) {
 google.charts.load('current', {'packages':['corechart']});
 google.charts.setOnLoadCallback(drawChart);
 
+$(window).resize(function(){
+drawChart();
+});
+
 
 });
 
@@ -10,7 +14,6 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
   drawTotalChart();
   drawMonthChart();
-  drawYearColumnChart();
 }
 
 
@@ -29,14 +32,14 @@ function drawTotalChart() {
 
   // Optional; add a title and set the width and height of the chart
   var options = {
-		'title':'Total interviews: '+totalInterviews, 
-  		'width':450, 
-  		'height':300,
+		'title':'Total interviews: '+totalInterviews/*, 
+  		//'width':450, 
+  		//'height':300*/,
   		legend: {
         	textStyle: { color: '#1429eb' },
         	position: "bottom"
 		}, 
-		chartArea: {'width': '100%', 'height': '80%'},
+		//chartArea: {'width': '100%', 'height': '80%'},
 		titleTextStyle: {
     		color: '#1429eb'
 		},
@@ -64,14 +67,14 @@ function drawMonthChart() {
 
   // Optional; add a title and set the width and height of the chart
   var options = {
-		'title':'Month interviews: '+totalInterviews, 
+		'title':'Month interviews: '+totalInterviews/*, 
   		'width':450, 
-  		'height':300,
+  		'height':300,*/,
   		legend: {
         	textStyle: { color: '#1429eb' },
 			position: "bottom"
 		}, 
-		chartArea: {'width': '100%', 'height': '80%'},
+		//chartArea: {'width': '100%', 'height': '80%'},
 		titleTextStyle: {
     		color: '#1429eb'
 		},
@@ -81,12 +84,4 @@ function drawMonthChart() {
   // Display the chart inside the <div> element with id="piechart"
   var chart = new google.visualization.PieChart(document.getElementById('monthInterviewsChart'));
   chart.draw(data, options);
-}
-
-
-
-function drawYearColumnChart() {
-	var test = $("#completedYearInterviews");
-	
-	var a = "a";
 }

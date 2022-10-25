@@ -33,12 +33,13 @@
             
                 <div class="col-lg-8 col-lg-offset-2" id="containerColumn">
                     <div class="container" id="containerInsert">
+
                         <div class="row">
-                            <header id="containerInsertHeader">
+                           <header id="containerInsertHeader">
                                 <label id="interviewInformations">Interview informations </label>
                             </header>
                             <div class="col-lg-8 col-lg-offset-2">
-                                <form id="insertInterview" action="#" th:action="@{/interview/new}" th:object="${createInterviewTO}" method="post">
+                                <form id="insertInterview" action="#" th:action="@{/interview/create}" th:object="${createInterviewTO}" method="post">
                                     <div class="form-group">
                                         <div class="2-column-container">
                                             <div class="row" id="anagRow">

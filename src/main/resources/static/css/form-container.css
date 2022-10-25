@@ -128,6 +128,7 @@
 
 #mytable {
     margin-top: 50px;
+    line-height: 1.5em;
 }
 
 
@@ -163,6 +164,7 @@
 	width: 100%;
     margin-left: 5%;
     margin-right: 5%;
+    padding-bottom: 40px;
 }
 
 #containerMyInterviewsHeader {

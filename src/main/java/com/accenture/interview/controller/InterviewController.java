@@ -1,29 +1,21 @@
 package com.accenture.interview.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.accenture.interview.facade.InterviewFacade;
 import com.accenture.interview.facade.InterviewerFacade;
 import com.accenture.interview.rto.general.BaseResponseRTO;
 import com.accenture.interview.rto.general.ErrorRTO;
-import com.accenture.interview.rto.interview.InterviewAndFeedbackRTO;
 import com.accenture.interview.to.interview.CreateInterviewTO;
 import com.accenture.interview.to.interview.SearchInterviewTO;
 import com.accenture.interview.utils.checkerror.CheckErrorsInsertInterview;
@@ -47,9 +39,6 @@ public class InterviewController {
 	@Autowired
 	private CheckErrorsInsertInterview checkErrorsInsertInterview;
 
-	/** The check errors search interview. */
-	@Autowired
-	private CheckErrorsSearchInterview checkErrorsSearchInterview;
 
 	/**
 	 * Creates the interview.

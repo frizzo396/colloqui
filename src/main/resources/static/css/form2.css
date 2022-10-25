@@ -76,7 +76,7 @@ button {
 .add-feed-button {
 	font-size: 12px !Important;
     margin: auto;
-    width: 45% !important;
+    width: 60% !important;
     border-radius: 10px !important;
 }
 
@@ -316,7 +316,6 @@ tr:hover {background-color: #f2f2fb;}
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     word-wrap: break-word;
-  white-space: nowrap;
 }
 .interview-table{
     table-layout: fixed;
@@ -464,9 +463,13 @@ body{
 /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 600px) {
 
-  .container{margin:10px; padding: 10px;}
+ /* .container{margin:10px;}*/
   .sidenav {padding-top: 15px; width: 50%;}
   .sidenav a {font-size: 18px;}
+  .mytable td {font-size: 10px;}
+   #inProgressTable button { width: 90%; font-size: 10px; }
+   #motivationalTableModal {width: 80%;}
+   .add-feed-button {width: 100% !important;}
 }
 /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 1000px) {
@@ -474,6 +477,9 @@ body{
     width: 100% !important;
     margin-top: 0;
   }
+    .mytable td {font-size: 10px;}
+   #inProgressTable button { width: 90%; font-size: 10px; }
+   #motivationalTableModal {width: 80%;}
 }
 
 .cd-popup, .cd-popup2 {

@@ -58,10 +58,10 @@
 						    </div>
 							<div class="row">	
 								  <div class="col-lg-8 col-lg-offset-2" id="totInterviewsGraphColumn">
-								 		<div id="totalInterviewsChart"></div>
+								 		<div id="totalInterviewsChart" class="chart"></div>
 								  </div>
 								   <div class="col-lg-8 col-lg-offset-2" id="monthInterviewsGraphColumn">
-								 		<div id="monthInterviewsChart"></div>
+								 		<div id="monthInterviewsChart" class="chart"></div>
 								  </div>	
 	
 							</div>
@@ -109,9 +109,9 @@
 		    		                color: '#1429eb'
 		    		            }
 		    		        },
-		    		        width: 800,
-		    		        height: 350,
-		    		        chartArea: {'width': '100%', 'height': '80%'},
+		    		       // width: 800,
+		    		      //  height: 350,
+		    		      //  chartArea: {'width': '100%', 'height': '80%'},
 		    		        bar: {groupWidth: "50%"},
 		    		        legend: { position: "none" },
 		    				titleTextStyle: {
@@ -123,6 +123,9 @@
 		    	  new google.visualization.ColumnChart(document.getElementById('visualization')).
 		    	    draw(data, options);
 			}
+			$(window).resize(function(){
+					drawVisualization();
+				});
 		/*]]>*/
 	</script>
     </body>

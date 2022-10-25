@@ -18,22 +18,7 @@ jQuery(document).ready(function($){
 			$('.cd-popup').removeClass('is-visible');
 		}
 	});
-	
-	/*$('#searchInterview').on('submit', function (e) {
-    var form = this;
-    var validation = validationSearch();
-    		
-		
-    if(validation) {
-		showToast("Operazione avvenuta con successo", "SUCCESS", 2000);
-	    setTimeout(function () {
-	        form.submit();
-	    }, 1000);
-	    return false;
-    } else {
-		showToast("Almeno un campo deve essere valorizzato", "ERROR", 3000);
-	}
-	});*/
+
 });
 
 
@@ -93,27 +78,6 @@ $(document).ready(function (){
 		return false;
 	});
 });
-
-
-
-
-$(document).ready(function (){
-	var $form= $('#insertInterview');
-	$form.submit(function (e) {
-		e.preventDefault(e);
-		$.post($(this).attr('action'), $(this).serialize(), function (response){
-			if(response.error == null){
-					showToast("Operazione avvenuta con successo", "SUCCESS", 3000);
-					setTimeout(function(){RedirectHome()}, 1700);
-				}
-			else {
-					showToast(response.error, "ERROR", 3000);
-			}
-		}, 'json');
-		return false;
-	});
-});
-
 
 function validationSearch() {	
   let empty = "";
