@@ -4,109 +4,86 @@
 	width: 100%; 
 }
 
-#visualization {
-width: 100%; 
+#homeRow {
+	display: inline-flex;
+	    margin-bottom: 2%;
 }
 
-
-#containerHome {
-	display: inline-block;
-	margin-left: 5%;
-    margin-right: 5%;
-    padding-right: 90px;
+#containerColumn {
+    width: 70%;
+    margin-left: 1.5%;
 }
-
-#homeContainerFirstRow {
-	margin-bottom: 5%;
-}
-
-#userLogoIcon {
-	position:relative;
-	font-size: 100px;
-	color: #1429eb;
-	margin-left: 10%;
-    margin-top: 10%;
-}
-
-#containerHome .row{
+.graphContainer {
 	width: 100%;
-    display: flex;
-
+	padding-top: 12px;
+    padding-right: 20px;
+    padding-bottom: 12px;
+    padding-left: 20px;
+    background-color: #e3e4e8;
+    border-radius: 5px;
+}
+.graphHeader {
+	padding-bottom: 23px;
+}
+.graphLabel {
+	font-size: 16px;
+    color: black;
+}
+#yearGraph {
+    width: 100%;
+    position: relative;
+    border: 5px solid white;
+    border-radius: 5px;
+    background-color: white;
 }
 
-#userInfoColumn {
-	display: inline-block;
+#yearGraphRow {
+    margin-bottom: 2.7%;
+    display: flex;
+    width: 100%;
+    position: relative;
+}
+
+#cakeGraphsRow{
+	    display: inline-flex;
+	    position: relative;
+}
+
+#totInterviewsGraphColumn{
+	display: flex;
 	position: relative;
-	width: 30%;
-	margin-right: 8%;
+	width: 45%;
 }
-
-#userInfoRow {
+#graphSpaceColumn{
 	display: flex;
-	width: 100%;
-	height: 70%;
+	position: relative;
+	width: 10%;
 }
-
-#userLogoRow {
-	width: 100%;
-	height: 30%;
-	display: inline-block !important;
-}
-
-
-
-#userInfoList {
-	position:relative;
-	list-style: none;
-	padding: 0;
-    font-size: 12px;
-    margin-left: 10%
-}
-
-#entIdList{
-	margin-top: 10px;
-}
-
-#userLogoColumn {
-	display: flex;
-	width: 30%;
-    margin-left: 30px;
-    margin-top: 30px;
-}
-
-#homeUserLogo {
-	width: 100%;
-}
-
-#userListColumn {
-    display: flex;
-	width: 70%;
-}
-
 #yearGraphColumn {
 	display: flex;
 	position: relative;
-	width: 90%;
+	width: 100%;
 }
 
-
-#totInterviewsGraphColumn {
+#monthInterviewsGraphColumn{
 	display: flex;
 	position: relative;
-	width: 50%;
+	width: 45%;
 }
-
-#monthInterviewsGraphColumn {
-	display: flex;
-	position: relative;
-	width: 50%;
-}
-
 
 #totalInterviewsChart {
-	margin-left: 10%;
+    width: 100%;
+    position: relative;
+    border: 5px solid white;
+    border-radius: 5px;
+    background-color: white;
 }
 
 #monthInterviewsChart {
-	margin-left: 18%;
+    width: 100%;
+    position: relative;
+     border: 5px solid white;
+    border-radius: 5px;
+    background-color: white;
 }
+

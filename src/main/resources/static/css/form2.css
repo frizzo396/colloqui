@@ -1,7 +1,6 @@
 body {
     position: relative;
     overflow-x: hidden;
-    background-color: white;
 }
 
 
@@ -9,20 +8,6 @@ body {
 	width: 100%;
     display: flex;
     height: 90%;
-}
-
-
-#sidebarColumn {
-	display: flex;
-	position: relative;
-    width: 10%;
-    height: 10%;
-}
-
-#containerColumn {
-	display: flex;
-	position: relative;
-    width: 90%;
 }
 
 
@@ -399,9 +384,6 @@ input[type=file]::file-selector-button:hover {
 .row {
 	 width: 100%; 
   clear: both;
-}
-body{
-	background-color: #f2f2fb;
 }
 
 .inline{

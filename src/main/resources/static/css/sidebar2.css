@@ -2,37 +2,35 @@
 
 
 
-#sidebarColumn {
-    display: flex;
-    position: relative;
-    width: 20%;
-    margin-left: 2%;
-}
-
-#sidebarLine {
-	width: 100%;
-    border-top: 1px solid #666;
-    margin-left: 2%;
-}
 
 .sidebar{
-    position: relative;
-    height: 100%;
-    padding-top: 20px;
+	position: relative;
+    top: 0;
     left: 0;
+    margin-left: 3%;
+    height: 100%;
+    width: 70%;
     transition: all 0.5s ease;
-    background-color: #e3e4e8;
-    border-radius: 5px;
-    overflow: hidden;
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid #1429eb;
+    color: #1429eb;
 }
 
 #sidebarHeader {
-	padding-bottom: 30px;
-	 background-color: #e3e4e8;
+	height: 45px;
+	margin-bottom: 0;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding-top: -4px;
+    margin-right: -1px;
+    margin-top: -1px;
+    margin-left: -1px;
+    align-items: center;
 }
 
 #sidebarMenuIcon{
-    color: black;
+    color: white;
     font-size: 25px;
     position: relative;
     cursor: pointer;
@@ -40,7 +38,7 @@
 }
 
 .sidebar.close #sidebarMenuIcon {
-    color: black;
+    color: white;
     font-size: 25px;
     position: relative;
     cursor: pointer;
@@ -49,9 +47,8 @@
 
 .sidebar.close{
     width: 78px;
-    min-width: 78px;
-    margin-top: -12px;
-    padding-right: 0px;
+   	height: 20%;
+    max-height: 320px;
 }
 .sidebar .logo-details{
   height: 60px;
@@ -96,9 +93,7 @@
 .sidebar .nav-links li{
   position: relative;
   list-style: none;
-  padding-right: 10px;
   transition: all 0.4s ease;
-  cursor: pointer;
 }
 .sidebar .nav-links li:hover{
   background: #f2f2fb;
@@ -121,10 +116,10 @@
 }
 
 .sidebar .nav-links li em{
-  height: 40px;
+  height: 50px;
   min-width: 50px;
   text-align: center;
-  line-height: 40px;
+  line-height: 50px;
   color: #fff;
   font-size: 20px;
   cursor: pointer;
@@ -151,13 +146,13 @@
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: black;;
+  color: #1429eb;
 }
 .sidebar .nav-links li a .link_name{
-	font-size: 16px;
+	font-size: 18px;
     font-family: sans-serif;
     font-weight: 600;
-    color: black;;
+    color: #1429eb;
   	transition: all 0.4s ease;
 }
 .sidebar.close .nav-links li a .link_name{
@@ -175,7 +170,7 @@
   display: block;
 }
 .sidebar .nav-links li .sub-menu a{
-  color: black;
+  color: #1429eb;
   font-size: 14px;
   padding: 8px 0;
   white-space: nowrap;
@@ -267,6 +262,34 @@
 
 .sidebar .nav-links li.showMenu .sub-menu li {
 	cursor: pointer;
+}
+
+
+@media only screen and (max-width:1000px){
+  	#sidebarColumn{
+	display: flex;
+    width: 10%;
+    margin-left: 3%;	
+	}
+  #containerColumn {
+    display: flex;
+    width: 90%;
+    margin-left: 10%;
+  }	
+  .home-section{
+    left: 78px;
+    width: calc(100% - 78px);
+    z-index: 100;
+  }
+  .sidebar.close ~ .home-section{
+    width: 100%;
+    left: 0;
+  }
+  
+  #sidebarMenuIcon {
+      margin-left: 25px;
+      cursor: pointer;
+    }
 }
 
 

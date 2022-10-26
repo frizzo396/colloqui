@@ -1,0 +1,112 @@
+@charset "ISO-8859-1";
+
+.chart {
+	width: 100%; 
+}
+
+#visualization {
+width: 100%; 
+}
+
+
+#containerHome {
+	display: inline-block;
+	margin-left: 5%;
+    margin-right: 5%;
+    padding-right: 90px;
+}
+
+#homeContainerFirstRow {
+	margin-bottom: 5%;
+}
+
+#userLogoIcon {
+	position:relative;
+	font-size: 100px;
+	color: #1429eb;
+	margin-left: 10%;
+    margin-top: 10%;
+}
+
+#containerHome .row{
+	width: 100%;
+    display: flex;
+
+}
+
+#userInfoColumn {
+	display: inline-block;
+	position: relative;
+	width: 30%;
+	margin-right: 8%;
+}
+
+#userInfoRow {
+	display: flex;
+	width: 100%;
+	height: 70%;
+}
+
+#userLogoRow {
+	width: 100%;
+	height: 30%;
+	display: inline-block !important;
+}
+
+
+
+#userInfoList {
+	position:relative;
+	list-style: none;
+	padding: 0;
+    font-size: 12px;
+    margin-left: 10%
+}
+
+#entIdList{
+	margin-top: 10px;
+}
+
+#userLogoColumn {
+	display: flex;
+	width: 30%;
+    margin-left: 30px;
+    margin-top: 30px;
+}
+
+#homeUserLogo {
+	width: 100%;
+}
+
+#userListColumn {
+    display: flex;
+	width: 70%;
+}
+
+#yearGraphColumn {
+	display: flex;
+	position: relative;
+	width: 90%;
+}
+
+
+#totInterviewsGraphColumn {
+	display: flex;
+	position: relative;
+	width: 50%;
+}
+
+#monthInterviewsGraphColumn {
+	display: flex;
+	position: relative;
+	width: 50%;
+}
+
+
+#totalInterviewsChart {
+	margin-left: 10%;
+}
+
+#monthInterviewsChart {
+	margin-left: 18%;
+}
