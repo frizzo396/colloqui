@@ -26,19 +26,18 @@
 			<!-- NUOVO DIV PER HEADER SUPERIORE -->
 			<div th:replace="fragments/header"></div>        
        
-            <div class="row" id="pageRow">
-            
+           <div class="pageRow">         
 				<!-- NUOVO DIV PER SIDEBAR (LATERALE) -->
-				<div th:replace="fragments/sidebar"></div>            
+				<div class="col-lg-8 col-lg-offset-2" id="sidebarColumn">
+						<div th:replace="fragments/sidebar"></div>  				
+				 </div>            
             
                 <div class="col-lg-8 col-lg-offset-2" id="containerColumn">
                     <div class="container" id="containerInsert">
-
-                        <div class="row">
-                           <header id="containerInsertHeader">
-                                <label id="interviewInformations">Interview informations </label>
-                            </header>
-                            <div class="col-lg-8 col-lg-offset-2">
+                    		<header class="containerHeader">
+						              <label class="containerLabel">Insert Interview</label>
+						    </header>		
+                            <div class="col-lg-8 col-lg-offset-2" id="insertFormColumn">
                                 <form id="insertInterview" action="#" th:action="@{/interview/create}" th:object="${createInterviewTO}" method="post">
                                     <div class="form-group">
                                         <div class="2-column-container">
@@ -164,8 +163,8 @@
                                         </div>
                                     </div>
                                 </form>
+                                 </div>
                             </div>
-                        </div>
                     </div>
                 </div>
                <div  id="snackbar">

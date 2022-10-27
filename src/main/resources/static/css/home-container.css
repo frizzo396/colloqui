@@ -4,14 +4,7 @@
 	width: 100%; 
 }
 
-.pageRow {
-	display: flex;
-	margin-bottom: 2%;
-}
 
-#containerColumn {
-    width: 70%;
-}
 .graphContainer {
 	width: 100%;
 	padding-top: 12px;
