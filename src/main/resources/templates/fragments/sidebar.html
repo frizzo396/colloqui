@@ -15,10 +15,10 @@
                                         <li onclick="RedirectHome()"><a class="link_name">Home</a></li>
                                     </ul>                              
                                 </li>
-                                  <li onclick="RedirectInsert()">
+                                  <li th:if="${interviewer.type==T(com.accenture.interview.utils.enums.InterviewerTypeEnum).getIdFromDescription('RESPONSABILE')}" onclick="RedirectInsert()">
                                     <a>
                                         <em class="bx bxs-file-plus" style="color: black;"></em>
-                                        <span class="link_name">New interview</span>
+                                        <span class="link_name">New</span>
                                     </a>        
                                       <ul class="sub-menu">
                                         <li onclick="RedirectInsert()"><a class="link_name">New</a></li>
@@ -27,7 +27,7 @@
                                  <li onclick="RedirectSearch()">
                                     <a>
                                         <em class="bx bx-file-find" style="color: black;"></em>
-                                        <span class="link_name">Search interview</span>
+                                        <span class="link_name">Search</span>
                                     </a> 
                                      <ul class="sub-menu">
                                         <li onclick="RedirectSearch()"><a class="link_name">Search</a></li>
@@ -49,6 +49,15 @@
                                     </a>
                                     <ul class="sub-menu">
                                         <li onclick="RedirectInProgress()"><a class="link_name">In progress</a></li>
+                                    </ul> 
+                                </li> 
+                            	 <li  th:if="${interviewer.type==T(com.accenture.interview.utils.enums.InterviewerTypeEnum).getIdFromDescription('RESPONSABILE')}"onclick="RedirectRegister()">
+                                    <a>
+                                        <em class="bx bx-user-plus" style="color: black;"></em>
+                                        <span class="link_name">Register</span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li onclick="RedirectRegister()"><a class="link_name">Register</a></li>
                                     </ul> 
                                 </li>
                             </ul> 

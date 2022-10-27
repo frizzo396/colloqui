@@ -19,7 +19,7 @@ $(document).ready(function (){
 		sidebar.classList.toggle("close");
 	  	document.getElementById("sidebarColumn").style.width = '20%';
 	  	document.getElementById("containerColumn").style.width = '70%';
-	  	document.getElementById("containerColumn").style.marginLeft = "1.5%";
+	  	document.getElementById("containerColumn").style.marginLeft = "0%";
 	  	drawChart();
 	  	
 	} else {
