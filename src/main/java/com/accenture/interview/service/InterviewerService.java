@@ -3,8 +3,10 @@ package com.accenture.interview.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.accenture.interview.entity.Interviewer;
 import com.accenture.interview.repository.InterviewerRepository;
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
+import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 
 /**
  * The Class InterviewerService.
@@ -26,6 +28,18 @@ public class InterviewerService {
 		return interviewerRepository.findInterviewerByEnterpriseId(enterpriseId);
 	}
 
+	/**
+	 * Adds the new interview.
+	 *
+	 * @param request       the request
+	 * @param type the type
+	 * @param interviewer   the interviewer
+	 * @return the creates the interview response
+	 */
+	public Interviewer addNewInterviewer(RegisterInterviewerTO request) {
+		Interviewer interviewer = new Interviewer(request);
+		return interviewerRepository.save(interviewer);
+	}	
 
 
 }

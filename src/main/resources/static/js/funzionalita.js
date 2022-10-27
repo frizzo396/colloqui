@@ -41,6 +41,25 @@ $(document).ready(function (){
 	});
 });
 
+//Salvataggio intervistatore
+$(document).ready(function (){
+	var $form= $('#registerUser');
+	$form.submit(function (e) {
+		e.preventDefault(e);
+		$.post($(this).attr('action'), $(this).serialize(), function (response){
+			if(response.error == null){
+					showToast("Operazione avvenuta con successo", "SUCCESS");
+					setTimeout(function(){RedirectHome()}, 1700);
+				}
+				else {
+					showToast(response.error, "ERROR");
+				}
+
+		}, 'json');
+		return false;
+	});
+});
+
 
 //Salvataggio feedback motivazionale colloquio
 $(document).ready(function (){
@@ -99,7 +118,6 @@ function validationSearch() {
 		window.setTimeout(function () { document.getElementById('searchInterview').submit(); }, 400); 
 		return false;
 	}
-}
 
 function resetSearchTable() {
 	document.getElementById("searchTableContainer").style.display = 'none';

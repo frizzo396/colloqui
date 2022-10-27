@@ -19,7 +19,6 @@ import com.accenture.interview.rto.general.ErrorRTO;
 import com.accenture.interview.to.interview.CreateInterviewTO;
 import com.accenture.interview.to.interview.SearchInterviewTO;
 import com.accenture.interview.utils.checkerror.CheckErrorsInsertInterview;
-import com.accenture.interview.utils.checkerror.CheckErrorsSearchInterview;
 
 /**
  * The Class InterviewController.

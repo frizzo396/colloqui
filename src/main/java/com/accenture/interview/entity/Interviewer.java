@@ -11,6 +11,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.NoArgsConstructor;
@@ -32,14 +33,14 @@ public class Interviewer {
 	@NotNull
 	@Column(name = "enterprise_id")
 	private String enterpriseId;
+	
+	/** The type: 1 (Responsabile), 2 (Utente normale). */
+	@Column(name = "type")	
+	private long type;	
 
 	/** The mail. */
 	@NotNull
 	private String mail;
-
-	/** The password. */
-	@NotNull
-	private String password;
 
 	/** The interview list. */
 	@OneToMany(mappedBy = "interviewerId")
@@ -63,6 +64,14 @@ public class Interviewer {
 	public void setId(long id) {
 		this.id = id;
 	}
+	
+	public long getType() {
+		return type;
+	}
+
+	public void setType(long type) {
+		this.type = type;
+	}	
 
 	/**
 	 * Gets the enterprise id.
@@ -101,24 +110,6 @@ public class Interviewer {
 	}
 
 	/**
-	 * Gets the password.
-	 *
-	 * @return the password
-	 */
-	public String getPassword() {
-		return password;
-	}
-
-	/**
-	 * Sets the password.
-	 *
-	 * @param password the new password
-	 */
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	/**
 	 * Gets the interview list.
 	 *
 	 * @return the interview list
@@ -143,14 +134,26 @@ public class Interviewer {
 	 * @param enterpriseId the enterprise id
 	 * @param mail the mail
 	 */
-	public Interviewer(long id, @NotNull String enterpriseId, @NotNull String mail) {
+	public Interviewer(long id, @NotNull String enterpriseId, @NotNull String mail, long type) {
 		super();
 		this.id = id;
 		this.enterpriseId = enterpriseId;
 		this.mail = mail;
+		
+		this.type = type;
 	}
 	
 	
-	
+	/**
+	 * Instantiates a new interviewer.
+	 *
+	 * @param registerInterviewerRequest the register interviewer
+	 *                               request
+	 */
+	public Interviewer(RegisterInterviewerTO registerInterviewerRequest) {		
+		this.enterpriseId = registerInterviewerRequest.getEnterpriseId();
+		this.mail = registerInterviewerRequest.getMail();
+		this.type = registerInterviewerRequest.getIsResponsible();
+	}	
 
 }

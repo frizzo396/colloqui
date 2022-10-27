@@ -10,6 +10,7 @@ import com.accenture.interview.rto.interview.InterviewMonthRTO;
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.service.InterviewService;
 import com.accenture.interview.service.InterviewerService;
+import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 
 /**
  * The Class InterviewerFacade.
@@ -24,6 +25,20 @@ public class InterviewerFacade {
 	/** The interview service. */
 	@Autowired
 	private InterviewService interviewService;
+	
+	
+	/**
+	 * Adds the new interviewer.
+	 *
+	 * @param request the request
+	 * @return the creates the interviewer response
+	 */
+	public InterviewerRTO addNewInterviewer(RegisterInterviewerTO request) {
+		InterviewerRTO response = null;		
+		interviewerService.addNewInterviewer(request);	
+		response = new InterviewerRTO(request);		
+		return response;
+	}	
 
 	/**
 	 * Search interviewer.

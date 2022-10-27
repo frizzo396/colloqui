@@ -56,6 +56,14 @@ function RedirectSearch() {
    window.location.href = "/interview-ms/interview/search";
 }
 
+function RedirectRegister() {
+    const url_string = window.location.href;
+    const url = new URL(url_string);
+    const enterpriseId = url.searchParams.get("enterpriseId");
+   // window.location.href = "/interview-ms/manage-interview?enterpriseId=" + enterpriseId;
+   window.location.href = "/interview-ms/interviewer/register";
+}
+
 function RedirectMyInterviews() {
     const url_string = window.location.href;
     const url = new URL(url_string);
