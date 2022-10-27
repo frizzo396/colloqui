@@ -32,13 +32,13 @@ function drawTotalChart() {
   // Optional; add a title and set the width and height of the chart
   var options = {
   		legend: {
-        	textStyle: { color: '#1429eb' },
+        	textStyle: { color: 'black' },
         	position: "bottom"
 		}, 
 		titleTextStyle: {
-    		color: '#1429eb'
+    		color: 'black'
 		},
-  		'colors': ['#bac', '#1429eb']
+  		'colors': ['#0a92ca', '#0a58ca']
   };
 
   // Display the chart inside the <div> element with id="piechart"
@@ -61,13 +61,13 @@ function drawMonthChart() {
   // Optional; add a title and set the width and height of the chart
   var options = {
   		legend: {
-        	textStyle: { color: '#1429eb' },
+        	textStyle: { color: 'black' },
 			position: "bottom"
 		}, 
 		titleTextStyle: {
-    		color: '#1429eb'
+    		color: 'black'
 		},
-  		'colors': ['#bac', '#1429eb']
+  		'colors': ['#0a92ca', '#0a58ca']
   };
 
   // Display the chart inside the <div> element with id="piechart"

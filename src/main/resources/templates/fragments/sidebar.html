@@ -1,43 +1,57 @@
-
-                        <div class="sidebar">
+	   			<div class="col-lg-8 col-lg-offset-2" id="sidebarColumn">
+                        <div class="sidebar close">
                             <header id="sidebarHeader">
                                 <em id="sidebarMenuIcon" class="bx bx-menu"></em>
                             </header>
-                          
-                            <div id="sidebarLine"></div>
+
                             <ul class="nav-links">
                                 <li onclick="RedirectHome()">
                                     <a>
-                                        <em class="bx bx-home" style="color: black;"></em>
+                                        <em class="bx bx-home" style="color: #1429eb;"></em>
                                         <span class="link_name">Home</span>
-                                    </a>                                   
-                                </li>
-                                  <li onclick="RedirectInsert()">
-                                    <a>
-                                        <em class="bx bxs-file-plus" style="color: black;"></em>
-                                        <span class="link_name">New interview</span>
-                                    </a>                                  
-                                </li>
-                                 <li onclick="RedirectSearch()">
-                                    <a>
-                                        <em class="bx bx-file-find" style="color: black;"></em>
-                                        <span class="link_name">Search interview</span>
-                                    </a>                                  
-                                </li> 
-                                <li onclick="RedirectMyInterviews()">
-                                    <a>
-                                        <em class="bx bxs-file-export" style="color: black;"></em>
-                                        <span class="link_name">Completed</span>
                                     </a>
+                                    <ul class="sub-menu blank">
+                                        <li onclick="RedirectHome()"><a class="link_name">Home</a></li>
+                                    </ul>
                                 </li>
-                                 <li onclick="RedirectInProgress()">
+                                <li>
+                                    <div class="iocn-link">
+                                        <a>
+                                            <em class="bx bx-collection" style="color: #1429eb;"></em>
+                                            <span class="link_name">Interview</span>
+                                        </a>
+                                        <em class="bx bxs-chevron-down arrow" id="interviewArrow" style="color: #1429eb;"></em>
+                                    </div>
+                                    <ul class="sub-menu">
+                                        <li onclick="RedirectInsert()"><a>New</a></li>
+                                        <li onclick="RedirectSearch()"><a>Search</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <div class="iocn-link">
+                                        <a>
+                                            <em class="bx bx-history" style="color: #1429eb;"></em>
+                                            <span class="link_name">History</span>
+                                        </a>
+                                        <em class="bx bxs-chevron-down arrow" style="color: #1429eb;"></em>
+                                    </div>
+                                    <ul class="sub-menu">
+                                        <li onclick="RedirectMyInterviews()"><a>Completed</a></li>
+                                        <li onclick="RedirectInProgress()"><a>In Progress</a></li>
+                                    </ul>
+                                </li>
+                                <li>
                                     <a>
-                                        <em class="bx bx-edit" style="color: black;"></em>
-                                        <span class="link_name">In progress</span>
+                                        <em class="bx bx-log-out" style="color: #1429eb;"></em>
+                                        <span class="link_name">Logout</span>
                                     </a>
+                                    <ul class="sub-menu blank">
+                                        <li><a class="link_name">Logout</a></li>
+                                    </ul>
                                 </li>
-                            </ul> 
+                            </ul>
                         </div>
                         <section class="home-section">
                             <div class="home-content"></div>
-                        </section>              
+                        </section>
+                    </div>                 
