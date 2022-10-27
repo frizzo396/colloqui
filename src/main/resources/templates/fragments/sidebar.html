@@ -1,75 +1,58 @@
-	   			<div class="col-lg-8 col-lg-offset-2" id="sidebarColumn">
-                        <div class="sidebar close">
+
+                        <div class="sidebar">
                             <header id="sidebarHeader">
                                 <em id="sidebarMenuIcon" class="bx bx-menu"></em>
                             </header>
-
+                          
+                            <div id="sidebarLine"></div>
                             <ul class="nav-links">
                                 <li onclick="RedirectHome()">
                                     <a>
-                                        <em class="bx bx-home" style="color: #1429eb;"></em>
+                                        <em class="bx bx-home" style="color: black;"></em>
                                         <span class="link_name">Home</span>
-                                    </a>
-                                    <ul class="sub-menu blank">
+                                    </a>     
+                                    <ul class="sub-menu">
                                         <li onclick="RedirectHome()"><a class="link_name">Home</a></li>
-                                    </ul>
+                                    </ul>                              
                                 </li>
-                                <li>
-                                    <div class="iocn-link">
-                                        <a>
-                                            <em class="bx bx-collection" style="color: #1429eb;"></em>
-                                            <span class="link_name">Interview</span>
-                                        </a>
-                                        <em class="bx bxs-chevron-down arrow" id="interviewArrow" style="color: #1429eb;"></em>
-                                    </div>
-                                    <ul class="sub-menu">
-                                    <div th:if="${interviewer.type==T(com.accenture.interview.utils.enums.InterviewerTypeEnum).getIdFromDescription('RESPONSABILE')}">                                    
-                                        <li onclick="RedirectInsert()"><a>New</a></li>
-                                        <li onclick="RedirectSearch()"><a>Search</a></li>
-                                    </div>
-									<div th:unless="${interviewer.type==T(com.accenture.interview.utils.enums.InterviewerTypeEnum).getIdFromDescription('RESPONSABILE')}">                                    
-                                    	<li onclick="RedirectSearch()"><a>Search</a></li>
-                                    </div>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <div class="iocn-link">
-                                        <a>
-                                            <em class="bx bx-save" style="color: #1429eb;"></em>
-                                            <span class="link_name">Register</span>
-                                        </a>
-                                    </div>
-                                    <ul class="sub-menu">
-                                    <div th:if="${interviewer.type==T(com.accenture.interview.utils.enums.InterviewerTypeEnum).getIdFromDescription('RESPONSABILE')}">                                    
-                                        <li onclick="RedirectRegister()"><a>Register</a></li>
-                                    </div>
-                                    </ul>
-                                </li>                                
-                                <li>
-                                    <div class="iocn-link">
-                                        <a>
-                                            <em class="bx bx-history" style="color: #1429eb;"></em>
-                                            <span class="link_name">History</span>
-                                        </a>
-                                        <em class="bx bxs-chevron-down arrow" style="color: #1429eb;"></em>
-                                    </div>
-                                    <ul class="sub-menu">
-                                        <li onclick="RedirectMyInterviews()"><a>Completed</a></li>
-                                        <li onclick="RedirectInProgress()"><a>In Progress</a></li>
-                                    </ul>
-                                </li>
-                                <li>
+                                  <li onclick="RedirectInsert()">
                                     <a>
-                                        <em class="bx bx-log-out" style="color: #1429eb;"></em>
-                                        <span class="link_name">Logout</span>
-                                    </a>
-                                    <ul class="sub-menu blank">
-                                        <li><a class="link_name">Logout</a></li>
-                                    </ul>
+                                        <em class="bx bxs-file-plus" style="color: black;"></em>
+                                        <span class="link_name">New interview</span>
+                                    </a>        
+                                      <ul class="sub-menu">
+                                        <li onclick="RedirectInsert()"><a class="link_name">New</a></li>
+                                    </ul>                               
                                 </li>
-                            </ul>
+                                 <li onclick="RedirectSearch()">
+                                    <a>
+                                        <em class="bx bx-file-find" style="color: black;"></em>
+                                        <span class="link_name">Search interview</span>
+                                    </a> 
+                                     <ul class="sub-menu">
+                                        <li onclick="RedirectSearch()"><a class="link_name">Search</a></li>
+                                    </ul>                                         
+                                </li> 
+                                <li onclick="RedirectMyInterviews()">
+                                    <a>
+                                        <em class="bx bxs-file-export" style="color: black;"></em>
+                                        <span class="link_name">Completed</span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li onclick="RedirectMyInterviews()"><a class="link_name">Completed</a></li>
+                                    </ul> 
+                                </li>
+                                 <li onclick="RedirectInProgress()">
+                                    <a>
+                                        <em class="bx bx-edit" style="color: black;"></em>
+                                        <span class="link_name">In progress</span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li onclick="RedirectInProgress()"><a class="link_name">In progress</a></li>
+                                    </ul> 
+                                </li>
+                            </ul> 
                         </div>
                         <section class="home-section">
                             <div class="home-content"></div>
-                        </section>
-                    </div>                 
+                        </section>              

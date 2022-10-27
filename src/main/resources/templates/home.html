@@ -24,60 +24,59 @@
     <body>
     
     <div class="interview-html">
-		<div class="interview-wrap">
 			
 			<!-- NUOVO DIV PER HEADER SUPERIORE -->
-			<div th:replace="fragments/header"></div>
+			<div th:replace="fragments/header"></div>		
+			<div class="pageRow">
+				<div class="col-lg-8 col-lg-offset-2" id="sidebarColumn">
+						<div th:replace="fragments/sidebar"></div>  				
+				 </div>
+	                <!-- CONTAINER CENTRALE -->    
+	                <div class="col-lg-8 col-lg-offset-2" id="containerColumn">
+		              <div class="row" id="yearGraphRow">
+		              			<div class="col-lg-8 col-lg-offset-2" id="yearGraphColumn">
+		              						<div class="graphContainer">
+			              						<header class="graphHeader">
+					                                <label class="graphLabel">Year Interviews</label>
+					                            </header>		
+											 	<div id="yearGraph"></div>		
+											 </div>						 	
+								</div>		 	
+						</div>             
+						<div class="row" id="cakeGraphsRow">	
+										  <div class="col-lg-8 col-lg-offset-2" id="totInterviewsGraphColumn">
+												<div class="graphContainer">
+				              						<header class="graphHeader">
+						                                <label class="graphLabel">Total Interviews</label>
+						                            </header>		
+											 			<div id="totalInterviewsChart" class="chart"></div>
+										 		</div>
+										  </div>
+										  <div class="col-lg-8 col-lg-offset-2" id="graphSpaceColumn">
+										  </div>
+										   <div class="col-lg-8 col-lg-offset-2" id="monthInterviewsGraphColumn">
+										   		<div class="graphContainer">
+				              						<header class="graphHeader">
+						                                <label class="graphLabel">Month Interviews</label>
+						                            </header>		
+										 			<div id="monthInterviewsChart" class="chart"></div>
+										 		  </div>	
+										  </div>	
 			
-	   		<div class="row" id="pageRow">
-	   		
-			<!-- NUOVO DIV PER SIDEBAR (LATERALE) -->
-			<div th:replace="fragments/sidebar"></div>	   		
-	   		
-                <!-- CONTAINER CENTRALE -->    
-                <div class="col-lg-8 col-lg-offset-2" id="containerColumn">
-                       <div class="container" id="containerHome">
-							<div class="row" id="homeContainerFirstRow">
-								 <div class="col-lg-8 col-lg-offset-2" id="userInfoColumn">								 		
-								 		<div class="row" id="userLogoRow">
-								 	    <em id="userLogoIcon" class="fa-solid fa-user"></em>
-								 				<ul id="userInfoList">
-								 					<li>
-								 						 <span th:text="${interviewer.enterpriseId}">Enterprise id</span>								 					
-								 					</li>
-								 					<li id="entIdList">
-								 						 <span th:text="${interviewer.mail}">Enterprise id</span>								 					
-								 					</li>
-								 				</ul>
-								 		</div> 
-								 </div>
-								  <div class="col-lg-8 col-lg-offset-2" id="yearGraphColumn">
-								 	<div id="visualization"></div>
-								  </div>
-						    </div>
-							<div class="row">	
-								  <div class="col-lg-8 col-lg-offset-2" id="totInterviewsGraphColumn">
-								 		<div id="totalInterviewsChart" class="chart"></div>
-								  </div>
-								   <div class="col-lg-8 col-lg-offset-2" id="monthInterviewsGraphColumn">
-								 		<div id="monthInterviewsChart" class="chart"></div>
-								  </div>	
-	
-							</div>
 						</div>
-				</div>
-                        
-          </div>
-          <div style="display: none">
-          		 <span th:text="${inProgressInterviews}" id="inProgressNumber"></span>
-				 <span th:text="${myInterviews}" id="completedNumber"></span>
-				 <span th:text="${myInterviewsMonth}" id="completedMonthNumber"></span>
-				 <span th:text="${inProgressInterviewsMonth}" id="inProgressMonthNumber"></span>
-          </div>
-	   		
-	   		</div>
-					
-		</div>
+					</div>
+					 <div style="display: none">
+			        		 <span th:text="${inProgressInterviews}" id="inProgressNumber"></span>
+							 <span th:text="${myInterviews}" id="completedNumber"></span>
+							 <span th:text="${myInterviewsMonth}" id="completedMonthNumber"></span>
+							 <span th:text="${inProgressInterviewsMonth}" id="inProgressMonthNumber"></span>
+	          		</div>
+          		</div>
+</div>
+
+				
+				
+			
 	<script th:inline="javascript">
 		/*<![CDATA[*/
 			google.load("visualization", "1", {packages:["corechart"]});
@@ -101,30 +100,29 @@
 		    	    data.addRow([months[i], interviews[i]]);
 		    	  
 		    	  var options = {
-		    		        title: "Interviews per Month",
 		    		        vAxis: {'minValue': 0, 'maxValue': 10},
 		    		        hAxis: {
 		    		            textStyle: {
-		    		                color: '#1429eb'
+		    		                color: 'black',
+		    		                 fontSize: 11 
 		    		            }
 		    		        },
-		    		       // width: 800,
-		    		      //  height: 350,
-		    		      //  chartArea: {'width': '100%', 'height': '80%'},
-		    		        bar: {groupWidth: "50%"},
+
+		    		        /*width: '80%',
+		    		        height: 300,
+		    		        chartArea: {'width': '100%', 'height': '80%'},*/
+		    		        theme: 'maximized',
+		    		        bar: {groupWidth: "25%"},
 		    		        legend: { position: "none" },
-		    				titleTextStyle: {
-		    		    		color: '#1429eb'
-		    				},
-		    		  		colors: ['#1429eb']
+		    		  		colors: ['#0a58ca']
 		    		      };
 		    	 
-		    	  new google.visualization.ColumnChart(document.getElementById('visualization')).
+		    	  new google.visualization.ColumnChart(document.getElementById('yearGraph')).
 		    	    draw(data, options);
 			}
-			$(window).resize(function(){
-					drawVisualization();
-				});
+			window.onresize = drawVisualization;
+			window.addEventListener('load', drawVisualization, false);
+			window.addEventListener('click', drawVisualization, false);
 		/*]]>*/
 	</script>
     </body>
