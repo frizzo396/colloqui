@@ -13,6 +13,7 @@ import com.accenture.interview.to.feedback.CreateMotivationFeedbackTO;
 import com.accenture.interview.to.feedback.CreateTechFeedbackTO;
 import com.accenture.interview.to.interview.CreateInterviewTO;
 import com.accenture.interview.to.interview.SearchInterviewTO;
+import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 
 /**
  * The Class PaginationController.
@@ -76,6 +77,16 @@ public class PaginationController extends BaseController {
 		modelAndView.setViewName("search.html");
 		return modelAndView;
 	}
+	
+	@GetMapping("/interviewer/register")
+	public ModelAndView registerUser() {
+		ModelAndView modelAndView = new ModelAndView();
+		String username = System.getProperty("user.name");
+		modelAndView.addObject("interviewer", interviewerFacade.interviewerInfo(username));
+		modelAndView.addObject("registerUserTO", new RegisterInterviewerTO());	
+		modelAndView.setViewName("register-user.html");
+		return modelAndView;
+	}	
 
 	/**
 	 * Show tech feedback form.

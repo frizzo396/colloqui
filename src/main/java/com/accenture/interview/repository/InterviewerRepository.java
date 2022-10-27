@@ -20,7 +20,7 @@ public interface InterviewerRepository extends JpaRepository<Interviewer, Long> 
 	 * @param interviewerId the interviewer id
 	 * @return the optional
 	 */
-	@Query("select new com.accenture.interview.rto.interviewer.InterviewerRTO(ier.id, ier.enterpriseId, ier.mail) from Interviewer ier where ier.id=:interviewerId")
+	@Query("select new com.accenture.interview.rto.interviewer.InterviewerRTO(ier.id, ier.enterpriseId, ier.mail, ier.type) from Interviewer ier where ier.id=:interviewerId")
 	InterviewerRTO findInterviewerByInterviewerId(@Param("interviewerId") long interviewerId);
 
 	/**
@@ -29,7 +29,7 @@ public interface InterviewerRepository extends JpaRepository<Interviewer, Long> 
 	 * @param enterpriseId the enterprise id
 	 * @return the optional
 	 */
-	@Query("select new com.accenture.interview.rto.interviewer.InterviewerRTO(ier.id, ier.enterpriseId, ier.mail) from Interviewer ier where ier.enterpriseId=:enterpriseId")
+	@Query("select new com.accenture.interview.rto.interviewer.InterviewerRTO(ier.id, ier.enterpriseId, ier.mail, ier.type) from Interviewer ier where ier.enterpriseId=:enterpriseId")
 	InterviewerRTO findInterviewerByEnterpriseId(@Param("enterpriseId") String enterpriseId);
 
 }
