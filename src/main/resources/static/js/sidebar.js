@@ -79,7 +79,7 @@ function RedirectRegister() {
     const url = new URL(url_string);
     const enterpriseId = url.searchParams.get("enterpriseId");
    // window.location.href = "/interview-ms/manage-interview?enterpriseId=" + enterpriseId;
-   window.location.href = "/interview-ms/interview/register";
+   window.location.href = "/interview-ms/interviewer/register";
 }
 
 function RedirectMyInterviews() {

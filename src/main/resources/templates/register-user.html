@@ -19,6 +19,14 @@
         <script type="text/javascript" th:src="@{/js/funzionalita.js}"></script>
         <script type="text/javascript" th:src="@{/js/funzionalita2.js}"></script>
         <script type="text/javascript" th:src="@{/js/sidebar.js}"></script>
+        <style>
+			.columnRegister {
+			  float: left;
+			  width: 33.33%;
+			  padding: 10px;
+			}
+		</style>   
+             
     </head>
     <body>
         <div class="interview-html">               
@@ -32,46 +40,46 @@
 				<div th:replace="fragments/sidebar"></div>            
             
                 <div class="col-lg-8 col-lg-offset-2" id="containerColumn">
-                    <div class="container" id="containerRegister">
+                    <div class="container" id="containerRegister" style="margin: auto; width: 90%">
                         <div class="row">
-                            <header id="containerRegisterHeader">
-                                <label id="registerUserLabel">Register user </label>
+                            <header id="containerInsertHeader">
+                                <label id="interviewInformations">Register interviewer </label>
                             </header>
                             <div class="col-lg-8 col-lg-offset-2">
-                                <form id="registerUser" action="#" th:action="@{/user/register}" th:object="${registerUserTO}" method="post">
-                                    <div class="form-group">
-                                        <div class="2-column-container">
-                                            <div class="row" id="anagRow">
-                                               <div class="column">
+                                <form id="registerUser" action="#" th:action="@{/interviewer/register}" th:object="${registerUserTO}" method="post">
+                                    <div class="form-group">                               
+                                            <div class="row" id="registerInfo">
+                                               <div class="columnRegister">
                                                     <div class="form-group">
                                                         <label><em class="fa fa-user"></em> Enterprise Id</label>
                                                         <input type="text" th:field="*{enterpriseId}" placeholder="Enterprise Id" />
                                                         <small th:if="${#fields.hasErrors('enterpriseId')}" th:errors="*{enterpriseId}">Enterprise Id Error</small>
                                                     </div>
                                                 </div>
-                                              	<div class="column">
+                                              	<div class="columnRegister">
                                                     <div class="form-group">
                                                         <label><em class="fa fa-envelope"></em> Email</label>
                                                         <input type="email" th:field="*{mail}" placeholder="mail@mail.com" />
                                                         <small th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}">Email Error</small>
                                                     </div>
                                                 </div>                                                                                              
-                                                <div class="column">
-                                                    <div class="form-group">
-                                                        <label><em class="fa fa-user"></em> Responsible</label>                                                        
-                                                        <input type="radio" id="option_resp_yes" name="option_resp" class="" value="YES" th:field="*{isResponsible}">
-                                                        <label for="option_resp_yes">YES</label><br>
-                                                        
-                                                        <input type="radio" id="optio_resp_no" name="option_resp" class="" value="NO" th:field="*{isResponsible}">
-                                                        <label for="optio_resp_no">NO</label><br>
-                                                                                                               
-                                                        <small th:if="${#fields.hasErrors('isResponsible')}" th:errors="*{isResponsible}">Responsible Error</small>
-                                                    </div>
+                                                <div class="columnRegister">
+                                                	<div class="form-group">
+                                                   		<span><label><em class="fa fa-user"></em> Responsible</label></span><br>
+                                                   		<div class="container" style="float: left; clear: none;">	                                                  
+                                                   			<input type="radio" id="option_resp_yes" name="option_resp" value="1" th:field="*{isResponsible}">
+                                                   			<label for="option_resp_yes">Yes</label><br>
+                                                			<input type="radio" id="option_resp_no" name="option_resp" value="2" th:field="*{isResponsible}">
+                                                			<label for="option_resp_no">No</label>
+                                                   		</div>
+                                                   	</div>
                                                 </div>       
                                             </div>
-
-                                            <div class="row" id="buttonRow">
-                                                <div class="button-column">
+                                            <div class="row">
+                                            	<div><br><br></div>
+                                            </div>
+                                            <div class="row" id="registerButtonRow">                                                
+                                                <div class="button-column">                                                	
                                                     <div class="form-group">
                                                         <button class="submit-button" type="submit">Submit</button>
                                                     </div>
@@ -80,9 +88,11 @@
                                                     <div class="form-group">
                                                         <button class="clear-button" type="reset" value="Reset">Clear</button>
                                                     </div>
-                                                </div>
+                                                </div>                                                
                                             </div>
-                                        </div>
+                                            <div class="row">
+                                            	<div><br></div>
+                                            </div>
                                     </div>
                                 </form>
                             </div>

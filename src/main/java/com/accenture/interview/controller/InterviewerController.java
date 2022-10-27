@@ -1,22 +1,39 @@
 package com.accenture.interview.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.accenture.interview.facade.InterviewerFacade;
+import com.accenture.interview.rto.general.BaseResponseRTO;
+import com.accenture.interview.rto.general.ErrorRTO;
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
+import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
+import com.accenture.interview.utils.checkerror.CheckErrorsRegisterInterviewer;
 
 /**
  * The Class InterviewerController.
  */
-@RestController
+@Controller
+@RequestMapping("/interviewer")
 public class InterviewerController {
 
 	/** The interviewer facade. */
 	@Autowired
 	private InterviewerFacade interviewerFacade;
+	
+	/** The check errors insert interview. */
+	@Autowired private CheckErrorsRegisterInterviewer checkErrorsRegisterInterviewer;
+	 
 
 	/**
 	 * Search interviewer.
@@ -44,5 +61,24 @@ public class InterviewerController {
 	public InterviewerRTO interviewerInfo(@RequestParam("enterpriseId") String enterpriseId) {
 		return interviewerFacade.interviewerInfo(enterpriseId);
 	}
+	
+	
+	/**
+	 * Creates the interviewer.
+	 *
+	 * @param createRegisterTO the register interviewer TO
+	 * @return the response entity
+	 */
+	@PostMapping("/register")
+	@ResponseBody
+	public ResponseEntity<Object> registerInterviewer(@RequestBody @ModelAttribute RegisterInterviewerTO registerUserTO) {
+		
+		ErrorRTO errorRTO = checkErrorsRegisterInterviewer.validate(registerUserTO);
+
+		if (!ObjectUtils.isEmpty(errorRTO)) {
+			return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
+		}
+		return new ResponseEntity<>(new BaseResponseRTO(interviewerFacade.addNewInterviewer(registerUserTO)), HttpStatus.OK);		
+	}	
 
 }

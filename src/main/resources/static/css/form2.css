@@ -513,6 +513,10 @@ body{
   transform: translateY(-40px);
   /* Force Hardware Acceleration in WebKit */
   -webkit-backface-visibility: hidden;
+  
+  /* 2022-10-25: aggiunta per evitare warning */
+  backface-visibility: hidden;
+  
   -webkit-transition-property: -webkit-transform;
   -moz-transition-property: -moz-transform;
   transition-property: transform;

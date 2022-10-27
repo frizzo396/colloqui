@@ -11,6 +11,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.NoArgsConstructor;
@@ -143,6 +144,16 @@ public class Interviewer {
 	}
 	
 	
-	
+	/**
+	 * Instantiates a new interviewer.
+	 *
+	 * @param registerInterviewerRequest the register interviewer
+	 *                               request
+	 */
+	public Interviewer(RegisterInterviewerTO registerInterviewerRequest) {		
+		this.enterpriseId = registerInterviewerRequest.getEnterpriseId();
+		this.mail = registerInterviewerRequest.getMail();
+		this.type = registerInterviewerRequest.getIsResponsible();
+	}	
 
 }

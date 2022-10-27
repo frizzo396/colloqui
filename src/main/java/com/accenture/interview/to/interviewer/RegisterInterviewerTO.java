@@ -1,7 +1,8 @@
-package com.accenture.interview.to.interview;
+package com.accenture.interview.to.interviewer;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,19 +14,19 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CreateRegisterTO {	
+public class RegisterInterviewerTO {	
 
 	/** Responsible. */
-	@NotEmpty(message = "user.responsible.notempty")
-	private String isResponsible;
+	@NotNull(message = "interviewer.responsible.notnull")
+	private Long isResponsible;
 
 	/** The mail. */
-	@Email(message = "user.mail.invalid")
-	@NotEmpty(message = "user.mail.notempty")
+	@Email(message = "interviewer.mail.invalid")
+	@NotEmpty(message = "interviewer.mail.notempty")
 	private String mail;
 
 	/** The enterprise id. */
-	@NotEmpty(message = "user.enterpriseid.notempty")
+	@NotEmpty(message = "interviewer.enterpriseid.notempty")
 	private String enterpriseId;
 
 }
