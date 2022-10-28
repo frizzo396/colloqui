@@ -1,7 +1,6 @@
 @charset "ISO-8859-1";
 
 .container {
-	display: flex;
     width: 100%;
     background-color: #e3e4e8;
     padding-top: 12px;
@@ -23,41 +22,36 @@
     line-height: 1em;
 }
 
-.container label{
+.inp-form label{
 	font-family: sans-serif;
 	font-size:15px;
 	margin:4px;
 	padding: 2px 2px 2px 0;
   	display: inline-block;
+  	color: black;
+}
+
+#insertFormColumn {
+	background-color: white;
+	border-radius: 5px;
+}
+
+#insertInterview {
+	padding-bottom: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+}
+
+#buttonRow {
+    padding-top: 15px;
+    padding-bottom: 20px;
 }
 
 
 #cv {
-	padding: 2.5px;
+	padding: 3px;
 }
-
-#insertInterview {
-	padding-left: 30px;
-    padding-right: 30px;
-}
-
-
-#anagRow .column {
-	width: 33%;
-}
-
-#mailRow .column{
-	width: 100%;
-}
-
-#insBackgroundRow .column{
-	width: 50%;
-}
-
-#interviewRow .column {
-	width: 33%;
-}
-
 
 #searchName{
 	width: 33%;
@@ -76,11 +70,6 @@
 }
 #searchSite {
 	width: 33%;
-}
-
-
-#enterpriseIdRow .column{
-	width: 50%;
 }
 
 #buttonRow .column{

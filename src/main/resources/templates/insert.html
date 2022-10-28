@@ -4,11 +4,13 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <title>Interview</title>
-        <link th:href="@{/css/form2.css}" rel="stylesheet" />
+        <link th:href="@{/css/form.css}" rel="stylesheet" />
         <link th:href="@{/css/sidebar.css}" rel="stylesheet" />
-        <link th:href="@{/css/form-container.css}" rel="stylesheet" />
+        <link th:href="@{/css/container.css}" rel="stylesheet" />
         <link th:href="@{/css/header.css}" rel="stylesheet" />
         <link th:href="@{/css/snackbar.css}" rel="stylesheet" />
+        <link th:href="@{/css/general-style.css}" rel="stylesheet" />
+        <link th:href="@{/css/popup-container.css}" rel="stylesheet" />
         <link th:rel="stylesheet" th:href="@{assets/bootstrap-select-1.13.9/dist/css/bootstrap-select.css}" />
         <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -38,61 +40,59 @@
 						              <label class="containerLabel">Insert Interview</label>
 						    </header>		
                             <div class="col-lg-8 col-lg-offset-2" id="insertFormColumn">
-                                <form id="insertInterview" action="#" th:action="@{/interview/create}" th:object="${createInterviewTO}" method="post">
+                                <form class="inp-form" id="insertInterview" action="#" th:action="@{/interview/create}" th:object="${createInterviewTO}" method="post">
                                     <div class="form-group">
                                         <div class="2-column-container">
-                                            <div class="row" id="anagRow">
+                                            <div class="row">
                                                 <div class="column">
                                                     <div class="form-group">
-                                                        <label><em class="fa fa-user"></em> Name</label>
+                                                        <label>Name</label>
                                                         <input type="text" th:field="*{candidateName}" placeholder="Name" />
                                                         <small th:if="${#fields.hasErrors('candidateSurname')}" th:errors="*{candidateName}">Name Error</small>
                                                     </div>
                                                 </div>
                                                 <div class="column">
                                                     <div class="form-group">
-                                                        <label><em class="fa fa-user"></em> Surname</label>
+                                                        <label>Surname</label>
                                                         <input type="text" th:field="*{candidateSurname}" placeholder="Surname" />
                                                         <small th:if="${#fields.hasErrors('candidateSurname')}" th:errors="*{candidateSurname}">Surname Error</small>
                                                     </div>
                                                 </div>
                                                 <div class="column">
                                                     <div class="form-group">
-                                                        <label><em class="fa fa-calendar datePicker"></em> Date of birth</label>
+                                                        <label>Date of birth</label>
                                                         <input type="date" th:field="*{candidateBirth}" />
                                                         <small th:if="${#fields.hasErrors('candidateBirth')}" th:errors="*{candidateBirth} ">Birth Error</small>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row" id="mailRow">
+                                            <div class="row">
                                                 <div class="column">
                                                     <div class="form-group">
-                                                        <label><em class="fa fa-envelope"></em> Email</label>
+                                                        <label>Email</label>
                                                         <input type="email" th:field="*{mail}" placeholder="mail@mail.com" />
                                                         <small th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}">Email Error</small>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row" id="insBackgroundRow">
-                                                <div class="column">
+                                                 <div class="column">
                                                     <div class="form-group">
-                                                        <label><em class="fa fa-graduation-cap"></em> Qualification</label>
+                                                        <label>Qualification</label>
                                                         <input type="text" th:field="*{eduQualification}" placeholder="Qualification" />
                                                         <small th:if="${#fields.hasErrors('eduQualification')}" th:errors="*{eduQualification}">Qualification Error</small>
                                                     </div>
                                                 </div>
                                                 <div class="column">
                                                     <div class="form-group">
-                                                        <label><em class="fa fa-file"></em> Curriculum</label>
+                                                        <label>Curriculum</label>
                                                         <input type="file" id="cv" name="curriculum" accept="pdf" />
                                                         <small th:if="${#fields.hasErrors('cv')}" th:errors="*{cv}">CV Error</small>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row" id="interviewRow">
+                                            <div class="row">
                                                 <div class="column">
                                                     <div class="form-group">
-                                                        <label for="candidateType"><em class="fa fa-briefcase"></em> Candidate Level</label>
+                                                        <label for="candidateType">Candidate Level</label>
                                                         <select class="formcontrol selectpicker" th:field="*{candidateType}" id="candidateType">
                                                             <option value="">Nothing selected</option>
                                                             <option th:each="candidateType : ${T(com.accenture.interview.utils.enums.CandidateTypeEnum).values()}" th:value="${candidateType}" th:text="${candidateType}">
@@ -104,7 +104,7 @@
                                                 </div>
                                                 <div class="column">
                                                     <div class="form-group">
-                                                        <label><em class="fa fa-handshake-o"></em> Interview type</label>
+                                                        <label>Interview type</label>
                                                         <select class="form-control selectpicker" th:field="*{interviewType}" id="interviewType">
                                                             <option value="">Nothing selected</option>
                                                             <option th:each="interviewType : ${T(com.accenture.interview.utils.enums.InterviewTypeEnum).values()}" th:value="${interviewType}" th:text="${interviewType}">
@@ -118,7 +118,7 @@
                                                 <!-- 2022-10-13 NUOVA COLONNA site - START -->
                                                 <div class="column">
                                                     <div class="form-group">
-                                                        <label><em class="fa-solid fa-building-user"></em> Site</label>
+                                                        <label>Site</label>
                                                         <select class="formcontrol selectpicker" th:field="*{site}" id="site">
                                                             <option value="">Nothing selected</option>
                                                              <option th:each="siteElem : ${comboSitesDB}" th:value="${siteElem.id}" th:text="${siteElem.name}">
@@ -133,20 +133,20 @@
                                              <div class="row" id="enterpriseIdRow"> 
                                                 <div class="column">
                                                     <div class="form-group">
-                                                        <label><em class="fa fa-calendar-times-o"></em> Scheduled date</label>
+                                                        <label>Scheduled date</label>
                                                         <input type="datetime-local" th:field="*{scheduledDate}" />
                                                         <small th:if="${#fields.hasErrors('scheduledDate')}" th:errors="*{scheduledDate}">Scheduled date Error</small>
                                                     </div>
-                                                </div>
-                                            
-                                            
+                                                </div>                                               
                                                 <div class="column">
                                                     <div class="form-group">
-                                                        <label><em class="fa fa-drivers-license"></em> Interviewer</label>
+                                                        <label>Interviewer</label>
                                                         <input type="text" class="fieldEnterpriseId" th:field="*{enterpriseId}" placeholder="enterprise.id" />
                                                         <small th:if="${#fields.hasErrors('enterpriseId')}" th:errors="*{enterpriseId}">Interviewer Error</small>
                                                     </div>
                                                 </div>
+                                                 <div class="column">
+                                   				</div>
                                             </div>
                                             <div class="row" id="buttonRow">
                                                 <div class="button-column">
