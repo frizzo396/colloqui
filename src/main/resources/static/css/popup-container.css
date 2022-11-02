@@ -5,7 +5,7 @@
   top: 0;
   height: 100%;
   width: 100%;
-  background-color: rgba(94, 110, 141, 0.9);
+  background-color: rgb(172 175 179 / 91%);
   opacity: 0;
   visibility: hidden;
   -webkit-transition: opacity 0.3s 0s, visibility 0s 0.3s;
@@ -24,8 +24,10 @@
   position: relative;
   width: 100%;
   max-width: 600px;
-  margin: 4em auto;
-  padding: 3em;
+	 margin-top: 15em;
+    margin-right: auto;
+    margin-bottom: 4em;
+    margin-left: auto;
   background: #FFF;
   border-radius: .25em .25em .4em .4em;
   text-align: center;

@@ -61,10 +61,10 @@
                                         <td th:text= "${interview.site}"/>   
                                         <td>
                                             <span th:if="${interview.interviewType == 1}">
-                                                <button type="submit" class="cd-popup-trigger" th:data-parameter1="${interview.id}" onclick="GotoMotivationalFeedback(this.getAttribute('data-parameter1'));">Add</button>
+                                                <button type="submit" class="motiv-popup" th:data-parameter1="${interview.id}" onclick="GotoMotivationalFeedback(this.getAttribute('data-parameter1'));">Add</button>
                                             </span>
                                             <span th:unless="${interview.interviewType == 1}">
-                                                <button type="submit" class="cd-popup-trigger2" th:data-parameter1="${interview.id}" onclick="GotoTechnicalFeedback(this.getAttribute('data-parameter1'));">Add</button>
+                                                <button type="submit" class="tech-popup" th:data-parameter1="${interview.id}" onclick="GotoTechnicalFeedback(this.getAttribute('data-parameter1'));">Add</button>
                                             </span>
                                         </td>
                                     </tr>

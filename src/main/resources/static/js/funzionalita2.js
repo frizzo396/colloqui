@@ -3,9 +3,9 @@
 
 jQuery(document).ready(function ($) {
     //open popup Motivational
-    $('.cd-popup-trigger').on('click', function (event) {
+    $('.motiv-popup').on('click', function (event) {
 		event.preventDefault();
-		$('.cd-popup').addClass('is-visible');
+		$('#motiv-modal').addClass('is-visible');
     	
     });
 
@@ -19,9 +19,9 @@ jQuery(document).ready(function ($) {
     
     
     //open popup Technical
-    $('.cd-popup-trigger2').on('click', function (event) {
+    $('.tech-popup').on('click', function (event) {
 		event.preventDefault();
-		$('.cd-popup2').addClass('is-visible');
+		$('#tech-modal').addClass('is-visible');
     
     });
 
@@ -34,6 +34,12 @@ jQuery(document).ready(function ($) {
     });
 
     pagination();
+    
+   $('.popup-register').on('click', function (event) {
+		event.preventDefault();
+		$('#register-modal').addClass('is-visible');
+    
+    });
 
 });
 

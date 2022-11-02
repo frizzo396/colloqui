@@ -18,6 +18,7 @@ import com.accenture.interview.rto.general.BaseResponseRTO;
 import com.accenture.interview.rto.general.ErrorRTO;
 import com.accenture.interview.to.interview.CreateInterviewTO;
 import com.accenture.interview.to.interview.SearchInterviewTO;
+import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 import com.accenture.interview.utils.checkerror.CheckErrorsInsertInterview;
 
 /**
@@ -68,6 +69,7 @@ public class InterviewController {
 		model.addAttribute("searchInterviews", interviewFacade.searchInterviews(searchInterviewTO));
 		model.addAttribute("searchInterviewTO", new SearchInterviewTO());
 		model.addAttribute("comboSitesDB", interviewFacade.getComboSites());	
+		model.addAttribute("registerUserTO", new RegisterInterviewerTO());
 		return "search";
 	}
 

@@ -1,11 +1,6 @@
 
 
 jQuery(document).ready(function($){
-	$('.cd-popup-trigger').on('click', function(event){
-		event.preventDefault();
-		$('.cd-popup').addClass('is-visible');
-	});
-
 	$('.cd-popup').on('click', function(event){
 		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') ) {
 			event.preventDefault();
@@ -17,6 +12,39 @@ jQuery(document).ready(function($){
 		if(event.which=='27'){
 			$('.cd-popup').removeClass('is-visible');
 		}
+	});
+	
+	$("select").change(function() {
+		var selectedValue = $(this).val();
+		
+		if(selectedValue == ""){
+				$(this).css('color','#afb0b3');
+		} else {
+				$(this).css('color','black');
+		}
+	})
+	$(".datePicker").change(function() {
+			var selectedValue = $(this).val();
+			if(selectedValue == ""){
+				$(this).css('color','#afb0b3');
+			} else {
+					$(this).css('color','black');
+			}		
+	})
+	
+		$("#cv").change(function() {
+			var selectedValue = $(this).val();
+			if(selectedValue == ""){
+				$(this).css('color','#afb0b3');
+			} else {
+					$(this).css('color','black');
+			}		
+	})
+	
+	$('.clear-button').click(function(){
+	    $('.datePicker').css('color','#afb0b3');
+	    $('select').css('color','#afb0b3');
+	    $('#cv').css('color','#afb0b3');
 	});
 
 });
@@ -48,11 +76,11 @@ $(document).ready(function (){
 		e.preventDefault(e);
 		$.post($(this).attr('action'), $(this).serialize(), function (response){
 			if(response.error == null){
-					showToast("Operazione avvenuta con successo", "SUCCESS");
+					showToast("Operazione avvenuta con successo", "SUCCESS", 3000);
 					setTimeout(function(){RedirectHome()}, 1700);
 				}
 				else {
-					showToast(response.error, "ERROR");
+					showToast(response.error, "ERROR", 3000);
 				}
 
 		}, 'json');
@@ -118,6 +146,7 @@ function validationSearch() {
 		window.setTimeout(function () { document.getElementById('searchInterview').submit(); }, 400); 
 		return false;
 	}
+}
 
 function resetSearchTable() {
 	document.getElementById("searchTableContainer").style.display = 'none';

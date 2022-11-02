@@ -66,10 +66,10 @@
                                                 <td class="remove" th:style="${interview.finalFeedback} eq 'OK' ? 'color: #008000' : 'color: #b20000'" th:text="${interview.finalFeedback}" />
                                                 <td>
                                                     <span th:if="${interview.interviewType == 1}">
-                                                        <button th:data-parameter1="${interview.motivationalFeedback}" onclick="createMotivationalModal(this.getAttribute('data-parameter1'))" type="submit" class="cd-popup-trigger">+</button>
+                                                        <button th:data-parameter1="${interview.motivationalFeedback}" onclick="createMotivationalModal(this.getAttribute('data-parameter1'))" type="submit" class="motiv-popup">+</button>
                                                     </span>
                                                     <span th:unless="${interview.interviewType == 1}">
-                                                        <button th:data-parameter2="${interview.technicalFeedback}" onclick="createTechnicalModal(this.getAttribute('data-parameter2'))" type="submit" class="cd-popup-trigger2">+</button>
+                                                        <button th:data-parameter2="${interview.technicalFeedback}" onclick="createTechnicalModal(this.getAttribute('data-parameter2'))" type="submit" class="tech-popup">+</button>
                                                     </span>
                                                 </td>
                                             </tr>

@@ -7,6 +7,7 @@
         <link th:href="@{/css/sidebar.css}" rel="stylesheet" />
         <link th:href="@{/css/home.css}" rel="stylesheet" />
         <link th:href="@{/css/container.css}" rel="stylesheet" />
+         <link th:href="@{/css/snackbar.css}" rel="stylesheet" />
         <link th:href="@{/css/header.css}" rel="stylesheet" />
         <link th:href="@{/css/general-style.css}" rel="stylesheet" />
         <link th:href="@{/css/popup-container.css}" rel="stylesheet" />
@@ -74,6 +75,20 @@
 							 <span th:text="${inProgressInterviewsMonth}" id="inProgressMonthNumber"></span>
 	          		</div>
           		</div>
+          		<div id="register-modal" class="cd-popup" role="alert">
+                                <div th:replace="fragments/registerUserModal"></div>
+               </div>
+               <div  id="snackbar">
+               		<div  id="snackbarRow">
+               				 <div class="col-lg-8 col-lg-offset-2" id="snackbarIconColumn">
+               				 
+               				 </div>
+               				  <div class="col-lg-8 col-lg-offset-2" id="snackbarTextColumn">
+               				 
+               				 </div>    				 
+               		</div>
+               </div>
+            </div>
 </div>
 
 				

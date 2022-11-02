@@ -114,10 +114,10 @@ select{
 	-webkit-appearance:none;/* chrome and safari */
 	-moz-appearance:none;/* Mozilla */
 	-ms-appearance:none;/* Internet explorer */
-	background:url('https://svgshare.com/i/j4g.svg');
+	background-image:url('../images/down-arrow.png');
 	background-repeat:no-repeat;
 	background-size:16px 17px;
-	background-position: right 5% bottom 45%; 
+	background-position: right 3% bottom 45%; 
 }
 input[type="text"]:focus {
   border: 2px solid #afb0b3 !important;;
@@ -147,6 +147,8 @@ th{
   	color: white;
   	height: 3em;
 }
+
+
 td {
   border: 1px solid #dddddd;
   font-size: 11px;
@@ -205,6 +207,19 @@ input[type=file]::file-selector-button:hover {
   padding-left: 10px;
   padding-right: 10px;
 }
+
+.rbColumn  {
+  float: left;
+  display: inline-flex;
+  width: 50%;
+  padding-bottom: 10px;
+  padding-right: 60px;
+}
+
+.rbColumn  label{
+	font-size: 13px !important;
+    margin-top: 10px !important;
+}	
 
 .button-column  {
   float: left;

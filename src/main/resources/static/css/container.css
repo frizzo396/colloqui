@@ -36,7 +36,19 @@
 	border-radius: 5px;
 }
 
+#registerUserColumn {
+	background-color: white;
+	border-radius: 5px;
+}
+
 #insertInterview {
+	padding-bottom: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+}
+
+#registerUser {
 	padding-bottom: 40px;
     padding-left: 10px;
     padding-right: 10px;
@@ -53,57 +65,18 @@
 	padding: 3px;
 }
 
-#searchName{
-	width: 33%;
-}
-#searchSurname{
-	width: 33%;
-}
-#searchLevel{
-	width: 33%;
-}
-#searchType{
-	width: 33%;
-}
-#searchEnt {
-	width: 33%;
-}
-#searchSite {
-	width: 33%;
-}
-
 #buttonRow .column{
 	width: 50%;
 }
 
 
-/*CONTAINER SEARCH */
-#containerSearchHeader {
-	height: 45px;
-    position: relative;
-    width: 100.2%;
-    margin-bottom: 20px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    margin-top: -1px;
-    margin-left: -1px;
-}
-
 #searchInterview {
-	padding-left: 30px;
-    padding-right: 30px;
+    padding-bottom: 40px;
+    padding-left: 10px;
+     padding-right: 10px;
+    padding-top: 10px;
 }
 
-#containerSearch{
-	margin-left: 5%;
-    margin-right: 5%;
-    padding-bottom: 10px;
-}    
-
-
-#searchButtonRow {
-	padding-top: 3px;
-}
 
 #mytable {
     margin-top: 50px;
@@ -229,13 +202,15 @@
 /*MODALS*/
 
 #motivationalTableModal {
-	padding: 0.1px !important;
-	border-radius: 10px !important;
+	border-radius: 5px !important;
+}
+
+#registerModal {
+	border-radius: 5px !important;
 }
 
 #techTableModal {
-	padding: 0.1px !important;
-	border-radius: 10px !important;
+	border-radius: 5px !important;
 }
 
 #containerDetailMotFeedback {

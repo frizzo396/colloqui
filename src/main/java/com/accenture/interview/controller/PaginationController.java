@@ -46,6 +46,7 @@ public class PaginationController extends BaseController {
 		modelAndView.addObject("myInterviewsMonth", interviewerFacade.getMonthCompletedInterviewsNumber(username));
 		modelAndView.addObject("inProgressInterviewsMonth", interviewerFacade.getMonthInProgressInterviewsNumber(username));
 		modelAndView.addObject("yearMonthInterviews", interviewerFacade.getYearCompletedInterviews(username));
+		modelAndView.addObject("registerUserTO", new RegisterInterviewerTO());
 		return modelAndView;
 	}
 
@@ -62,7 +63,8 @@ public class PaginationController extends BaseController {
 		String username = System.getProperty("user.name");
 		modelAndView.addObject("interviewer", interviewerFacade.interviewerInfo(username));
 		modelAndView.addObject("createInterviewTO", new CreateInterviewTO());
-		modelAndView.addObject("comboSitesDB", interviewFacade.getComboSites());	
+		modelAndView.addObject("comboSitesDB", interviewFacade.getComboSites());
+		modelAndView.addObject("registerUserTO", new RegisterInterviewerTO());
 		modelAndView.setViewName("insert.html");
 		return modelAndView;
 	}
@@ -74,19 +76,10 @@ public class PaginationController extends BaseController {
 		modelAndView.addObject("interviewer", interviewerFacade.interviewerInfo(username));
 		modelAndView.addObject("searchInterviewTO", new SearchInterviewTO());	
 		modelAndView.addObject("comboSitesDB", interviewFacade.getComboSites());	
+		modelAndView.addObject("registerUserTO", new RegisterInterviewerTO());
 		modelAndView.setViewName("search.html");
 		return modelAndView;
 	}
-	
-	@GetMapping("/interviewer/register")
-	public ModelAndView registerUser() {
-		ModelAndView modelAndView = new ModelAndView();
-		String username = System.getProperty("user.name");
-		modelAndView.addObject("interviewer", interviewerFacade.interviewerInfo(username));
-		modelAndView.addObject("registerUserTO", new RegisterInterviewerTO());	
-		modelAndView.setViewName("register-user.html");
-		return modelAndView;
-	}	
 
 	/**
 	 * Show tech feedback form.
@@ -102,6 +95,7 @@ public class PaginationController extends BaseController {
 		String username = System.getProperty("user.name");
 		modelAndView.addObject("interviewer", interviewerFacade.interviewerInfo(username));
 		modelAndView.addObject("createTechFeedbackTO", new CreateTechFeedbackTO());
+		modelAndView.addObject("registerUserTO", new RegisterInterviewerTO());
 		modelAndView.setViewName("tech-feedback.html");
 		return modelAndView;
 	}
@@ -121,6 +115,7 @@ public class PaginationController extends BaseController {
 		String username = System.getProperty("user.name");
 		modelAndView.addObject("interviewer", interviewerFacade.interviewerInfo(username));
 		modelAndView.addObject("createMotivationFeedbackTO", new CreateMotivationFeedbackTO());
+		modelAndView.addObject("registerUserTO", new RegisterInterviewerTO());
 		modelAndView.setViewName("motivation-feedback.html");
 		return modelAndView;
 	}
@@ -137,6 +132,7 @@ public class PaginationController extends BaseController {
 		String username = System.getProperty("user.name");
 		modelAndView.addObject("interviewer", interviewerFacade.interviewerInfo(username));
 		modelAndView.addObject("interviews", interviewFacade.getCompletedInterviews(username));
+		modelAndView.addObject("registerUserTO", new RegisterInterviewerTO());
 		modelAndView.setViewName("my-interviews.html");
 		return modelAndView;
 	}
@@ -153,6 +149,7 @@ public class PaginationController extends BaseController {
 		String username = System.getProperty("user.name");
 		modelAndView.addObject("interviewer", interviewerFacade.interviewerInfo(username));
 		modelAndView.addObject("interviews", interviewFacade.getInProgressInterviews(username));
+		modelAndView.addObject("registerUserTO", new RegisterInterviewerTO());
 		modelAndView.setViewName("in-progress-interviews.html");
 		return modelAndView;
 	}

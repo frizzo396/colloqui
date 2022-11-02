@@ -61,7 +61,7 @@
                                                 <div class="column">
                                                     <div class="form-group">
                                                         <label>Date of birth</label>
-                                                        <input type="date" th:field="*{candidateBirth}" />
+                                                        <input class="datePicker" type="date" th:field="*{candidateBirth}" />
                                                         <small th:if="${#fields.hasErrors('candidateBirth')}" th:errors="*{candidateBirth} ">Birth Error</small>
                                                     </div>
                                                 </div>
@@ -93,7 +93,7 @@
                                                 <div class="column">
                                                     <div class="form-group">
                                                         <label for="candidateType">Candidate Level</label>
-                                                        <select class="formcontrol selectpicker" th:field="*{candidateType}" id="candidateType">
+                                                        <select  class="formcontrol selectpicker" th:field="*{candidateType}" id="candidateType">
                                                             <option value="">Nothing selected</option>
                                                             <option th:each="candidateType : ${T(com.accenture.interview.utils.enums.CandidateTypeEnum).values()}" th:value="${candidateType}" th:text="${candidateType}">
                                                                 candidate type
@@ -134,7 +134,7 @@
                                                 <div class="column">
                                                     <div class="form-group">
                                                         <label>Scheduled date</label>
-                                                        <input type="datetime-local" th:field="*{scheduledDate}" />
+                                                        <input class="datePicker" type="datetime-local" th:field="*{scheduledDate}" />
                                                         <small th:if="${#fields.hasErrors('scheduledDate')}" th:errors="*{scheduledDate}">Scheduled date Error</small>
                                                     </div>
                                                 </div>                                               
@@ -167,6 +167,9 @@
                             </div>
                     </div>
                 </div>
+               <div id="register-modal" class="cd-popup" role="alert">
+                                <div th:replace="fragments/registerUserModal"></div>
+               </div>
                <div  id="snackbar">
                		<div  id="snackbarRow">
                				 <div class="col-lg-8 col-lg-offset-2" id="snackbarIconColumn">

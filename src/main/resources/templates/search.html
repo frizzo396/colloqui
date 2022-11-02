@@ -28,36 +28,36 @@
 			<!-- NUOVO DIV PER HEADER SUPERIORE -->
 			<div th:replace="fragments/header"></div>        
         
-            <div class="row" id="pageRow">
+            <div class="pageRow">   
             
-				<!-- NUOVO DIV PER SIDEBAR (LATERALE) -->
-				<div th:replace="fragments/sidebar"></div>            
+				<div class="col-lg-8 col-lg-offset-2" id="sidebarColumn">
+						<div th:replace="fragments/sidebar"></div>  				
+				 </div>       
             
                 <div class="col-lg-8 col-lg-offset-2" id="containerColumn">
                <div class="container" id="containerSearch">
-                        <div class="row">
-                            <header id="containerSearchHeader">
-                                <label id="interviewInformations">Interview informations </label>
-                            </header>
-                            <div class="col-lg-8 col-lg-offset-2">
-                                <form id="searchInterview" action="#" th:action="@{/interview/search}" th:object="${searchInterviewTO}" method="post" onsubmit="return validationSearch()" > 
+                           <header class="containerHeader">
+						              <label class="containerLabel">Search Interview</label>
+						    </header>
+                              <div class="col-lg-8 col-lg-offset-2" id="insertFormColumn">
+                                <form id="searchInterview" class="inp-form" action="#" th:action="@{/interview/search}" th:object="${searchInterviewTO}" method="post" onsubmit="return validationSearch()" > 
                                     <div class="search-group">
                                         <div class="row">
-                                            <div class="column" id="searchName">
+                                            <div class="column">
                                                 <div class="form-group">
-                                                    <label><em class="fa fa-user"></em> Name</label>
+                                                    <label> Name</label>
                                                     <input type="text" th:field="*{candidateName}" id="candidateNameId" placeholder="Name" />
                                                 </div>
                                             </div>
-                                            <div class="column" id="searchSurname">
+                                            <div class="column" >
                                                 <div class="form-group">
-                                                    <label><em class="fa fa-user"></em> Surname</label>
+                                                    <label>Surname</label>
                                                     <input type="text" th:field="*{candidateSurname}" id="candidateSurnameId" placeholder="Surname" />
                                                 </div>
                                             </div>
-                                             <div class="column"  id="searchLevel">
+                                             <div class="column">
 	                                            	<div class="form-group">
-	                                                        <label for="candidateType"><em class="fa fa-briefcase"></em> Candidate Level</label>
+	                                                        <label for="candidateType">Candidate Level</label>
 	                                                        <select class="formcontrol selectpicker" th:field="*{candidateType}" id="candidateType">
 	                                                            <option value="">Nothing selected</option>
 	                                                            <option th:each="candidateType : ${T(com.accenture.interview.utils.enums.CandidateTypeEnum).values()}" th:value="${candidateType}" th:text="${candidateType}">
@@ -69,24 +69,24 @@
                                         
                                         </div>
                                         <div class="row">
-                                         	<div class="column" id="searchType">
+                                         	<div class="column">
                                                 <div class="form-group">
-                                                    <label><em class="fa fa-handshake-o"></em> Interview Type</label>
+                                                    <label>Interview Type</label>
                                                     <select class="form-control selectpicker" th:field="*{interviewType}" id="interviewType2">
                                                         <option value="">Nothing selected</option>
                                                         <option th:each="interviewType : ${T(com.accenture.interview.utils.enums.InterviewTypeEnum).values()}" th:value="${interviewType}" th:text="${interviewType}">interview type </option>
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="column"  id="searchEnt">
+                                            <div class="column">
                                                <div class="form-group">
-                                                   <label><em class="fa fa-drivers-license"></em> Interviewer</label>
+                                                   <label>Interviewer</label>
                                                    <input type="text" th:field="*{enterpriseId}" placeholder="enterprise.id" id="enterpriseIdS"/>
                                                </div>
                                              </div>
-                                             <div class="column" id="searchSite">
+                                             <div class="column">
                                                	<div class="form-group">
-                                                        <label><em class="fa-solid fa-building-user"></em> Site</label>
+                                                        <label>Site</label>
                                                         <select class="formcontrol selectpicker" th:field="*{site}" id="site">
                                                             <option value="">Nothing selected</option>
                                                              <option th:each="siteElem : ${comboSitesDB}" th:value="${siteElem.name}" th:text="${siteElem.name}">
@@ -99,18 +99,18 @@
                                         <div class="row">
                                             <div class="column">
                                                 <div class="form-group">
-                                                    <label><em class="fa fa-calendar"></em> Date between</label>
+                                                    <label>Date between</label>
                                                     <input type="date" th:field="*{firstDate}" id="firstDate" />
                                                 </div>
                                             </div>
                                             <div class="column">
                                                 <div class="form-group">
-                                                    <label><em class="fa fa-calendar"></em> and</label>
+                                                    <label>and</label>
                                                     <input type="date" th:field="*{secondDate}" id="secondDate" />
                                                 </div>
                                             </div>
                                         </div>                                      
-                                        <div class="row" id="searchButtonRow">
+                                        <div class="row" id="buttonRow">
                                         	<input type="hidden" id="searchTO" th:value="${searchInterviewTO}"/>
                                             <div class="button-column">
                                                 <div class="form-group">
@@ -165,12 +165,12 @@
                                                  <td th:switch="${interview.interviewType}">
                                                  		<span th:case="'1'" >
                                                					 <span th:if="${interview.motivationalFeedback != null}">
-                                               					 	<button th:data-parameter1="${interview.motivationalFeedback}" onclick="createMotivationalModal(this.getAttribute('data-parameter1'))" type="submit" class="cd-popup-trigger">+</button>
+                                               					 	<button th:data-parameter1="${interview.motivationalFeedback}" onclick="createMotivationalModal(this.getAttribute('data-parameter1'))" type="submit" class="motiv-popup">+</button>
                                                					 </span>
                                                  		</span>
                                                  		<span th:case="'2'" >
                                                  					<span th:if="${interview.technicalFeedback != null}">
-                                                 						  <button th:data-parameter2="${interview.technicalFeedback}" onclick="createTechnicalModal(this.getAttribute('data-parameter2'))" type="submit" class="cd-popup-trigger2">+</button> 	
+                                                 						  <button th:data-parameter2="${interview.technicalFeedback}" onclick="createTechnicalModal(this.getAttribute('data-parameter2'))" type="submit" class="tech-popup">+</button> 	
                                                  					</span>
                                                  		</span>                                                                 	
                                                  </td>             
@@ -181,17 +181,19 @@
                                 </div>
                                 <div id="pagination"></div>
                             </div>
-                        </div>
-                        <div class="cd-popup" role="alert">
+                        <div id="motiv-modal" class="cd-popup" role="alert">
 									<div th:replace="fragments/motivFeedbackModal"></div>
                             </div>
-                            <div class="cd-popup2" role="alert">
+                            <div id="tech-modal" class="cd-popup2" role="alert">
                                 <div th:replace="fragments/techFeedbackModal"></div>
                             </div>
                     </div>
                     
                                        <!-- New Interview -->
                 </div>
+                <div id="register-modal" class="cd-popup" role="alert">
+                                <div th:replace="fragments/registerUserModal"></div>
+               </div>
                <div  id="snackbar">
                		<div  id="snackbarRow">
                				 <div class="col-lg-8 col-lg-offset-2" id="snackbarIconColumn">
