@@ -107,7 +107,8 @@ input, select, textarea {
   height: 2em;
 }
 textarea {
-	color: #e3e4e8;
+	  resize: none;
+	color: black;
 }
 select{
 	appearance:none;

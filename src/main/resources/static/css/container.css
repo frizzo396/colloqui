@@ -138,65 +138,21 @@
 
 
 
-/*MOTIVATIONAL FEEDBACK CONTAINER */
-#containerInsertMotHeader {
-	height: 45px;
-    position: relative;
-    width: 100.2%;
-    margin-bottom: 20px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    margin-top: -1px;
-    margin-left: -1px;
-}
-
-
-#containerMotivationF {
-	width: 100%;
-    margin-left: 5%;
-    margin-right: 5%;
-}
-
-#backgroundRow .column {
-	width: 33%;
-}
-
-#questionRow .column {
-	width: 33%;
-}
-
 #insertMotivationalFeedback {
-	padding-left: 30px;
-    padding-right: 30px;
-}
-
-/*TECH FEEDBACK CONTAINER */
-#containerTechF{
-	width: 100%;
-    margin-left: 5%;
-    margin-right: 5%;
-}
-
-
-#containerInsertTechHeader {
-	height: 45px;
-    position: relative;
-    width: 100.2%;
-    margin-bottom: 20px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    margin-top: -1px;
-    margin-left: -1px;
-}
-
-#backendRow .column {
-	width: 33%;
+    padding-bottom: 40px;
+    padding-left: 10px;
+     padding-right: 10px;
+    padding-top: 10px;
 }
 
 #insertTechFeedback {
-	padding-left: 30px;
-    padding-right: 30px;
+	    padding-bottom: 40px;
+    padding-left: 10px;
+     padding-right: 10px;
+    padding-top: 10px;
 }
+
+
 
 
 /*MODALS*/

@@ -13,6 +13,7 @@
 	display: flex;
 	position: relative;
 	width: 10%;
+	margin-left: 2%;
 }
 
 #userColumn {
@@ -40,6 +41,7 @@
 #nickname {
 	color: white;
 	margin: auto;
+	font-size: 12px;
 }
 
 #userIcon {
@@ -52,6 +54,7 @@
     display: inline-flex;
     width: 100%;
     height: 80%;
+    margin-right: 3%;
 }
 
 #nicknameRow {
@@ -60,16 +63,17 @@
 }
 
 #accentureLogo {	
-    width: 80%;
-    position: relative;
-    margin-left: 10px;
+display: block;
+  max-width:230px;
+  max-height:65px;
+  width: auto;
+  height: auto;
 }
 
 header{
     display: flex; 
     justify-content: space-between;
     align-items: center;
-        /*margin-bottom: 50px;*/
 }
 
 @media (max-width: 1000px){
@@ -79,18 +83,20 @@ header{
 
         /* Align items to the begining (the left) of the header. */
         align-items: flex-start;
-    }
-    #userIcon {
-    	display: none;
-    }
-    
+    }    
 }
 
-@media only screen and (max-width:640px){
-	 #userIcon {
-    	display: none;
-    }
-	#nickname {
-   	font-size: 3px;
-   }	
-}
+
+@media only screen  and (max-width:840px){ 	 
+	 #imageColumn {
+			width: 15%;
+		}
+	
+	#userColumn {	
+	    width: 15%;
+	}
+	
+	#titleColumn {
+	  width: 55%;
+	}
+	}

@@ -23,11 +23,6 @@
 }
 
 
-#interviewInformations {
-	margin-left: 20px;
-   	color: white;
-}
-
 #operationsHeader{
 	background-color: #1429eb;
 	position: absolute;
@@ -37,6 +32,10 @@
 }
 
 
+
+.num-input {
+	color: #afb0b3 !important;
+}
 
 #inProgressTable button {
 	font-size: 12px;
@@ -269,10 +268,18 @@ color: #afb0b3;
 }
 /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 1000px) {
-  .column, input[type=submit] {
+  .column,  input[type=submit] {
     width: 100% !important;
     margin-top: 0;
   }
+  input[type=radio]{
+    width: 7% !important;
+	}
+	.rbColumn {
+		display: inline !important;
+		float: none !important;
+		padding-right: 0px !important;
+	}
     .mytable td {font-size: 10px;}
    #inProgressTable button { width: 90%; font-size: 10px; }
    #motivationalTableModal {width: 80%;}
@@ -289,6 +296,11 @@ color: #afb0b3;
   .cd-popup-container, .cd-popup-container2 {
     margin: 8em auto;
   }
+  	.rbColumn {
+		display: inline-flex !important;
+		float: left !important;
+		padding-right: 60px !important;
+	}
 }
 
 
@@ -296,7 +308,13 @@ color: #afb0b3;
   .clear-button, .submit-button, .search-button {
     width: 100%;
     font-size: 180%;
-    margin:0px;
+  }
+  
+  #btnRegisterUser {
+  	width: 50% !important;
+  }
+    #btnClearRegisterUser {
+  	width: 50% !important;
   }
   
 }

@@ -11,8 +11,8 @@
                                             <div class="row">
                                                  <div class="column">
                                                     <div class="form-group">
-                                                        <label>Enterprise Id</label>
-                                                        <input type="text" th:field="*{enterpriseId}" placeholder="Enterprise Id" />
+                                                        <label>Enterprise id</label>
+                                                        <input type="text" th:field="*{enterpriseId}" placeholder="enterprise.id" />
                                                         <small th:if="${#fields.hasErrors('enterpriseId')}" th:errors="*{enterpriseId}">Enterprise Id Error</small>
                                                     </div>
                                                 </div>
@@ -33,19 +33,19 @@
                                                  						 <div class="rbColumn">       
                                                  								<input type="radio" id="option_resp_no" name="option_resp" value="2" th:field="*{isResponsible}">
                                                 								<label for="option_resp_no">No</label>
-                                                 						 </div>         
+                                                 						 </div>     
                                                    	</div>
                                                 </div>       
                                             </div>
                                             <div class="row" id="buttonRow">                                                
                                                 <div class="button-column">                                                	
                                                     <div class="form-group">
-                                                        <button class="submit-button" type="submit">Submit</button>
+                                                        <button id="btnRegisterUser" class="submit-button" type="submit">Submit</button>
                                                     </div>
                                                 </div>
                                                 <div class="button-column">
                                                     <div class="form-group">
-                                                        <button class="clear-button" type="reset" value="Reset">Clear</button>
+                                                        <button  id="btnClearRegisterUser" class="clear-button" type="reset" value="Reset">Clear</button>
                                                     </div>
                                                 </div>                                                
                                             </div>

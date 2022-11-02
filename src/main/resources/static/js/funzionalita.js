@@ -30,6 +30,14 @@ jQuery(document).ready(function($){
 			} else {
 					$(this).css('color','black');
 			}		
+	}) 
+		$(".num-input").change(function() {
+			var selectedValue = $(this).val();
+			if(selectedValue == 0){  
+				$(this).attr('style', 'color: #afb0b3 !important');
+			} else {
+					$(this).attr('style', 'color: black !important');
+			}		
 	})
 	
 		$("#cv").change(function() {
@@ -45,6 +53,7 @@ jQuery(document).ready(function($){
 	    $('.datePicker').css('color','#afb0b3');
 	    $('select').css('color','#afb0b3');
 	    $('#cv').css('color','#afb0b3');
+	    $(".num-input").attr('style', 'color: #afb0b3 !important');
 	});
 
 });

@@ -26,38 +26,38 @@
 			<!-- NUOVO DIV PER HEADER SUPERIORE -->
 			<div th:replace="fragments/header"></div>         
          
-            <div class="row" id="pageRow">
+            <div class="pageRow">
             
-			<!-- NUOVO DIV PER SIDEBAR (LATERALE) -->
-			<div th:replace="fragments/sidebar"></div>            
+				<div class="col-lg-8 col-lg-offset-2" id="sidebarColumn">
+						<div th:replace="fragments/sidebar"></div>  				
+				</div>            
             
                <div class="col-lg-8 col-lg-offset-2" id="containerColumn">
-                  <div class="container" id ="containerTechF">
-                     <div class="row">
-                        <header id="containerInsertMotHeader">
-                           <label id="interviewInformations">Feedback informations </label>
-                        </header>
-                        <div class="col-lg-8 col-lg-offset-2">
-                           <form id="insertTechFeedback" action="#" th:action="@{/feedback/technical/insert}" th:object="${createTechFeedbackTO}" method="post">
-                                   <div class="row" id="backendRow">
+                  <div class="container" id ="containerInsert">
+                  		<header class="containerHeader">
+						              <label class="containerLabel">Insert technical feedback</label>
+						   </header>	
+                        <div class="col-lg-8 col-lg-offset-2"  id="insertFormColumn">
+                           <form class="inp-form" id="insertTechFeedback" action="#" th:action="@{/feedback/technical/insert}" th:object="${createTechFeedbackTO}" method="post">
+                                   <div class="row">
                                        <div class="column">
                                           <div class="form-group">
-                                             <label><em class="fa-brands fa-java"></em> Java</label>
-                                             <input type="number" min="0" max="10" th:field="*{java}" placeholder="java"/>
+                                             <label>Java</label>
+                                             <input class ="num-input" type="number" min="0" max="10" th:field="*{java}" placeholder="java"/>
                                              <small th:if="${#fields.hasErrors('java')}" th:errors="*{java}">java Error</small>
                                           </div>
                                        </div>
                                        <div class="column">
                                           <div class="form-group">
-                                             <label><em class="fa-solid fa-laptop-code"></em> Spring</label>
-                                             <input type="number" min="0" max="10" th:field="*{spring}" placeholder="spring"/>
+                                             <label>Spring</label>
+                                             <input class ="num-input" type="number" min="0" max="10" th:field="*{spring}" placeholder="spring"/>
                                              <small th:if="${#fields.hasErrors('spring')}" th:errors="*{spring}">Spring Level Error</small>
                                           </div>
                                        </div>
                                        <div class="column">
                                           <div class="form-group">
-                                             <label><em class="fa-solid fa-database"></em> SQL</label>
-                                             <input type="number" min="0" max="10" th:field="*{sqlVoto}" placeholder="sqlVoto"/>
+                                             <label>SQL</label>
+                                             <input class ="num-input" type="number" min="0" max="10" th:field="*{sqlVoto}" placeholder="sql"/>
                                              <small th:if="${#fields.hasErrors('sqlVoto')}" th:errors="*{sqlVoto}">SQL Voto Error</small>
                                           </div>
                                        </div>
@@ -65,30 +65,30 @@
                                     <div class="row">
                                        <div class="column">
                                           <div class="form-group">
-                                             <label><em class="fa fa-html5"></em> HTML <em class="fa-brands fa-css3-alt"></em> CSS</label>
-                                             <input type="number" min="0" max="10" th:field="*{htmlCss}" placeholder="htmlCss" />
+                                             <label>HTML-CSS</label>
+                                             <input class ="num-input" type="number" min="0" max="10" th:field="*{htmlCss}" placeholder="html-css" />
                                              <small th:if="${#fields.hasErrors('htmlCss')}" th:errors="*{htmlCss}">htmlCss Error</small>
                                           </div>
                                        </div>
                                        <div class="column">
                                           <div class="form-group">
-                                             <label><em class="fa-brands fa-angular"></em> Angular</label>
-                                             <input type="number" min="0" max="10" th:field="*{angular}"  placeholder="angular"/>
+                                             <label>Angular</label>
+                                             <input class ="num-input" type="number" min="0" max="10" th:field="*{angular}"  placeholder="angular"/>
                                              <small th:if="${#fields.hasErrors('angular')}" th:errors="*{angular}">Angular Error</small>
                                           </div>
                                        </div>
-                                    </div>
-                                    <div class="row">                                     
                                        <div class="column">
                                           <div class="form-group">
-                                             <label><em class="fa-solid fa-code"></em> Other</label>
-                                             <input type="number" min="0" max="10" th:field="*{other}"  placeholder="other question">
+                                             <label>Other</label>
+                                             <input class ="num-input" type="number" min="0" max="10" th:field="*{other}"  placeholder="other question">
                                              <small th:if="${#fields.hasErrors('other')}" th:errors="*{other}">Other Error</small>
                                           </div>
                                        </div>
+                                    </div>
+                                    <div class="row">                                                                          
                                         <div class="column">
                                         <div class="form-group">
-                                             <label for="finalFeedback"><em class="fa fa-briefcase"></em> Final feedback</label>
+                                             <label for="finalFeedback">Final feedback</label>
                                              <select class="formcontrol selectpicker" th:field="*{finalFeedback}" id="finalFeedback">
                                                 <option value="">Nothing selected</option>
                                                 <option value="OK">OK</option>
@@ -101,28 +101,26 @@
                                     <div class="row">
                                           <div class="one-column">
                                              <div class="form-group">
-                                                <label><em class="fa-solid fa-pen-to-square"></em> Comment</label>
+                                                <label>Comment</label>
                                                 <textarea th:field="*{comment}" name="subject" placeholder="Write something.." style="height:200px"></textarea>
                                                 <small th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}">Comment Error</small>
                                              </div>
                                           </div>
                                        </div>
-                                       <div class="row">
-                                          <div class="column">
+                                       <div class="row" id="buttonRow">
+                                          <div class="button-column">
                                              <div class="form-group">
-                                                <button class="submit-button" type="submit">Submit <em class="fa fa-check"></em></button>	
+                                                <button class="submit-button" type="submit">Submit</button>	
                                              </div>
                                           </div>
-                                          <div class="column">
+                                           <div class="button-column">
                                              <div class="form-group">
-                                                <button class="clear-button" type="reset" value="Reset" >Clear <em class="fa fa-trash"></em></button>	
+                                                <button class="clear-button" type="reset" value="Reset" >Clear</button>	
                                              </div>
                                           </div>
                                        </div>
                                </form>  
                               </div>
-                           
-                        </div>
                      </div>
                   </div>
                
@@ -136,6 +134,9 @@
 	               				 </div>    				 
 	               		</div>
                </div>
+               <div id="register-modal" class="cd-popup" role="alert">
+                                <div th:replace="fragments/registerUserModal"></div>
+               		</div>
                </div>
          </div>
    </body>
