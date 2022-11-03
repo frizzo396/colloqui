@@ -23,21 +23,20 @@
         <script type="text/javascript" th:src="@{/js/sidebar.js}"></script>
    </head>
     <body>
-        <div class="interview-html">            
-				<!-- NUOVO DIV PER HEADER SUPERIORE -->
+        <div class="interview-html">
 				<div th:replace="fragments/header"></div>        
             
                 <div class="pageRow">
                 
-				<div class="col-lg-8 col-lg-offset-2" id="sidebarColumn">
+					<div class="col-lg-8 col-lg-offset-2" id="sidebarColumn">
 						<div th:replace="fragments/sidebar"></div>  				
-				 </div>                 
+				 </div>                        
 
                     <div class="col-lg-8 col-lg-offset-2" id="containerColumn">
                         <div class="container">
-                                 <header class="containerHeader">
-						              <label class="containerLabel">Completed interviews</label>
-						    	</header>
+                                <header class="containerHeader">
+						              <label class="containerLabel">Assigned interviews</label>
+						    	</header>	
                                 <div class="col-lg-8 col-lg-offset-2" id="tableFormColumn">
                                     <table id="completedTable" class="mytable paginated">
                                         <thead>
@@ -47,6 +46,7 @@
                                                 <th class="remove">Interview Type</th>
                                                 <th>Interview date</th>
                                                 <th>Site</th>
+                                                <th>Interviewer</th>
                                                 <th class="remove">Feedback</th>
                                                 <th>Detail</th>
                                             </tr>
@@ -61,14 +61,17 @@
                                                 </td>
                                                 <td class="dateInterview" th:text="${#dates.format(interview.scheduledDate, 'MM-dd-YYYY HH:mm')}" />
                                                  <td th:text= "${interview.site}"/>
+                                                  <td th:text= "${interview.enterpriseId}"/>
                                                 <td class="remove" th:style="${interview.finalFeedback} eq 'OK' ? 'color: #008000' : 'color: #b20000'" th:text="${interview.finalFeedback}" />
                                                 <td>
-                                                    <span th:if="${interview.interviewType == 1}">
-                                                        <button th:data-parameter1="${interview.motivationalFeedback}" onclick="createMotivationalModal(this.getAttribute('data-parameter1'))" type="submit" class="motiv-popup"><em id="detailIcon" class='bx bx-search'></em></button>
-                                                    </span>
-                                                    <span th:unless="${interview.interviewType == 1}">
-                                                        <button th:data-parameter2="${interview.technicalFeedback}" onclick="createTechnicalModal(this.getAttribute('data-parameter2'))" type="submit" class="tech-popup"><em id="detailIcon" class='bx bx-search'></em></button>
-                                                    </span>
+                                                	<span th:if="${interview.finalFeedback != null}">
+	                                                    <span th:if="${interview.interviewType == 1}">
+	                                                        <button th:data-parameter1="${interview.motivationalFeedback}" onclick="createMotivationalModal(this.getAttribute('data-parameter1'))" type="submit" class="motiv-popup"><em id="detailIcon" class='bx bx-search'></em></button>
+	                                                    </span>
+	                                                    <span th:unless="${interview.interviewType == 1}">
+	                                                        <button th:data-parameter2="${interview.technicalFeedback}" onclick="createTechnicalModal(this.getAttribute('data-parameter2'))" type="submit" class="tech-popup"><em id="detailIcon" class='bx bx-search'></em></button>
+	                                                    </span>
+	                                                </span>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -80,7 +83,7 @@
                             <div id="tech-modal" class="cd-popup2" role="alert">
                                 <div th:replace="fragments/techFeedbackModal"></div>
                             </div>
-                              <div id="register-modal" class="cd-popup" role="alert">
+                             <div id="register-modal" class="cd-popup" role="alert">
                                 <div th:replace="fragments/registerUserModal"></div>
                				</div>
                         </div>

@@ -153,5 +153,22 @@ public class PaginationController extends BaseController {
 		modelAndView.setViewName("in-progress-interviews.html");
 		return modelAndView;
 	}
+	
+	/**
+	 * In progress page.
+	 *
+	 * @param enterpriseId the enterprise id
+	 * @return the model and view
+	 */
+	@GetMapping("/interview/assigned")
+	public ModelAndView assignedPage() {
+		ModelAndView modelAndView = new ModelAndView();
+		String username = System.getProperty("user.name");
+		modelAndView.addObject("interviewer", interviewerFacade.interviewerInfo(username));
+		modelAndView.addObject("interviews", interviewFacade.getAssignedInterviews(username));
+		modelAndView.addObject("registerUserTO", new RegisterInterviewerTO());
+		modelAndView.setViewName("assigned.html");
+		return modelAndView;
+	}
 
 }

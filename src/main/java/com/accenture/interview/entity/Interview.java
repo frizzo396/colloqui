@@ -99,6 +99,10 @@ public class Interview {
 	@ManyToOne
 	@JoinColumn(name = "interviewer_id", referencedColumnName = "id")
 	private Interviewer interviewerId;
+	
+	/** The interviewer id. */
+	@Column(name = "assigner_id")
+	private long assigner;
 
 	/** The final feedback. */
 	private String finalFeedback;
@@ -267,4 +271,15 @@ public class Interview {
 		this.site = site;
 	}
 	/** 2022-10-13 NUOVA COLONNA site - END */
+
+	public long getAssigner() {
+		return assigner;
+	}
+
+	public void setAssigner(long assigner) {
+		this.assigner = assigner;
+	}
+
+	
+	
 }

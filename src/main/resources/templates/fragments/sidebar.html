@@ -1,5 +1,5 @@
 
-                        <div class="sidebar">
+                        <div class="sidebar" th:style="${interviewer.type==T(com.accenture.interview.utils.enums.InterviewerTypeEnum).getIdFromDescription('RESPONSABILE') ? 'height:450px' : 'height:330px'}">
                             <header id="sidebarHeader">
                                 <em id="sidebarMenuIcon" class="bx bx-menu"></em>
                             </header>
@@ -14,7 +14,7 @@
                                     <ul class="sub-menu">
                                         <li onclick="RedirectHome()"><a class="link_name">Home</a></li>
                                     </ul>                              
-                                </li>
+                                </li> 
                                   <li th:if="${interviewer.type==T(com.accenture.interview.utils.enums.InterviewerTypeEnum).getIdFromDescription('RESPONSABILE')}" onclick="RedirectInsert()">
                                     <a>
                                         <em class="bx bxs-file-plus" style="color: black;"></em>
@@ -33,7 +33,16 @@
                                         <li onclick="RedirectSearch()"><a class="link_name">Search</a></li>
                                     </ul>                                         
                                 </li> 
-                                <li onclick="RedirectMyInterviews()">
+                                <li th:if="${interviewer.type==T(com.accenture.interview.utils.enums.InterviewerTypeEnum).getIdFromDescription('RESPONSABILE')}" onclick="RedirectAssigned()">
+                                    <a>
+                                        <em class="bx bxs-file-plus" style="color: black;"></em>
+                                        <span class="link_name">Assigned</span>
+                                    </a>        
+                                      <ul class="sub-menu">
+                                        <li onclick="RedirectAssigned()"><a class="link_name">Assigned</a></li>
+                                    </ul>                               
+                                </li> 
+                                <li  onclick="RedirectMyInterviews()">
                                     <a>
                                         <em class="bx bxs-file-export" style="color: black;"></em>
                                         <span class="link_name">Completed</span>
@@ -42,7 +51,7 @@
                                         <li onclick="RedirectMyInterviews()"><a class="link_name">Completed</a></li>
                                     </ul> 
                                 </li>
-                                 <li onclick="RedirectInProgress()">
+                                 <li  onclick="RedirectInProgress()">
                                     <a>
                                         <em class="bx bx-edit" style="color: black;"></em>
                                         <span class="link_name">In progress</span>

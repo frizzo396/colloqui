@@ -9,6 +9,7 @@
         <link th:href="@{/css/header.css}" rel="stylesheet" />
          <link th:href="@{/css/general-style.css}" rel="stylesheet" />
         <link th:href="@{/css/popup-container.css}" rel="stylesheet" />
+        <link th:href="@{/css/table.css}" rel="stylesheet" />
         <link th:rel="stylesheet" th:href="@{assets/bootstrap-select-1.13.9/dist/css/bootstrap-select.css}" />
         <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
         <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
@@ -23,24 +24,20 @@
     </head>
     <body>
         <div class="interview-html"></div>
-        <!-- wrap -->
-        <div class="interview-wrap">               
-        
-			<!-- NUOVO DIV PER HEADER SUPERIORE -->
 			<div th:replace="fragments/header"></div>
 			
-            <div class="row" id="pageRow">
+            <div class="pageRow">
             
-			<!-- NUOVO DIV PER SIDEBAR (LATERALE) -->
-			<div th:replace="fragments/sidebar"></div>
+			<div class="col-lg-8 col-lg-offset-2" id="sidebarColumn">
+						<div th:replace="fragments/sidebar"></div>  				
+				 </div>      
 						
                 <div class="col-lg-8 col-lg-offset-2" id="containerColumn">
-                    <div class="container" id="containerInProgress">
-                        <div class="row">
-                            <header id="containerInProgressHeader">
-                                <label id="interviewInformations">Interview informations </label>
-                            </header>
-                            <div class="col-lg-8 col-lg-offset-2" id="inProgressColumn">
+                    <div class="container">
+                             <header class="containerHeader">
+						              <label class="containerLabel">In progress interviews</label>
+						    </header>	
+                            <div class="col-lg-8 col-lg-offset-2" id="tableFormColumn">
                                 <table id="inProgressTable" class="mytable paginated">
                                     <tr>
                                         <th>Candidate </th>
@@ -54,26 +51,27 @@
  										<td th:text="${interview.candidateName} + ' ' + ${interview.candidateSurname}" />       
  										<td th:text= "${interview.candidateLevel}"/>   
                                         <td class="remove">
-                                            <span th:if="${interview.interviewType == 1}">MOTIVAZIONALE</span>
-                                            <span th:unless="${interview.interviewType == 1}">TECNICO</span>
+                                            <span th:if="${interview.interviewType == 1}">Motivazionale</span>
+                                            <span th:unless="${interview.interviewType == 1}">Tecnico</span>
                                         </td>
                                         <td class="dateInterview" th:text="${#dates.format(interview.scheduledDate, 'MM-dd-YYYY HH:mm')}" />
                                         <td th:text= "${interview.site}"/>   
                                         <td>
                                             <span th:if="${interview.interviewType == 1}">
-                                                <button type="submit" class="motiv-popup" th:data-parameter1="${interview.id}" onclick="GotoMotivationalFeedback(this.getAttribute('data-parameter1'));">Add</button>
+                                                <button type="submit" class="motiv-popup" th:data-parameter1="${interview.id}" onclick="GotoMotivationalFeedback(this.getAttribute('data-parameter1'));"><em id="plusIcon" class='bx bx-plus'></em></button>
                                             </span>
                                             <span th:unless="${interview.interviewType == 1}">
-                                                <button type="submit" class="tech-popup" th:data-parameter1="${interview.id}" onclick="GotoTechnicalFeedback(this.getAttribute('data-parameter1'));">Add</button>
+                                                <button type="submit" class="tech-popup" th:data-parameter1="${interview.id}" onclick="GotoTechnicalFeedback(this.getAttribute('data-parameter1'));"><em id="plusIcon" class='bx bx-plus'></em></button>
                                             </span>
                                         </td>
                                     </tr>
                                 </table>
                             </div>
-                        </div>
                     </div>
                 </div>
+                  <div id="register-modal" class="cd-popup" role="alert">
+                                <div th:replace="fragments/registerUserModal"></div>
+               </div>
             </div>
-        </div>
     </body>
 </html>

@@ -79,6 +79,20 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 			@Param("entId") String enterpriseId,
 			@Param("candidateType") String candidateType,
 			@Param("site") String site);
+	
+	@Query("SELECT new com.accenture.interview.rto.interview.InterviewAndFeedbackRTO(i.id, i.candidateName, "
+			+ "i.candidateSurname, "
+			+ "ct.description, "
+			+ "i.interviewType, "
+			+ "i.scheduledDate, "
+			+ "s.siteName, "
+			+ "i.interviewerId.enterpriseId, "
+			+ "i.finalFeedback) FROM Interview i, CandidateType ct, Site s WHERE "
+			+ "i.candidateTypeId.id = ct.id and "
+			+ "s.id = i.site.id and "
+			+ "(i.assigner = :assigner) "
+			+ "ORDER BY i.scheduledDate")
+	List<InterviewAndFeedbackRTO> findAssignedInterviews(@Param("assigner") long assignerId);
 
 	/**
 	 * Gets the my interviews by enterprise id.

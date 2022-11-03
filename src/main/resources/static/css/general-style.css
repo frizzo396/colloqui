@@ -47,7 +47,7 @@ a{color:inherit;text-decoration:none}
 }
 .interview-html .tab{
        font-size: 15px;
-    font-family: Tahoma, sans-serif;
+     font-family: arial, sans-serif;
     margin-right: 15px;
     color: #c5c0c0;
     cursor: pointer;
@@ -79,15 +79,10 @@ background-color: #0a58ca;
 }
 
 
-.add-feed-button {
-	font-size: 12px !Important;
-    margin: auto;
-    width: 60% !important;
-    border-radius: 10px !important;
-}
-
 
 button:hover {background-color: #003d97;}
+
+
 
 .submit-button{
 	float:right;
@@ -132,39 +127,7 @@ input[type="text"]:focus {
 }
 
 
-/*Search table*/
 
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-th{
-	font-size:10px;
-    line-height: 1.5em;
-	padding: 4px;
-	text-align:center;
-	background-color: #1429eb;
-  	color: white;
-  	height: 3em;
-}
-
-
-td {
-  border: 1px solid #dddddd;
-  font-size: 11px;
-  text-align:center;
-}
-tr:hover {background-color: #f2f2fb;}
-.responsive {
-    display: block;
-    width: 100%;
-    padding-left: 30px;
-    padding-right: 30px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    word-wrap: break-word;
-}
 
 
 /*select file button*/

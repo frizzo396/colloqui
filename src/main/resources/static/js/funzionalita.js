@@ -1,6 +1,7 @@
 
 
 jQuery(document).ready(function($){
+	
 	$('.cd-popup').on('click', function(event){
 		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') ) {
 			event.preventDefault();
@@ -55,6 +56,8 @@ jQuery(document).ready(function($){
 	    $('#cv').css('color','#afb0b3');
 	    $(".num-input").attr('style', 'color: #afb0b3 !important');
 	});
+	
+	
 
 });
 
@@ -194,7 +197,7 @@ function pagination(){
 				var pager;
 				if ($table.next().hasClass("pager"))
 					pager = $table.next().empty();  else
-					pager = $('<div class="pager" style="padding: 30px; direction:ltr;" align="center"></div>');
+					pager = $('<div class="pager" style="padding-top: 30px; direction:ltr; color:black; padding-bottom: 30px;" align="center"></div>');
 
 				$('<a id="prev" style="font-size:14px; cursor:pointer;"> « Prev&nbsp;&nbsp;&nbsp;&nbsp; </a>').bind('click', function () {
 					if (currentPage > 0)
@@ -221,8 +224,16 @@ function pagination(){
 				if (!$table.next().hasClass("pager"))
 					pager.insertAfter($table);
 				//pager.insertBefore($table);
-
-			}// end $table.bind('repaginate', function () { ...
+			}else {				
+				var tableForm = document.getElementById("tableFormColumn");
+				var searchForm = document.getElementById("searchFormColumn");
+				if(tableForm != null){
+					tableForm.style.padding = "40px";
+				}
+				if(searchForm != null){
+					searchForm.style.paddingBottom = "25px";	
+				}						
+			}
 
 			$table.find(
 				'tbody tr:not(:has(th))').hide().slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage).show();

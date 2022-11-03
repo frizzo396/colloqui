@@ -120,7 +120,7 @@ function pagination(){
                 var pager;
                 if ($table.next().hasClass("pager"))
                     pager = $table.next().empty();  else
-                    pager = $('<div class="pager" style="padding-top: 30px; direction:ltr;" align="center"></div>');
+                    pager = $('<div class="pager" style="padding-top: 30px; direction:ltr; color:black; padding-bottom: 30px;" align="center"></div>');
 
                 $('<a style="font-size:14px;"> « Prev&nbsp;&nbsp;&nbsp;&nbsp; </a>').bind('click', function () {
                     if (currentPage > 0)
@@ -146,10 +146,18 @@ function pagination(){
 
                 if (!$table.next().hasClass("pager"))
                     pager.insertAfter($table);
-                //pager.insertBefore($table);
-
-            }// end $table.bind('repaginate', function () { ...
-
+                //pager.insertBefore($table);	
+			}else {
+				var tableForm = document.getElementById("tableFormColumn");
+				var searchForm = document.getElementById("searchFormColumn");
+				if(tableForm != null){
+					tableForm.style.padding = "40px";
+				}
+				if(searchForm != null){
+					searchForm.style.paddingBottom = "25px";	
+				}		
+			}
+			
             $table.find(
                 'tbody tr:not(:has(th))').hide().slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage).show();
         });

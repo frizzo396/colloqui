@@ -130,15 +130,16 @@ public class InterviewService {
 	 * @param request       the request
 	 * @param type the type
 	 * @param interviewer   the interviewer
+	 * @param site the site
+	 * @param assigner the assigner
 	 * @return the creates the interview response
 	 */
-	public Interview addNewInterview(CreateInterviewTO request, CandidateTypeRTO type, InterviewerRTO interviewer, SiteRTO site) {
+	public Interview addNewInterview(CreateInterviewTO request, CandidateTypeRTO type, InterviewerRTO interviewer, SiteRTO site, InterviewerRTO assigner) {
 		Interview interview = new Interview(request);
 		interview.setSite(new Site(site.getId(), site.getName()));
 		interview.setCandidateTypeId(new CandidateType(type.getId(), type.getDescription()));
-		
-		interview.setInterviewerId(new Interviewer(interviewer.getId(), interviewer.getEnterpriseId(), interviewer.getMail(), interviewer.getType()));			
-		
+		interview.setAssigner(assigner.getId());		
+		interview.setInterviewerId(new Interviewer(interviewer.getId(), interviewer.getEnterpriseId(), interviewer.getMail(), interviewer.getType()));				
 		interview.setInterviewType(getInterviewTypeFromString(request.getInterviewType()));
 		return interviewRepository.save(interview);
 	}
@@ -167,6 +168,17 @@ public class InterviewService {
 	 */
 	public List<InterviewAndFeedbackRTO> getMyInterviews(String enterpriseId) {
 		return this.interviewRepository.getMyInterviewsByEnterpriseId(enterpriseId);
+
+	}
+	
+	/**
+	 * Gets the assigned interviews.
+	 *
+	 * @param assignerId the assigner id
+	 * @return the assigned interviews
+	 */
+	public List<InterviewAndFeedbackRTO> getAssignedInterviews(long assignerId) {
+		return this.interviewRepository.findAssignedInterviews(assignerId);
 
 	}
 

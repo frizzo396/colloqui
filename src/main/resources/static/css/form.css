@@ -17,7 +17,7 @@
 
 #formTitle {
     font-size: 15px;
-    font-family: Tahoma, sans-serif;
+    font-family: arial, sans-serif;
 	color: white;
 	text-transform: uppercase;
 }
@@ -38,10 +38,13 @@
 }
 
 #inProgressTable button {
-	font-size: 12px;
-    margin: auto;
-    width: 45%;
-    border-radius: 10px;
+	font-size: 12px !important;
+    margin: auto !important;
+    width: 60% !important;
+    border-radius: 5px !important;
+	background-color: #ffdead00 !important;
+	color: #0a58ca !important;
+    padding: 7px !important;
 }
 
 
@@ -183,33 +186,6 @@ color: #afb0b3;
 color: #afb0b3;
 }
 
-.interview-table{
-    table-layout: fixed;
-}
-
-.interview-table td{
-    height: 53px;
-    width: 100%;
-}
-
-.interview-table button{
-    width: 60%;
-    border: none;
-    color: white;
-    padding: 6px 6px;
-    text-align: center;
-    font-size: 10px;
-}
-
-#interview-table button{
-  width: 90%;
-  border: none;
-  color: white;
-  padding: 3px 3px;
-  text-align: center;
-  font-size: 10px;
-}
-/*search bar*/
 
 .search-group input {
   background-repeat:no-repeat;
@@ -221,40 +197,6 @@ color: #afb0b3;
   border-color: #afb0b3;
 }
 
-#myTable td{
-  padding: 6px;
-  font-size: 13px;
-  text-align:center;
-}
-#myTable button{
-	width:32px;
-	padding: 9px;
-	text-align: center;
-	border-radius: 30px;
-	font-size:12px;	
-}
-
-
-.mytable{
-	padding-top: 30px;
-    table-layout: fixed;
-}
-
-.mytable td{
-  height: 20px;
-  padding: 6px;
-  font-size: 13px;
-  text-align:center;
-}
-.mytable button{
-	width:32px;
-	padding: 9px;
-	text-align: center;
-	border-radius: 30px;
-	font-size:12px;
-	    margin: auto;
-
-}
 /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 600px) {
 
@@ -319,12 +261,7 @@ color: #afb0b3;
   
 }
 
-@media (max-width:765px) {
-table td th:nth-child(1),
-.remove, .remove2{
-    display:none;
-}
-}
+
 
 .close {
     position: absolute;

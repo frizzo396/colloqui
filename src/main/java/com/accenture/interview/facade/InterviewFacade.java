@@ -67,13 +67,15 @@ public class InterviewFacade {
 		CreateInterviewRTO response = null;
 		CandidateTypeRTO candidateType = candidateService.getCandidateType(request.getCandidateType());
 		InterviewerRTO interviewer = interviewerService.findInterviewerByEnterpriseId(request.getEnterpriseId());
+		InterviewerRTO assigner = interviewerService.findInterviewerByEnterpriseId(System.getProperty("user.name"));
 		SiteRTO site = siteService.findSiteById(Long.parseLong(request.getSite()));
 		
 		if (!(ObjectUtils.isEmpty(interviewer)) 
 				&& !(ObjectUtils.isEmpty(candidateType)) 
-				&& !(ObjectUtils.isEmpty(site))) {
+				&& !(ObjectUtils.isEmpty(site))
+				&& !(ObjectUtils.isEmpty(assigner))) {
 			// Interview interview =
-			interviewService.addNewInterview(request, candidateType, interviewer, site);
+			interviewService.addNewInterview(request, candidateType, interviewer, site, assigner);
 			CreateInterviewRTO createInterviewResponse = new CreateInterviewRTO(request);
 			createInterviewResponse.setEnterpriseId(request.getEnterpriseId());
 			// eventService.sendTeamsInvitation(interview.getScheduledDate(),
@@ -103,6 +105,18 @@ public class InterviewFacade {
 	 */
 	public List<InterviewAndFeedbackRTO> getCompletedInterviews(String enterpriseId) {
 		List<InterviewAndFeedbackRTO> interviewAndFeedbackList = interviewService.getMyInterviews(enterpriseId);
+		return feedbackService.getFeedbacks(interviewAndFeedbackList);
+	}
+	
+	/**
+	 * Gets the assigned interviews.
+	 *
+	 * @param enterpriseId the enterprise id
+	 * @return the assigned interviews
+	 */
+	public List<InterviewAndFeedbackRTO> getAssignedInterviews(String enterpriseId) {
+		InterviewerRTO assigner = interviewerService.findInterviewerByEnterpriseId(enterpriseId);
+		List<InterviewAndFeedbackRTO> interviewAndFeedbackList = interviewService.getAssignedInterviews(assigner.getId());
 		return feedbackService.getFeedbacks(interviewAndFeedbackList);
 	}
 

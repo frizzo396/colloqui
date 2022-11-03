@@ -5,7 +5,7 @@
     background-color: #e3e4e8;
     padding-top: 12px;
     padding-right: 20px;
-    padding-bottom: 12px;
+    padding-bottom: 20px;
     padding-left: 20px;
    	border-radius: 5px;
     text-align: left;
@@ -23,7 +23,7 @@
 }
 
 .inp-form label{
-	font-family: sans-serif;
+     font-family: arial, sans-serif;
 	font-size:15px;
 	margin:4px;
 	padding: 2px 2px 2px 0;
@@ -34,6 +34,17 @@
 #insertFormColumn {
 	background-color: white;
 	border-radius: 5px;
+}
+
+#searchFormColumn {
+	background-color: white;
+	border-radius: 5px;
+}
+
+#tableFormColumn {
+	background-color: white;
+	border-radius: 5px;
+	padding: 40px 40px 0px 40px;
 }
 
 #registerUserColumn {
@@ -78,63 +89,7 @@
 }
 
 
-#mytable {
-    margin-top: 50px;
-    line-height: 1.5em;
-}
 
-
-/* CONTAINER IN PROGRESS*/
-
-#containerInProgress {
-	width: 100%;
-    margin-left: 5%;
-    margin-right: 5%;
-}
-
-#containerInProgressHeader {
-	 height: 45px;
-    position: relative;
-    width: 100.2%;
-    margin-bottom: 20px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    margin-top: -1px;
-    margin-left: -1px;
-}
-
-#inProgressColumn {
-	padding-left: 30px;
-    padding-right: 30px;
-    padding-top: 20px;
-}
-
-
-/* CONTAINER MY INTERVIEWS*/
-
-#containerMyInterviews {
-	width: 100%;
-    margin-left: 5%;
-    margin-right: 5%;
-    padding-bottom: 40px;
-}
-
-#containerMyInterviewsHeader {
-	height: 45px;
-    position: relative;
-    width: 100.2%;
-    margin-bottom: 20px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    margin-top: -1px;
-    margin-left: -1px;
-}
-
-#myInterviewsColumn {
-	padding-left: 30px;
-    padding-right: 30px;
-    padding-top: 20px;
-}
 
 
 
@@ -157,8 +112,27 @@
 
 /*MODALS*/
 
+#modalFormColumn label{
+     font-family: arial, sans-serif;
+	font-size:15px;
+	margin:4px;
+	padding: 2px 2px 2px 0;
+  	display: inline-block;
+  	color: black;
+}
+
+
 #motivationalTableModal {
 	border-radius: 5px !important;
+	margin-top: 1.5%;
+	
+}
+
+#modalFormColumn {
+	padding: 20px;
+	background-color: white;
+	display: inline-block;
+	    border-radius: 5px;
 }
 
 #registerModal {
@@ -166,16 +140,8 @@
 }
 
 #techTableModal {
+	margin-top: 1.5%;
 	border-radius: 5px !important;
-}
-
-#containerDetailMotFeedback {
-	width: 100%;
-}
-
-containerDetailTechF
-#containerDetailTechF {
-	width: 100%;
 }
 
 #closeMotModal {

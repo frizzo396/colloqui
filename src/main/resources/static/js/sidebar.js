@@ -40,6 +40,14 @@ function RedirectHome() {
     window.location.href = "/interview-ms/home";
 }
 
+function RedirectAssigned() {
+    const url_string = window.location.href;
+    const url = new URL(url_string);
+    const enterpriseId = url.searchParams.get("enterpriseId");
+   // window.location.href = "/interview-ms/home?enterpriseId=" + enterpriseId;
+    window.location.href = "/interview-ms/interview/assigned";
+}
+
 function RedirectInsert() {
     const url_string = window.location.href;
     const url = new URL(url_string);
