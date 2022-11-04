@@ -19,11 +19,12 @@
 .containerLabel {
 	font-size: 16px;
     color: black;
+    font-weight: 500;
     line-height: 1em;
 }
 
 .inp-form label{
-     font-family: arial, sans-serif;
+    font-family: 'Graphik', sans-serif;
 	font-size:15px;
 	margin:4px;
 	padding: 2px 2px 2px 0;
@@ -113,7 +114,7 @@
 /*MODALS*/
 
 #modalFormColumn label{
-     font-family: arial, sans-serif;
+    font-family: 'Graphik', sans-serif;
 	font-size:15px;
 	margin:4px;
 	padding: 2px 2px 2px 0;
@@ -140,7 +141,7 @@
 }
 
 #techTableModal {
-	margin-top: 1.5%;
+	margin-top: 3.1%;
 	border-radius: 5px !important;
 }
 

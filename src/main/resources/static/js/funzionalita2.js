@@ -122,7 +122,7 @@ function pagination(){
                     pager = $table.next().empty();  else
                     pager = $('<div class="pager" style="padding-top: 30px; direction:ltr; color:black; padding-bottom: 30px;" align="center"></div>');
 
-                $('<a style="font-size:14px;"> « Prev&nbsp;&nbsp;&nbsp;&nbsp; </a>').bind('click', function () {
+                $('<a style="font-size:12px;"> « Prev&nbsp;&nbsp;&nbsp;&nbsp; </a>').bind('click', function () {
                     if (currentPage > 0)
                         currentPage--;
                     $table.trigger('repaginate');
@@ -136,9 +136,9 @@ function pagination(){
                         startPager = 0;
                 }
 
-                $('<span style="font-size: 14px" >Page '+(currentPage+1)+' of '+pages+'</span>').appendTo(pager);
+                $('<span style="font-size: 12px" >Page '+(currentPage+1)+' of '+pages+'</span>').appendTo(pager);
 
-                $('<a style="font-size:14px"> &nbsp;&nbsp;&nbsp;&nbsp;Next » </a>').bind('click', function () {
+                $('<a style="font-size:12px"> &nbsp;&nbsp;&nbsp;&nbsp;Next » </a>').bind('click', function () {
                     if (currentPage < pages - 1)
                         currentPage++;
                     $table.trigger('repaginate');
@@ -161,6 +161,7 @@ function pagination(){
             $table.find(
                 'tbody tr:not(:has(th))').hide().slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage).show();
                 
+                //Border radius ultima riga tabella
                 	let rows = document.querySelectorAll('.tableRows');
 				for (var i = 0; i < rows.length; i++) {
 				  if (rows[i].style.display === "none") {

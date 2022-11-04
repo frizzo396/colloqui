@@ -21,6 +21,7 @@
 	font-size: 16px;
     color: black;
     line-height: 1em;
+    font-weight: 500;
 }
 #yearGraph {
     width: 100%;

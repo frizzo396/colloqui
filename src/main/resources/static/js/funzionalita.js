@@ -69,7 +69,7 @@ $(document).ready(function (){
 		e.preventDefault(e);
 		$.post($(this).attr('action'), $(this).serialize(), function (response){
 			if(response.error == null){
-					showToast("Operazione avvenuta con successo, verificare l'invio della mail'", "SUCCESS", 3000);
+					showToast("Operazione avvenuta con successo'", "SUCCESS", 3000);
 					setTimeout(function(){RedirectHome()}, 1700);
 				}
 				else {
@@ -198,7 +198,7 @@ function pagination(){
 					pager = $table.next().empty();  else
 					pager = $('<div class="pager" style="padding-top: 30px; direction:ltr; color:black; padding-bottom: 30px;" align="center"></div>');
 
-				$('<a id="prev" style="font-size:14px; cursor:pointer;"> « Prev&nbsp;&nbsp;&nbsp;&nbsp; </a>').bind('click', function () {
+				$('<a id="prev" style="font-size:12px; cursor:pointer;"> « Prev&nbsp;&nbsp;&nbsp;&nbsp; </a>').bind('click', function () {
 					if (currentPage > 0)
 						currentPage--;
 					$table.trigger('repaginate');
@@ -212,9 +212,9 @@ function pagination(){
 						startPager = 0;
 				}
 
-				$('<span id="page" style="font-size: 14px" >Page '+(currentPage+1)+' of '+pages+'</span>').appendTo(pager);
+				$('<span id="page" style="font-size: 12px" >Page '+(currentPage+1)+' of '+pages+'</span>').appendTo(pager);
 
-				$('<a id="next" style="font-size:14px; cursor:pointer;"> &nbsp;&nbsp;&nbsp;&nbsp;Next » </a>').bind('click', function () {
+				$('<a id="next" style="font-size:12px; cursor:pointer;"> &nbsp;&nbsp;&nbsp;&nbsp;Next » </a>').bind('click', function () {
 					if (currentPage < pages - 1)
 						currentPage++;
 					$table.trigger('repaginate');

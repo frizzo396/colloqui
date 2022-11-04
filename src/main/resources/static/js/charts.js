@@ -40,7 +40,7 @@ function drawTotalChart() {
 		titleTextStyle: {
     		color: 'black'
 		},
-  		'colors': ['#0a92ca', '#0a58ca']
+  		'colors': ['rgb(227, 228, 232)', 'rgb(17, 184, 236)']
   };
 
   // Display the chart inside the <div> element with id="piechart"
@@ -69,7 +69,7 @@ function drawMonthChart() {
 		titleTextStyle: {
     		color: 'black'
 		},
-  		'colors': ['#0a92ca', '#0a58ca']
+  		'colors': ['rgb(227, 228, 232)', 'rgb(17, 184, 236)'] /*#EE82EE*/
   };
 
   // Display the chart inside the <div> element with id="piechart"

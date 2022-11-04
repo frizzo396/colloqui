@@ -64,7 +64,7 @@ table tr:last-child td:last-child {
 .mytable td{
   height: 20px;
   padding: 6px;
-  font-size: 11px;
+  font-size: 12px;
   text-align:center;
   color: black;
 }
@@ -88,7 +88,7 @@ table td th:nth-child(1),
 /*Search table*/
 
 table {
-  font-family: arial, sans-serif;
+ font-family: 'Graphik', sans-serif;
   width: 100%;
   border-spacing: 0px;
 }
@@ -98,6 +98,7 @@ th{
     text-align: center;
     background-color: #e3e4e8;
     color: black;
+    font-weight: 500;
     height: 3em;
 }
 
