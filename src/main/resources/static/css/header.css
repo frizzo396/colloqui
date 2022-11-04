@@ -1,11 +1,11 @@
 @charset "ISO-8859-1";
 
 
-#headerRow {
-	background-color: #1429eb;
-	width: 100%;
+#headerRow { 
+    background-color: #0a58ca; /* Indigo: #4b0082*/
+    width: 100%;
     display: flex;
-    height: 5%;
+    height: 8%;
     margin-bottom: 25px;
 }
 
@@ -13,13 +13,15 @@
 	display: flex;
 	position: relative;
 	width: 10%;
+	margin-left: 2%;
 }
 
 #userColumn {
-	display: flex;
-	position: relative;
-	align-items: center;
-	width: 10%;
+    display: flex;
+    position: relative;
+    align-items: center;
+    width: 10%;
+    margin-right: 3%;
 }
 
 #titleColumn {
@@ -33,45 +35,45 @@
 
 #userContainer {
 	width: 100%;
-	position: relative;
+	display: inline-flex;
 }
 
 #nickname {
 	color: white;
 	margin: auto;
+	font-size: 11px;
 }
 
 #userIcon {
-    font-size: 30px;
+    font-size: 25px;
     color: white;
     margin:auto;
 }
 
 #iconRow{
-	display: flex;
-	margin-bottom: 3px;
-	width: 100%;
-	height: 80%;
+    display: inline-flex;
+    width: 100%;
+    height: 80%;
+    margin-right: 3%;
 }
 
 #nicknameRow {
-	 display: flex;
-	width: 100%;
-	height: 20%;
+	display: inline-flex;
+    width: 100%;
 }
 
 #accentureLogo {	
-    width: 80%;
-    position: relative;
-    margin-left: 10px;
+display: block;
+  max-width:230px;
+  max-height:55px;
+  width: auto;
+  height: auto;
 }
 
 header{
     display: flex; 
-	background-color: #1429eb;
     justify-content: space-between;
     align-items: center;
-        margin-bottom: 50px;
 }
 
 @media (max-width: 1000px){
@@ -81,18 +83,20 @@ header{
 
         /* Align items to the begining (the left) of the header. */
         align-items: flex-start;
-    }
-    #userIcon {
-    	display: none;
-    }
-    
+    }    
 }
 
-@media only screen and (max-width:640px){
-	 #userIcon {
-    	display: none;
-    }
-	#nickname {
-   	font-size: 3px;
-   }	
-}
+
+@media only screen  and (max-width:840px){ 	 
+	 #imageColumn {
+			width: 15%;
+		}
+	
+	#userColumn {	
+	    width: 15%;
+	}
+	
+	#titleColumn {
+	  width: 55%;
+	}
+	}

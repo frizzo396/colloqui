@@ -1,5 +1,7 @@
 package com.accenture.interview.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -22,6 +24,16 @@ public interface InterviewerRepository extends JpaRepository<Interviewer, Long> 
 	 */
 	@Query("select new com.accenture.interview.rto.interviewer.InterviewerRTO(ier.id, ier.enterpriseId, ier.mail, ier.type) from Interviewer ier where ier.id=:interviewerId")
 	InterviewerRTO findInterviewerByInterviewerId(@Param("interviewerId") long interviewerId);
+	
+
+	/**
+	 * Find interviewer entity by enterprise id.
+	 *
+	 * @param enterpriseId the enterprise id
+	 * @return the optional
+	 */
+	@Query("select ier from Interviewer ier where ier.enterpriseId=:enterpriseId")
+	Optional<Interviewer> findInterviewerEntityByEnterpriseId(@Param("enterpriseId") String enterpriseId);
 
 	/**
 	 * Find interviewer by enterprise id.

@@ -1,11 +1,7 @@
 
 
 jQuery(document).ready(function($){
-	$('.cd-popup-trigger').on('click', function(event){
-		event.preventDefault();
-		$('.cd-popup').addClass('is-visible');
-	});
-
+	
 	$('.cd-popup').on('click', function(event){
 		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') ) {
 			event.preventDefault();
@@ -19,21 +15,50 @@ jQuery(document).ready(function($){
 		}
 	});
 	
-	/*$('#searchInterview').on('submit', function (e) {
-    var form = this;
-    var validation = validationSearch();
-    		
+	$("select").change(function() {
+		var selectedValue = $(this).val();
 		
-    if(validation) {
-		showToast("Operazione avvenuta con successo", "SUCCESS", 2000);
-	    setTimeout(function () {
-	        form.submit();
-	    }, 1000);
-	    return false;
-    } else {
-		showToast("Almeno un campo deve essere valorizzato", "ERROR", 3000);
-	}
-	});*/
+		if(selectedValue == ""){
+				$(this).css('color','#afb0b3');
+		} else {
+				$(this).css('color','black');
+		}
+	})
+	$(".datePicker").change(function() {
+			var selectedValue = $(this).val();
+			if(selectedValue == ""){
+				$(this).css('color','#afb0b3');
+			} else {
+					$(this).css('color','black');
+			}		
+	}) 
+		$(".num-input").change(function() {
+			var selectedValue = $(this).val();
+			if(selectedValue == 0){  
+				$(this).attr('style', 'color: #afb0b3 !important');
+			} else {
+					$(this).attr('style', 'color: black !important');
+			}		
+	})
+	
+		$("#cv").change(function() {
+			var selectedValue = $(this).val();
+			if(selectedValue == ""){
+				$(this).css('color','#afb0b3');
+			} else {
+					$(this).css('color','black');
+			}		
+	})
+	
+	$('.clear-button').click(function(){
+	    $('.datePicker').css('color','#afb0b3');
+	    $('select').css('color','#afb0b3');
+	    $('#cv').css('color','#afb0b3');
+	    $(".num-input").attr('style', 'color: #afb0b3 !important');
+	});
+	
+	
+
 });
 
 
@@ -44,7 +69,7 @@ $(document).ready(function (){
 		e.preventDefault(e);
 		$.post($(this).attr('action'), $(this).serialize(), function (response){
 			if(response.error == null){
-					showToast("Operazione avvenuta con successo, controllare se l'email è stata recapitata correttamente", "SUCCESS", 3000);
+					showToast("Operazione avvenuta con successo'", "SUCCESS", 3000);
 					setTimeout(function(){RedirectHome()}, 1700);
 				}
 				else {
@@ -63,11 +88,11 @@ $(document).ready(function (){
 		e.preventDefault(e);
 		$.post($(this).attr('action'), $(this).serialize(), function (response){
 			if(response.error == null){
-					showToast("Operazione avvenuta con successo", "SUCCESS");
+					showToast("Operazione avvenuta con successo", "SUCCESS", 3000);
 					setTimeout(function(){RedirectHome()}, 1700);
 				}
 				else {
-					showToast(response.error, "ERROR");
+					showToast(response.error, "ERROR", 3000);
 				}
 
 		}, 'json');
@@ -141,20 +166,19 @@ function resetSearchTable() {
 
 function showToast(message, state, delay) {
 	var snackB = document.getElementById("snackbar");
-	var iconColumn = document.getElementById("snackbarIconColumn");
 	var textColumn = document.getElementById("snackbarTextColumn");
 	snackB.className = "show";
 	if(state === "SUCCESS"){
-		snackB.style.backgroundColor="#008000";
-		iconColumn.innerHTML = "<em id='successIcon' class='fa-solid fa-circle-check'></em>";
+		snackB.style.color="#008000";
+		snackB.style.border="2px solid #008000";
 		textColumn.innerHTML = message;
 	} else if (state === "ERROR") { 
-		snackB.style.backgroundColor="#b20000";
-		iconColumn.innerHTML = "<em id='errorIcon' class='fa-solid fa-circle-exclamation'></em>";
+		snackB.style.color="#b20000";
+		snackB.style.border="2px solid #b20000";
 		textColumn.innerHTML = message;
 	} else if(state === "WARNING"){
-		snackB.style.backgroundColor="#FFCC00";
-		iconColumn.innerHTML  = "<em id='warningIcon' class='fa-solid fa-circle-exclamation'></em>";
+		snackB.style.color="#FFCC00";
+		snackB.style.border="2px solid #FFCC00";
 		textColumn.innerHTML = message;
 	}
 	setTimeout(function(){ snackB.className = snackB.className.replace("show", ""); }, delay);
@@ -172,9 +196,9 @@ function pagination(){
 				var pager;
 				if ($table.next().hasClass("pager"))
 					pager = $table.next().empty();  else
-					pager = $('<div class="pager" style="padding: 30px; direction:ltr;" align="center"></div>');
+					pager = $('<div class="pager" style="padding-top: 30px; direction:ltr; color:black; padding-bottom: 30px;" align="center"></div>');
 
-				$('<a id="prev" style="font-size:14px; cursor:pointer;"> « Prev&nbsp;&nbsp;&nbsp;&nbsp; </a>').bind('click', function () {
+				$('<a id="prev" style="font-size:12px; cursor:pointer;"> « Prev&nbsp;&nbsp;&nbsp;&nbsp; </a>').bind('click', function () {
 					if (currentPage > 0)
 						currentPage--;
 					$table.trigger('repaginate');
@@ -188,9 +212,9 @@ function pagination(){
 						startPager = 0;
 				}
 
-				$('<span id="page" style="font-size: 14px" >Page '+(currentPage+1)+' of '+pages+'</span>').appendTo(pager);
+				$('<span id="page" style="font-size: 12px" >Page '+(currentPage+1)+' of '+pages+'</span>').appendTo(pager);
 
-				$('<a id="next" style="font-size:14px; cursor:pointer;"> &nbsp;&nbsp;&nbsp;&nbsp;Next » </a>').bind('click', function () {
+				$('<a id="next" style="font-size:12px; cursor:pointer;"> &nbsp;&nbsp;&nbsp;&nbsp;Next » </a>').bind('click', function () {
 					if (currentPage < pages - 1)
 						currentPage++;
 					$table.trigger('repaginate');
@@ -199,11 +223,32 @@ function pagination(){
 				if (!$table.next().hasClass("pager"))
 					pager.insertAfter($table);
 				//pager.insertBefore($table);
-
-			}// end $table.bind('repaginate', function () { ...
+			}else {				
+				var tableForm = document.getElementById("tableFormColumn");
+				var searchForm = document.getElementById("searchFormColumn");
+				if(tableForm != null){
+					tableForm.style.padding = "40px";
+				}
+				if(searchForm != null){
+					searchForm.style.paddingBottom = "25px";	
+				}						
+			}
 
 			$table.find(
 				'tbody tr:not(:has(th))').hide().slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage).show();
+				
+				let rows = document.querySelectorAll('.tableRows');
+				for (var i = 0; i < rows.length; i++) {
+				  if (rows[i].style.display === "none") {
+						let lastRow = rows[i-1];
+						var cells = lastRow.getElementsByTagName("td");
+						var firstCell = cells[0];
+						var lastCell = cells[cells.length -1];
+						firstCell.style.borderBottomLeftRadius = "5px";
+						lastCell.style.borderBottomRightRadius = "5px";						
+						break;
+				  }
+				}
 		});
 
 		$table.trigger('repaginate');

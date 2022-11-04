@@ -3,9 +3,9 @@
 
 jQuery(document).ready(function ($) {
     //open popup Motivational
-    $('.cd-popup-trigger').on('click', function (event) {
+    $('.motiv-popup').on('click', function (event) {
 		event.preventDefault();
-		$('.cd-popup').addClass('is-visible');
+		$('#motiv-modal').addClass('is-visible');
     	
     });
 
@@ -19,9 +19,9 @@ jQuery(document).ready(function ($) {
     
     
     //open popup Technical
-    $('.cd-popup-trigger2').on('click', function (event) {
+    $('.tech-popup').on('click', function (event) {
 		event.preventDefault();
-		$('.cd-popup2').addClass('is-visible');
+		$('#tech-modal').addClass('is-visible');
     
     });
 
@@ -34,6 +34,12 @@ jQuery(document).ready(function ($) {
     });
 
     pagination();
+    
+   $('.popup-register').on('click', function (event) {
+		event.preventDefault();
+		$('#register-modal').addClass('is-visible');
+    
+    });
 
 });
 
@@ -114,9 +120,9 @@ function pagination(){
                 var pager;
                 if ($table.next().hasClass("pager"))
                     pager = $table.next().empty();  else
-                    pager = $('<div class="pager" style="padding-top: 30px; direction:ltr;" align="center"></div>');
+                    pager = $('<div class="pager" style="padding-top: 30px; direction:ltr; color:black; padding-bottom: 30px;" align="center"></div>');
 
-                $('<a style="font-size:14px;"> « Prev&nbsp;&nbsp;&nbsp;&nbsp; </a>').bind('click', function () {
+                $('<a style="font-size:12px;"> « Prev&nbsp;&nbsp;&nbsp;&nbsp; </a>').bind('click', function () {
                     if (currentPage > 0)
                         currentPage--;
                     $table.trigger('repaginate');
@@ -130,9 +136,9 @@ function pagination(){
                         startPager = 0;
                 }
 
-                $('<span style="font-size: 14px" >Page '+(currentPage+1)+' of '+pages+'</span>').appendTo(pager);
+                $('<span style="font-size: 12px" >Page '+(currentPage+1)+' of '+pages+'</span>').appendTo(pager);
 
-                $('<a style="font-size:14px"> &nbsp;&nbsp;&nbsp;&nbsp;Next » </a>').bind('click', function () {
+                $('<a style="font-size:12px"> &nbsp;&nbsp;&nbsp;&nbsp;Next » </a>').bind('click', function () {
                     if (currentPage < pages - 1)
                         currentPage++;
                     $table.trigger('repaginate');
@@ -140,12 +146,34 @@ function pagination(){
 
                 if (!$table.next().hasClass("pager"))
                     pager.insertAfter($table);
-                //pager.insertBefore($table);
-
-            }// end $table.bind('repaginate', function () { ...
-
+                //pager.insertBefore($table);	
+			}else {
+				var tableForm = document.getElementById("tableFormColumn");
+				var searchForm = document.getElementById("searchFormColumn");
+				if(tableForm != null){
+					tableForm.style.padding = "40px";
+				}
+				if(searchForm != null){
+					searchForm.style.paddingBottom = "25px";	
+				}		
+			}
+			
             $table.find(
                 'tbody tr:not(:has(th))').hide().slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage).show();
+                
+                //Border radius ultima riga tabella
+                	let rows = document.querySelectorAll('.tableRows');
+				for (var i = 0; i < rows.length; i++) {
+				  if (rows[i].style.display === "none") {
+						let lastRow = rows[i-1];
+						var cells = lastRow.getElementsByTagName("td");
+						var firstCell = cells[0];
+						var lastCell = cells[cells.length -1];
+						firstCell.style.borderBottomLeftRadius = "5px";
+						lastCell.style.borderBottomRightRadius = "5px";						
+						break;
+				  }
+				}
         });
 
         $table.trigger('repaginate');

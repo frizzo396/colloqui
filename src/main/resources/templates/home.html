@@ -3,11 +3,15 @@
 	<head>
 	    <meta charset="UTF-8"/>
 	    <title>Interview</title>
-		<link th:href="@{/css/form2.css}" rel="stylesheet" />
+		<link th:href="@{/css/form.css}" rel="stylesheet" />
         <link th:href="@{/css/sidebar.css}" rel="stylesheet" />
-        <link th:href="@{/css/home-container.css}" rel="stylesheet" />
-        <link th:href="@{/css/form-container.css}" rel="stylesheet" />
+        <link th:href="@{/css/home.css}" rel="stylesheet" />
+        <link th:href="@{/css/container.css}" rel="stylesheet" />
+         <link th:href="@{/css/snackbar.css}" rel="stylesheet" />
         <link th:href="@{/css/header.css}" rel="stylesheet" />
+        <link th:href="@{/css/general-style.css}" rel="stylesheet" />
+        <link th:href="@{/css/popup-container.css}" rel="stylesheet" />
+         <link href="https://fonts.cdnfonts.com/css/graphik" rel="stylesheet" type='text/css'>
         <link th:rel="stylesheet" th:href="@{assets/bootstrap-select-1.13.9/dist/css/bootstrap-select.css}" />
         <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
         <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
@@ -24,65 +28,79 @@
     <body>
     
     <div class="interview-html">
-		<div class="interview-wrap">
 			
 			<!-- NUOVO DIV PER HEADER SUPERIORE -->
-			<div th:replace="fragments/header"></div>
+			<div th:replace="fragments/header"></div>		
+			<div class="pageRow">
+				<div class="col-lg-8 col-lg-offset-2" id="sidebarColumn">
+						<div th:replace="fragments/sidebar"></div>  				
+				 </div>
+	                <!-- CONTAINER CENTRALE -->    
+	                <div class="col-lg-8 col-lg-offset-2" id="containerColumn">
+		              <div class="row" id="yearGraphRow">
+		              			<div class="col-lg-8 col-lg-offset-2" id="yearGraphColumn">
+		              						<div class="graphContainer">
+			              						<header class="graphHeader">
+					                                <label class="graphLabel">Year Interviews</label>
+					                            </header>		
+											 	<div id="yearGraph"></div>		
+											 </div>						 	
+								</div>		 	
+						</div>             
+						<div class="row" id="cakeGraphsRow">	
+										  <div class="col-lg-8 col-lg-offset-2" id="totInterviewsGraphColumn">
+												<div class="graphContainer">
+				              						<header class="graphHeader">
+						                                <label class="graphLabel">Total Interviews</label>
+						                            </header>		
+											 			<div id="totalInterviewsChart" class="chart"></div>
+										 		</div>
+										  </div>
+										  <div class="col-lg-8 col-lg-offset-2" id="graphSpaceColumn">
+										  </div>
+										   <div class="col-lg-8 col-lg-offset-2" id="monthInterviewsGraphColumn">
+										   		<div class="graphContainer">
+				              						<header class="graphHeader">
+						                                <label class="graphLabel">Month Interviews</label>
+						                            </header>		
+										 			<div id="monthInterviewsChart" class="chart"></div>
+										 		  </div>	
+										  </div>	
 			
-	   		<div class="row" id="pageRow">
-	   		
-			<!-- NUOVO DIV PER SIDEBAR (LATERALE) -->
-			<div th:replace="fragments/sidebar"></div>	   		
-	   		
-                <!-- CONTAINER CENTRALE -->    
-                <div class="col-lg-8 col-lg-offset-2" id="containerColumn">
-                       <div class="container" id="containerHome">
-
-							<div class="row" id="homeContainerFirstRow">
-								 <div class="col-lg-8 col-lg-offset-2" id="userInfoColumn">								 		
-								 		<div class="row" id="userLogoRow">
-								 	    <em id="userLogoIcon" class="fa-solid fa-user"></em>
-								 				<ul id="userInfoList">
-								 					<li>
-								 						 <span th:text="${interviewer.enterpriseId}">Enterprise id</span>								 					
-								 					</li>
-								 					<li id="entIdList">
-								 						 <span th:text="${interviewer.mail}">Enterprise id</span>								 					
-								 					</li>
-								 				</ul>
-								 		</div> 
-								 </div>
-								  <div class="col-lg-8 col-lg-offset-2" id="yearGraphColumn">
-								 	<div id="visualization"></div>
-								  </div>
-						    </div>
-							<div class="row">	
-								  <div class="col-lg-8 col-lg-offset-2" id="totInterviewsGraphColumn">
-								 		<div id="totalInterviewsChart"></div>
-								  </div>
-								   <div class="col-lg-8 col-lg-offset-2" id="monthInterviewsGraphColumn">
-								 		<div id="monthInterviewsChart"></div>
-								  </div>	
-	
-							</div>
 						</div>
-				</div>
-                        
-          </div>
-          <div style="display: none">
-          		 <span th:text="${inProgressInterviews}" id="inProgressNumber"></span>
-				 <span th:text="${myInterviews}" id="completedNumber"></span>
-				 <span th:text="${myInterviewsMonth}" id="completedMonthNumber"></span>
-				 <span th:text="${inProgressInterviewsMonth}" id="inProgressMonthNumber"></span>
-          </div>
-	   		
-	   		</div>
-					
-		</div>
+					</div>
+					 <div style="display: none">
+			        		 <span th:text="${inProgressInterviews}" id="inProgressNumber"></span>
+							 <span th:text="${myInterviews}" id="completedNumber"></span>
+							 <span th:text="${myInterviewsMonth}" id="completedMonthNumber"></span>
+							 <span th:text="${inProgressInterviewsMonth}" id="inProgressMonthNumber"></span>
+	          		</div>
+          		</div>
+          		<div id="register-modal" class="cd-popup" role="alert">
+                                <div th:replace="fragments/registerUserModal"></div>
+               </div>
+               <div  id="snackbar">
+               		<div  id="snackbarRow">
+               				  <div class="col-lg-8 col-lg-offset-2" id="snackbarTextColumn">
+               				 
+               				 </div>    				 
+               		</div>
+               </div>
+</div>
+
+
+				
+				
+			
 	<script th:inline="javascript">
 		/*<![CDATA[*/
 			google.load("visualization", "1", {packages:["corechart"]});
 			google.setOnLoadCallback(drawVisualization);
+			
+			var yGraph = document.getElementById("yearGraph");
+			if(yGraph != null) {
+				yGraph.click();
+			}
 			
 			function drawVisualization() {
 			    var months = [];
@@ -102,27 +120,29 @@
 		    	    data.addRow([months[i], interviews[i]]);
 		    	  
 		    	  var options = {
-		    		        title: "Interviews per Month",
-		    		        vAxis: {'minValue': 0, 'maxValue': 10},
+		    		        vAxis: {'minValue': 0, 'maxValue': 5, 'format': '0'},
 		    		        hAxis: {
 		    		            textStyle: {
-		    		                color: '#1429eb'
+		    		                color: 'black',
+		    		                 fontSize: 11 
 		    		            }
 		    		        },
-		    		        width: 800,
-		    		        height: 350,
-		    		        chartArea: {'width': '100%', 'height': '80%'},
-		    		        bar: {groupWidth: "50%"},
+
+		    		        width: '90%',
+		    		       /* chartArea: {'width': '100%', 'height': '80%'},*/
+		    		        chartArea: {'width': '100%', 'height': '80%', 'left': 20},
+		    		        /*theme: 'maximized',*/
+		    		        bar: {groupWidth: "25%"},
 		    		        legend: { position: "none" },
-		    				titleTextStyle: {
-		    		    		color: '#1429eb'
-		    				},
-		    		  		colors: ['#1429eb']
+		    		  		colors: ['rgb(17, 184, 236)']
 		    		      };
 		    	 
-		    	  new google.visualization.ColumnChart(document.getElementById('visualization')).
+		    	  new google.visualization.ColumnChart(document.getElementById('yearGraph')).
 		    	    draw(data, options);
 			}
+			window.onresize = drawVisualization;
+			window.addEventListener('load', drawVisualization, false);
+			window.addEventListener('click', drawVisualization, false);
 		/*]]>*/
 	</script>
     </body>

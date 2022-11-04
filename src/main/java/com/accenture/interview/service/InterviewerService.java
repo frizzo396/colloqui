@@ -1,5 +1,7 @@
 package com.accenture.interview.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,7 +39,18 @@ public class InterviewerService {
 	 * @return the creates the interview response
 	 */
 	public Interviewer addNewInterviewer(RegisterInterviewerTO request) {
-		Interviewer interviewer = new Interviewer(request);
+		Interviewer interviewer = null;
+		Optional<Interviewer> optInterviewer = interviewerRepository.findInterviewerEntityByEnterpriseId(request.getEnterpriseId());
+		
+		//Update
+		if(optInterviewer.isPresent()) {
+			interviewer = optInterviewer.get();
+			interviewer.setEnterpriseId(request.getEnterpriseId());
+			interviewer.setMail(request.getMail());
+			interviewer.setType(request.getIsResponsible());
+		} else {
+			interviewer = new Interviewer(request);
+		}
 		return interviewerRepository.save(interviewer);
 	}	
 

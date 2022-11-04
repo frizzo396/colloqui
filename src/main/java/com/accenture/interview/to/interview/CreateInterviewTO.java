@@ -21,7 +21,7 @@ import lombok.Setter;
 public class CreateInterviewTO {
 	
     /** The site. */
-    @NotNull(message = "interview.site.notempty")
+	@NotEmpty(message = "interview.site.notempty")
 	private String site;
 
 	/** The candidate name. */

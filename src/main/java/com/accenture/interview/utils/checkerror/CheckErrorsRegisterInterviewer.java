@@ -27,9 +27,6 @@ public class CheckErrorsRegisterInterviewer {
 	/** The message source. */	
 	@Autowired private MessageSource messageSource;
 	 
-	/** The interviewer service. */
-	@Autowired
-	private InterviewerService interviewerService;
 	
 	/**
 	 * Validate insert interview request.
@@ -45,24 +42,9 @@ public class CheckErrorsRegisterInterviewer {
 			String errorMsg = messageSource.getMessage(violations.stream().findFirst().get().getMessage(), null, Locale.getDefault());
 			return new ErrorRTO(errorMsg);
 		}
-
-		if(interviewerExists(registerUserTO.getEnterpriseId())) { return new		 
-				ErrorRTO(messageSource.getMessage("interviewer.exists", null, Locale.getDefault())); 
-		}	
 		
 		return null;
 	}
 	
-
-	/**
-	 * Interviewer exists.
-	 *
-	 * @param enterpriseId the enterprise id
-	 * @return true, if successful
-	 */
-	private boolean interviewerExists(String enterpriseId) {
-		InterviewerRTO interviewer = interviewerService.findInterviewerByEnterpriseId(enterpriseId);
-		return interviewer != null;	
-	}
 		
 }

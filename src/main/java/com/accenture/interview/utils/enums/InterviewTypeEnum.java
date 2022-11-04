@@ -15,10 +15,10 @@ public enum InterviewTypeEnum
 {
 
 	/** The motivazionale. */
-	MOTIVAZIONALE(1, "MOTIVAZIONALE"),
+	MOTIVAZIONALE(1, "Motivazionale"),
 
 	/** The tecnico. */
-	TECNICO(2, "TECNICO");
+	TECNICO(2, "Tecnico");
 
 	/** The id. */
 	private final long id;

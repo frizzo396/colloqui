@@ -57,9 +57,7 @@ public class CheckErrorsInsertInterview {
 			return new ErrorRTO(errorMsg);
 		}
 
-		if(interviewAlreadyExists(createInterviewTO.getCandidateName(), 
-				createInterviewTO.getCandidateSurname(), 
-				createInterviewTO.getMail())) {
+		if(interviewAlreadyExists(createInterviewTO.getMail())) {
 			return new ErrorRTO(messageSource.getMessage("interview.alreadyexists", null, Locale.getDefault()));
 		}
 		
@@ -82,8 +80,8 @@ public class CheckErrorsInsertInterview {
 	 * @param mail the mail
 	 * @return true, if successful
 	 */
-	private boolean interviewAlreadyExists(String name, String surname, String mail) {
-		return !ObjectUtils.isEmpty(interviewService.findInterviewByNameSurnameAndMail(name, surname, mail));
+	private boolean interviewAlreadyExists(String mail) {
+		return !ObjectUtils.isEmpty(interviewService.findInterviewByMail(mail));
 	}
 	
 	
