@@ -69,7 +69,7 @@ public class Interview {
 
 	/** The status. */
 	@NotNull
-	private long status;
+	private Integer status;
 
 	/** The scheduled date. */
 	@NotNull
@@ -198,11 +198,11 @@ public class Interview {
 		this.qualification = qualification;
 	}
 
-	public long getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 
-	public void setStatus(long status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 

@@ -104,7 +104,7 @@ public class InterviewFacade {
 	 * @return the my interviews
 	 */
 	public List<InterviewAndFeedbackRTO> getCompletedInterviews(String enterpriseId) {
-		List<InterviewAndFeedbackRTO> interviewAndFeedbackList = interviewService.getMyInterviews(enterpriseId);
+		List<InterviewAndFeedbackRTO> interviewAndFeedbackList = interviewService.getCompletedInterviews(enterpriseId);
 		return feedbackService.getFeedbacks(interviewAndFeedbackList);
 	}
 	

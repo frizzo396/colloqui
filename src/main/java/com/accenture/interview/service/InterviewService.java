@@ -28,6 +28,7 @@ import com.accenture.interview.rto.site.SiteRTO;
 import com.accenture.interview.to.interview.CreateInterviewTO;
 import com.accenture.interview.to.interview.SearchInterviewTO;
 import com.accenture.interview.utils.date.DateUtils;
+import com.accenture.interview.utils.enums.InterviewStatusEnum;
 import com.accenture.interview.utils.enums.InterviewTypeEnum;
 
 /**
@@ -69,6 +70,7 @@ public class InterviewService {
 			interview.setFinalFeedback(finalFeedback);
 			interview.setTechFeedbackId(feedback);
 			interview.setDueDate(new Date());
+			interview.setStatus(InterviewStatusEnum.COMPLETED.getValue());
 			interviewRepository.save(interview);
 		}
 	}
@@ -87,6 +89,7 @@ public class InterviewService {
 			interview.setFinalFeedback(finalFeedback);
 			interview.setMotivationFeedbackId(feedback);
 			interview.setDueDate(new Date());
+			interview.setStatus(InterviewStatusEnum.COMPLETED.getValue());
 			interviewRepository.save(interview);
 		}
 	}
@@ -156,6 +159,7 @@ public class InterviewService {
 		interview.setAssigner(assigner.getId());		
 		interview.setInterviewerId(new Interviewer(interviewer.getId(), interviewer.getEnterpriseId(), interviewer.getMail(), interviewer.getType()));				
 		interview.setInterviewType(getInterviewTypeFromString(request.getInterviewType()));
+		interview.setStatus(InterviewStatusEnum.IN_PROGRESS.getValue());
 		return interviewRepository.save(interview);
 	}
 
@@ -181,8 +185,8 @@ public class InterviewService {
 	 * @param enterpriseId the enterprise id
 	 * @return the my interviews
 	 */
-	public List<InterviewAndFeedbackRTO> getMyInterviews(String enterpriseId) {
-		return this.interviewRepository.getMyInterviewsByEnterpriseId(enterpriseId);
+	public List<InterviewAndFeedbackRTO> getCompletedInterviews(String enterpriseId) {
+		return this.interviewRepository.findCompletedInterviewsByEnterpriseId(enterpriseId);
 
 	}
 	
@@ -224,7 +228,7 @@ public class InterviewService {
 	 * @return the my interviews count
 	 */
 	public int getMyInterviewsCount(String enterpriseId) {
-		return interviewRepository.getMyInterviewsCount(enterpriseId);
+		return interviewRepository.getCompletedInterviewsCount(enterpriseId);
 	}
 
 	/**
@@ -235,7 +239,7 @@ public class InterviewService {
 	 */
 	public Integer getMyInterviewsMonthCount(String enterpriseId) {
 		StartEndDateRTO dates = DateUtils.calculateMonthDateIntervals();
-		return interviewRepository.getMyInterviewsMonthCount(enterpriseId, dates.getStartDate(), dates.getEndDate());
+		return interviewRepository.findCompletedInterviewsMonthCount(enterpriseId, dates.getStartDate(), dates.getEndDate());
 	}
 
 	/**
