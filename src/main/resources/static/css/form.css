@@ -11,6 +11,10 @@
     width: 100%;
 }
 
+#registerRow .column {
+	width: 50%;
+}
+
 #rbRegisterColumn {
 	width: 100% !important;
 }

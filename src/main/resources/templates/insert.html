@@ -95,7 +95,8 @@
                                                         <label for="candidateType">Candidate Level</label>
                                                         <select  class="formcontrol selectpicker" th:field="*{candidateType}" id="candidateType">
                                                             <option value="">Nothing selected</option>
-                                                            <option th:each="candidateType : ${T(com.accenture.interview.utils.enums.CandidateTypeEnum).values()}" th:value="${candidateType}" th:text="${candidateType}">
+                                                            <option th:each="candidateType : ${T(com.accenture.interview.utils.enums.CandidateTypeEnum).values()}" th:value="${candidateType}" 
+                                                            			th:text="${candidateType.description}">
                                                                 candidate type
                                                             </option>
                                                         </select>
@@ -107,7 +108,8 @@
                                                         <label>Interview type</label>
                                                         <select class="form-control selectpicker" th:field="*{interviewType}" id="interviewType">
                                                             <option value="">Nothing selected</option>
-                                                            <option th:each="interviewType : ${T(com.accenture.interview.utils.enums.InterviewTypeEnum).values()}" th:value="${interviewType}" th:text="${interviewType}">
+                                                            <option th:each="interviewType : ${T(com.accenture.interview.utils.enums.InterviewTypeEnum).values()}" th:value="${interviewType}" 
+                                                            th:text="${interviewType.description}">
                                                                 interview type
                                                             </option>
                                                         </select>
@@ -170,11 +172,8 @@
                <div id="register-modal" class="cd-popup" role="alert">
                                 <div th:replace="fragments/registerUserModal"></div>
                </div>
-               <div  id="snackbar">
+  				<div  id="snackbar">
                		<div  id="snackbarRow">
-               				 <div class="col-lg-8 col-lg-offset-2" id="snackbarIconColumn">
-               				 
-               				 </div>
                				  <div class="col-lg-8 col-lg-offset-2" id="snackbarTextColumn">
                				 
                				 </div>    				 

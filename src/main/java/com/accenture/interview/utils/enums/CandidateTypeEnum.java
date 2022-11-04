@@ -12,13 +12,13 @@ public enum CandidateTypeEnum
 {
 
 	/** The subco. */
-	SUBCO(1, "SUBCO"),
+	SUBCO(1, "Subco"),
 
 	/** The junior. */
-	JUNIOR(2, "JUNIOR"),
+	JUNIOR(2, "Junior"),
 
 	/** The expert. */
-	EXPERT(3, "EXPERT");
+	SENIOR(3, "Senior");
 
 	/** The id. */
 	private final long id;

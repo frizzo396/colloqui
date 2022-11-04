@@ -4,14 +4,14 @@
 #snackbar {
      visibility: hidden; 
     width: 20%;
-    height: 13%;
-    color: #fff;
+    height: 7%;
+    background-color: #fff;
     text-align: center;
-    font-size: 12px;
-    border-radius: 10px;
+    font-size: 11px;
+    border-radius: 5px;
     position: fixed;
     right: 2%;
-    bottom: 1%;
+    bottom: 3%;
     line-height: 1.1em;
 }
 
@@ -21,61 +21,11 @@
 	display:flex;
 }
 
-#snackbarIconColumn {
-	width: 10%;
-	display: flex;
-	align-items: center;
-}
-
-#errorIcon {
-	font-size: 20px;
-	margin-left: 30%;
-}
-
-#successIcon {
-	font-size: 20px;
-	margin-left: 30%;
-}
-
-#warningIcon {
-	font-size: 20px;
-	margin-left: 30%;
-}
 
 #snackbarTextColumn {
-	width: 90%;
+	width: 95%;
     margin: auto;
 }
-
-#snackbar-interview{
-    font-size: 20px;
-    position: absolute;
-    top: 9px;
-    left: 5px;
-}
-
-#snackbar-v{
-    font-size: 20px;
-    position: absolute;
-    top: 9px;
-    left: 5px;
-}
-
-
-#snackbar-cross{
-    font-size: 20px;
-    position: absolute;
-    top: 12px;
-    left: 8px;
-}
-
-#snackbar-warning{
-    font-size: 20px;
-    position: absolute;
-    top: 12px;
-    left: 12px;
-}
-
 
 #snackbar.show {
     visibility: visible;

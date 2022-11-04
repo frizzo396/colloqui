@@ -9,6 +9,7 @@
         <link th:href="@{/css/header.css}" rel="stylesheet" />
         <link th:href="@{/css/general-style.css}" rel="stylesheet" />
         <link th:href="@{/css/popup-container.css}" rel="stylesheet" />
+         <link th:href="@{/css/snackbar.css}" rel="stylesheet" />
         <link th:href="@{/css/table.css}" rel="stylesheet" />
         <link th:rel="stylesheet" th:href="@{assets/bootstrap-select-1.13.9/dist/css/bootstrap-select.css}" />
         <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
@@ -59,7 +60,7 @@
                                                     <span th:if="${interview.interviewType == 1}">Motivazionale</span>
                                                     <span th:unless="${interview.interviewType == 1}">Tecnico</span>
                                                 </td>
-                                                <td class="dateInterview" th:text="${#dates.format(interview.scheduledDate, 'MM-dd-YYYY HH:mm')}" />
+                                                <td class="dateInterview" th:text="${#dates.format(interview.scheduledDate, 'dd-MM-YYYY HH:mm')}" />
                                                  <td th:text= "${interview.site}"/>
                                                 <td class="remove" th:style="${interview.finalFeedback} eq 'OK' ? 'color: #008000' : 'color: #b20000'" th:text="${interview.finalFeedback}" />
                                                 <td>
@@ -83,9 +84,17 @@
                               <div id="register-modal" class="cd-popup" role="alert">
                                 <div th:replace="fragments/registerUserModal"></div>
                				</div>
+               				
                         </div>
                     </div>
                 </div>
+                <div  id="snackbar">
+               		<div  id="snackbarRow">
+               				  <div class="col-lg-8 col-lg-offset-2" id="snackbarTextColumn">
+               				 
+               				 </div>    				 
+               		</div>
+               </div>
         </div>
     </body>
 </html>

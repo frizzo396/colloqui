@@ -61,7 +61,7 @@
 	                                                        <label for="candidateType">Candidate Level</label>
 	                                                        <select class="formcontrol selectpicker" th:field="*{candidateType}" id="candidateType">
 	                                                            <option value="">Nothing selected</option>
-	                                                            <option th:each="candidateType : ${T(com.accenture.interview.utils.enums.CandidateTypeEnum).values()}" th:value="${candidateType}" th:text="${candidateType}">
+	                                                            <option th:each="candidateType : ${T(com.accenture.interview.utils.enums.CandidateTypeEnum).values()}" th:value="${candidateType}" th:text="${candidateType.description}">
 	                                                                candidate type
 	                                                            </option>
 	                                                        </select>
@@ -75,7 +75,7 @@
                                                     <label>Interview Type</label>
                                                     <select class="form-control selectpicker" th:field="*{interviewType}" id="interviewType2">
                                                         <option value="">Nothing selected</option>
-                                                        <option th:each="interviewType : ${T(com.accenture.interview.utils.enums.InterviewTypeEnum).values()}" th:value="${interviewType}" th:text="${interviewType}">interview type </option>
+                                                        <option th:each="interviewType : ${T(com.accenture.interview.utils.enums.InterviewTypeEnum).values()}" th:value="${interviewType}" th:text="${interviewType.description}">interview type </option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -136,6 +136,7 @@
                                                 <th>Level</th>
                                                 <th class="remove">Interview Type</th>
                                                 <th  class="remove">Interview date </th>
+                                                <th>Interviewer</th>
                                                 <th>Site</th>
                                                 <th>Feedback</th>
                                                 <th>Detail</th>
@@ -149,7 +150,8 @@
                                                     <span th:if="${interview.interviewType == 1}">Motivazionale</span>
                                                     <span th:unless="${interview.interviewType == 1}">Tecnico</span>
                                                 </td>
-                                                <td class="remove" th:text="${#dates.format(interview.scheduledDate, 'MM-dd-YYYY HH:mm')}" />
+                                                <td class="remove" th:text="${#dates.format(interview.scheduledDate, 'dd-MM-YYYY HH:mm')}" />
+                                                 <td th:text= "${interview.enterpriseId}"/>       
                                                  <td th:text= "${interview.site}"/>                                                                         		 
                                            		 <td th:switch="${interview.finalFeedback}">
 												    <span th:case="'OK'" th:style="'color: #008000'">OK</span>
@@ -197,9 +199,6 @@
                </div>
                <div  id="snackbar">
                		<div  id="snackbarRow">
-               				 <div class="col-lg-8 col-lg-offset-2" id="snackbarIconColumn">
-               				 
-               				 </div>
                				  <div class="col-lg-8 col-lg-offset-2" id="snackbarTextColumn">
                				 
                				 </div>    				 

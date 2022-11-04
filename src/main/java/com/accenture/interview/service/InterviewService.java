@@ -107,6 +107,21 @@ public class InterviewService {
 		}
 		return null;
 	}
+	
+	/**
+	 * Find interview by mail.
+	 *
+	 * @param email the email
+	 * @return the interview
+	 */
+	public Interview findInterviewByMail(String email) {
+		Optional<Interview> opt = interviewRepository.findInterviewByMail(email);
+
+		if (opt.isPresent()) {
+			return opt.get();
+		}
+		return null;
+	}
 	/**
 	 * Find interviewer by name surname and mail.
 	 *

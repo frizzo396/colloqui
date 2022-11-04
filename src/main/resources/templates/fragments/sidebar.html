@@ -16,8 +16,8 @@
                                     </ul>                              
                                 </li> 
                                   <li th:if="${interviewer.type==T(com.accenture.interview.utils.enums.InterviewerTypeEnum).getIdFromDescription('RESPONSABILE')}" onclick="RedirectInsert()">
-                                    <a>
-                                        <em class="bx bxs-file-plus" style="color: black;"></em>
+                                    <a> 
+                                        <em class='bx bx-add-to-queue' style="color: black;"></em>
                                         <span class="link_name">New</span>
                                     </a>        
                                       <ul class="sub-menu">
@@ -34,8 +34,8 @@
                                     </ul>                                         
                                 </li> 
                                 <li th:if="${interviewer.type==T(com.accenture.interview.utils.enums.InterviewerTypeEnum).getIdFromDescription('RESPONSABILE')}" onclick="RedirectAssigned()">
-                                    <a>
-                                        <em class="bx bxs-file-plus" style="color: black;"></em>
+                                    <a> 
+                                        <em class="bx bx-select-multiple" style="color: black;"></em>
                                         <span class="link_name">Assigned</span>
                                     </a>        
                                       <ul class="sub-menu">
@@ -44,7 +44,7 @@
                                 </li> 
                                 <li  onclick="RedirectMyInterviews()">
                                     <a>
-                                        <em class="bx bxs-file-export" style="color: black;"></em>
+                                        <em class="bx bx-list-check" style="color: black;"></em>
                                         <span class="link_name">Completed</span>
                                     </a>
                                     <ul class="sub-menu">

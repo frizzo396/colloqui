@@ -41,11 +41,11 @@
 #nickname {
 	color: white;
 	margin: auto;
-	font-size: 12px;
+	font-size: 11px;
 }
 
 #userIcon {
-    font-size: 30px;
+    font-size: 25px;
     color: white;
     margin:auto;
 }
@@ -65,7 +65,7 @@
 #accentureLogo {	
 display: block;
   max-width:230px;
-  max-height:65px;
+  max-height:55px;
   width: auto;
   height: auto;
 }

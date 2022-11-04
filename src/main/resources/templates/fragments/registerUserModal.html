@@ -8,7 +8,7 @@
                             <div class="col-lg-8 col-lg-offset-2" id="registerUserColumn">
                                 <form id="registerUser" class="inp-form" action="#" th:action="@{/interviewer/register}" th:object="${registerUserTO}" method="post">
                                     <div class="form-group">                               
-                                            <div class="row">
+                                            <div class="row" id="registerRow">
                                                  <div class="column">
                                                     <div class="form-group">
                                                         <label>Enterprise id</label>
@@ -22,7 +22,9 @@
                                                         <input type="email" th:field="*{mail}" placeholder="mail@mail.com" />
                                                         <small th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}">Email Error</small>
                                                     </div>
-                                                </div>                                                                             
+                                                </div>   
+                                                </div>  
+                                                <div class="row">                                                                        
                                                   <div class="column">
                                                 	<div class="form-group">
                                                    		     <label>Responsible</label>     
@@ -35,8 +37,9 @@
                                                 								<label for="option_resp_no">No</label>
                                                  						 </div>     
                                                    	</div>
+                                                </div>  
                                                 </div>       
-                                            </div>
+                                            
                                             <div class="row" id="buttonRow">                                                
                                                 <div class="button-column">                                                	
                                                     <div class="form-group">

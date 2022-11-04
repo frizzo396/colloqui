@@ -46,8 +46,8 @@ public class CheckErrorsRegisterInterviewer {
 			return new ErrorRTO(errorMsg);
 		}
 
-		if(interviewerExists(registerUserTO.getEnterpriseId())) { return new		 
-				ErrorRTO(messageSource.getMessage("interviewer.exists", null, Locale.getDefault())); 
+		if(interviewerExists(registerUserTO.getEnterpriseId())) { 
+			return new ErrorRTO(messageSource.getMessage("interviewer.notexists", null, Locale.getDefault())); 
 		}	
 		
 		return null;

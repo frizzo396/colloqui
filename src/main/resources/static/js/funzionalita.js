@@ -69,7 +69,7 @@ $(document).ready(function (){
 		e.preventDefault(e);
 		$.post($(this).attr('action'), $(this).serialize(), function (response){
 			if(response.error == null){
-					showToast("Operazione avvenuta con successo, controllare se l'email è stata recapitata correttamente", "SUCCESS", 3000);
+					showToast("Operazione avvenuta con successo, verificare l'invio della mail'", "SUCCESS", 3000);
 					setTimeout(function(){RedirectHome()}, 1700);
 				}
 				else {
@@ -166,20 +166,19 @@ function resetSearchTable() {
 
 function showToast(message, state, delay) {
 	var snackB = document.getElementById("snackbar");
-	var iconColumn = document.getElementById("snackbarIconColumn");
 	var textColumn = document.getElementById("snackbarTextColumn");
 	snackB.className = "show";
 	if(state === "SUCCESS"){
-		snackB.style.backgroundColor="#008000";
-		iconColumn.innerHTML = "<em id='successIcon' class='fa-solid fa-circle-check'></em>";
+		snackB.style.color="#008000";
+		snackB.style.border="2px solid #008000";
 		textColumn.innerHTML = message;
 	} else if (state === "ERROR") { 
-		snackB.style.backgroundColor="#b20000";
-		iconColumn.innerHTML = "<em id='errorIcon' class='fa-solid fa-circle-exclamation'></em>";
+		snackB.style.color="#b20000";
+		snackB.style.border="2px solid #b20000";
 		textColumn.innerHTML = message;
 	} else if(state === "WARNING"){
-		snackB.style.backgroundColor="#FFCC00";
-		iconColumn.innerHTML  = "<em id='warningIcon' class='fa-solid fa-circle-exclamation'></em>";
+		snackB.style.color="#FFCC00";
+		snackB.style.border="2px solid #FFCC00";
 		textColumn.innerHTML = message;
 	}
 	setTimeout(function(){ snackB.className = snackB.className.replace("show", ""); }, delay);
@@ -237,6 +236,19 @@ function pagination(){
 
 			$table.find(
 				'tbody tr:not(:has(th))').hide().slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage).show();
+				
+				let rows = document.querySelectorAll('.tableRows');
+				for (var i = 0; i < rows.length; i++) {
+				  if (rows[i].style.display === "none") {
+						let lastRow = rows[i-1];
+						var cells = lastRow.getElementsByTagName("td");
+						var firstCell = cells[0];
+						var lastCell = cells[cells.length -1];
+						firstCell.style.borderBottomLeftRadius = "5px";
+						lastCell.style.borderBottomRightRadius = "5px";						
+						break;
+				  }
+				}
 		});
 
 		$table.trigger('repaginate');

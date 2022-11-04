@@ -160,6 +160,19 @@ function pagination(){
 			
             $table.find(
                 'tbody tr:not(:has(th))').hide().slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage).show();
+                
+                	let rows = document.querySelectorAll('.tableRows');
+				for (var i = 0; i < rows.length; i++) {
+				  if (rows[i].style.display === "none") {
+						let lastRow = rows[i-1];
+						var cells = lastRow.getElementsByTagName("td");
+						var firstCell = cells[0];
+						var lastCell = cells[cells.length -1];
+						firstCell.style.borderBottomLeftRadius = "5px";
+						lastCell.style.borderBottomRightRadius = "5px";						
+						break;
+				  }
+				}
         });
 
         $table.trigger('repaginate');

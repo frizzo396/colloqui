@@ -30,6 +30,15 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 	@Query("select i from Interview i where i.candidateName= :candidate_name and i.candidateSurname= :candidate_surname and i.mail=:mail")
 	Optional<Interview> findInterviewByNameSurnameAndMail(@Param("candidate_name") String candidateName,
 			@Param("candidate_surname") String candidateSurname, @Param("mail") String mail);
+	
+	/**
+	 * Find interview by mail.
+	 *
+	 * @param mail the mail
+	 * @return the optional
+	 */
+	@Query("select i from Interview i where i.mail=:mail")
+	Optional<Interview> findInterviewByMail(@Param("mail") String mail);
 
 	/**
 	 * Find interview by id.
@@ -45,11 +54,12 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 	 *
 	 * @param candidateName    the candidate name
 	 * @param candidateSurname the candidate surname
-	 * @param mail             the mail
 	 * @param interviewType    the interview type
 	 * @param firstDate        the first date
 	 * @param secondDate       the second date
 	 * @param enterpriseId     the enterprise id
+	 * @param candidateType the candidate type
+	 * @param site the site
 	 * @return the list
 	 */
 	@Query("SELECT new com.accenture.interview.rto.interview.InterviewAndFeedbackRTO(i.id, i.candidateName, "
@@ -80,6 +90,12 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 			@Param("candidateType") String candidateType,
 			@Param("site") String site);
 	
+	/**
+	 * Find assigned interviews.
+	 *
+	 * @param assignerId the assigner id
+	 * @return the list
+	 */
 	@Query("SELECT new com.accenture.interview.rto.interview.InterviewAndFeedbackRTO(i.id, i.candidateName, "
 			+ "i.candidateSurname, "
 			+ "ct.description, "
