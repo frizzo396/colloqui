@@ -125,8 +125,17 @@
 
 #motivationalTableModal {
 	border-radius: 5px !important;
-	margin-top: 1.5%;
-	
+	margin-top: 1.5%;	
+}
+
+#availabilityTableModal {
+	border-radius: 5px !important;
+	margin-top: 1.5%;	
+}
+
+#approveDateModal {
+	border-radius: 5px !important;
+	margin-top: 1.5%;	
 }
 
 #modalFormColumn {

@@ -60,9 +60,4 @@ public class CreateInterviewTO {
 	@NotEmpty(message = "interviewer.enterpriseid.notempty")
 	private String enterpriseId;
 
-	/** The scheduled date. */
-	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-	@NotNull(message = "interview.scheduleddate.notempty")
-	private Date scheduledDate;
-
 }

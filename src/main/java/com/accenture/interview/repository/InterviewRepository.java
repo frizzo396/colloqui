@@ -103,7 +103,7 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 			+ "i.scheduledDate, "
 			+ "s.siteName, "
 			+ "i.interviewerId.enterpriseId, "
-			+ "i.finalFeedback) FROM Interview i, CandidateType ct, Site s WHERE "
+			+ "i.finalFeedback, i.status) FROM Interview i, CandidateType ct, Site s WHERE "
 			+ "i.candidateTypeId.id = ct.id and "
 			+ "s.id = i.site.id and "
 			+ "(i.assigner = :assigner) "
@@ -127,7 +127,7 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 			+ "where i.candidateTypeId.id = ct.id "
 			+ "and i.interviewerId.enterpriseId=:enterpriseId "
 			+ "and s.id = i.site.id "
-			+ "and i.status = 4 "
+			+ "and i.status = 5 "
 			+ "order by i.scheduledDate desc")
 	List<InterviewAndFeedbackRTO> findCompletedInterviewsByEnterpriseId(@Param("enterpriseId") String enterpriseId);
 
@@ -144,12 +144,13 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 			+ "ct.description, "
 			+ "i.interviewType, "
 			+ "i.scheduledDate, "
-			+ "s.siteName) "
+			+ "s.siteName, "
+			+ "i.status) "
 			+ "from Interview i, CandidateType ct, Site s "
 			+ "where i.interviewerId.enterpriseId=:enterpriseId "
 			+ "and i.candidateTypeId.id = ct.id "
 			+ "and s.id = i.site.id "
-			+ "and i.status in (2, 3) "
+			+ "and i.status in (2, 3, 4) "
 			+ "order by i.scheduledDate desc")
 	List<InProgressInterviewRTO> getInProgressInterviewsByEnterpriseId(@Param("enterpriseId") String enterpriseId);
 
@@ -159,7 +160,7 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 	 * @param enterpriseId the enterprise id
 	 * @return the in progress interviews count
 	 */
-	@Query("select count (i) from Interview i where i.interviewerId.enterpriseId=:enterpriseId and i.status = 2")
+	@Query("select count (i) from Interview i where i.interviewerId.enterpriseId=:enterpriseId and i.status IN (2, 3, 4)")
 	int getInProgressInterviewsCount(@Param("enterpriseId") String enterpriseId);
 
 	/**
@@ -168,7 +169,7 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 	 * @param enterpriseId the enterprise id
 	 * @return the my interviews count
 	 */
-	@Query("select count (i) from Interview i where i.interviewerId.enterpriseId=:enterpriseId and i.status = 4")
+	@Query("select count (i) from Interview i where i.interviewerId.enterpriseId=:enterpriseId and i.status = 5")
 	int getCompletedInterviewsCount(@Param("enterpriseId") String enterpriseId);
 
 	/**
@@ -179,7 +180,7 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 	 * @param endDate      the end date
 	 * @return the my interviews month count
 	 */
-	@Query("select count (i) from Interview i where i.interviewerId.enterpriseId=:enterpriseId and i.status = 4 and (i.dueDate BETWEEN :startDate and :endDate)")
+	@Query("select count (i) from Interview i where i.interviewerId.enterpriseId=:enterpriseId and i.status = 5 and (i.dueDate BETWEEN :startDate and :endDate)")
 	int findCompletedInterviewsMonthCount(@Param("enterpriseId") String enterpriseId, @Param("startDate") Date startDate, @Param("endDate") Date endDate);
 
 	/**
@@ -190,7 +191,7 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 	 * @param endDate      the end date
 	 * @return the in progress month count
 	 */
-	@Query("select count (i) from Interview i where i.interviewerId.enterpriseId=:enterpriseId and i.status = 2 and (i.scheduledDate BETWEEN :startDate and :endDate)")
+	@Query("select count (i) from Interview i where i.interviewerId.enterpriseId=:enterpriseId and i.status IN (2, 3, 4) and (i.scheduledDate BETWEEN :startDate and :endDate)")
 	int getInProgressMonthCount(@Param("enterpriseId") String enterpriseId, @Param("startDate") Date startDate, @Param("endDate") Date endDate);
 
 	/**
@@ -201,7 +202,7 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 	 * @param endDate      the end date
 	 * @return the list
 	 */
-	@Query("select i from Interview i where i.interviewerId.enterpriseId=:enterpriseId and i.status = 4 and (i.dueDate BETWEEN :startDate and :endDate)")
+	@Query("select i from Interview i where i.interviewerId.enterpriseId=:enterpriseId and i.status = 5 and (i.dueDate BETWEEN :startDate and :endDate)")
 	List<Interview> findYearInterviews(@Param("enterpriseId") String enterpriseId, @Param("startDate") Date startDate, @Param("endDate") Date endDate);
 
 }

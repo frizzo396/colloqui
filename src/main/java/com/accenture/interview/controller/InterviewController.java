@@ -12,13 +12,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.accenture.interview.facade.AvailabilityFacade;
 import com.accenture.interview.facade.InterviewFacade;
 import com.accenture.interview.facade.InterviewerFacade;
 import com.accenture.interview.rto.general.BaseResponseRTO;
 import com.accenture.interview.rto.general.ErrorRTO;
 import com.accenture.interview.to.interview.CreateInterviewTO;
+import com.accenture.interview.to.interview.InsertAvailabilityTO;
 import com.accenture.interview.to.interview.SearchInterviewTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
+import com.accenture.interview.utils.checkerror.CheckErrorsInsertAvailability;
 import com.accenture.interview.utils.checkerror.CheckErrorsInsertInterview;
 
 /**
@@ -32,12 +35,21 @@ public class InterviewController {
 	@Autowired
 	private InterviewFacade interviewFacade;
 	
+	/** The interviewer facade. */
 	@Autowired
 	private InterviewerFacade interviewerFacade;
+	
+	/** The availability facade. */
+	@Autowired
+	private AvailabilityFacade availabilityFacade;
 
 	/** The check errors insert interview. */
 	@Autowired
 	private CheckErrorsInsertInterview checkErrorsInsertInterview;
+	
+	/** The check errors insert availability. */
+	@Autowired
+	private CheckErrorsInsertAvailability checkErrorsInsertAvailability;
 
 
 	/**
@@ -61,6 +73,7 @@ public class InterviewController {
 	 * Search interview.
 	 *
 	 * @param searchInterviewTO the search interview request
+	 * @param model the model
 	 * @return the response entity
 	 */
 	@PostMapping("/search")
@@ -71,6 +84,24 @@ public class InterviewController {
 		model.addAttribute("comboSitesDB", interviewFacade.getComboSites());	
 		model.addAttribute("registerUserTO", new RegisterInterviewerTO());
 		return "search";
+	}
+	
+	
+	/**
+	 * Insert availability.
+	 *
+	 * @param insertAvailabilityTO the insert availability TO
+	 * @return the response entity
+	 */
+	@PostMapping("/insert-availability")
+	@ResponseBody
+	public ResponseEntity<Object> insertAvailability(@RequestBody @ModelAttribute InsertAvailabilityTO insertAvailabilityTO) {
+		ErrorRTO errorRTO = checkErrorsInsertAvailability.validate(insertAvailabilityTO);
+		
+		if (!ObjectUtils.isEmpty(errorRTO)) {
+			return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
+		}
+		return new ResponseEntity<>(new BaseResponseRTO(availabilityFacade.addAvailabiltyInterview(insertAvailabilityTO)), HttpStatus.OK);
 	}
 
 }

@@ -21,8 +21,10 @@ public enum InterviewStatusEnum
 	/** The waiting date. */
 	WAITING_DATE(3),
 	
+	WAITING_FEED(4),
+	
 	/** The completed. */
-	COMPLETED(4);
+	COMPLETED(5);
 	
 	/** The status. */
 	private Integer value;

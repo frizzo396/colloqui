@@ -12,11 +12,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import lombok.NoArgsConstructor;
+
 /**
  * The Class Availability.
  */
 @Entity(name = "Availability")
 @Table(name = "availability")
+@NoArgsConstructor
 public class Availability {
 	
 	/** The id. */
@@ -56,6 +59,11 @@ public class Availability {
 	}
 
 	public void setAvailabileDate(Date availabileDate) {
+		this.availabileDate = availabileDate;
+	}
+	
+	public Availability(Interview interview, Date availabileDate) {
+		this.interview = interview;
 		this.availabileDate = availabileDate;
 	}
 	

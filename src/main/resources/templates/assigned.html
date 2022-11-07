@@ -61,7 +61,14 @@
                                                     <span th:if="${interview.interviewType == 1}">Motivazionale</span>
                                                     <span th:unless="${interview.interviewType == 1}">Tecnico</span>
                                                 </td>
-                                                <td class="dateInterview" th:text="${#dates.format(interview.scheduledDate, 'dd-MM-YYYY HH:mm')}" />
+                                                <td class="dateInterview"> 
+                                                		<span th:if="${interview.status == 3}">
+                                                			<button id="approveDateBtn" th:data-parameter1="${interview.idColloquio}" th:data-parameter2="${interview.availabilityDates}" onclick="createApproveAvailablityModal(this.getAttribute('data-parameter1'), this.getAttribute('data-parameter2') )" type="submit" class="approve-popup">Approve</button>
+                                                		</span>
+                                                		<span th:if="${interview.status != 3}">
+                                                			  <span th:text="${#dates.format(interview.scheduledDate, 'dd-MM-YYYY HH:mm')}"></span>
+                                                		</span>                                       		
+                                                </td>
                                                  <td th:text= "${interview.site}"/>
                                                   <td th:text= "${interview.enterpriseId}"/>
                                                 <td class="remove" th:style="${interview.finalFeedback} eq 'OK' ? 'color: #008000' : 'color: #b20000'" th:text="${interview.finalFeedback}" />
@@ -87,6 +94,9 @@
                             </div>
                              <div id="register-modal" class="cd-popup" role="alert">
                                 <div th:replace="fragments/registerUserModal"></div>
+               				</div>
+               				<div id="approve-modal" class="cd-popup" role="alert">
+                                <div th:replace="fragments/approveDateModal"></div>
                				</div>
                         </div>
                     </div>

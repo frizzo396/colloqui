@@ -38,4 +38,6 @@ public class InProgressInterviewRTO {
 	/** The site. */
 	private String site;
 	
+	private Integer status;
+	
 }

@@ -11,7 +11,9 @@ import com.accenture.interview.facade.InterviewFacade;
 import com.accenture.interview.facade.InterviewerFacade;
 import com.accenture.interview.to.feedback.CreateMotivationFeedbackTO;
 import com.accenture.interview.to.feedback.CreateTechFeedbackTO;
+import com.accenture.interview.to.interview.ApproveAvailabilityTO;
 import com.accenture.interview.to.interview.CreateInterviewTO;
+import com.accenture.interview.to.interview.InsertAvailabilityTO;
 import com.accenture.interview.to.interview.SearchInterviewTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 
@@ -150,6 +152,7 @@ public class PaginationController extends BaseController {
 		modelAndView.addObject("interviewer", interviewerFacade.interviewerInfo(username));
 		modelAndView.addObject("interviews", interviewFacade.getInProgressInterviews(username));
 		modelAndView.addObject("registerUserTO", new RegisterInterviewerTO());
+		modelAndView.addObject("insertAvailabilityTO", new InsertAvailabilityTO());
 		modelAndView.setViewName("in-progress-interviews.html");
 		return modelAndView;
 	}
@@ -167,6 +170,7 @@ public class PaginationController extends BaseController {
 		modelAndView.addObject("interviewer", interviewerFacade.interviewerInfo(username));
 		modelAndView.addObject("interviews", interviewFacade.getAssignedInterviews(username));
 		modelAndView.addObject("registerUserTO", new RegisterInterviewerTO());
+		modelAndView.addObject("approveAvailabilityTO", new ApproveAvailabilityTO());
 		modelAndView.setViewName("assigned.html");
 		return modelAndView;
 	}

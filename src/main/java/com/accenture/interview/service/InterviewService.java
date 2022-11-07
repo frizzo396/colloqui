@@ -17,9 +17,11 @@ import com.accenture.interview.entity.Interviewer;
 import com.accenture.interview.entity.MotivationFeedback;
 import com.accenture.interview.entity.Site;
 import com.accenture.interview.entity.TechFeedback;
+import com.accenture.interview.repository.AvailabilityRepository;
 import com.accenture.interview.repository.InterviewRepository;
 import com.accenture.interview.rto.candidate.CandidateTypeRTO;
 import com.accenture.interview.rto.general.StartEndDateRTO;
+import com.accenture.interview.rto.interview.DateListRTO;
 import com.accenture.interview.rto.interview.InProgressInterviewRTO;
 import com.accenture.interview.rto.interview.InterviewAndFeedbackRTO;
 import com.accenture.interview.rto.interview.InterviewMonthRTO;
@@ -40,6 +42,9 @@ public class InterviewService {
 	/** The interview repository. */
 	@Autowired
 	private InterviewRepository interviewRepository;
+	
+	@Autowired
+	private AvailabilityRepository availabilityRepository;
 
 	/**
 	 * Gets the interview from id.
@@ -197,7 +202,13 @@ public class InterviewService {
 	 * @return the assigned interviews
 	 */
 	public List<InterviewAndFeedbackRTO> getAssignedInterviews(long assignerId) {
-		return this.interviewRepository.findAssignedInterviews(assignerId);
+		List<InterviewAndFeedbackRTO> interviews = this.interviewRepository.findAssignedInterviews(assignerId);
+		
+		for(InterviewAndFeedbackRTO interview: interviews) {
+			List<Date> availabilities = availabilityRepository.findAvailabilityDatesByInterviewId(interview.getIdColloquio());
+			interview.setAvailabilityDates(new DateListRTO(availabilities));
+		}		
+		return interviews;
 
 	}
 

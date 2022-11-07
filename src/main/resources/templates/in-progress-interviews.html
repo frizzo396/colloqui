@@ -45,7 +45,7 @@
                                         <th>Candidate </th>
                                         <th>Level</th>
                                         <th class="remove">Interview Type</th>
-                                        <th>Scheduled date</th>
+                                        <th>Availability</th>
                                         <th>Site</th>
                                         <th>Feedback</th>
                                     </tr>
@@ -56,23 +56,38 @@
                                             <span th:if="${interview.interviewType == 1}">Motivazionale</span>
                                             <span th:unless="${interview.interviewType == 1}">Tecnico</span>
                                         </td>
-                                        <td class="dateInterview" th:text="${#dates.format(interview.scheduledDate, 'dd-MM-YYYY HH:mm')}" />
+                                        <td>
+                                        		<span th:if="${interview.status == 2}">
+                                        			<button type="submit" class="av-popup" th:data-parameter1="${interview.id}" onclick="createAvailablityModal(this.getAttribute('data-parameter1'));"><em id="plusIcon" class='bx bx-plus'></em></button>
+                                        		</span>
+                                        		<span th:if="${interview.status == 3}">
+                                        			Sent to approval
+                                        		</span>  
+                                        		<span th:if="${interview.status == 4}"  th:text= "${interview.scheduledDate}">
+                                        		</span>
+                                        </td>
                                         <td th:text= "${interview.site}"/>   
                                         <td>
-                                            <span th:if="${interview.interviewType == 1}">
-                                                <button type="submit" class="motiv-popup" th:data-parameter1="${interview.id}" onclick="GotoMotivationalFeedback(this.getAttribute('data-parameter1'));"><em id="plusIcon" class='bx bx-plus'></em></button>
-                                            </span>
-                                            <span th:unless="${interview.interviewType == 1}">
-                                                <button type="submit" class="tech-popup" th:data-parameter1="${interview.id}" onclick="GotoTechnicalFeedback(this.getAttribute('data-parameter1'));"><em id="plusIcon" class='bx bx-plus'></em></button>
-                                            </span>
+	                                        <span th:if="${interview.status == 4}">
+	                                            <span th:if="${interview.interviewType == 1}">
+	                                                <button type="submit" class="motiv-popup" th:data-parameter1="${interview.id}" onclick="GotoMotivationalFeedback(this.getAttribute('data-parameter1'));"><em id="plusIcon" class='bx bx-plus'></em></button>
+	                                            </span>
+	                                            <span th:unless="${interview.interviewType == 1}">
+	                                                <button type="submit" class="tech-popup" th:data-parameter1="${interview.id}" onclick="GotoTechnicalFeedback(this.getAttribute('data-parameter1'));"><em id="plusIcon" class='bx bx-plus'></em></button>
+	                                            </span>
+	                                            </span>
                                         </td>
                                     </tr>
                                 </table>
                             </div>
                     </div>
                 </div>              
-                  <div id="register-modal" class="cd-popup" role="alert">
+                 <div id="register-modal" class="cd-popup" role="alert">
                                 <div th:replace="fragments/registerUserModal"></div>
+               </div>
+               
+               <div id="availability-modal" class="cd-popup" role="alert">
+                                <div th:replace="fragments/AvailabilityModal"></div>
                </div>
             </div>
               <div  id="snackbar">

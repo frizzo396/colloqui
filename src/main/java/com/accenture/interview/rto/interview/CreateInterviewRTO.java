@@ -64,7 +64,6 @@ public class CreateInterviewRTO {
 		this.eduQualification = createInterviewRequest.getEduQualification();
 		this.candidateType = createInterviewRequest.getCandidateType();
 		this.interviewType = createInterviewRequest.getInterviewType();
-		this.scheduledDate = createInterviewRequest.getScheduledDate();
 		this.enterpriseId = createInterviewRequest.getEnterpriseId();
 	}
 

@@ -253,6 +253,25 @@ function pagination(){
 
 		$table.trigger('repaginate');
 	});
+	
+	
+	//Salvataggio colloquio
+$(document).ready(function (){
+	var $form= $('#insertAvailability');
+	$form.submit(function (e) {
+		e.preventDefault(e);
+		$.post($(this).attr('action'), $(this).serialize(), function (response){
+			if(response.error == null){
+					showToast("Operazione avvenuta con successo'", "SUCCESS", 3000);
+					setTimeout(function(){RedirectInProgress()}, 1500);
+				}
+				else {
+					showToast(response.error, "ERROR", 3000);
+				}
 
+		}, 'json');
+		return false;
+	});
+});
 }
 

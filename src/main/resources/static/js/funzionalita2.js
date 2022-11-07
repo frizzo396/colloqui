@@ -8,6 +8,12 @@ jQuery(document).ready(function ($) {
 		$('#motiv-modal').addClass('is-visible');
     	
     });
+    
+        $('.av-popup').on('click', function (event) {
+		event.preventDefault();
+		$('#availability-modal').addClass('is-visible');  	
+    	});
+    
 
     //close popup when clicking the esc keyboard button
     $(document).keyup(function (event) {
@@ -40,7 +46,12 @@ jQuery(document).ready(function ($) {
 		$('#register-modal').addClass('is-visible');
     
     });
-
+	
+	   $('.approve-popup').on('click', function (event) {
+		event.preventDefault();
+		$('#approve-modal').addClass('is-visible');
+    
+    });
 });
 
 
@@ -108,6 +119,23 @@ function createTechnicalModal(technicalInterview){
     document.getElementById('techOther').value = obj.other;  
     document.getElementById('techComment').value = obj.comment; 
 }
+
+function createAvailablityModal(interviewId){
+	document.getElementById("interviewIdHid").value = interviewId;	
+}
+
+function createApproveAvailablityModal(interviewId, dateInterviewList){
+	document.getElementById("approvedIntId").value = interviewId;	
+	let datesDropDown = document.getElementById("approvedDate");
+	var obj = JSON.parse(dateInterviewList);	
+	let dateList = obj.availabilityDates;
+	
+	for (var i = 0; i < dateList.length; i++) { 
+			actDate = dateList[i];		
+			datesDropDown.add(new Option(actDate, actDate)) ;
+	 }
+}
+
 
 function pagination(){
     $('table.paginated').each(function () {

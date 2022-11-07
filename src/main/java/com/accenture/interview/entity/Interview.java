@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import com.accenture.interview.to.interview.CreateInterviewTO;
+import com.accenture.interview.utils.enums.InterviewStatusEnum;
 
 /**
  * The Class Interview.
@@ -72,7 +73,6 @@ public class Interview {
 	private Integer status;
 
 	/** The scheduled date. */
-	@NotNull
 	@Column(name = "scheduled_date")
 	private Date scheduledDate;
 
@@ -126,8 +126,7 @@ public class Interview {
 		this.mail = createInterviewRequest.getMail();
 		this.candidateCv = createInterviewRequest.getCv();
 		this.qualification = createInterviewRequest.getEduQualification();
-		this.status = 1;
-		this.scheduledDate = createInterviewRequest.getScheduledDate();
+		this.status = InterviewStatusEnum.NEW.getValue();
 	}
 
 	public Integer getMonth() {
