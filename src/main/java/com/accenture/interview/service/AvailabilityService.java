@@ -11,6 +11,7 @@ import com.accenture.interview.entity.Availability;
 import com.accenture.interview.entity.Interview;
 import com.accenture.interview.repository.AvailabilityRepository;
 import com.accenture.interview.repository.InterviewRepository;
+import com.accenture.interview.to.interview.ApproveAvailabilityTO;
 import com.accenture.interview.to.interview.InsertAvailabilityTO;
 import com.accenture.interview.utils.enums.InterviewStatusEnum;
 
@@ -44,6 +45,21 @@ public class AvailabilityService {
 			availabilityRepository.saveAll(availabilityList);			
 		}
 	} 
+	
+	/**
+	 * Approve availabilty.
+	 *
+	 * @param approveAvailabilityTO the approve availability TO
+	 */
+	public void approveAvailabilty(ApproveAvailabilityTO approveAvailabilityTO) {
+		Optional<Interview> optInterview = interviewRepository.findInterviewById(approveAvailabilityTO.getInterviewId());		
+		if(optInterview.isPresent()) {
+			Interview interview = optInterview.get();
+			interview.setStatus(InterviewStatusEnum.WAITING_FEED.getValue());
+			interview.setScheduledDate(approveAvailabilityTO.getApprovedDate());
+			interviewRepository.save(interview);			
+		}
+	}
 	
 	/**
 	 * Creates the availability list.

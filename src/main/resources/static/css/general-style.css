@@ -78,6 +78,27 @@ background-color: #0a58ca;
     margin-left: 8%;
 }
 
+.collapsible {
+    width: 10%;
+    font-size: 12px !Important;
+    margin: auto;
+    border-radius: 5px !important;
+    margin: 4px;
+    margin-left: -10px;
+    background-color: #ffdead00;
+    color: #0a58ca;
+    cursor: pointer;
+    padding: 0;
+}
+
+#collapseIcon {
+    font-size: 17px;
+    margin-top: -13px;
+    margin-left: -15px;
+    position: absolute;
+}
+
+.collapsible:hover {background-color: #ffdead00 !important;}
 
 
 button:hover {background-color: #003d97;}

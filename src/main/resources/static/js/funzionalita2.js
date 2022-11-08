@@ -5,6 +5,11 @@ jQuery(document).ready(function ($) {
     //open popup Motivational
     $('.motiv-popup').on('click', function (event) {
 		event.preventDefault();
+		var textAreas = document.getElementsByClassName("content");
+		document.getElementById("collapseIcon").className = "bx bx-plus";
+		Array.prototype.forEach.call(textAreas, function(cont) {
+		   	cont.style.display = 'none';
+		});
 		$('#motiv-modal').addClass('is-visible');
     	
     });
@@ -26,7 +31,12 @@ jQuery(document).ready(function ($) {
     
     //open popup Technical
     $('.tech-popup').on('click', function (event) {
-		event.preventDefault();
+		event.preventDefault();	
+		var textAreas = document.getElementsByClassName("content");
+		document.getElementById("collapseIcon").className = "bx bx-plus";
+		Array.prototype.forEach.call(textAreas, function(cont) {
+		   	cont.style.display = 'none';
+		});
 		$('#tech-modal').addClass('is-visible');
     
     });
@@ -103,7 +113,6 @@ function createMotivationalModal(motivationalInterview){
 	document.getElementById('motMotivation').value = obj.motivation;
 	document.getElementById('motSchool').value = obj.schoolBackground;
 	document.getElementById('motEnglish').value = obj.englishLevel;
-	document.getElementById('motSkills').value = obj.softSkills;
 	document.getElementById('motLogic').value = obj.logicQuestion;
 	document.getElementById('motTech').value = obj.techQuestion;
 	document.getElementById('motComment').value = obj.comment;

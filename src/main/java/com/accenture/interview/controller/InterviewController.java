@@ -17,10 +17,12 @@ import com.accenture.interview.facade.InterviewFacade;
 import com.accenture.interview.facade.InterviewerFacade;
 import com.accenture.interview.rto.general.BaseResponseRTO;
 import com.accenture.interview.rto.general.ErrorRTO;
+import com.accenture.interview.to.interview.ApproveAvailabilityTO;
 import com.accenture.interview.to.interview.CreateInterviewTO;
 import com.accenture.interview.to.interview.InsertAvailabilityTO;
 import com.accenture.interview.to.interview.SearchInterviewTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
+import com.accenture.interview.utils.checkerror.CheckErrorsApproveAvailability;
 import com.accenture.interview.utils.checkerror.CheckErrorsInsertAvailability;
 import com.accenture.interview.utils.checkerror.CheckErrorsInsertInterview;
 
@@ -50,6 +52,9 @@ public class InterviewController {
 	/** The check errors insert availability. */
 	@Autowired
 	private CheckErrorsInsertAvailability checkErrorsInsertAvailability;
+	
+	@Autowired
+	private CheckErrorsApproveAvailability checkErrorsApproveAvailability;
 
 
 	/**
@@ -102,6 +107,23 @@ public class InterviewController {
 			return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
 		}
 		return new ResponseEntity<>(new BaseResponseRTO(availabilityFacade.addAvailabiltyInterview(insertAvailabilityTO)), HttpStatus.OK);
+	}
+	
+	/**
+	 * Insert availability.
+	 *
+	 * @param insertAvailabilityTO the insert availability TO
+	 * @return the response entity
+	 */
+	@PostMapping("/approve-availability")
+	@ResponseBody
+	public ResponseEntity<Object> approveAvailability(@RequestBody @ModelAttribute ApproveAvailabilityTO approveAvailabilityTO) {
+		ErrorRTO errorRTO = checkErrorsApproveAvailability.validate(approveAvailabilityTO);
+		
+		if (!ObjectUtils.isEmpty(errorRTO)) {
+			return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
+		}
+		return new ResponseEntity<>(new BaseResponseRTO(availabilityFacade.approveAvailability(approveAvailabilityTO)), HttpStatus.OK);
 	}
 
 }

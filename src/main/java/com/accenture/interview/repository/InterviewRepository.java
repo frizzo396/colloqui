@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.accenture.interview.entity.Interview;
 import com.accenture.interview.rto.interview.InProgressInterviewRTO;
 import com.accenture.interview.rto.interview.InterviewAndFeedbackRTO;
+import com.accenture.interview.rto.interview.InterviewRTO;
 
 /**
  * The Interface InterviewRepository.
@@ -69,7 +70,8 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 			+ "i.scheduledDate, "
 			+ "s.siteName, "
 			+ "i.interviewerId.enterpriseId, "
-			+ "i.finalFeedback) FROM Interview i, CandidateType ct, Site s WHERE "
+			+ "i.finalFeedback, "
+			+ "i.status) FROM Interview i, CandidateType ct, Site s WHERE "
 			+ "i.candidateTypeId.id = ct.id and "
 			+ "s.id = i.site.id and "
 			+ "(i.candidateName = :name OR :name = '') AND "
@@ -205,4 +207,23 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 	@Query("select i from Interview i where i.interviewerId.enterpriseId=:enterpriseId and i.status = 5 and (i.dueDate BETWEEN :startDate and :endDate)")
 	List<Interview> findYearInterviews(@Param("enterpriseId") String enterpriseId, @Param("startDate") Date startDate, @Param("endDate") Date endDate);
 
+	
+	/**
+	 * Find interview by params.
+	 *
+	 * @param interviewId the interview id
+	 * @return the list
+	 */
+	@Query("SELECT new com.accenture.interview.rto.interview.InterviewRTO(i.id, s.siteName, i.candidateName, "
+			+ "i.candidateSurname, "
+			+ "i.mail, "
+			+ "i.interviewerId.mail, "
+			+ "ass.mail) "
+			+ "FROM Interview i, Interviewer ass, Site s WHERE "
+			+ "s.id = i.site.id and "
+			+ "ass.id = i.assigner and "
+			+ "i.id = :interviewId")
+	InterviewRTO findInterviewForApproval(@Param("interviewId") Long interviewId);
+	
+	
 }

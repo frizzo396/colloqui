@@ -156,6 +156,8 @@ td:last-child
 	font-size: 20px;
 }
 
+
+
 .tech-popup {
 	width: 40px !important;
 	background-color: #ffdead00;
@@ -174,6 +176,7 @@ td:last-child
     color: #0a58ca;
 	cursor: pointer;
 }
+
 
 .add-feed-button:hover {background-color: #ffdead00 !important;}
 .motiv-popup:hover {background-color: #ffdead00 !important;}

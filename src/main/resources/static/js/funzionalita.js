@@ -2,12 +2,12 @@
 
 jQuery(document).ready(function($){
 	
-	$('.cd-popup').on('click', function(event){
+	/*$('.cd-popup').on('click', function(event){
 		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') ) {
 			event.preventDefault();
 			$(this).removeClass('is-visible');
 		}
-	});
+	});*/
 
 	$(document).keyup(function(event){
 		if(event.which=='27'){
@@ -58,7 +58,16 @@ jQuery(document).ready(function($){
 	});
 	
 	
-
+$('.collapsible').click(function(){
+var content = this.nextElementSibling;
+	   if (content.style.display === "block") {
+      		content.style.display = "none";
+      		document.getElementById("collapseIcon").className = "bx bx-plus";
+   		 } else {
+      	content.style.display = "block";
+      	document.getElementById("collapseIcon").className = "bx bx-minus";
+    	}
+	  });
 });
 
 
@@ -137,6 +146,7 @@ $(document).ready(function (){
 		return false;
 	});
 });
+
 
 function validationSearch() {	
   let empty = "";
@@ -255,7 +265,7 @@ function pagination(){
 	});
 	
 	
-	//Salvataggio colloquio
+
 $(document).ready(function (){
 	var $form= $('#insertAvailability');
 	$form.submit(function (e) {
@@ -273,5 +283,26 @@ $(document).ready(function (){
 		return false;
 	});
 });
-}
 
+
+
+
+$(document).ready(function (){
+	var $form= $('#approveAvailability');
+	$form.submit(function (e) {
+		e.preventDefault(e);
+		$.post($(this).attr('action'), $(this).serialize(), function (response){
+			if(response.error == null){
+					showToast("Operazione avvenuta con successo'", "SUCCESS", 3000);
+					setTimeout(function(){RedirectAssigned()}, 1500);
+				}
+				else {
+					showToast(response.error, "ERROR", 3000);
+				}
+
+		}, 'json');
+		return false;
+	});
+});
+
+}

@@ -7,36 +7,31 @@
 						                            </header>
 						                            <form class="inp-form" id="insertAvailability" action="#" th:action="@{/interview/insert-availability}" th:object="${insertAvailabilityTO}" method="post">
 					                                <div class="col-lg-8 col-lg-offset-2" id="modalFormColumn">					                                             
-					                                	<div class="row">
+					                                	<div class="row" id="availabilityDateRow">
 					                                            <div class="column">
 					                                                <div class="form-group">
-					                                                    <label>First availability date</label>
+					                                                    <label>First date</label>
 					                                                    <input id="interviewIdHid" type="hidden" th:field="*{interviewId}" value=0/>
 					                                                    <input id="firstAvDate" class="datePicker" type="datetime-local" th:field="*{firstDate}" />
 					                                                </div>
 					                                            </div>
 					                                             <div class="column">
 					                                                <div class="form-group">
-					                                                    <label>Second Availability date</label>
+					                                                    <label>Second date</label>
 					                                                     <input id="thirdAvDate" class="datePicker" type="datetime-local" th:field="*{thirdDate}" />
 					                                                </div>
 					                                            </div>
 					                                            <div class="column">
 					                                                <div class="form-group">
-					                                                      <label>Third Availability date</label>
+					                                                      <label>Third date</label>
 					                                                     <input id="secondAvDate" class="datePicker" type="datetime-local" th:field="*{secondDate}" />		                                                 
 					                                                </div>
 					                                            </div>
 					                                  </div>
-					                           <div class="row" id="buttonRow">
+					                           <div class="row" id="singleButtonRow">
 	                                                <div class="button-column">
 	                                                    <div class="form-group">
 	                                                        <button class="submit-button" type="submit">Submit</button>
-	                                                    </div>
-	                                                </div>
-	                                                <div class="button-column">
-	                                                    <div class="form-group">
-	                                                        <button class="clear-button" type="reset" value="Reset">Clear</button>
 	                                                    </div>
 	                                                </div>
 	                                            </div>

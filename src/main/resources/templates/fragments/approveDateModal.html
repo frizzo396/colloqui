@@ -3,10 +3,10 @@
                                 		<div class="container" id="containerInsert">
 					                            <div class="row">
 					                                <header class="containerHeader">
-						                                <label class="containerLabel">Approve date availability</label>
+						                                <label class="containerLabel">Approve availability date</label>
 						                            </header>
 						                            <form class="inp-form" id="approveAvailability" action="#" th:action="@{/interview/approve-availability}" th:object="${approveAvailabilityTO}" method="post">
-					                                <div class="col-lg-8 col-lg-offset-2" id="modalFormColumn">					                                             
+					                                <div class="col-lg-8 col-lg-offset-2" id="approveDateFormColumn">					                                             
 					                                	<div class="row">
 					                                            <div class="column">
 					                                                <div class="form-group">
@@ -18,15 +18,10 @@
 					                                                </div>
 					                                            </div>				                                           
 					                                  </div>
-					                           <div class="row" id="buttonRow">
+					                           <div class="row" id="singleButtonRow">
 	                                                <div class="button-column">
 	                                                    <div class="form-group">
 	                                                        <button class="submit-button" type="submit">Submit</button>
-	                                                    </div>
-	                                                </div>
-	                                                <div class="button-column">
-	                                                    <div class="form-group">
-	                                                        <button class="clear-button" type="reset" value="Reset">Clear</button>
 	                                                    </div>
 	                                                </div>
 	                                            </div>

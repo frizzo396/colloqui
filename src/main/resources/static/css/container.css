@@ -72,14 +72,36 @@
     padding-bottom: 20px;
 }
 
+#buttonRow .column{
+	width: 50%;
+}
+
+#singleButtonRow {
+    padding-top: 15px;
+    padding-bottom: 3px;
+    text-align: center;
+}
+
+#singleButtonRow .button-column{
+	width: 100%;
+}
+
+#singleButtonRow button {
+	 width: 35%;  
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#availabilityDateRow .column {
+	width: 33%;
+}
 
 #cv {
 	padding: 3px;
 }
 
-#buttonRow .column{
-	width: 50%;
-}
+
 
 
 #searchInterview {
@@ -125,17 +147,17 @@
 
 #motivationalTableModal {
 	border-radius: 5px !important;
-	margin-top: 1.5%;	
+	margin-top: 3.1%;	
 }
 
 #availabilityTableModal {
 	border-radius: 5px !important;
-	margin-top: 1.5%;	
+	margin-top: 3.1%;	
 }
 
 #approveDateModal {
 	border-radius: 5px !important;
-	margin-top: 1.5%;	
+	margin-top: 3.1%;	
 }
 
 #modalFormColumn {
@@ -145,8 +167,21 @@
 	    border-radius: 5px;
 }
 
+#approveDateFormColumn {
+	padding: 20px;
+	background-color: white;
+	display: inline-block;
+	border-radius: 5px;
+	width: 100%;
+}
+
+#approveDateFormColumn .column{
+	width: 50%;
+}
+
 #registerModal {
 	border-radius: 5px !important;
+	margin-top: 3.1%;	
 }
 
 #techTableModal {

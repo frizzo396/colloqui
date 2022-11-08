@@ -25,6 +25,7 @@ import com.accenture.interview.rto.interview.DateListRTO;
 import com.accenture.interview.rto.interview.InProgressInterviewRTO;
 import com.accenture.interview.rto.interview.InterviewAndFeedbackRTO;
 import com.accenture.interview.rto.interview.InterviewMonthRTO;
+import com.accenture.interview.rto.interview.InterviewRTO;
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.rto.site.SiteRTO;
 import com.accenture.interview.to.interview.CreateInterviewTO;
@@ -43,6 +44,7 @@ public class InterviewService {
 	@Autowired
 	private InterviewRepository interviewRepository;
 	
+	/** The availability repository. */
 	@Autowired
 	private AvailabilityRepository availabilityRepository;
 
@@ -262,6 +264,16 @@ public class InterviewService {
 	public Integer getInProgressInterviewsMonthCount(String enterpriseId) {
 		StartEndDateRTO dates = DateUtils.calculateMonthDateIntervals();
 		return interviewRepository.getInProgressMonthCount(enterpriseId, dates.getStartDate(), dates.getEndDate());
+	}
+	
+	/**
+	 * Find interview for approval.
+	 *
+	 * @param interviewId the interview id
+	 * @return the interview RTO
+	 */
+	public InterviewRTO findInterviewForApproval(Long interviewId) {
+		return interviewRepository.findInterviewForApproval(interviewId);
 	}
 
 	/**

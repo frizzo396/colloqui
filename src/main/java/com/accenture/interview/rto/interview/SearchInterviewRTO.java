@@ -50,6 +50,9 @@ public class SearchInterviewRTO {
 	/** The candidate type. */
 	private String candidateType;
 	
+	/** The candidate type. */
+	private Integer status;
+	
 	private MotivationalFeedbackRTO motivationalFeedback;
 	
 	private TechnicalFeedbackRTO technicalFeedback;
@@ -70,6 +73,7 @@ public class SearchInterviewRTO {
 		this.finalFeedback = interview.getFinalFeedback();
 		this.candidateType = interview.getCandidateTypeId().getDescription();
 		this.site = interview.getSite().getSiteName();
+		this.status = interview.getStatus();
 	}
 
 }

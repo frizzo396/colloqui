@@ -74,13 +74,9 @@ public class InterviewFacade {
 				&& !(ObjectUtils.isEmpty(candidateType)) 
 				&& !(ObjectUtils.isEmpty(site))
 				&& !(ObjectUtils.isEmpty(assigner))) {
-			// Interview interview =
 			interviewService.addNewInterview(request, candidateType, interviewer, site, assigner);
 			CreateInterviewRTO createInterviewResponse = new CreateInterviewRTO(request);
 			createInterviewResponse.setEnterpriseId(request.getEnterpriseId());
-			// eventService.sendTeamsInvitation(interview.getScheduledDate(),
-			// interview.getMail(), interview.getCandidateName(),
-			// interview.getCandidateSurname());
 			response = new CreateInterviewRTO(request);
 		}
 		return response;
