@@ -35,7 +35,8 @@ function drawTotalChart() {
   var options = {
   		legend: {
         	textStyle: { color: 'black' },
-        	position: "bottom"
+        	position: "bottom",
+        	fontSize: 12
 		}, 
 		titleTextStyle: {
     		color: 'black'
@@ -64,7 +65,8 @@ function drawMonthChart() {
   var options = {
   		legend: {
         	textStyle: { color: 'black' },
-			position: "bottom"
+			position: "bottom",
+			fontSize: 12
 		}, 
 		titleTextStyle: {
     		color: 'black'

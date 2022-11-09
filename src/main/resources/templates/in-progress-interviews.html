@@ -63,7 +63,7 @@
                                         		<span th:if="${interview.status == 3}">
                                         			Sent to approval
                                         		</span>  
-                                        		<span th:if="${interview.status == 4}"  th:text= "${interview.scheduledDate}">
+                                        		<span th:if="${interview.status == 4}"  th:text="${#dates.format(interview.scheduledDate, 'dd-MM-YYYY HH:mm')}" >
                                         		</span>
                                         </td>
                                         <td th:text= "${interview.site}"/>   

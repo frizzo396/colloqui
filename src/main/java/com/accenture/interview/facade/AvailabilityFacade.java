@@ -56,7 +56,7 @@ public class AvailabilityFacade {
 		}
 		//Send mail to interviewer
 		mailService.sendMail(interview.getInterviewerMail(), 
-				interview.getCandidateMail(),
+				interview.getInterviewerMail(),
 				interview.getAssignerMail(), 
 				MailUtils.createAvailabilitySubject(interview.getCandidateName(), interview.getCandidateSurname()), 
 				MailUtils.createAvailabilityBodyResponse(approveAvailabilityTO.getApprovedDate(), interview.getCandidateName(), interview.getCandidateSurname()));

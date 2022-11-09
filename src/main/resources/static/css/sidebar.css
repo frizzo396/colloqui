@@ -88,6 +88,7 @@
 }
 .sidebar.close .nav-links{
   overflow: visible;
+  padding: 0 0 0 0;
 }
 .sidebar .nav-links::-webkit-scrollbar{
   display: none;
@@ -189,11 +190,10 @@
   left: 100%;
   top: -10px;
   margin-top: 0;
-  padding: 10px 20px;
-  border-radius: 0 6px 6px 0;
+  padding: 11.5px 0px 11.5px 0px;
+  border-radius: 0 5px 5px 0;
   opacity: 0;
   background-color: #e3e4e8;
-  border: 1px solid #666;
   z-index: 3;
   display: block;
   pointer-events: none;
@@ -209,9 +209,11 @@
   display: none;
 }
 .sidebar.close .nav-links li .sub-menu .link_name{
-  font-size: 15px;
-  opacity: 1;
-  display: block;
+    font-size: 13px;
+    opacity: 1;
+    display: block;
+    margin-left: 15px;
+    padding-bottom: 5px;
 }
 
 .sidebar.close .nav-links li .sub-menu a {
