@@ -252,8 +252,8 @@ color: #afb0b3;
 
 @media screen and (max-width: 1000px) {
   .clear-button, .submit-button, .search-button {
-    width: 100%;
-    font-size: 180%;
+    width: 50%;
+    font-size: 100%;
   }
   
   #btnRegisterUser {

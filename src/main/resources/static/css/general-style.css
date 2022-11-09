@@ -197,13 +197,26 @@ input[type=file]::file-selector-button:hover {
   float: left;
   display: inline-flex;
   width: 50%;
-  padding-bottom: 10px;
   padding-right: 60px;
+}
+
+#rbResponsibleColumn{
+	float: left;
+    width: 33.3%;
+    padding-bottom: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .rbColumn  label{
 	font-size: 13px !important;
     margin-top: 10px !important;
+}
+
+#closeModal {
+	cursor: pointer;
+	font-size: 20px;
+	color: black;
 }	
 
 .button-column  {
@@ -214,7 +227,9 @@ input[type=file]::file-selector-button:hover {
 }
 
 .one-column  {
-  padding: 6px;
+      padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
     float:left;
     width:100%;
     text-align: left;

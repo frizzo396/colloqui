@@ -26,7 +26,7 @@
 .inp-form label{
     font-family: 'Graphik', sans-serif;
 	font-size:15px;
-	margin:4px;
+	margin: 4px 4px 4px 0px ;
 	padding: 2px 2px 2px 0;
   	display: inline-block;
   	color: black;
@@ -80,6 +80,24 @@
     padding-top: 15px;
     padding-bottom: 3px;
     text-align: center;
+}
+
+
+#registerSingleButtonRow {
+    padding-top: 5px;
+    padding-bottom: 15px;
+    text-align: center;
+}
+
+#registerSingleButtonRow .button-column{
+	width: 100%;
+}
+
+#registerSingleButtonRow button {
+	 width: 35%;  
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #singleButtonRow .button-column{
@@ -138,7 +156,7 @@
 #modalFormColumn label{
     font-family: 'Graphik', sans-serif;
 	font-size:15px;
-	margin:4px;
+	margin:4px 4px 4px 0px;
 	padding: 2px 2px 2px 0;
   	display: inline-block;
   	color: black;

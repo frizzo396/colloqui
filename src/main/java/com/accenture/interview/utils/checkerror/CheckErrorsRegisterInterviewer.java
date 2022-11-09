@@ -12,8 +12,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import com.accenture.interview.rto.general.ErrorRTO;
-import com.accenture.interview.rto.interviewer.InterviewerRTO;
-import com.accenture.interview.service.InterviewerService;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 
 

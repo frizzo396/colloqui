@@ -4,8 +4,9 @@
 					                            <div class="row">
 					                                <header class="containerHeader">
 						                                <label class="containerLabel">Interview availability</label>
+						                                <em id="closeModal" class='bx bx-x'></em>
 						                            </header>
-						                            <form class="inp-form" id="insertAvailability" action="#" th:action="@{/interview/insert-availability}" th:object="${insertAvailabilityTO}" method="post">
+						                            <form class="inp-form" id="insertAvailability" action="#" th:action="@{/availability/insert}" th:object="${insertAvailabilityTO}" method="post">
 					                                <div class="col-lg-8 col-lg-offset-2" id="modalFormColumn">					                                             
 					                                	<div class="row" id="availabilityDateRow">
 					                                            <div class="column">

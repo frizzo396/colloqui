@@ -24,6 +24,7 @@ jQuery(document).ready(function ($) {
     $(document).keyup(function (event) {
         if (event.which == '27') {
             $('.cd-popup').removeClass('is-visible');
+             $('.cd-popup2').removeClass('is-visible');
         }
     });
     
@@ -41,13 +42,6 @@ jQuery(document).ready(function ($) {
     
     });
 
-
-    //close popup when clicking the esc keyboard button
-    $(document).keyup(function (event) {
-        if (event.which == '27') {
-            $('.cd-popup2').removeClass('is-visible');
-        }
-    });
 
     pagination();
     

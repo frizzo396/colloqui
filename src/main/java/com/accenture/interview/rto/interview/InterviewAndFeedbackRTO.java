@@ -1,7 +1,6 @@
 package com.accenture.interview.rto.interview;
 
 import java.util.Date;
-import java.util.List;
 
 import com.accenture.interview.rto.feedback.MotivationalFeedbackRTO;
 import com.accenture.interview.rto.feedback.TechnicalFeedbackRTO;

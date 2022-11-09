@@ -4,8 +4,9 @@
 					                            <div class="row">
 					                                <header class="containerHeader">
 						                                <label class="containerLabel">Approve availability date</label>
+						                                <em id="closeModal" class='bx bx-x'></em>
 						                            </header>
-						                            <form class="inp-form" id="approveAvailability" action="#" th:action="@{/interview/approve-availability}" th:object="${approveAvailabilityTO}" method="post">
+						                            <form class="inp-form" id="approveAvailability" action="#" th:action="@{/availability/approve}" th:object="${approveAvailabilityTO}" method="post">
 					                                <div class="col-lg-8 col-lg-offset-2" id="approveDateFormColumn">					                                             
 					                                	<div class="row">
 					                                            <div class="column">
