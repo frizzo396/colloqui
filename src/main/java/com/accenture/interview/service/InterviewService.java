@@ -166,7 +166,7 @@ public class InterviewService {
 		interview.setAssigner(assigner.getId());		
 		interview.setInterviewerId(new Interviewer(interviewer.getId(), interviewer.getEnterpriseId(), interviewer.getMail(), interviewer.getType()));				
 		interview.setInterviewType(getInterviewTypeFromString(request.getInterviewType()));
-		interview.setStatus(InterviewStatusEnum.IN_PROGRESS.getValue());
+		interview.setStatus(InterviewStatusEnum.NEW.getValue());
 		return interviewRepository.save(interview);
 	}
 

@@ -3,11 +3,22 @@ package com.accenture.interview.utils.enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-
 /**
  * The Enum InterviewStatusEnum.
  */
+
+/**
+ * Gets the value.
+ *
+ * @return the value
+ */
 @Getter
+
+/**
+ * Instantiates a new interview status enum.
+ *
+ * @param value the value
+ */
 @AllArgsConstructor
 public enum InterviewStatusEnum
 {	
@@ -18,13 +29,12 @@ public enum InterviewStatusEnum
 	/** The in progress. */
 	IN_PROGRESS(2),
 	
-	/** The waiting date. */
-	WAITING_DATE(3),
-	
-	WAITING_FEED(4),
-	
+
+	/** The scheduled. */
+	SCHEDULED(3),
+		
 	/** The completed. */
-	COMPLETED(5);
+	COMPLETED(4);
 	
 	/** The status. */
 	private Integer value;

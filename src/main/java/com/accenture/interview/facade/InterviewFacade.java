@@ -2,6 +2,8 @@ package com.accenture.interview.facade;
 
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
@@ -13,12 +15,14 @@ import com.accenture.interview.rto.interview.InterviewAndFeedbackRTO;
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.rto.site.SiteRTO;
 import com.accenture.interview.service.CandidateService;
+import com.accenture.interview.service.EmailService;
 import com.accenture.interview.service.FeedbackService;
 import com.accenture.interview.service.InterviewService;
 import com.accenture.interview.service.InterviewerService;
 import com.accenture.interview.service.SiteService;
 import com.accenture.interview.to.interview.CreateInterviewTO;
 import com.accenture.interview.to.interview.SearchInterviewTO;
+import com.accenture.interview.utils.mail.MailUtils;
 
 /**
  * The Class InterviewFacade.
@@ -45,6 +49,10 @@ public class InterviewFacade {
 	/** The interview service. */
 	@Autowired
 	private InterviewService interviewService;
+	
+	/** The mail service. */
+	@Autowired
+	private EmailService mailService;
 	
 
 	
@@ -78,6 +86,15 @@ public class InterviewFacade {
 			CreateInterviewRTO createInterviewResponse = new CreateInterviewRTO(request);
 			createInterviewResponse.setEnterpriseId(request.getEnterpriseId());
 			response = new CreateInterviewRTO(request);
+			
+			try {
+				mailService.sendMail(assigner.getMail(), interviewer.getMail(), assigner.getMail(), 
+						MailUtils.createInterviewSubject(response.getCandidateName(), response.getCandidateSurname()), 
+						MailUtils.createInsertInterviewBody(response.getCandidateName(), response.getCandidateSurname()));
+			} catch (MessagingException e) {
+				return response;
+			}
+						
 		}
 		return response;
 	}

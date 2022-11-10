@@ -62,10 +62,10 @@
                                                     <span th:unless="${interview.interviewType == 1}">Tecnico</span>
                                                 </td>
                                                 <td class="dateInterview"> 
-                                                		<span th:if="${interview.status == 3}">
+                                                		<span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).IN_PROGRESS.value}">
                                                 			<button id="approveDateBtn" th:data-parameter1="${interview.idColloquio}" th:data-parameter2="${interview.availabilityDates}" onclick="createApproveAvailablityModal(this.getAttribute('data-parameter1'), this.getAttribute('data-parameter2') )" type="submit" class="approve-popup">Approve</button>
                                                 		</span>
-                                                		<span th:if="${interview.status != 3}">
+                                                		<span th:if="${interview.status != T(com.accenture.interview.utils.enums.InterviewStatusEnum).IN_PROGRESS.value}">
                                                 			  <span th:text="${#dates.format(interview.scheduledDate, 'dd-MM-YYYY HH:mm')}"></span>
                                                 		</span>                                       		
                                                 </td>

@@ -1,5 +1,7 @@
 package com.accenture.interview.facade;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
@@ -39,7 +41,18 @@ public class AvailabilityFacade {
 	 * @return the long
 	 */
 	public Long addAvailabiltyInterview(InsertAvailabilityTO insertAvailabilityTO) {
+		InterviewRTO interview = interviewService.findInterviewForApproval(insertAvailabilityTO.getInterviewId());		
 		availabilityService.addAvailabiltyInterview(insertAvailabilityTO);
+		//Send mail to interviewer
+		try {
+			mailService.sendMail(interview.getInterviewerMail(), 
+					interview.getInterviewerMail(),
+					interview.getAssignerMail(), 
+					MailUtils.createInterviewSubject(interview.getCandidateName(), interview.getCandidateSurname()), 
+					MailUtils.createInsertAvailabilityBody(interview.getCandidateName(), interview.getCandidateSurname(), insertAvailabilityTO));
+		} catch (MessagingException e) {
+			return insertAvailabilityTO.getInterviewId();
+		}		
 		return insertAvailabilityTO.getInterviewId();
 	}
 	
@@ -54,18 +67,23 @@ public class AvailabilityFacade {
 		if(!ObjectUtils.isEmpty(interview)) {
 			availabilityService.approveAvailabilty(approveAvailabilityTO);
 		}
-		//Send mail to interviewer
-		mailService.sendMail(interview.getInterviewerMail(), 
-				interview.getInterviewerMail(),
-				interview.getAssignerMail(), 
-				MailUtils.createAvailabilitySubject(interview.getCandidateName(), interview.getCandidateSurname()), 
-				MailUtils.createAvailabilityBodyResponse(approveAvailabilityTO.getApprovedDate(), interview.getCandidateName(), interview.getCandidateSurname()));
+		try {
+			//Send mail to interviewer
+			mailService.sendMail(interview.getInterviewerMail(), 
+					interview.getInterviewerMail(),
+					interview.getAssignerMail(), 
+					MailUtils.createInterviewSubject(interview.getCandidateName(), interview.getCandidateSurname()), 
+					MailUtils.createApproveAvailabilityBody(approveAvailabilityTO.getApprovedDate(), interview.getCandidateName(), interview.getCandidateSurname()));
+			
+			//Sent teams meeting to candidate
+			// eventService.sendTeamsInvitation(approveAvailabilityTO.getScheduledDate(),
+						// interview.getCandidateMail(), interview.getApprovedDate(),
+						// interview.getCandidateSurname());
 		
-		//Sent teams meeting to candidate
-		// eventService.sendTeamsInvitation(approveAvailabilityTO.getScheduledDate(),
-					// interview.getCandidateMail(), interview.getApprovedDate(),
-					// interview.getCandidateSurname());
-		
+		} catch(Exception e) {
+			return approveAvailabilityTO.getInterviewId();
+		}
+	
 		return approveAvailabilityTO.getInterviewId();
 	}
 	

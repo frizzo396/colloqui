@@ -57,18 +57,18 @@
                                             <span th:unless="${interview.interviewType == 1}">Tecnico</span>
                                         </td>
                                         <td>
-                                        		<span th:if="${interview.status == 2}">
+                                        		<span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).NEW.value}">
                                         			<button type="submit" class="av-popup" th:data-parameter1="${interview.id}" onclick="createAvailablityModal(this.getAttribute('data-parameter1'));"><em id="plusIcon" class='bx bx-plus'></em></button>
                                         		</span>
-                                        		<span th:if="${interview.status == 3}">
+                                        		<span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).IN_PROGRESS.value}">
                                         			Sent to approval
                                         		</span>  
-                                        		<span th:if="${interview.status == 4}"  th:text="${#dates.format(interview.scheduledDate, 'dd-MM-YYYY HH:mm')}" >
+                                        		<span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).SCHEDULED.value}"  th:text="${#dates.format(interview.scheduledDate, 'dd-MM-YYYY HH:mm')}" >
                                         		</span>
                                         </td>
                                         <td th:text= "${interview.site}"/>   
                                         <td>
-	                                        <span th:if="${interview.status == 4}">
+	                                        <span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).SCHEDULED.value}">
 	                                            <span th:if="${interview.interviewType == 1}">
 	                                                <button type="submit" class="motiv-popup" th:data-parameter1="${interview.id}" onclick="GotoMotivationalFeedback(this.getAttribute('data-parameter1'));"><em id="plusIcon" class='bx bx-plus'></em></button>
 	                                            </span>

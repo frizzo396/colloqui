@@ -27,11 +27,10 @@ public class EmailService {
 	 * @param cc the cc
 	 * @param subject the subject
 	 * @param body the body
+	 * @throws MessagingException 
 	 */
-	public void sendMail(String from, String to, String cc, String subject, String body) 
+	public void sendMail(String from, String to, String cc, String subject, String body) throws MessagingException 
 	{
-		try {
-
 			MimeMessage message = mailSender.createMimeMessage();
 			message.setSubject(subject);
 			MimeMessageHelper helper = new MimeMessageHelper(message, true);
@@ -39,9 +38,5 @@ public class EmailService {
 			helper.setTo(to);
 			helper.setText(body, true);
 			mailSender.send(message);
-		} catch (MessagingException e) {
-			e.printStackTrace();
-		}
-
 	}
 }
