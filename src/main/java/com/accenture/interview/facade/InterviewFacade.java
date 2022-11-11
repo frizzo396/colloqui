@@ -29,7 +29,7 @@ import com.accenture.interview.utils.mail.MailUtils;
  */
 @Component
 public class InterviewFacade {
-	
+
 	/** The site service. */
 	@Autowired
 	private SiteService siteService;	
@@ -49,13 +49,13 @@ public class InterviewFacade {
 	/** The interview service. */
 	@Autowired
 	private InterviewService interviewService;
-	
+
 	/** The mail service. */
 	@Autowired
 	private EmailService mailService;
-	
 
-	
+
+
 	/**
 	 * Return list of sites.
 	 *
@@ -64,7 +64,7 @@ public class InterviewFacade {
 	public List<SiteRTO> getComboSites() {
 		return siteService.findAllSites();
 	}
-	
+
 	/**
 	 * Adds the new interview.
 	 *
@@ -77,7 +77,7 @@ public class InterviewFacade {
 		InterviewerRTO interviewer = interviewerService.findInterviewerByEnterpriseId(request.getEnterpriseId());
 		InterviewerRTO assigner = interviewerService.findInterviewerByEnterpriseId(System.getProperty("user.name"));
 		SiteRTO site = siteService.findSiteById(Long.parseLong(request.getSite()));
-		
+
 		if (!(ObjectUtils.isEmpty(interviewer)) 
 				&& !(ObjectUtils.isEmpty(candidateType)) 
 				&& !(ObjectUtils.isEmpty(site))
@@ -86,15 +86,10 @@ public class InterviewFacade {
 			CreateInterviewRTO createInterviewResponse = new CreateInterviewRTO(request);
 			createInterviewResponse.setEnterpriseId(request.getEnterpriseId());
 			response = new CreateInterviewRTO(request);
-			
-			try {
-				mailService.sendMail(assigner.getMail(), interviewer.getMail(), assigner.getMail(), 
-						MailUtils.createInterviewSubject(response.getCandidateName(), response.getCandidateSurname()), 
-						MailUtils.createInsertInterviewBody(response.getCandidateName(), response.getCandidateSurname()));
-			} catch (MessagingException e) {
-				return response;
-			}
-						
+
+			mailService.sendMail(assigner.getMail(), interviewer.getMail(), assigner.getMail(), 
+					MailUtils.createInterviewSubject(response.getCandidateName(), response.getCandidateSurname()), 
+					MailUtils.createInsertInterviewBody(response.getCandidateName(), response.getCandidateSurname()));
 		}
 		return response;
 	}
@@ -106,8 +101,8 @@ public class InterviewFacade {
 	 * @return the list
 	 */
 	public List<InterviewAndFeedbackRTO> searchInterviews(SearchInterviewTO searchInterviewTO) {
-		 List<InterviewAndFeedbackRTO> interviews = interviewService.searchInterview(searchInterviewTO);
-		 return feedbackService.getFeedbacks(interviews);
+		List<InterviewAndFeedbackRTO> interviews = interviewService.searchInterview(searchInterviewTO);
+		return feedbackService.getFeedbacks(interviews);
 	}
 
 	/**
@@ -120,7 +115,7 @@ public class InterviewFacade {
 		List<InterviewAndFeedbackRTO> interviewAndFeedbackList = interviewService.getCompletedInterviews(enterpriseId);
 		return feedbackService.getFeedbacks(interviewAndFeedbackList);
 	}
-	
+
 	/**
 	 * Gets the assigned interviews.
 	 *

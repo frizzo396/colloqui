@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.accenture.interview.annotation.Registered;
 import com.accenture.interview.facade.InterviewFacade;
 import com.accenture.interview.facade.InterviewerFacade;
 import com.accenture.interview.rto.general.BaseResponseRTO;
@@ -49,8 +50,8 @@ public class InterviewController {
 	 * @return the response entity
 	 */
 	@PostMapping("/create")
-	@ResponseBody
-	public ResponseEntity<Object> createInterview(@RequestBody @ModelAttribute CreateInterviewTO createInterviewTO) {
+	@Registered	
+	public @ResponseBody ResponseEntity<Object> createInterview(@RequestBody @ModelAttribute CreateInterviewTO createInterviewTO) {
 		ErrorRTO errorRTO = checkErrorsInsertInterview.validate(createInterviewTO);
 
 		if (!ObjectUtils.isEmpty(errorRTO)) {
@@ -67,6 +68,7 @@ public class InterviewController {
 	 * @return the response entity
 	 */
 	@PostMapping("/search")
+	@Registered	
 	public String searchInterview(@RequestBody @ModelAttribute SearchInterviewTO searchInterviewTO, Model model) {
 		model.addAttribute("interviewer", interviewerFacade.interviewerInfo(System.getProperty("user.name")));
 		model.addAttribute("searchInterviews", interviewFacade.searchInterviews(searchInterviewTO));

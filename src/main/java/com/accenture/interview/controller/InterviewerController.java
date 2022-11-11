@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.accenture.interview.annotation.Registered;
 import com.accenture.interview.facade.InterviewerFacade;
 import com.accenture.interview.rto.general.BaseResponseRTO;
 import com.accenture.interview.rto.general.ErrorRTO;
@@ -44,6 +45,7 @@ public class InterviewerController {
 	 * @return the search interviewer response
 	 */
 	@GetMapping("/searchInterviewer")
+	@Registered	
 	public InterviewerRTO searchInterviewer(@RequestParam("candidateName") String candidateName,
 			@RequestParam("candidateSurname") String candidateSurname,
 			@RequestParam("mail") String mail) {
@@ -58,6 +60,7 @@ public class InterviewerController {
 	 * @return the interviewer
 	 */
 	@GetMapping("/getUserInfo")
+	@Registered
 	public InterviewerRTO interviewerInfo(@RequestParam("enterpriseId") String enterpriseId) {
 		return interviewerFacade.interviewerInfo(enterpriseId);
 	}
@@ -70,8 +73,8 @@ public class InterviewerController {
 	 * @return the response entity
 	 */
 	@PostMapping("/register")
-	@ResponseBody
-	public ResponseEntity<Object> registerInterviewer(@RequestBody @ModelAttribute RegisterInterviewerTO registerUserTO) {
+	@Registered
+	public @ResponseBody ResponseEntity<Object> registerInterviewer(@RequestBody @ModelAttribute RegisterInterviewerTO registerUserTO) {
 		
 		ErrorRTO errorRTO = checkErrorsRegisterInterviewer.validate(registerUserTO);
 

@@ -120,7 +120,15 @@
 }
 
 
+#errorPageColumn {
+	width: 100%;
+}
 
+#errorColumn {
+	width: 100%;
+	display: inline-grid;
+	margin-top: 10%;
+}
 
 #searchInterview {
     padding-bottom: 40px;

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.accenture.interview.annotation.Registered;
 import com.accenture.interview.controller.base.BaseController;
 import com.accenture.interview.facade.FeedbackFacade;
 import com.accenture.interview.rto.general.BaseResponseRTO;
@@ -41,8 +42,9 @@ public class FeedbackController extends BaseController {
 	 * @return the response entity
 	 */
 	@PostMapping("/motivational/insert")
+	@Registered
 	public ResponseEntity<Object> addMotivationFeedback(@RequestBody @ModelAttribute CreateMotivationFeedbackTO createMotivationFeedbackTO) {
-		ErrorRTO errorRTO = checkErrorsInsertFeedback.validate(createMotivationFeedbackTO);
+		ErrorRTO errorRTO = checkErrorsInsertFeedback.validate(createMotivationFeedbackTO, interviewId);
 		
 		if (!ObjectUtils.isEmpty(errorRTO)) {
 			return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
@@ -58,8 +60,9 @@ public class FeedbackController extends BaseController {
 	 * @return the response entity
 	 */
 	@PostMapping("/technical/insert")
+	@Registered
 	public ResponseEntity<BaseResponseRTO> addTechFeedback(@RequestBody @ModelAttribute CreateTechFeedbackTO createTechFeedbackTO) {
-		ErrorRTO errorRTO = checkErrorsInsertFeedback.validate(createTechFeedbackTO);
+		ErrorRTO errorRTO = checkErrorsInsertFeedback.validate(createTechFeedbackTO, interviewId);
 
 		if (!ObjectUtils.isEmpty(errorRTO)) {
 			return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);

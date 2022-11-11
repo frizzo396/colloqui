@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="it">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <title>Error</title>
+        <link th:href="@{/css/form.css}" rel="stylesheet" />
+        <link th:href="@{/css/container.css}" rel="stylesheet" />
+        <link th:href="@{/css/header.css}" rel="stylesheet" />
+        <link th:href="@{/css/general-style.css}" rel="stylesheet" />
+        <link th:rel="stylesheet" th:href="@{assets/bootstrap-select-1.13.9/dist/css/bootstrap-select.css}" />
+        <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+        <link href="https://fonts.cdnfonts.com/css/graphik" rel="stylesheet"  type='text/css'>
+        <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
+        <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" th:src="@{/js/funzionalita.js}"></script>
+        <script type="text/javascript" th:src="@{/js/funzionalita2.js}"></script>
+<body>
+        <div class="interview-html">   
+			<div th:replace="fragments/header"></div>                 
+           <div class="pageRow">
+           		<div class="col-lg-8 col-lg-offset-2" id="errorPageColumn">
+                         <div class="form-group" id="errorForm">                               
+                                  <div class="row" id="errorRow">
+                                       <div class="column" id="errorColumn">
+                                          <label>Il tuo enterprise id non è registrato al sistema dei colloqui.</label>
+                                          <label>Richiedi l'abilitazione ad un responsabile.</label>
+                                      </div> 
+                                   </div>  
+						</div>          
+           		</div>
+           </div>   
+                  
+          </div>           
+</body>
+</html>

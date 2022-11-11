@@ -70,7 +70,7 @@ public class InterviewService {
 	 * @param feedback      the feedback
 	 * @param finalFeedback the final feedback
 	 */
-	public void updateInterviewTechFeedback(int idColloquio, TechFeedback feedback, String finalFeedback) {
+	public void updateInterviewTechFeedback(Long idColloquio, TechFeedback feedback, String finalFeedback) {
 		Optional<Interview> optInterview = interviewRepository.findInterviewById(idColloquio);
 		if(optInterview.isPresent()) {
 			Interview interview = optInterview.get();
@@ -89,7 +89,7 @@ public class InterviewService {
 	 * @param feedback      the feedback
 	 * @param finalFeedback the final feedback
 	 */
-	public void updateInterviewMotFeedback(int idColloquio, MotivationFeedback feedback, String finalFeedback) {
+	public void updateInterviewMotFeedback(Long idColloquio, MotivationFeedback feedback, String finalFeedback) {
 		Optional<Interview> optInterview = interviewRepository.findInterviewById(idColloquio);
 		if(optInterview.isPresent()) {
 			Interview interview = optInterview.get();

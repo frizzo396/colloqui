@@ -1,7 +1,5 @@
 package com.accenture.interview.facade;
 
-import javax.mail.MessagingException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
@@ -19,21 +17,21 @@ import com.accenture.interview.utils.mail.MailUtils;
  */
 @Component
 public class AvailabilityFacade {
-	
+
 	/** The availability service. */
 	@Autowired
 	private AvailabilityService availabilityService;
-	
+
 	/** The interview service. */
 	@Autowired
 	private InterviewService interviewService;
-	
+
 	/** The mail service. */
 	@Autowired
 	private EmailService mailService;
-	
-		
-	
+
+
+
 	/**
 	 * Adds the availabilty interview.
 	 *
@@ -44,18 +42,15 @@ public class AvailabilityFacade {
 		InterviewRTO interview = interviewService.findInterviewForApproval(insertAvailabilityTO.getInterviewId());		
 		availabilityService.addAvailabiltyInterview(insertAvailabilityTO);
 		//Send mail to interviewer
-		try {
-			mailService.sendMail(interview.getInterviewerMail(), 
-					interview.getInterviewerMail(),
-					interview.getAssignerMail(), 
-					MailUtils.createInterviewSubject(interview.getCandidateName(), interview.getCandidateSurname()), 
-					MailUtils.createInsertAvailabilityBody(interview.getCandidateName(), interview.getCandidateSurname(), insertAvailabilityTO));
-		} catch (MessagingException e) {
-			return insertAvailabilityTO.getInterviewId();
-		}		
+		mailService.sendMail(interview.getInterviewerMail(), 
+				interview.getInterviewerMail(),
+				interview.getAssignerMail(), 
+				MailUtils.createInterviewSubject(interview.getCandidateName(), interview.getCandidateSurname()), 
+				MailUtils.createInsertAvailabilityBody(interview.getCandidateName(), interview.getCandidateSurname(), insertAvailabilityTO));
+
 		return insertAvailabilityTO.getInterviewId();
 	}
-	
+
 	/**
 	 * Approve availability.
 	 *
@@ -67,29 +62,19 @@ public class AvailabilityFacade {
 		if(!ObjectUtils.isEmpty(interview)) {
 			availabilityService.approveAvailabilty(approveAvailabilityTO);
 		}
-		try {
-			//Send mail to interviewer
-			mailService.sendMail(interview.getInterviewerMail(), 
-					interview.getInterviewerMail(),
-					interview.getAssignerMail(), 
-					MailUtils.createInterviewSubject(interview.getCandidateName(), interview.getCandidateSurname()), 
-					MailUtils.createApproveAvailabilityBody(approveAvailabilityTO.getApprovedDate(), interview.getCandidateName(), interview.getCandidateSurname()));
-			
-			//Sent teams meeting to candidate
-			// eventService.sendTeamsInvitation(approveAvailabilityTO.getScheduledDate(),
-						// interview.getCandidateMail(), interview.getApprovedDate(),
-						// interview.getCandidateSurname());
-		
-		} catch(Exception e) {
-			return approveAvailabilityTO.getInterviewId();
-		}
-	
+		//Send mail to interviewer
+		mailService.sendMail(interview.getInterviewerMail(), 
+				interview.getInterviewerMail(),
+				interview.getAssignerMail(), 
+				MailUtils.createInterviewSubject(interview.getCandidateName(), interview.getCandidateSurname()), 
+				MailUtils.createApproveAvailabilityBody(approveAvailabilityTO.getApprovedDate(), interview.getCandidateName(), interview.getCandidateSurname()));
+
+		//Sent teams meeting to candidate
+		// eventService.sendTeamsInvitation(approveAvailabilityTO.getScheduledDate(),
+		// interview.getCandidateMail(), interview.getApprovedDate(),
+		// interview.getCandidateSurname());
+
 		return approveAvailabilityTO.getInterviewId();
 	}
-	
-	
-
-	
-	
 
 }

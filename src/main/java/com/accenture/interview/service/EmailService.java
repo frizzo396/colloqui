@@ -5,6 +5,7 @@ import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ public class EmailService {
 	private JavaMailSender mailSender;
 
 
+
 	/**
 	 * Send mail.
 	 *
@@ -29,8 +31,11 @@ public class EmailService {
 	 * @param body the body
 	 * @throws MessagingException 
 	 */
-	public void sendMail(String from, String to, String cc, String subject, String body) throws MessagingException 
-	{
+	public void sendMail(String from, String to, String cc, String subject, String body) {		
+		try {
+			JavaMailSenderImpl mailImpl = (JavaMailSenderImpl) mailSender;				
+			mailImpl.testConnection();
+
 			MimeMessage message = mailSender.createMimeMessage();
 			message.setSubject(subject);
 			MimeMessageHelper helper = new MimeMessageHelper(message, true);
@@ -38,5 +43,8 @@ public class EmailService {
 			helper.setTo(to);
 			helper.setText(body, true);
 			mailSender.send(message);
-	}
+		} catch (MessagingException e) {
+
+		}
+	}	
 }

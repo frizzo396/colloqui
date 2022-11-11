@@ -42,12 +42,12 @@ public class FeedbackService {
 	 *
 	 * @param createTechFeedbackTO the create tech feedback TO
 	 * @param interview   the interview
-	 * @param idColloquio the id colloquio
+	 * @param interviewId the id colloquio
 	 * @return the creates the tech feedback response
 	 */
-	public TechFeedback insertTechFeedback(CreateTechFeedbackTO createTechFeedbackTO, int idColloquio) {
+	public TechFeedback insertTechFeedback(CreateTechFeedbackTO createTechFeedbackTO, Long interviewId) {
 		TechFeedback techFeedback = new TechFeedback(createTechFeedbackTO);
-		Optional<Interview> optInterview = interviewRepository.findInterviewById(idColloquio);		
+		Optional<Interview> optInterview = interviewRepository.findInterviewById(interviewId);		
 		if(optInterview.isPresent()) {
 			techFeedback.setInterview(optInterview.get());
 		}
@@ -59,12 +59,12 @@ public class FeedbackService {
 	 *
 	 * @param feedbackTO the feedback TO
 	 * @param interview   the interview
-	 * @param idColloquio the id colloquio
+	 * @param interviewId the id colloquio
 	 * @return the creates the motivation feedback response
 	 */
-	public MotivationFeedback insertMotivationFeedback(CreateMotivationFeedbackTO feedbackTO, int idColloquio) {
+	public MotivationFeedback insertMotivationFeedback(CreateMotivationFeedbackTO feedbackTO, Long interviewId) {
 		MotivationFeedback motFeedback = new MotivationFeedback(feedbackTO);
-		Optional<Interview> optInterview = interviewRepository.findInterviewById(idColloquio);		
+		Optional<Interview> optInterview = interviewRepository.findInterviewById(interviewId);		
 		if(optInterview.isPresent()) {
 			motFeedback.setInterview(optInterview.get());
 		}

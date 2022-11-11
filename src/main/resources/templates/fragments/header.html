@@ -10,10 +10,12 @@
 		            	<div class="col-lg-8 col-lg-offset-2" id="userColumn">
 		            		<div id="userContainer"> 
 		            			<div class="row" id="iconRow">
-			            			<em id="userIcon" class="bx bx-log-out"></em>
+		            				<div  th:if="${interviewer != null}">
+			            				<em id="userIcon" class="bx bx-log-out"></em>
+			            			</div>
 			            		</div>
 			            		<div class="row" id="nicknameRow">
-			                    	<label th:if="${interviewer == null}" id="nickname">User</label>
+			                    	<label th:if="${interviewer == null}" id="nickname"></label>
 			                    	<label th:unless="${interviewer == null}" th:text="${interviewer.enterpriseId}" id="nickname">User</label>
 			                    </div>
 		                    </div>

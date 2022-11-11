@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.accenture.interview.annotation.Registered;
 import com.accenture.interview.controller.base.BaseController;
 import com.accenture.interview.facade.InterviewFacade;
 import com.accenture.interview.facade.InterviewerFacade;
@@ -29,8 +30,8 @@ public class PaginationController extends BaseController {
 
 	@Autowired
 	private InterviewerFacade interviewerFacade;	
-	
-	
+
+
 	/**
 	 * Account page.
 	 *
@@ -38,6 +39,7 @@ public class PaginationController extends BaseController {
 	 * @return the model and view
 	 */
 	@GetMapping("/home")
+	@Registered
 	public ModelAndView accountPage() {
 		ModelAndView modelAndView = new ModelAndView();
 		String username = System.getProperty("user.name");
@@ -52,7 +54,7 @@ public class PaginationController extends BaseController {
 		return modelAndView;
 	}
 
-	
+
 	/**
 	 * Show form.
 	 *
@@ -60,6 +62,7 @@ public class PaginationController extends BaseController {
 	 * @return the model and view
 	 */
 	@GetMapping("/interview/new")
+	@Registered
 	public ModelAndView insertInterview() {
 		ModelAndView modelAndView = new ModelAndView();
 		String username = System.getProperty("user.name");
@@ -70,8 +73,9 @@ public class PaginationController extends BaseController {
 		modelAndView.setViewName("insert.html");
 		return modelAndView;
 	}
-	
+
 	@GetMapping("/interview/search")
+	@Registered
 	public ModelAndView searchInterview() {
 		ModelAndView modelAndView = new ModelAndView();
 		String username = System.getProperty("user.name");
@@ -91,9 +95,10 @@ public class PaginationController extends BaseController {
 	 * @return the model and view
 	 */
 	@GetMapping("/feedback/technical")
+	@Registered
 	public ModelAndView showTechFeedbackForm(@RequestParam("idColloquio") String idColloquio) {
 		ModelAndView modelAndView = new ModelAndView();
-		updateInterviewId(Integer.parseInt(idColloquio));
+		updateInterviewId(Long.parseLong(idColloquio));
 		String username = System.getProperty("user.name");
 		modelAndView.addObject("interviewer", interviewerFacade.interviewerInfo(username));
 		modelAndView.addObject("createTechFeedbackTO", new CreateTechFeedbackTO());
@@ -111,9 +116,10 @@ public class PaginationController extends BaseController {
 	 * @throws Exception the exception
 	 */
 	@GetMapping("/feedback/motivational")
+	@Registered
 	public ModelAndView showInsertMotivationFeedbackForm(@RequestParam("idColloquio") String idColloquio) {
 		ModelAndView modelAndView = new ModelAndView();
-		updateInterviewId(Integer.parseInt(idColloquio));
+		updateInterviewId(Long.parseLong(idColloquio));
 		String username = System.getProperty("user.name");
 		modelAndView.addObject("interviewer", interviewerFacade.interviewerInfo(username));
 		modelAndView.addObject("createMotivationFeedbackTO", new CreateMotivationFeedbackTO());
@@ -129,6 +135,7 @@ public class PaginationController extends BaseController {
 	 * @return the model and view
 	 */
 	@GetMapping("/interview/completed")
+	@Registered
 	public ModelAndView myInterviewsPage() {
 		ModelAndView modelAndView = new ModelAndView();
 		String username = System.getProperty("user.name");
@@ -146,6 +153,7 @@ public class PaginationController extends BaseController {
 	 * @return the model and view
 	 */
 	@GetMapping("/interview/in-progress")
+	@Registered
 	public ModelAndView inProgressPage() {
 		ModelAndView modelAndView = new ModelAndView();
 		String username = System.getProperty("user.name");
@@ -156,7 +164,7 @@ public class PaginationController extends BaseController {
 		modelAndView.setViewName("in-progress-interviews.html");
 		return modelAndView;
 	}
-	
+
 	/**
 	 * In progress page.
 	 *
@@ -164,6 +172,7 @@ public class PaginationController extends BaseController {
 	 * @return the model and view
 	 */
 	@GetMapping("/interview/assigned")
+	@Registered
 	public ModelAndView assignedPage() {
 		ModelAndView modelAndView = new ModelAndView();
 		String username = System.getProperty("user.name");

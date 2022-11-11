@@ -10,12 +10,14 @@ import javax.validation.ValidatorFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 
+import com.accenture.interview.entity.Interview;
 import com.accenture.interview.rto.general.ErrorRTO;
+import com.accenture.interview.service.InterviewService;
 import com.accenture.interview.to.feedback.CreateMotivationFeedbackTO;
 import com.accenture.interview.to.feedback.CreateTechFeedbackTO;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class CheckErrorsInsertMotivationFeedback.
  */
@@ -25,22 +27,32 @@ public class CheckErrorsInsertFeedback {
 	/** The message source. */
 	@Autowired
 	private MessageSource messageSource;
+	
+	/** The interview service. */
+	@Autowired
+	private InterviewService interviewService;
 
 	/**
 	 * Validate.
 	 *
 	 * @param feedbackTO the feedback TO
+	 * @param interviewId the interview id
 	 * @return the error RTO
 	 */
-	public ErrorRTO validate(CreateMotivationFeedbackTO feedbackTO) {
+	public ErrorRTO validate(CreateMotivationFeedbackTO feedbackTO, Long interviewId) {
+		String errorMsg = null;
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Set<ConstraintViolation<CreateMotivationFeedbackTO>> violations = factory.getValidator().validate(feedbackTO);
 
 		if (!violations.isEmpty()) {
-			String errorMsg = messageSource.getMessage(violations.stream().findFirst().get().getMessage(), null, Locale.getDefault());
+			errorMsg = messageSource.getMessage(violations.stream().findFirst().get().getMessage(), null, Locale.getDefault());
 			return new ErrorRTO(errorMsg);
 		}
-
+			
+		if(!isInterviewer(interviewId)) {
+			errorMsg = messageSource.getMessage("feedback.interviewer.notequal", null, Locale.getDefault());
+			return new ErrorRTO(errorMsg);
+		}
 		return null;
 	}
 	
@@ -48,16 +60,41 @@ public class CheckErrorsInsertFeedback {
 	 * Validate.
 	 *
 	 * @param createTechFeedbackTO the create tech feedback TO
+	 * @param interviewId the interview id
 	 * @return the error RTO
 	 */
-	public ErrorRTO validate(CreateTechFeedbackTO createTechFeedbackTO) {
+	public ErrorRTO validate(CreateTechFeedbackTO createTechFeedbackTO, Long interviewId) {
+		String errorMsg = null;
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Set<ConstraintViolation<CreateTechFeedbackTO>> violations = factory.getValidator().validate(createTechFeedbackTO);
 
 		if (!violations.isEmpty()) {
-			String errorMsg = messageSource.getMessage(violations.stream().findFirst().get().getMessage(), null, Locale.getDefault());
+			errorMsg = messageSource.getMessage(violations.stream().findFirst().get().getMessage(), null, Locale.getDefault());
+			return new ErrorRTO(errorMsg);
+		}
+		if(!isInterviewer(interviewId)) {
+			errorMsg = messageSource.getMessage("feedback.interviewer.notequal", null, Locale.getDefault());
 			return new ErrorRTO(errorMsg);
 		}
 		return null;
+	}
+	
+	
+	/**
+	 * Checks if is interviewer.
+	 *
+	 * @param interviewId the interview id
+	 * @return true, if is interviewer
+	 */
+	private boolean isInterviewer(Long interviewId) {
+		Interview interview = interviewService.findInterviewById(interviewId);
+		
+		if(!ObjectUtils.isEmpty(interview)) {
+			String enterpriseId = interview.getInterviewerId().getEnterpriseId();
+			if(enterpriseId.equals(System.getProperty("user.name"))) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
