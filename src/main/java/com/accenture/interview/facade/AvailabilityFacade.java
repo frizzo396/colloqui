@@ -4,10 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
+import com.accenture.interview.rto.general.BaseResponseRTO;
 import com.accenture.interview.rto.interview.InterviewRTO;
 import com.accenture.interview.service.AvailabilityService;
-import com.accenture.interview.service.EmailService;
 import com.accenture.interview.service.InterviewService;
+import com.accenture.interview.service.MailService;
 import com.accenture.interview.to.interview.ApproveAvailabilityTO;
 import com.accenture.interview.to.interview.InsertAvailabilityTO;
 import com.accenture.interview.utils.mail.MailUtils;
@@ -28,9 +29,10 @@ public class AvailabilityFacade {
 
 	/** The mail service. */
 	@Autowired
-	private EmailService mailService;
-
-
+	private MailService mailService;
+	
+	@Autowired
+	private MailUtils mailUtils;
 
 	/**
 	 * Adds the availabilty interview.
@@ -38,17 +40,22 @@ public class AvailabilityFacade {
 	 * @param insertAvailabilityTO the insert availability TO
 	 * @return the long
 	 */
-	public Long addAvailabiltyInterview(InsertAvailabilityTO insertAvailabilityTO) {
+	public BaseResponseRTO addAvailabiltyInterview(InsertAvailabilityTO insertAvailabilityTO) {
+		String errorMsg = null;
 		InterviewRTO interview = interviewService.findInterviewForApproval(insertAvailabilityTO.getInterviewId());		
 		availabilityService.addAvailabiltyInterview(insertAvailabilityTO);
 		//Send mail to interviewer
-		mailService.sendMail(interview.getInterviewerMail(), 
+		boolean result = mailService.sendMail(interview.getInterviewerMail(), 
 				interview.getInterviewerMail(),
 				interview.getAssignerMail(), 
-				MailUtils.createInterviewSubject(interview.getCandidateName(), interview.getCandidateSurname()), 
-				MailUtils.createInsertAvailabilityBody(interview.getCandidateName(), interview.getCandidateSurname(), insertAvailabilityTO));
-
-		return insertAvailabilityTO.getInterviewId();
+				mailUtils.createInterviewSubject(interview.getCandidateName(), interview.getCandidateSurname()), 
+				mailUtils.createInsertAvailabilityBody(interview.getCandidateName(), interview.getCandidateSurname(), insertAvailabilityTO));
+		
+		if(!result) {
+			errorMsg = mailUtils.mailNotSend();
+		}
+		
+		return new BaseResponseRTO(insertAvailabilityTO.getInterviewId(), errorMsg);
 	}
 
 	/**
@@ -57,24 +64,28 @@ public class AvailabilityFacade {
 	 * @param approveAvailabilityTO the approve availability TO
 	 * @return the long
 	 */
-	public Long approveAvailability(ApproveAvailabilityTO approveAvailabilityTO) {
+	public BaseResponseRTO approveAvailability(ApproveAvailabilityTO approveAvailabilityTO) {
+		String errorMsg = null;
 		InterviewRTO interview = interviewService.findInterviewForApproval(approveAvailabilityTO.getInterviewId());
 		if(!ObjectUtils.isEmpty(interview)) {
 			availabilityService.approveAvailabilty(approveAvailabilityTO);
 		}
 		//Send mail to interviewer
-		mailService.sendMail(interview.getInterviewerMail(), 
+		boolean result = mailService.sendMail(interview.getInterviewerMail(), 
 				interview.getInterviewerMail(),
 				interview.getAssignerMail(), 
-				MailUtils.createInterviewSubject(interview.getCandidateName(), interview.getCandidateSurname()), 
-				MailUtils.createApproveAvailabilityBody(approveAvailabilityTO.getApprovedDate(), interview.getCandidateName(), interview.getCandidateSurname()));
+				mailUtils.createInterviewSubject(interview.getCandidateName(), interview.getCandidateSurname()), 
+				mailUtils.createApproveAvailabilityBody(approveAvailabilityTO.getApprovedDate(), interview.getCandidateName(), interview.getCandidateSurname()));
 
 		//Sent teams meeting to candidate
 		// eventService.sendTeamsInvitation(approveAvailabilityTO.getScheduledDate(),
 		// interview.getCandidateMail(), interview.getApprovedDate(),
 		// interview.getCandidateSurname());
 
-		return approveAvailabilityTO.getInterviewId();
+		if(!result) {
+			errorMsg = mailUtils.mailNotSend();
+		}	
+		return new BaseResponseRTO(approveAvailabilityTO.getInterviewId(), errorMsg);
 	}
 
 }

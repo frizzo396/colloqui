@@ -4,22 +4,26 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Locale;
 
-import com.accenture.interview.rto.interview.InterviewRTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.stereotype.Component;
+
 import com.accenture.interview.to.interview.InsertAvailabilityTO;
+import com.accenture.interview.utils.constants.WebPaths;
 
 /**
  * The Class MailUtils.
  */
+@Component
 public class MailUtils {
-	
-	/**
-	 * Instantiates a new mail utils.
-	 */
-	private MailUtils() {
-		
-	}
-	
+
+	/** The message source. */
+	@Autowired
+	private MessageSource messageSource;
+
+
 	/**
 	 * Creates the availability subject.
 	 *
@@ -27,8 +31,40 @@ public class MailUtils {
 	 * @param candidateSurname the candidate surname
 	 * @return the string
 	 */
-	public static String createInterviewSubject(String candidateName, String candidateSurname) {
-		return "Colloquio " + candidateName + " " + candidateSurname;
+	public String createInterviewSubject(String candidateName, String candidateSurname) {		
+		return messageSource.getMessage("mail.subject.interview", null, Locale.getDefault())
+				.replace("$1", candidateName)
+				.replace("$2", candidateSurname);
+	}
+
+	/**
+	 * Creates the registration subject.
+	 *
+	 * @param enterpriseId the enterprise id
+	 * @return the string
+	 */
+	public String createRegistrationSubject(String enterpriseId) {
+		return messageSource.getMessage("mail.subject.registration", null, Locale.getDefault())
+				.replace("$1", enterpriseId);
+	}
+	
+	/**
+	 * Creates the registration welcome subject.
+	 *
+	 * @return the string
+	 */
+	public String createRegistrationWelcomeSubject() {
+		return messageSource.getMessage("mail.subject.registration.success", null, Locale.getDefault());
+	}
+	
+	/**
+	 * Creates the registration welcome body.
+	 *
+	 * @return the string
+	 */
+	public String createRegistrationWelcomeBody() {		
+		return messageSource.getMessage("mail.body.user.register.success", null, Locale.getDefault())
+				.replace("$link", WebPaths.HTTP + WebPaths.HOST + WebPaths.BASE_PATH + WebPaths.HOME);
 	}
 
 	/**
@@ -39,15 +75,15 @@ public class MailUtils {
 	 * @param candidateSurname the candidate surname
 	 * @return the string
 	 */
-	public static String createApproveAvailabilityBody(Date interviewDate, String candidateName, String candidateSurname) {
-		String dateString = formatDateToString(interviewDate);
-		return "Buongiorno,<br>"
-		+ " il responsabile ha approvato il colloquio per il candidato <strong>" + candidateName + " " + candidateSurname +"</strong>"
-		+ " in data <strong>" + dateString + "</strong>. <br>"
-		+ "Le informazioni sul candidato sono disponibili sulla sezione <strong>In Progress</strong>.";
+	public String createApproveAvailabilityBody(Date interviewDate, String candidateName, String candidateSurname) {
+		return messageSource.getMessage("mail.body.availability.approve", null, Locale.getDefault())
+				.replace("$1", candidateName)
+				.replace("$2", candidateSurname)
+				.replace("$3", formatDateToString(interviewDate))
+				.replace("$link", WebPaths.HTTP + WebPaths.HOST + WebPaths.BASE_PATH + WebPaths.IN_PROGRESS);
 	}
-	
-	
+
+
 	/**
 	 * Creates the insert availability body response.
 	 *
@@ -56,31 +92,31 @@ public class MailUtils {
 	 * @param avTO the av TO
 	 * @return the string
 	 */
-	public static String createInsertAvailabilityBody(String candidateName, String candidateSurname, InsertAvailabilityTO avTO) {
-		String firstDate = formatDateToString(avTO.getFirstDate());
-		String secondDate = formatDateToString(avTO.getFirstDate());
-		String thirdDate = formatDateToString(avTO.getFirstDate());
-		
-		return "Buongiorno,<br>"
-				+ " l'intervistatore ha inserito le disponibilità per il colloquio del candidato <strong>" + candidateName + " " + candidateSurname +"</strong>"
-				+ " nelle date (<strong>" + firstDate + "</strong>, <strong>" + secondDate + "</strong>, <strong>" + thirdDate +"</strong>). <br>"
-				+ "Puoi procedere con l'approvazione nella sezione <strong>Assigned</strong>.";
-		
+	public String createInsertAvailabilityBody(String candidateName, String candidateSurname, InsertAvailabilityTO avTO) {
+		return messageSource.getMessage("mail.body.availability.insert", null, Locale.getDefault())
+				.replace("$1", candidateName)
+				.replace("$2", candidateSurname)
+				.replace("$3", formatDateToString(avTO.getFirstDate()))
+				.replace("$4", formatDateToString(avTO.getSecondDate()))
+				.replace("$5", formatDateToString(avTO.getThirdDate()))
+				.replace("$link", WebPaths.HTTP + WebPaths.HOST + WebPaths.BASE_PATH + WebPaths.ASSIGNED);
 	}
-	
+
 	/**
 	 * Creates the insert feedback body response.
 	 *
-	 * @param interviewRTO the interview RTO
+	 * @param candidateName the candidate name
+	 * @param candidateSurname the candidate surname
 	 * @return the string
 	 */
-	public static String createInsertFeedbackBody(InterviewRTO interviewRTO) {		
-		return "Buongiorno,<br>"
-				+ " l'intervistatore ha inserito le valutazioni per il colloquio del candidato <strong>" + interviewRTO.getCandidateName() + " " + interviewRTO.getCandidateSurname() +"</strong>. <br>"
-				+ "Puoi consultare le valutazioni nella sezione <strong>Assigned</strong>.";
-		
+	public String createInsertFeedbackBody(String candidateName, String candidateSurname) {				 
+		return messageSource.getMessage("mail.body.feeback.insert", null, Locale.getDefault())
+				.replace("$1", candidateName)
+				.replace("$2", candidateSurname)
+				.replace("$link", WebPaths.HTTP + WebPaths.HOST + WebPaths.BASE_PATH + WebPaths.ASSIGNED);
+
 	}
-	
+
 
 	/**
 	 * Creates the insert interview body response.
@@ -89,26 +125,62 @@ public class MailUtils {
 	 * @param candidateSurname the candidate surname
 	 * @return the string
 	 */
-	public static String createInsertInterviewBody(String candidateName, String candidateSurname) {		
-		return "Buongiorno,<br>"
-				+ " il responsabile ti ha assegnato il colloquio del candidato <strong>" + candidateName + " " + candidateSurname +"</strong>. <br>"
-				+ "Puoi consultare il CV e le skills nella sezione <strong>In progress</strong>.";
-		
+	public String createInsertInterviewBody(String candidateName, String candidateSurname) {		
+		return messageSource.getMessage("mail.body.interview.insert", null, Locale.getDefault())
+				.replace("$1", candidateName)
+				.replace("$2", candidateSurname)
+				.replace("$link", WebPaths.HTTP + WebPaths.HOST + WebPaths.BASE_PATH + WebPaths.IN_PROGRESS);
+	}
+
+
+	/**
+	 * Creates the register new user body.
+	 *
+	 * @param enterpriseId the enterprise id
+	 * @param mail the mail
+	 * @return the string
+	 */
+	public String createRegisterNewUserBody(String enterpriseId, String mail) {		
+		return messageSource.getMessage("mail.body.user.register", null, Locale.getDefault())
+				.replace("$1", enterpriseId)
+				.replace("$2", mail);
+	}
+
+
+	/**
+	 * Mail not send.
+	 *
+	 * @return the string
+	 */
+	public String mailNotSend() {
+		return messageSource.getMessage("mail.notsend", null, Locale.getDefault());
 	}
 	
-	
+	/**
+	 * Registration request mail not send.
+	 *
+	 * @return the string
+	 */
+	public String registrationRequestMailNotSend() {
+		return messageSource.getMessage("interviewer.req.registration.mail.notsend", null, Locale.getDefault());
+	}
+
+
 	/**
 	 * Format date to string.
 	 *
 	 * @param date the date
 	 * @return the string
 	 */
-	private static String formatDateToString(Date date) {
+	private String formatDateToString(Date date) {
 		LocalDateTime localDate = date.toInstant()
 				.atZone(ZoneId.systemDefault())
 				.toLocalDateTime();
 
 		return localDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
 	}
+
+
+
 
 }

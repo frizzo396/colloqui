@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.service.InterviewerService;
+import com.accenture.interview.to.interviewer.RequestRegistrationTO;
 
 /**
  * The Class AuthAspect.
@@ -33,14 +34,15 @@ public class AuthAspect {
 	@Around("@annotation(com.accenture.interview.annotation.Registered)")
 	public Object checkUserRegistered(ProceedingJoinPoint joinPoint) throws Throwable {
 		ModelAndView modelAndView = new ModelAndView();
-		String username = System.getProperty("user.name");
+		String username = System.getProperty("user.name") /*"ent.id"*/;
 		InterviewerRTO interviewer = interviewerService.findInterviewerByEnterpriseId(username);
 
 		if(ObjectUtils.isEmpty(interviewer)) {
+			modelAndView.addObject("enterpriseId", username);
+			modelAndView.addObject("requestRegistrationTO", new RequestRegistrationTO());
 			modelAndView.setViewName("error-page.html");
 			return modelAndView;
-		}
-		
+		}		
 	    return joinPoint.proceed();
 	}
 

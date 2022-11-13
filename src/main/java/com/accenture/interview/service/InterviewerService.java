@@ -1,5 +1,6 @@
 package com.accenture.interview.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,25 +35,52 @@ public class InterviewerService {
 	 * Adds the new interview.
 	 *
 	 * @param request       the request
-	 * @param type the type
-	 * @param interviewer   the interviewer
 	 * @return the creates the interview response
 	 */
-	public Interviewer addNewInterviewer(RegisterInterviewerTO request) {
+	public void addNewInterviewer(RegisterInterviewerTO request) {
 		Interviewer interviewer = null;
 		Optional<Interviewer> optInterviewer = interviewerRepository.findInterviewerEntityByEnterpriseId(request.getEnterpriseId());
 		
-		//Update
+		//Update flag
 		if(optInterviewer.isPresent()) {
 			interviewer = optInterviewer.get();
-			interviewer.setEnterpriseId(request.getEnterpriseId());
-			interviewer.setMail(request.getMail());
 			interviewer.setType(request.getIsResponsible());
 		} else {
 			interviewer = new Interviewer(request);
 		}
-		return interviewerRepository.save(interviewer);
+		interviewerRepository.save(interviewer);
 	}	
-
+	
+	
+	/**
+	 * Gets the all responsibles.
+	 *
+	 * @return the all responsibles
+	 */
+	public List<InterviewerRTO> getAllResponsibles() {
+		return interviewerRepository.findAllResponsibles();
+	}
+	
+	/**
+	 * Find interviewer by mail.
+	 *
+	 * @param mail the mail
+	 * @return the interviewer RTO
+	 */
+	public InterviewerRTO findInterviewerByMail(String mail) {
+		return interviewerRepository.findInterviewerByMail(mail);
+	}
+	
+	
+	/**
+	 * Find interviewer by enterprise id or mail.
+	 *
+	 * @param enterpriseId the enterprise id
+	 * @param mail the mail
+	 * @return the interviewer RTO
+	 */
+	public InterviewerRTO findInterviewerByEnterpriseIdOrMail(String enterpriseId, String mail) {
+		return interviewerRepository.findInterviewerByEnterpriseIdOrMail(enterpriseId, mail);
+	}
 
 }

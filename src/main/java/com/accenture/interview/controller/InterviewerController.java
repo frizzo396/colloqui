@@ -19,6 +19,7 @@ import com.accenture.interview.rto.general.BaseResponseRTO;
 import com.accenture.interview.rto.general.ErrorRTO;
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
+import com.accenture.interview.to.interviewer.RequestRegistrationTO;
 import com.accenture.interview.utils.checkerror.CheckErrorsRegisterInterviewer;
 
 /**
@@ -69,7 +70,7 @@ public class InterviewerController {
 	/**
 	 * Creates the interviewer.
 	 *
-	 * @param createRegisterTO the register interviewer TO
+	 * @param registerUserTO the register user TO
 	 * @return the response entity
 	 */
 	@PostMapping("/register")
@@ -81,7 +82,22 @@ public class InterviewerController {
 		if (!ObjectUtils.isEmpty(errorRTO)) {
 			return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
 		}
-		return new ResponseEntity<>(new BaseResponseRTO(interviewerFacade.addNewInterviewer(registerUserTO)), HttpStatus.OK);		
+		return new ResponseEntity<>(interviewerFacade.addNewInterviewer(registerUserTO), HttpStatus.OK);		
+	}	
+	
+	/**
+	 * Request registration.
+	 *
+	 * @param requestTO the request TO
+	 * @return the response entity
+	 */
+	@PostMapping("/register/request")
+	public @ResponseBody ResponseEntity<Object> requestRegistration(@RequestBody @ModelAttribute RequestRegistrationTO requestTO) {
+		ErrorRTO errorRTO = checkErrorsRegisterInterviewer.validate(requestTO);
+		if (!ObjectUtils.isEmpty(errorRTO)) {
+			return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
+		}
+		return new ResponseEntity<>(interviewerFacade.requestRegistration(requestTO), HttpStatus.OK);		
 	}	
 
 }

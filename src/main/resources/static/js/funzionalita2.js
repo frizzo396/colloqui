@@ -48,6 +48,10 @@ jQuery(document).ready(function ($) {
    $('.popup-register').on('click', function (event) {
 		event.preventDefault();
 		$('#register-modal').addClass('is-visible');
+		document.getElementById("registerEntId").value = "";
+		document.getElementById("registerMail").value ="";
+		document.getElementById('registerEntId').readOnly = false;
+		document.getElementById('registerMail').readOnly = false;
     
     });
 	
@@ -125,6 +129,11 @@ function createTechnicalModal(technicalInterview){
 
 function createAvailablityModal(interviewId){
 	document.getElementById("interviewIdHid").value = interviewId;	
+}
+
+function getEnterpriseId(){
+	var entId = document.getElementById("reqEnterpriseId");
+	document.getElementById("reqEntId").value = entId.textContent;	
 }
 
 function createApproveAvailablityModal(interviewId, dateInterviewList){

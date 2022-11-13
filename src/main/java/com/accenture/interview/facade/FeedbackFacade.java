@@ -1,7 +1,5 @@
 package com.accenture.interview.facade;
 
-import javax.mail.MessagingException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +8,7 @@ import com.accenture.interview.entity.TechFeedback;
 import com.accenture.interview.rto.feedback.CreateMotivationFeedbackRTO;
 import com.accenture.interview.rto.feedback.CreateTechFeedbackRTO;
 import com.accenture.interview.rto.interview.InterviewRTO;
-import com.accenture.interview.service.EmailService;
+import com.accenture.interview.service.MailService;
 import com.accenture.interview.service.FeedbackService;
 import com.accenture.interview.service.InterviewService;
 import com.accenture.interview.to.feedback.CreateMotivationFeedbackTO;
@@ -33,7 +31,11 @@ public class FeedbackFacade {
 
 	/** The mail service. */
 	@Autowired
-	private EmailService mailService;
+	private MailService mailService;
+
+	/** The mail utils. */
+	@Autowired
+	private MailUtils mailUtils;
 
 	/**
 	 * Insert tech feedback.
@@ -48,8 +50,8 @@ public class FeedbackFacade {
 		interviewService.updateInterviewTechFeedback(interviewId, techFeedback, createTechFeedbackTO.getFinalFeedback());
 
 		mailService.sendMail(interview.getAssignerMail(), interview.getInterviewerMail(), interview.getAssignerMail(), 
-				MailUtils.createInterviewSubject(interview.getCandidateName(), interview.getCandidateSurname()), 
-				MailUtils.createInsertFeedbackBody(interview));
+				mailUtils.createInterviewSubject(interview.getCandidateName(), interview.getCandidateSurname()), 
+				mailUtils.createInsertFeedbackBody(interview.getCandidateName(), interview.getCandidateSurname()));
 		return new CreateTechFeedbackRTO(createTechFeedbackTO);
 	}
 
@@ -66,8 +68,8 @@ public class FeedbackFacade {
 		interviewService.updateInterviewMotFeedback(interviewId, motFeedback, feedbackTO.getFinalFeedback());
 
 		mailService.sendMail(interview.getAssignerMail(), interview.getInterviewerMail(), interview.getAssignerMail(), 
-				MailUtils.createInterviewSubject(interview.getCandidateName(), interview.getCandidateSurname()), 
-				MailUtils.createInsertFeedbackBody(interview));
+				mailUtils.createInterviewSubject(interview.getCandidateName(), interview.getCandidateSurname()), 
+				mailUtils.createInsertFeedbackBody(interview.getCandidateName(), interview.getCandidateSurname()));
 
 		return new CreateMotivationFeedbackRTO(feedbackTO);
 	}

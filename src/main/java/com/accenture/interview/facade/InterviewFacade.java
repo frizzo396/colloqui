@@ -2,8 +2,6 @@ package com.accenture.interview.facade;
 
 import java.util.List;
 
-import javax.mail.MessagingException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
@@ -15,7 +13,7 @@ import com.accenture.interview.rto.interview.InterviewAndFeedbackRTO;
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.rto.site.SiteRTO;
 import com.accenture.interview.service.CandidateService;
-import com.accenture.interview.service.EmailService;
+import com.accenture.interview.service.MailService;
 import com.accenture.interview.service.FeedbackService;
 import com.accenture.interview.service.InterviewService;
 import com.accenture.interview.service.InterviewerService;
@@ -52,14 +50,18 @@ public class InterviewFacade {
 
 	/** The mail service. */
 	@Autowired
-	private EmailService mailService;
+	private MailService mailService;
+	
+	/** The mail utils. */
+	@Autowired
+	private MailUtils mailUtils;
 
 
 
 	/**
-	 * Return list of sites.
+	 * Gets the combo sites.
 	 *
-	 * @return list of sites from table site
+	 * @return the combo sites
 	 */
 	public List<SiteRTO> getComboSites() {
 		return siteService.findAllSites();
@@ -69,7 +71,7 @@ public class InterviewFacade {
 	 * Adds the new interview.
 	 *
 	 * @param request the request
-	 * @return the creates the interview response
+	 * @return the creates the interview RTO
 	 */
 	public CreateInterviewRTO addNewInterview(CreateInterviewTO request) {
 		CreateInterviewRTO response = null;
@@ -88,14 +90,14 @@ public class InterviewFacade {
 			response = new CreateInterviewRTO(request);
 
 			mailService.sendMail(assigner.getMail(), interviewer.getMail(), assigner.getMail(), 
-					MailUtils.createInterviewSubject(response.getCandidateName(), response.getCandidateSurname()), 
-					MailUtils.createInsertInterviewBody(response.getCandidateName(), response.getCandidateSurname()));
+					mailUtils.createInterviewSubject(response.getCandidateName(), response.getCandidateSurname()), 
+					mailUtils.createInsertInterviewBody(response.getCandidateName(), response.getCandidateSurname()));
 		}
 		return response;
 	}
 
 	/**
-	 * Search interview.
+	 * Search interviews.
 	 *
 	 * @param searchInterviewTO the search interview TO
 	 * @return the list
@@ -106,10 +108,10 @@ public class InterviewFacade {
 	}
 
 	/**
-	 * Gets the my interviews.
+	 * Gets the completed interviews.
 	 *
 	 * @param enterpriseId the enterprise id
-	 * @return the my interviews
+	 * @return the completed interviews
 	 */
 	public List<InterviewAndFeedbackRTO> getCompletedInterviews(String enterpriseId) {
 		List<InterviewAndFeedbackRTO> interviewAndFeedbackList = interviewService.getCompletedInterviews(enterpriseId);

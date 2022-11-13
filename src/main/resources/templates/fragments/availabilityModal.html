@@ -1,44 +1,50 @@
-                                <div class="cd-popup-container" id="availabilityTableModal">
-                                	<div class="col-lg-8 col-lg-offset-2" id="modalColumn">
-                                		<div class="container" id="containerInsert">
-					                            <div class="row">
-					                                <header class="containerHeader">
-						                                <label class="containerLabel">Interview availability</label>
-						                                <em id="closeModal" class='bx bx-x'></em>
-						                            </header>
-						                            <form class="inp-form" id="insertAvailability" action="#" th:action="@{/availability/insert}" th:object="${insertAvailabilityTO}" method="post">
-					                                <div class="col-lg-8 col-lg-offset-2" id="modalFormColumn">					                                             
-					                                	<div class="row" id="availabilityDateRow">
-					                                            <div class="column">
-					                                                <div class="form-group">
-					                                                    <label>First date</label>
-					                                                    <input id="interviewIdHid" type="hidden" th:field="*{interviewId}" value=0/>
-					                                                    <input id="firstAvDate" class="datePicker" type="datetime-local" th:field="*{firstDate}" />
-					                                                </div>
-					                                            </div>
-					                                             <div class="column">
-					                                                <div class="form-group">
-					                                                    <label>Second date</label>
-					                                                     <input id="thirdAvDate" class="datePicker" type="datetime-local" th:field="*{thirdDate}" />
-					                                                </div>
-					                                            </div>
-					                                            <div class="column">
-					                                                <div class="form-group">
-					                                                      <label>Third date</label>
-					                                                     <input id="secondAvDate" class="datePicker" type="datetime-local" th:field="*{secondDate}" />		                                                 
-					                                                </div>
-					                                            </div>
-					                                  </div>
-					                           <div class="row" id="singleButtonRow">
-	                                                <div class="button-column">
-	                                                    <div class="form-group">
-	                                                        <button class="submit-button" type="submit">Submit</button>
-	                                                    </div>
-	                                                </div>
-	                                            </div>
-					                                </div>
-					                                </form>
-					                            </div>
-					                        </div>        
-					                        </div>                         
-                                </div>
+
+<div class="cd-popup-container" id="availabilityTableModal">
+	<div class="col-lg-8 col-lg-offset-2" id="modalColumn">
+		<div class="container" id="containerInsert">
+			<div class="row">
+				<header class="containerHeader">
+					<label class="containerLabel">Interview availability</label> <em
+						id="closeModal" class='bx bx-x'></em>
+				</header>
+				<form class="inp-form" id="insertAvailability" action="#"
+					th:action="@{/availability/insert}"
+					th:object="${insertAvailabilityTO}" method="post">
+					<div class="col-lg-8 col-lg-offset-2" id="modalFormColumn">
+						<div class="row" id="availabilityDateRow">
+							<div class="column">
+								<div class="form-group">
+									<label>First date</label> <input id="interviewIdHid"
+										type="hidden" th:field="*{interviewId}" value=0 /> <input
+										id="firstAvDate" class="datePicker" type="datetime-local"
+										th:field="*{firstDate}" />
+								</div>
+							</div>
+							<div class="column">
+								<div class="form-group">
+									<label>Second date</label> <input id="thirdAvDate"
+										class="datePicker" type="datetime-local"
+										th:field="*{thirdDate}" />
+								</div>
+							</div>
+							<div class="column">
+								<div class="form-group">
+									<label>Third date</label> <input id="secondAvDate"
+										class="datePicker" type="datetime-local"
+										th:field="*{secondDate}" />
+								</div>
+							</div>
+						</div>
+						<div class="row" id="singleButtonRow">
+							<div class="button-column">
+								<div class="form-group">
+									<button class="submit-button" type="submit">Submit</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,5 +1,6 @@
 package com.accenture.interview.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -43,5 +44,33 @@ public interface InterviewerRepository extends JpaRepository<Interviewer, Long> 
 	 */
 	@Query("select new com.accenture.interview.rto.interviewer.InterviewerRTO(ier.id, ier.enterpriseId, ier.mail, ier.type) from Interviewer ier where ier.enterpriseId=:enterpriseId")
 	InterviewerRTO findInterviewerByEnterpriseId(@Param("enterpriseId") String enterpriseId);
-
+	
+	/**
+	 * Find all responsibles.
+	 *
+	 * @return the list
+	 */
+	@Query("select new com.accenture.interview.rto.interviewer.InterviewerRTO(ier.id, ier.enterpriseId, ier.mail, ier.type) from Interviewer ier where ier.type= 1")
+	List<InterviewerRTO> findAllResponsibles();
+	
+	
+	/**
+	 * Find interviewer by mail.
+	 *
+	 * @param mail the mail
+	 * @return the interviewer RTO
+	 */
+	@Query("select new com.accenture.interview.rto.interviewer.InterviewerRTO(ier.id, ier.enterpriseId, ier.mail, ier.type) from Interviewer ier where ier.mail=:mail")
+	InterviewerRTO findInterviewerByMail(@Param("mail") String mail);
+	
+	/**
+	 * Find interviewer by enterprise id or mail.
+	 *
+	 * @param enterpriseId the enterprise id
+	 * @param mail the mail
+	 * @return the interviewer RTO
+	 */
+	@Query("select new com.accenture.interview.rto.interviewer.InterviewerRTO(ier.id, ier.enterpriseId, ier.mail, ier.type) from Interviewer ier where (ier.enterpriseId =:enterpriseId OR ier.mail=:mail)")
+	InterviewerRTO findInterviewerByEnterpriseIdOrMail(@Param("enterpriseId") String enterpriseId, @Param("mail") String mail);
+	
 }
