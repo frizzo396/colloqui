@@ -1,4 +1,4 @@
-package com.accenture.interview.repository;
+package com.accenture.interview.repository.interview;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

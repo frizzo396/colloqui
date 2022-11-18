@@ -7,7 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 import com.accenture.interview.to.feedback.CreateTechFeedbackTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -17,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity(name = "Tech_feedback")
 @Table(name = "tech_feedback")
-public class TechFeedback {
+public class TechnicalFeedback {
 
 	/** The id. */
 	@Id
@@ -25,33 +24,26 @@ public class TechFeedback {
 	private long id;
 
 	/** The java. */
-	@NotNull
 	private long java;
 
 	/** The sql. */
-	@NotNull
 	@Column(name = "sql_voto")
 	private int sql;
 
 	/** The html css. */
-	@NotNull
 	@Column(name = "html_css")
 	private int htmlCss;
 
 	/** The angular. */
-	@NotNull
 	private int angular;
 
 	/** The spring. */
-	@NotNull
 	private int spring;
 
 	/** The other. */
-	@NotNull
 	private int other;
 
 	/** The comment. */
-	@NotNull
 	private String comment;
 
 	/** The interview. */
@@ -62,7 +54,7 @@ public class TechFeedback {
 	/**
 	 * Instantiates a new tech feedback.
 	 */
-	public TechFeedback() {
+	public TechnicalFeedback() {
 	}
 
 	/**
@@ -71,7 +63,7 @@ public class TechFeedback {
 	 * @param createTechFeedbackRequest the create tech feedback
 	 *                                  request
 	 */
-	public TechFeedback(CreateTechFeedbackTO createTechFeedbackRequest) {
+	public TechnicalFeedback(CreateTechFeedbackTO createTechFeedbackRequest) {
 		this.java = createTechFeedbackRequest.getJava();
 		this.sql = createTechFeedbackRequest.getSqlVoto();
 		this.htmlCss = createTechFeedbackRequest.getHtmlCss();

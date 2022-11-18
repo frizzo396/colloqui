@@ -1,5 +1,7 @@
 package com.accenture.interview.facade;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -14,10 +16,12 @@ import com.accenture.interview.rto.interview.InterviewMonthRTO;
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.service.InterviewService;
 import com.accenture.interview.service.InterviewerService;
-import com.accenture.interview.service.MailService;
+import com.accenture.interview.service.general.MailService;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 import com.accenture.interview.to.interviewer.RequestRegistrationTO;
-import com.accenture.interview.utils.mail.MailUtils;
+import com.accenture.interview.to.mail.MailParametersTO;
+import com.accenture.interview.utils.constants.WebPaths;
+import com.accenture.interview.utils.enums.MailTypeEnum;
 
 /**
  * The Class InterviewerFacade.
@@ -37,10 +41,6 @@ public class InterviewerFacade {
 	@Autowired
 	private MailService mailService;
 
-	/** The mail utils. */
-	@Autowired
-	private MailUtils mailUtils;
-
 	/** The message source. */	
 	@Autowired 
 	private MessageSource messageSource;
@@ -56,17 +56,16 @@ public class InterviewerFacade {
 
 		if(!(ObjectUtils.isEmpty(interviewer)) 
 			&& !(isEnterpriseidAndMailEqual(request, interviewer.getEnterpriseId(), interviewer.getMail()))){
-			return new BaseResponseRTO(interviewer, messageSource.getMessage("interviewer.alredyexists.register", null, Locale.getDefault()));
+			return new BaseResponseRTO(interviewer, messageSource.getMessage("interviewer.error.already-register", null, Locale.getDefault()));
 		}	
 		interviewerService.addNewInterviewer(request);
 		InterviewerRTO registering = interviewerService.findInterviewerByEnterpriseId(System.getProperty("user.name"));
-		boolean result = mailService.sendMail(request.getMail(), 
-				request.getMail(),
-				registering.getMail(), 
-				mailUtils.createRegistrationWelcomeSubject(), 
-				mailUtils.createRegistrationWelcomeBody());
+		MailParametersTO mailParams = new MailParametersTO(Arrays.asList(request.getMail()), 
+				Arrays.asList(registering.getMail()), new ArrayList<>(), new ArrayList<>(), WebPaths.HOME);
+		
+		boolean result = mailService.sendMail(mailParams, MailTypeEnum.USER_WELCOME);	
 		if(!result) {
-			return new BaseResponseRTO(null, mailUtils.registrationRequestMailNotSend());
+			return new BaseResponseRTO(null, mailService.registrationRequestMailNotSend());
 		}
 		return new BaseResponseRTO(new InterviewerRTO(request), null);
 	}
@@ -168,14 +167,15 @@ public class InterviewerFacade {
 	 * @return the base response RTO
 	 */
 	public BaseResponseRTO requestRegistration(RequestRegistrationTO requestTO) {
-		List<InterviewerRTO> allResponsibles = interviewerService.getAllResponsibles();
-		boolean result = mailService.sendMail(requestTO.getMail(), 
-				allResponsibles.stream().map(InterviewerRTO::getMail).collect(Collectors.toList()),
-				requestTO.getMail(), 
-				mailUtils.createRegistrationSubject(requestTO.getEnterpriseId()), 
-				mailUtils.createRegisterNewUserBody(requestTO.getEnterpriseId(), requestTO.getMail()));
+		List<InterviewerRTO> allResponsibles = interviewerService.getAllResponsibles();		
+		MailParametersTO mailParams = new MailParametersTO(allResponsibles.stream().map(InterviewerRTO::getMail).collect(Collectors.toList()), 
+				Arrays.asList(requestTO.getMail()), 
+				Arrays.asList(requestTO.getEnterpriseId()),
+				Arrays.asList(requestTO.getEnterpriseId(), requestTO.getMail()), null);
+		
+		boolean result = mailService.sendMail(mailParams, MailTypeEnum.USER_REGISTER);	
 		if(!result) {
-			return new BaseResponseRTO(null, mailUtils.registrationRequestMailNotSend());
+			return new BaseResponseRTO(null, mailService.registrationRequestMailNotSend());
 		}
 		return new BaseResponseRTO(requestTO.getEnterpriseId(), null);
 	}

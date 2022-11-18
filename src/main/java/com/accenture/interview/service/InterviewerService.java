@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.accenture.interview.entity.Interviewer;
-import com.accenture.interview.repository.InterviewerRepository;
+import com.accenture.interview.repository.interviewer.InterviewerRepository;
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 

@@ -1,18 +1,24 @@
 package com.accenture.interview.facade;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.accenture.interview.entity.MotivationFeedback;
-import com.accenture.interview.entity.TechFeedback;
+import com.accenture.interview.entity.TechnicalFeedback;
 import com.accenture.interview.rto.feedback.CreateMotivationFeedbackRTO;
 import com.accenture.interview.rto.feedback.CreateTechFeedbackRTO;
 import com.accenture.interview.rto.interview.InterviewRTO;
-import com.accenture.interview.service.MailService;
 import com.accenture.interview.service.FeedbackService;
 import com.accenture.interview.service.InterviewService;
+import com.accenture.interview.service.general.MailService;
 import com.accenture.interview.to.feedback.CreateMotivationFeedbackTO;
 import com.accenture.interview.to.feedback.CreateTechFeedbackTO;
+import com.accenture.interview.to.mail.MailParametersTO;
+import com.accenture.interview.utils.constants.WebPaths;
+import com.accenture.interview.utils.date.DateUtils;
+import com.accenture.interview.utils.enums.MailTypeEnum;
 import com.accenture.interview.utils.mail.MailUtils;
 
 /**
@@ -33,9 +39,6 @@ public class FeedbackFacade {
 	@Autowired
 	private MailService mailService;
 
-	/** The mail utils. */
-	@Autowired
-	private MailUtils mailUtils;
 
 	/**
 	 * Insert tech feedback.
@@ -46,12 +49,15 @@ public class FeedbackFacade {
 	 */
 	public CreateTechFeedbackRTO insertTechFeedback(CreateTechFeedbackTO createTechFeedbackTO, Long interviewId) {
 		InterviewRTO interview = interviewService.findInterviewForApproval((long) interviewId);
-		TechFeedback techFeedback = feedbackService.insertTechFeedback(createTechFeedbackTO, interviewId);
+		TechnicalFeedback techFeedback = feedbackService.insertTechFeedback(createTechFeedbackTO, interviewId);
 		interviewService.updateInterviewTechFeedback(interviewId, techFeedback, createTechFeedbackTO.getFinalFeedback());
-
-		mailService.sendMail(interview.getAssignerMail(), interview.getInterviewerMail(), interview.getAssignerMail(), 
-				mailUtils.createInterviewSubject(interview.getCandidateName(), interview.getCandidateSurname()), 
-				mailUtils.createInsertFeedbackBody(interview.getCandidateName(), interview.getCandidateSurname()));
+		
+		MailParametersTO mailParams = new MailParametersTO(Arrays.asList(interview.getInterviewerMail()), 
+				Arrays.asList(interview.getAssignerMail()), 
+				Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()), 
+				Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()), 
+				WebPaths.ASSIGNED);
+		mailService.sendMail(mailParams, MailTypeEnum.FEEDBACK_INSERT);	
 		return new CreateTechFeedbackRTO(createTechFeedbackTO);
 	}
 
@@ -66,11 +72,13 @@ public class FeedbackFacade {
 		InterviewRTO interview = interviewService.findInterviewForApproval((long) interviewId);
 		MotivationFeedback motFeedback = feedbackService.insertMotivationFeedback(feedbackTO, interviewId);
 		interviewService.updateInterviewMotFeedback(interviewId, motFeedback, feedbackTO.getFinalFeedback());
-
-		mailService.sendMail(interview.getAssignerMail(), interview.getInterviewerMail(), interview.getAssignerMail(), 
-				mailUtils.createInterviewSubject(interview.getCandidateName(), interview.getCandidateSurname()), 
-				mailUtils.createInsertFeedbackBody(interview.getCandidateName(), interview.getCandidateSurname()));
-
+		
+		MailParametersTO mailParams = new MailParametersTO(Arrays.asList(interview.getInterviewerMail()), 
+				Arrays.asList(interview.getAssignerMail()), 
+				Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()), 
+				Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()), 
+				WebPaths.ASSIGNED);
+		mailService.sendMail(mailParams, MailTypeEnum.FEEDBACK_INSERT);	
 		return new CreateMotivationFeedbackRTO(feedbackTO);
 	}
 

@@ -16,9 +16,9 @@ import com.accenture.interview.entity.Interview;
 import com.accenture.interview.entity.Interviewer;
 import com.accenture.interview.entity.MotivationFeedback;
 import com.accenture.interview.entity.Site;
-import com.accenture.interview.entity.TechFeedback;
-import com.accenture.interview.repository.AvailabilityRepository;
-import com.accenture.interview.repository.InterviewRepository;
+import com.accenture.interview.entity.TechnicalFeedback;
+import com.accenture.interview.repository.interview.AvailabilityRepository;
+import com.accenture.interview.repository.interview.InterviewRepository;
 import com.accenture.interview.rto.candidate.CandidateTypeRTO;
 import com.accenture.interview.rto.general.StartEndDateRTO;
 import com.accenture.interview.rto.interview.DateListRTO;
@@ -70,7 +70,7 @@ public class InterviewService {
 	 * @param feedback      the feedback
 	 * @param finalFeedback the final feedback
 	 */
-	public void updateInterviewTechFeedback(Long idColloquio, TechFeedback feedback, String finalFeedback) {
+	public void updateInterviewTechFeedback(Long idColloquio, TechnicalFeedback feedback, String finalFeedback) {
 		Optional<Interview> optInterview = interviewRepository.findInterviewById(idColloquio);
 		if(optInterview.isPresent()) {
 			Interview interview = optInterview.get();
@@ -159,7 +159,7 @@ public class InterviewService {
 	 * @param assigner the assigner
 	 * @return the creates the interview response
 	 */
-	public Interview addNewInterview(CreateInterviewTO request, CandidateTypeRTO type, InterviewerRTO interviewer, SiteRTO site, InterviewerRTO assigner) {
+	public Long addNewInterview(CreateInterviewTO request, CandidateTypeRTO type, InterviewerRTO interviewer, SiteRTO site, InterviewerRTO assigner) {
 		Interview interview = new Interview(request);
 		interview.setSite(new Site(site.getId(), site.getName()));
 		interview.setCandidateTypeId(new CandidateType(type.getId(), type.getDescription()));
@@ -167,7 +167,8 @@ public class InterviewService {
 		interview.setInterviewerId(new Interviewer(interviewer.getId(), interviewer.getEnterpriseId(), interviewer.getMail(), interviewer.getType()));				
 		interview.setInterviewType(getInterviewTypeFromString(request.getInterviewType()));
 		interview.setStatus(InterviewStatusEnum.NEW.getValue());
-		return interviewRepository.save(interview);
+		Interview saved = interviewRepository.save(interview);
+		return saved.getId();
 	}
 
 	/**

@@ -16,6 +16,7 @@ import com.accenture.interview.to.interview.ApproveAvailabilityTO;
 import com.accenture.interview.to.interview.CreateInterviewTO;
 import com.accenture.interview.to.interview.InsertAvailabilityTO;
 import com.accenture.interview.to.interview.SearchInterviewTO;
+import com.accenture.interview.to.interview.UploadCvTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 
 /**
@@ -70,6 +71,7 @@ public class PaginationController extends BaseController {
 		modelAndView.addObject("createInterviewTO", new CreateInterviewTO());
 		modelAndView.addObject("comboSitesDB", interviewFacade.getComboSites());
 		modelAndView.addObject("registerUserTO", new RegisterInterviewerTO());
+		modelAndView.addObject("uploadCvTO", new UploadCvTO());
 		modelAndView.setViewName("insert.html");
 		return modelAndView;
 	}
@@ -142,7 +144,7 @@ public class PaginationController extends BaseController {
 		modelAndView.addObject("interviewer", interviewerFacade.interviewerInfo(username));
 		modelAndView.addObject("interviews", interviewFacade.getCompletedInterviews(username));
 		modelAndView.addObject("registerUserTO", new RegisterInterviewerTO());
-		modelAndView.setViewName("my-interviews.html");
+		modelAndView.setViewName("completed.html");
 		return modelAndView;
 	}
 

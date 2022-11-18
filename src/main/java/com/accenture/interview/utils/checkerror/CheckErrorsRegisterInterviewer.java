@@ -71,7 +71,7 @@ public class CheckErrorsRegisterInterviewer {
 		InterviewerRTO interviewer = interviewerService.findInterviewerByMail(registerUserTO.getMail());
 		
 		if(!ObjectUtils.isEmpty(interviewer)) {
-			errorMsg = messageSource.getMessage("interviewer.alredyexists.mail", null, Locale.getDefault());
+			errorMsg = messageSource.getMessage("interviewer.error.mail.already-exists", null, Locale.getDefault());
 			return new ErrorRTO(errorMsg);
 		}
 		

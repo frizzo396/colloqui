@@ -18,6 +18,7 @@ import javax.validation.constraints.NotNull;
 
 import com.accenture.interview.to.interview.CreateInterviewTO;
 import com.accenture.interview.utils.enums.InterviewStatusEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * The Class Interview.
@@ -93,7 +94,7 @@ public class Interview {
 	/** The tech feedback id. */
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "tech_feedback_id", referencedColumnName = "id")
-	private TechFeedback techFeedbackId;
+	private TechnicalFeedback techFeedbackId;
 
 	/** The interviewer id. */
 	@ManyToOne
@@ -106,6 +107,12 @@ public class Interview {
 
 	/** The final feedback. */
 	private String finalFeedback;
+	
+	/** The interview. */
+	@OneToOne
+	@JoinColumn(name = "curriculum_id", referencedColumnName = "id")
+	@JsonIgnore
+	private Curriculum curriculum;
 
 	/**
 	 * Instantiates a new interview.
@@ -124,7 +131,6 @@ public class Interview {
 		this.candidateSurname = createInterviewRequest.getCandidateSurname();
 		this.candidateBirth = createInterviewRequest.getCandidateBirth();
 		this.mail = createInterviewRequest.getMail();
-		this.candidateCv = createInterviewRequest.getCv();
 		this.qualification = createInterviewRequest.getEduQualification();
 		this.status = InterviewStatusEnum.NEW.getValue();
 	}
@@ -237,11 +243,11 @@ public class Interview {
 		this.motivationFeedbackId = motivationFeedbackId;
 	}
 
-	public TechFeedback getTechFeedbackId() {
+	public TechnicalFeedback getTechFeedbackId() {
 		return techFeedbackId;
 	}
 
-	public void setTechFeedbackId(TechFeedback techFeedbackId) {
+	public void setTechFeedbackId(TechnicalFeedback techFeedbackId) {
 		this.techFeedbackId = techFeedbackId;
 	}
 
@@ -279,6 +285,12 @@ public class Interview {
 		this.assigner = assigner;
 	}
 
-	
+	public Curriculum getCurriculum() {
+		return curriculum;
+	}
+
+	public void setCurriculum(Curriculum curriculum) {
+		this.curriculum = curriculum;
+	}
 	
 }

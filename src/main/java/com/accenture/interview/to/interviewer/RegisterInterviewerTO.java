@@ -17,16 +17,16 @@ import lombok.Setter;
 public class RegisterInterviewerTO {	
 
 	/** Responsible. */
-	@NotNull(message = "interviewer.responsible.notnull")
+	@NotNull(message = "interviewer.error.responsible.not-null")
 	private Long isResponsible;
 
 	/** The mail. */
-	@Email(message = "interviewer.mail.invalid")
-	@NotEmpty(message = "interviewer.mail.notempty")
+	@Email(message = "interviewer.error.mail.invalid")
+	@NotEmpty(message = "interviewer.error.mail.not-empty")
 	private String mail;
 
 	/** The enterprise id. */
-	@NotEmpty(message = "interviewer.enterpriseid.notempty")
+	@NotEmpty(message = "interviewer.error.enterpriseid.not-empty")
 	private String enterpriseId;
 
 }

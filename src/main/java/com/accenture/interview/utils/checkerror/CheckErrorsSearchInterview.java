@@ -28,7 +28,7 @@ public class CheckErrorsSearchInterview {
 	 */
 	public ErrorRTO validate(SearchInterviewTO searchInterviewTO) {
 		if (this.searchInterviewsEmptyFields(searchInterviewTO)) {
-			return new ErrorRTO(messageSource.getMessage("interview.search.almostonefield", null, Locale.getDefault()));
+			return new ErrorRTO(messageSource.getMessage("interview.error.search.almost-one-field", null, Locale.getDefault()));
 		}
 		return null;
 	}

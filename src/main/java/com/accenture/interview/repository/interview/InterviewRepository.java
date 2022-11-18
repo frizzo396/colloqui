@@ -1,4 +1,4 @@
-package com.accenture.interview.repository;
+package com.accenture.interview.repository.interview;
 
 import java.util.Date;
 import java.util.List;
@@ -31,7 +31,7 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 	@Query("select i from Interview i where i.candidateName= :candidate_name and i.candidateSurname= :candidate_surname and i.mail=:mail")
 	Optional<Interview> findInterviewByNameSurnameAndMail(@Param("candidate_name") String candidateName,
 			@Param("candidate_surname") String candidateSurname, @Param("mail") String mail);
-	
+
 	/**
 	 * Find interview by mail.
 	 *
@@ -91,7 +91,7 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 			@Param("entId") String enterpriseId,
 			@Param("candidateType") String candidateType,
 			@Param("site") String site);
-	
+
 	/**
 	 * Find assigned interviews.
 	 *
@@ -207,7 +207,7 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 	@Query("select i from Interview i where i.interviewerId.enterpriseId=:enterpriseId and i.status = 4 and (i.dueDate BETWEEN :startDate and :endDate)")
 	List<Interview> findYearInterviews(@Param("enterpriseId") String enterpriseId, @Param("startDate") Date startDate, @Param("endDate") Date endDate);
 
-	
+
 	/**
 	 * Find interview by params.
 	 *
@@ -224,6 +224,6 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 			+ "ass.id = i.assigner and "
 			+ "i.id = :interviewId")
 	InterviewRTO findInterviewForApproval(@Param("interviewId") Long interviewId);
-	
-	
+
+
 }

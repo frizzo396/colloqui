@@ -36,11 +36,11 @@ public class CreateMotivationFeedbackTO {
 	private int techQuestion;
 
 	/** The final feedback. */
-	@NotEmpty(message = "feedback.final.notempty")
+	@NotEmpty(message = "feedback.error.final.not-empty")
 	private String finalFeedback;
 
 	/** The comment. */
-	@NotEmpty(message = "feedback.comment.notempty")
+	@NotEmpty(message = "feedback.error.comment.not-empty")
 	private String comment;
 
 }

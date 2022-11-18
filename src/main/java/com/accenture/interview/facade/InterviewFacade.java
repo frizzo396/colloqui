@@ -1,5 +1,6 @@
 package com.accenture.interview.facade;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +14,16 @@ import com.accenture.interview.rto.interview.InterviewAndFeedbackRTO;
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.rto.site.SiteRTO;
 import com.accenture.interview.service.CandidateService;
-import com.accenture.interview.service.MailService;
 import com.accenture.interview.service.FeedbackService;
 import com.accenture.interview.service.InterviewService;
 import com.accenture.interview.service.InterviewerService;
 import com.accenture.interview.service.SiteService;
+import com.accenture.interview.service.general.MailService;
 import com.accenture.interview.to.interview.CreateInterviewTO;
 import com.accenture.interview.to.interview.SearchInterviewTO;
+import com.accenture.interview.to.mail.MailParametersTO;
+import com.accenture.interview.utils.constants.WebPaths;
+import com.accenture.interview.utils.enums.MailTypeEnum;
 import com.accenture.interview.utils.mail.MailUtils;
 
 /**
@@ -52,12 +56,6 @@ public class InterviewFacade {
 	@Autowired
 	private MailService mailService;
 	
-	/** The mail utils. */
-	@Autowired
-	private MailUtils mailUtils;
-
-
-
 	/**
 	 * Gets the combo sites.
 	 *
@@ -80,18 +78,16 @@ public class InterviewFacade {
 		InterviewerRTO assigner = interviewerService.findInterviewerByEnterpriseId(System.getProperty("user.name"));
 		SiteRTO site = siteService.findSiteById(Long.parseLong(request.getSite()));
 
-		if (!(ObjectUtils.isEmpty(interviewer)) 
-				&& !(ObjectUtils.isEmpty(candidateType)) 
-				&& !(ObjectUtils.isEmpty(site))
-				&& !(ObjectUtils.isEmpty(assigner))) {
-			interviewService.addNewInterview(request, candidateType, interviewer, site, assigner);
-			CreateInterviewRTO createInterviewResponse = new CreateInterviewRTO(request);
-			createInterviewResponse.setEnterpriseId(request.getEnterpriseId());
+		if (!(ObjectUtils.isEmpty(interviewer))) {
+			Long interviewId = interviewService.addNewInterview(request, candidateType, interviewer, site, assigner);
 			response = new CreateInterviewRTO(request);
-
-			mailService.sendMail(assigner.getMail(), interviewer.getMail(), assigner.getMail(), 
-					mailUtils.createInterviewSubject(response.getCandidateName(), response.getCandidateSurname()), 
-					mailUtils.createInsertInterviewBody(response.getCandidateName(), response.getCandidateSurname()));
+			response.setInterviewId(interviewId);
+			
+			MailParametersTO mailParams = new MailParametersTO(Arrays.asList(interviewer.getMail()), 
+					Arrays.asList(assigner.getMail()), 
+					Arrays.asList(response.getCandidateName(), response.getCandidateSurname()), 
+					Arrays.asList(response.getCandidateName(), response.getCandidateSurname()), WebPaths.IN_PROGRESS);
+			mailService.sendMail(mailParams, MailTypeEnum.INTERVIEW_INSERT);		
 		}
 		return response;
 	}

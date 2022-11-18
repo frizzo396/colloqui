@@ -70,8 +70,9 @@ $(document).ready(function (){
 		e.preventDefault(e);
 		$.post($(this).attr('action'), $(this).serialize(), function (response){
 			if(response.error == null){
-					showToast("Operazione avvenuta con successo", "SUCCESS", 3000);
-					setTimeout(function(){RedirectHome()}, 1700);
+					showToast("Colloquio inserito con successo", "SUCCESS", 3000);
+					document.getElementById('insertInterview').reset();
+					createUploadCVModal(response.body.interviewId);
 				}
 				else {
 					showToast(response.error, "ERROR", 3000);
@@ -81,6 +82,11 @@ $(document).ready(function (){
 		return false;
 	});
 });
+
+function createUploadCVModal(interviewId){
+	document.getElementById("uploadCvIntId").value = interviewId;	
+	document.getElementById("upload-cv-modal").classList.add("is-visible");
+}
 
 //Salvataggio intervistatore
 $(document).ready(function (){
@@ -228,9 +234,9 @@ function pagination(){
 					$table.trigger('repaginate');
 				}).appendTo(pager);
 
-				if (!$table.next().hasClass("pager"))
+				 if (!$table.next().hasClass("pager")){
 					pager.insertAfter($table);
-				//pager.insertBefore($table);
+				}
 			}else {				
 				var tableForm = document.getElementById("tableFormColumn");
 				var searchForm = document.getElementById("searchFormColumn");

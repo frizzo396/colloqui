@@ -1,4 +1,4 @@
-package com.accenture.interview.repository;
+package com.accenture.interview.repository.feedback;
 
 import java.util.Optional;
 

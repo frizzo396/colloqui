@@ -1,4 +1,4 @@
-package com.accenture.interview.service;
+package com.accenture.interview.service.general;
 
 import java.time.ZoneId;
 import java.util.ArrayList;

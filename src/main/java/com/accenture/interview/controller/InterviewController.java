@@ -13,14 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.accenture.interview.annotation.Registered;
+import com.accenture.interview.facade.CurriculumFacade;
 import com.accenture.interview.facade.InterviewFacade;
 import com.accenture.interview.facade.InterviewerFacade;
 import com.accenture.interview.rto.general.BaseResponseRTO;
 import com.accenture.interview.rto.general.ErrorRTO;
 import com.accenture.interview.to.interview.CreateInterviewTO;
 import com.accenture.interview.to.interview.SearchInterviewTO;
+import com.accenture.interview.to.interview.UploadCvTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 import com.accenture.interview.utils.checkerror.CheckErrorsInsertInterview;
+import com.accenture.interview.utils.checkerror.CheckErrorsUploadCurriculum;
 
 /**
  * The Class InterviewController.
@@ -37,9 +40,17 @@ public class InterviewController {
 	@Autowired
 	private InterviewerFacade interviewerFacade;
 	
+	/** The cv facade. */
+	@Autowired
+	private CurriculumFacade cvFacade;
+	
 	/** The check errors insert interview. */
 	@Autowired
 	private CheckErrorsInsertInterview checkErrorsInsertInterview;
+	
+	/** The check errors upload cv. */
+	@Autowired
+	private CheckErrorsUploadCurriculum checkErrorsUploadCv;
 	
 
 
@@ -49,7 +60,7 @@ public class InterviewController {
 	 * @param createInterviewTO the create interview TO
 	 * @return the response entity
 	 */
-	@PostMapping("/create")
+	@PostMapping(path = "/create")
 	@Registered	
 	public @ResponseBody ResponseEntity<Object> createInterview(@RequestBody @ModelAttribute CreateInterviewTO createInterviewTO) {
 		ErrorRTO errorRTO = checkErrorsInsertInterview.validate(createInterviewTO);
@@ -59,13 +70,30 @@ public class InterviewController {
 		}
 		return new ResponseEntity<>(new BaseResponseRTO(interviewFacade.addNewInterview(createInterviewTO)), HttpStatus.OK);
 	}
+	
+	/**
+	 * Upload CV.
+	 *
+	 * @param uploadCvTO the upload cv TO
+	 * @return the response entity
+	 */
+	@PostMapping(path = "/upload-cv")
+	@Registered	
+	public @ResponseBody ResponseEntity<Object> uploadCV(@ModelAttribute UploadCvTO uploadCvTO) {
+		ErrorRTO errorRTO = checkErrorsUploadCv.validate(uploadCvTO);
+
+		if (!ObjectUtils.isEmpty(errorRTO)) {
+			return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
+		}
+		return new ResponseEntity<>(cvFacade.uploadCurriculum(uploadCvTO), HttpStatus.OK);
+	}
 
 	/**
 	 * Search interview.
 	 *
-	 * @param searchInterviewTO the search interview request
+	 * @param searchInterviewTO the search interview TO
 	 * @param model the model
-	 * @return the response entity
+	 * @return the string
 	 */
 	@PostMapping("/search")
 	@Registered	

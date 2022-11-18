@@ -21,44 +21,42 @@ import lombok.Setter;
 public class CreateInterviewTO {
 	
     /** The site. */
-	@NotEmpty(message = "interview.site.notempty")
+	@NotEmpty(message = "interview.error.site.not-empty")
 	private String site;
 
 	/** The candidate name. */
-	@NotEmpty(message = "candidate.name.notempty")
+	@NotEmpty(message = "interview.error.candidate.name.not-empty")
 	private String candidateName;
 
 	/** The candidate surname. */
-	@NotEmpty(message = "candidate.surname.notempty")
+	@NotEmpty(message = "interview.error.candidate.surname.not-empty")
 	private String candidateSurname;
 
 	/** The candidate birth. */
-	@NotNull(message = "candidate.birthday.notempty")
+	@NotNull(message = "interview.error.candidate.birthday.not-empty")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date candidateBirth;
 
 	/** The mail. */
-	@Email(message = "candidate.mail.invalid")
-	@NotEmpty(message = "candidate.mail.notempty")
+	@Email(message = "interview.error.candidate.mail.invalid")
+	@NotEmpty(message = "interview.error.candidate.mail.not-empty")
 	private String mail;
 
-	/** The cv. */
-	private String cv;
-
 	/** The edu qualification. */
-	@NotEmpty(message = "candidate.qualification.notempty")
+	@NotEmpty(message = "interview.error.candidate.qualification.not-empty")
 	private String eduQualification;
 
 	/** The candidate type. */
-	@NotEmpty(message = "candidate.type.notempty")
+	@NotEmpty(message = "interview.error.candidate.type.not-empty")
 	private String candidateType;
 
 	/** The interview type. */
-	@NotEmpty(message = "interview.type.notempty")
+	@NotEmpty(message = "interview.error.type.not-empty")
 	private String interviewType;
 
 	/** The enterprise id. */
-	@NotEmpty(message = "interviewer.enterpriseid.notempty")
+	@NotEmpty(message = "interview.error.enterpriseid.not-empty")
 	private String enterpriseId;
+	
 
 }

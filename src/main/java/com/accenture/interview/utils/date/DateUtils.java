@@ -1,7 +1,9 @@
 package com.accenture.interview.utils.date;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Date;
@@ -59,6 +61,20 @@ public class DateUtils {
 			result.add(new InterviewMonthRTO(i, Months.getMonth(i).getValue(), 0));
 		}
 		return result;
+	}
+	
+	/**
+	 * Format date to string.
+	 *
+	 * @param date the date
+	 * @return the string
+	 */
+	public static String formatDateToString(Date date) {
+		LocalDateTime localDate = date.toInstant()
+				.atZone(ZoneId.systemDefault())
+				.toLocalDateTime();
+
+		return localDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
 	}
 
 }

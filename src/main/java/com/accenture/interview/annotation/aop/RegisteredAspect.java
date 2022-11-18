@@ -17,7 +17,7 @@ import com.accenture.interview.to.interviewer.RequestRegistrationTO;
  */
 @Aspect
 @Component
-public class AuthAspect {
+public class RegisteredAspect {
 	
 	/** The interviewer service. */
 	@Autowired
@@ -34,7 +34,7 @@ public class AuthAspect {
 	@Around("@annotation(com.accenture.interview.annotation.Registered)")
 	public Object checkUserRegistered(ProceedingJoinPoint joinPoint) throws Throwable {
 		ModelAndView modelAndView = new ModelAndView();
-		String username = System.getProperty("user.name") /*"ent.id"*/;
+		String username = System.getProperty("user.name");
 		InterviewerRTO interviewer = interviewerService.findInterviewerByEnterpriseId(username);
 
 		if(ObjectUtils.isEmpty(interviewer)) {

@@ -1,8 +1,8 @@
 package com.accenture.interview.to.interview;
 
-import java.util.Date;
-
 import javax.validation.constraints.NotNull;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,14 +16,14 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ApproveAvailabilityTO {
+public class UploadCvTO {
 	
 	/** The interview id. */
 	@NotNull(message = "interview.error.not-found")
 	private Long interviewId;
 	
-	/** The approved date. */
-	@NotNull(message = "availability.error.approve-date.not-empty")
-	private Date approvedDate;
+	/** The curriculum. */
+	@NotNull(message = "curriculum.not-empty")
+	private MultipartFile curriculum;
 
 }

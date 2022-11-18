@@ -20,7 +20,9 @@ import lombok.Setter;
  */
 @NoArgsConstructor
 public class CreateInterviewRTO {
-
+	
+	private Long interviewId;
+	
 	/** The candidate name. */
 	private String candidateName;
 

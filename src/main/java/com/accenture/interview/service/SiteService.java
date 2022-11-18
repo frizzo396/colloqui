@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.accenture.interview.entity.Site;
-import com.accenture.interview.repository.SiteRepository;
+import com.accenture.interview.repository.interview.SiteRepository;
 import com.accenture.interview.rto.site.SiteRTO;
 
 /**

@@ -18,6 +18,8 @@ jQuery(document).ready(function ($) {
 		event.preventDefault();
 		$('#availability-modal').addClass('is-visible');  	
     	});
+    	
+
     
 
     //close popup when clicking the esc keyboard button
@@ -149,6 +151,10 @@ function createApproveAvailablityModal(interviewId, dateInterviewList){
 }
 
 
+
+
+
+
 function pagination(){
     $('table.paginated').each(function () {
         var $table = $(this);
@@ -184,8 +190,10 @@ function pagination(){
                     $table.trigger('repaginate');
                 }).appendTo(pager);
 
-                if (!$table.next().hasClass("pager"))
-                    pager.insertAfter($table);
+                if (!$table.next().hasClass("pager")){
+					pager.insertAfter($table);
+				}
+                
                 //pager.insertBefore($table);	
 			}else {
 				var tableForm = document.getElementById("tableFormColumn");

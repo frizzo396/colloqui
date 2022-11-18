@@ -12,8 +12,8 @@
 						th:action="@{/interviewer/register}" th:object="${registerUserTO}"
 						method="post">
 						<div class="form-group">
-							<div class="row" id="registerRow">
-								<div class="column">
+							<div class="row">
+								<div class="column" style= "width: 100%">
 									<div class="form-group">
 										<label>Enterprise id</label> <input id="registerEntId"
 											)type="text" th:field="*{enterpriseId}"
@@ -22,7 +22,9 @@
 											th:errors="*{enterpriseId}">Enterprise Id Error</small>
 									</div>
 								</div>
-								<div class="column">
+							</div>								
+							<div class="row">
+							<div class="column" style= "width: 100%">
 									<div class="form-group">
 										<label>Email</label> <input id="registerMail" type="email"
 											th:field="*{mail}" placeholder="mail@mail.com" /> <small

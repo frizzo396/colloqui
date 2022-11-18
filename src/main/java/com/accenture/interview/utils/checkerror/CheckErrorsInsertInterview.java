@@ -58,15 +58,15 @@ public class CheckErrorsInsertInterview {
 		}
 
 		if(interviewAlreadyExists(createInterviewTO.getMail())) {
-			return new ErrorRTO(messageSource.getMessage("interview.alreadyexists", null, Locale.getDefault()));
+			return new ErrorRTO(messageSource.getMessage("interview.error.already-exists", null, Locale.getDefault()));
 		}
 		
 		if(!candidateTypeExists(createInterviewTO.getCandidateType())) {
-			return new ErrorRTO(messageSource.getMessage("candidate.type.invalid", null, Locale.getDefault()));
+			return new ErrorRTO(messageSource.getMessage("interview.error.candidate.type.invalid", null, Locale.getDefault()));
 		}
 
 		if(!interviewerExists(createInterviewTO.getEnterpriseId())) {
-			return new ErrorRTO(messageSource.getMessage("interviewer.notexists", null, Locale.getDefault())); 
+			return new ErrorRTO(messageSource.getMessage("interviewer.not-found", null, Locale.getDefault())); 
 		}
 		return null;
 	}

@@ -1,0 +1,35 @@
+
+<div class="cd-popup-container" id="uploadCVModal">
+	<div class="col-lg-8 col-lg-offset-2" id="modalColumn">
+		<div class="container" id="containerInsert">
+			<div class="row">
+				<header class="containerHeader">
+					<label class="containerLabel">Upload CV</label> <em
+						id="closeModal" class='bx bx-x'></em>
+				</header>
+				<form class="inp-form" id="approveAvailability" action="#"
+					th:action="@{/interview/upload-cv}"
+					th:object="${uploadCvTO}" method="post" enctype="multipart/form-data">
+					<div class="col-lg-8 col-lg-offset-2" id="uploadCVFormColumn">
+						<div class="row">
+							<div class="column">
+								<div class="form-group">
+									<label>Curriculum</label> 
+									<input id="uploadCvIntId" type="hidden" th:field="*{interviewId}" value=0 /> 
+									<input type="file" id="cv" name="curriculum" accept="pdf" />
+								</div>
+							</div>
+						</div>
+						<div class="row" id="singleButtonRow">
+							<div class="button-column">
+								<div class="form-group">
+									<button class="submit-button" type="submit">Upload</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

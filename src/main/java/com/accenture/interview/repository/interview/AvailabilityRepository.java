@@ -1,4 +1,4 @@
-package com.accenture.interview.repository;
+package com.accenture.interview.repository.interview;
 
 import java.util.Date;
 import java.util.List;

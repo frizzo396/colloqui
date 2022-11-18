@@ -50,7 +50,7 @@ public class CheckErrorsInsertFeedback {
 		}
 			
 		if(!isInterviewer(interviewId)) {
-			errorMsg = messageSource.getMessage("feedback.interviewer.notequal", null, Locale.getDefault());
+			errorMsg = messageSource.getMessage("feedback.error.interviewer.not-equal", null, Locale.getDefault());
 			return new ErrorRTO(errorMsg);
 		}
 		return null;

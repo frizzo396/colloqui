@@ -1,4 +1,4 @@
-package com.accenture.interview.repository;
+package com.accenture.interview.repository.interviewer;
 
 import java.util.List;
 import java.util.Optional;

@@ -29,7 +29,6 @@ public enum InterviewStatusEnum
 	/** The in progress. */
 	IN_PROGRESS(2),
 	
-
 	/** The scheduled. */
 	SCHEDULED(3),
 		

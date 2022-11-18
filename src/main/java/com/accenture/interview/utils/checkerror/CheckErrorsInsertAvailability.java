@@ -44,7 +44,7 @@ public class CheckErrorsInsertAvailability {
 			return new ErrorRTO(errorMsg);
 		}
 		if(ObjectUtils.isEmpty(interviewService.findInterviewById(insertAvailabilityTO.getInterviewId()))) {
-			String errorMsg = messageSource.getMessage("availability.interview.notfound", null, Locale.getDefault());
+			String errorMsg = messageSource.getMessage("interview.error.not-found", null, Locale.getDefault());
 			return new ErrorRTO(errorMsg);
 		}
 		return null;

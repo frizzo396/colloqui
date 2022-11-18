@@ -1,4 +1,4 @@
-package com.accenture.interview.repository;
+package com.accenture.interview.repository.interview;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import com.accenture.interview.rto.site.SiteRTO;
  */
 @Repository
 public interface SiteRepository extends JpaRepository<Site, Long> {	
-	
+
 	/**
 	 * Find all sites.
 	 *

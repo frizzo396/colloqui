@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.accenture.interview.entity.Availability;
 import com.accenture.interview.entity.Interview;
-import com.accenture.interview.repository.AvailabilityRepository;
-import com.accenture.interview.repository.InterviewRepository;
+import com.accenture.interview.repository.interview.AvailabilityRepository;
+import com.accenture.interview.repository.interview.InterviewRepository;
 import com.accenture.interview.to.interview.ApproveAvailabilityTO;
 import com.accenture.interview.to.interview.InsertAvailabilityTO;
 import com.accenture.interview.utils.enums.InterviewStatusEnum;

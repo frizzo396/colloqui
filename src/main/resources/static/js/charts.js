@@ -36,7 +36,8 @@ function drawTotalChart() {
   		legend: {
         	textStyle: { color: 'black' },
         	position: "bottom",
-        	fontSize: 12
+        	fontSize: 15,
+        	pieSliceTextStyle: {color: '#ff0000', fontSize: 18}
 		}, 
 		titleTextStyle: {
     		color: 'black'
@@ -66,7 +67,8 @@ function drawMonthChart() {
   		legend: {
         	textStyle: { color: 'black' },
 			position: "bottom",
-			fontSize: 12
+			fontSize: 12,
+		   pieSliceTextStyle: {color: '#ff0000', fontSize: 18}
 		}, 
 		titleTextStyle: {
     		color: 'black'

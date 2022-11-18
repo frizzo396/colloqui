@@ -11,18 +11,15 @@ public class WebPaths {
 	/** The Constant HOST. */
 	public static final String HOST = "localhost:8080";
 	
-	/** The Constant BASE_PATH. */
-	public static final String BASE_PATH = "/interview-ms";
-	
 	/** The Constant HOME. */
-	public static final String HOME = "/home";
-	
-	/** The Constant ASSIGNED. */
-	public static final String ASSIGNED = "/interview/assigned";
+	public static final String HOME = "http://localhost:8080/interview-ms/home";
 	
 	/** The Constant IN_PROGRESS. */
-	public static final String IN_PROGRESS = "/interview/in-progress";
+	public static final String IN_PROGRESS = "http://localhost:8080/interview-ms/interview/in-progress";
 	
+	/** The Constant IN_PROGRESS. */
+	public static final String ASSIGNED = "http://localhost:8080/interview-ms/interview/assigned";
+
 	/**
 	 * Instantiates a new web paths.
 	 */

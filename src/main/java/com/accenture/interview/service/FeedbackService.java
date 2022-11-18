@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 
 import com.accenture.interview.entity.Interview;
 import com.accenture.interview.entity.MotivationFeedback;
-import com.accenture.interview.entity.TechFeedback;
-import com.accenture.interview.repository.InterviewRepository;
-import com.accenture.interview.repository.MotivationFeedbackRepository;
-import com.accenture.interview.repository.TechFeedbackRepository;
+import com.accenture.interview.entity.TechnicalFeedback;
+import com.accenture.interview.repository.feedback.MotivationFeedbackRepository;
+import com.accenture.interview.repository.feedback.TechFeedbackRepository;
+import com.accenture.interview.repository.interview.InterviewRepository;
 import com.accenture.interview.rto.feedback.MotivationalFeedbackRTO;
 import com.accenture.interview.rto.feedback.TechnicalFeedbackRTO;
 import com.accenture.interview.rto.interview.InterviewAndFeedbackRTO;
@@ -45,8 +45,8 @@ public class FeedbackService {
 	 * @param interviewId the id colloquio
 	 * @return the creates the tech feedback response
 	 */
-	public TechFeedback insertTechFeedback(CreateTechFeedbackTO createTechFeedbackTO, Long interviewId) {
-		TechFeedback techFeedback = new TechFeedback(createTechFeedbackTO);
+	public TechnicalFeedback insertTechFeedback(CreateTechFeedbackTO createTechFeedbackTO, Long interviewId) {
+		TechnicalFeedback techFeedback = new TechnicalFeedback(createTechFeedbackTO);
 		Optional<Interview> optInterview = interviewRepository.findInterviewById(interviewId);		
 		if(optInterview.isPresent()) {
 			techFeedback.setInterview(optInterview.get());
