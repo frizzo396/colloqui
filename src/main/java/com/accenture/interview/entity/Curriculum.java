@@ -10,19 +10,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
+/**
+ * The Class Curriculum.
+ */
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity(name = "curriculum")
+@Entity
 @Table(name = "curriculum")
 public class Curriculum {
 	
@@ -39,13 +40,14 @@ public class Curriculum {
 	@Column(name = "upload_date")
 	private Date uploadDate;
 	
+	/** The content. */
 	@Lob
+	@Column(name = "content")
 	@Basic(fetch = FetchType.LAZY)
 	private byte[] content;
 	
-	/** The interview. */
-	@OneToOne(mappedBy = "curriculum")
-	@JsonIgnore
-	private Interview interview;
+	/** The interview id. */
+	@Column(name = "interview_id")
+	private Long interviewId;
 	
 }

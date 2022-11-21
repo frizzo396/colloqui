@@ -18,7 +18,6 @@ import javax.validation.constraints.NotNull;
 
 import com.accenture.interview.to.interview.CreateInterviewTO;
 import com.accenture.interview.utils.enums.InterviewStatusEnum;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * The Class Interview.
@@ -106,13 +105,12 @@ public class Interview {
 	private long assigner;
 
 	/** The final feedback. */
+	@Column(name = "final_feedback")
 	private String finalFeedback;
 	
-	/** The interview. */
-	@OneToOne
-	@JoinColumn(name = "curriculum_id", referencedColumnName = "id")
-	@JsonIgnore
-	private Curriculum curriculum;
+	/** The curriculumId. */
+	@Column(name = "curriculum_id")
+	private Long curriculumId;
 
 	/**
 	 * Instantiates a new interview.
@@ -285,12 +283,14 @@ public class Interview {
 		this.assigner = assigner;
 	}
 
-	public Curriculum getCurriculum() {
-		return curriculum;
+	public Long getCurriculumId() {
+		return curriculumId;
 	}
 
-	public void setCurriculum(Curriculum curriculum) {
-		this.curriculum = curriculum;
+	public void setCurriculumId(Long curriculumId) {
+		this.curriculumId = curriculumId;
 	}
+
+
 	
 }

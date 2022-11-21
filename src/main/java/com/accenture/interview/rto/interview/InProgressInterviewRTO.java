@@ -40,4 +40,6 @@ public class InProgressInterviewRTO {
 	
 	private Integer status;
 	
+	private Long cvId;
+	
 }

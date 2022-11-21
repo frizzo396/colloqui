@@ -1,12 +1,17 @@
 package com.accenture.interview.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +22,7 @@ import com.accenture.interview.facade.CurriculumFacade;
 import com.accenture.interview.facade.InterviewFacade;
 import com.accenture.interview.facade.InterviewerFacade;
 import com.accenture.interview.rto.general.BaseResponseRTO;
+import com.accenture.interview.rto.general.DownloadFileRTO;
 import com.accenture.interview.rto.general.ErrorRTO;
 import com.accenture.interview.to.interview.CreateInterviewTO;
 import com.accenture.interview.to.interview.SearchInterviewTO;
@@ -86,6 +92,26 @@ public class InterviewController {
 			return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
 		}
 		return new ResponseEntity<>(cvFacade.uploadCurriculum(uploadCvTO), HttpStatus.OK);
+	}
+	
+	/**
+	 * Download CV.
+	 *
+	 * @param interviewId the interview id
+	 * @return the response entity
+	 */
+	@GetMapping(path = "/download-cv/{cvId}")
+	@Registered	
+	public @ResponseBody ResponseEntity<Object> downloadCV(@PathVariable("cvId")Long interviewId) {
+		BaseResponseRTO response = cvFacade.downloadCurriculum(interviewId);
+		if(ObjectUtils.isEmpty(response.getError())) {			
+			DownloadFileRTO file = (DownloadFileRTO) response.getBody();
+			return ResponseEntity.ok()
+	                .contentType(MediaType.APPLICATION_PDF)
+	                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFileName() + "\"")
+	                .body(new ByteArrayResource(file.getContent()));
+		}
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
 	/**

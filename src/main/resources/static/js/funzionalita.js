@@ -276,7 +276,7 @@ $(document).ready(function (){
 		e.preventDefault(e);
 		$.post($(this).attr('action'), $(this).serialize(), function (response){
 			if(response.error == null){
-					showToast("Operazione avvenuta con successo'", "SUCCESS", 3000);
+					showToast("Operazione avvenuta con successo", "SUCCESS", 3000);
 					setTimeout(function(){RedirectInProgress()}, 1500);
 				}
 				else {
@@ -295,7 +295,25 @@ $(document).ready(function (){
 		e.preventDefault(e);
 		$.post($(this).attr('action'), $(this).serialize(), function (response){
 			if(response.error == null){
-					showToast("Richiesta inviata con successo'", "SUCCESS", 3000);
+					showToast("Richiesta inviata con successo", "SUCCESS", 3000);
+			}
+			else {
+				showToast(response.error, "ERROR", 3000);
+			}
+		}, 'json');
+		return false;
+	});
+});
+
+
+$(document).ready(function (){
+	var $form= $('#uploadCV');
+	$form.submit(function (e) {
+		e.preventDefault(e);
+		$.post($(this).attr('action'), $(this).serialize(), function (response){
+			if(response.error == null){
+					showToast("Operazione eseguita con successo", "SUCCESS", 3000);
+					setTimeout(function(){RedirectHome()}, 1700);
 			}
 			else {
 				showToast(response.error, "ERROR", 3000);
@@ -314,7 +332,7 @@ $(document).ready(function (){
 		e.preventDefault(e);
 		$.post($(this).attr('action'), $(this).serialize(), function (response){
 			if(response.error == null){
-					showToast("Operazione avvenuta con successo'", "SUCCESS", 3000);
+					showToast("Operazione avvenuta con successo", "SUCCESS", 3000);
 					setTimeout(function(){RedirectAssigned()}, 1500);
 				}
 				else {

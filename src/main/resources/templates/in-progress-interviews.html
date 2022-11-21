@@ -43,15 +43,16 @@
                                 <table id="inProgressTable" class="mytable paginated">
                                     <tr>
                                         <th>Candidate </th>
-                                        <th>Level</th>
+                                        <th class="remove">Level</th>
                                         <th class="remove">Interview Type</th>
                                         <th>Availability</th>
-                                        <th>Site</th>
+                                        <th class="remove">Site</th>
+                                        <th>CV</th>
                                         <th>Feedback</th>
                                     </tr>
                                     <tr class="tableRows" th:each="interview: ${interviews}">
  										<td th:text="${interview.candidateName} + ' ' + ${interview.candidateSurname}" />       
- 										<td th:text= "${interview.candidateLevel}"/>   
+ 										<td class="remove" th:text= "${interview.candidateLevel}"/>   
                                         <td class="remove">
                                             <span th:if="${interview.interviewType == 1}">Motivazionale</span>
                                             <span th:unless="${interview.interviewType == 1}">Tecnico</span>
@@ -66,7 +67,14 @@
                                         		<span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).SCHEDULED.value}"  th:text="${#dates.format(interview.scheduledDate, 'dd-MM-YYYY HH:mm')}" >
                                         		</span>
                                         </td>
-                                        <td th:text= "${interview.site}"/>   
+                                        <td class="remove" th:text= "${interview.site}"/>   
+                                        <td>
+                                        		<form action="#" th:action="@{/interview/download-cv/} + ${{interview.id}}" method="get">
+									                <button th:id="'interview_child_button_' + ${interview.id}" type="submit">
+									                    <i class='bx bxs-download' style="font-size: 16px;"></i>
+									                </button>
+									            </form>
+                                        </td>
                                         <td>
 	                                        <span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).SCHEDULED.value}">
 	                                            <span th:if="${interview.interviewType == 1}">
