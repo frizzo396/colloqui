@@ -9,14 +9,14 @@
 				</header>
 				<form class="inp-form" id="uploadCV" action="#"
 					th:action="@{/interview/upload-cv}"
-					th:object="${uploadCvTO}" method="post" enctype="multipart/form-data">
+					th:object="${uploadCvTO}" method="post" enctype="multipart/form-data" onsubmit="return validationUpload()">
 					<div class="col-lg-8 col-lg-offset-2" id="uploadCVFormColumn">
 						<div class="row">
 							<div class="column">
 								<div class="form-group">
 									<label>Curriculum</label> 
 									<input id="uploadCvIntId" type="hidden" th:field="*{interviewId}" value=0 /> 
-									<input type="file" id="cv" name="curriculum" accept="pdf" />
+									<input type="file" id="cv" name="curriculum" accept="application/pdf" />
 								</div>
 							</div>
 						</div>

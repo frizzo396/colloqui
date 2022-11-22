@@ -29,7 +29,6 @@ import com.accenture.interview.to.interview.SearchInterviewTO;
 import com.accenture.interview.to.interview.UploadCvTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 import com.accenture.interview.utils.checkerror.CheckErrorsInsertInterview;
-import com.accenture.interview.utils.checkerror.CheckErrorsUploadCurriculum;
 
 /**
  * The Class InterviewController.
@@ -41,23 +40,18 @@ public class InterviewController {
 	/** The interview facade. */
 	@Autowired
 	private InterviewFacade interviewFacade;
-	
+
 	/** The interviewer facade. */
 	@Autowired
 	private InterviewerFacade interviewerFacade;
-	
+
 	/** The cv facade. */
 	@Autowired
 	private CurriculumFacade cvFacade;
-	
+
 	/** The check errors insert interview. */
 	@Autowired
 	private CheckErrorsInsertInterview checkErrorsInsertInterview;
-	
-	/** The check errors upload cv. */
-	@Autowired
-	private CheckErrorsUploadCurriculum checkErrorsUploadCv;
-	
 
 
 	/**
@@ -76,7 +70,7 @@ public class InterviewController {
 		}
 		return new ResponseEntity<>(new BaseResponseRTO(interviewFacade.addNewInterview(createInterviewTO)), HttpStatus.OK);
 	}
-	
+
 	/**
 	 * Upload CV.
 	 *
@@ -85,15 +79,29 @@ public class InterviewController {
 	 */
 	@PostMapping(path = "/upload-cv")
 	@Registered	
-	public @ResponseBody ResponseEntity<Object> uploadCV(@ModelAttribute UploadCvTO uploadCvTO) {
-		ErrorRTO errorRTO = checkErrorsUploadCv.validate(uploadCvTO);
-
-		if (!ObjectUtils.isEmpty(errorRTO)) {
-			return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
+	public String uploadCV(@ModelAttribute UploadCvTO uploadCvTO, Model model) {
+		String username = System.getProperty("user.name");
+		BaseResponseRTO response = cvFacade.uploadCurriculum(uploadCvTO);
+		if(ObjectUtils.isEmpty(response.getError())) {
+			model.addAttribute("interviewer", interviewerFacade.interviewerInfo(username));
+			model.addAttribute("inProgressInterviews", interviewerFacade.getInProgressInterviewsNumber(username));
+			model.addAttribute("myInterviews", interviewerFacade.getMyInterviewsNumber(username));
+			model.addAttribute("myInterviewsMonth", interviewerFacade.getMonthCompletedInterviewsNumber(username));
+			model.addAttribute("inProgressInterviewsMonth", interviewerFacade.getMonthInProgressInterviewsNumber(username));
+			model.addAttribute("yearMonthInterviews", interviewerFacade.getYearCompletedInterviews(username));
+			model.addAttribute("registerUserTO", new RegisterInterviewerTO());
+			return "home";
+		} 
+		else {
+			model.addAttribute("interviewer", interviewerFacade.interviewerInfo(username));
+			model.addAttribute("createInterviewTO", new CreateInterviewTO());
+			model.addAttribute("comboSitesDB", interviewFacade.getComboSites());
+			model.addAttribute("registerUserTO", new RegisterInterviewerTO());
+			model.addAttribute("uploadCvTO", new UploadCvTO());
+			return "insert";
 		}
-		return new ResponseEntity<>(cvFacade.uploadCurriculum(uploadCvTO), HttpStatus.OK);
 	}
-	
+
 	/**
 	 * Download CV.
 	 *
@@ -107,9 +115,9 @@ public class InterviewController {
 		if(ObjectUtils.isEmpty(response.getError())) {			
 			DownloadFileRTO file = (DownloadFileRTO) response.getBody();
 			return ResponseEntity.ok()
-	                .contentType(MediaType.APPLICATION_PDF)
-	                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFileName() + "\"")
-	                .body(new ByteArrayResource(file.getContent()));
+					.contentType(MediaType.APPLICATION_PDF)
+					.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFileName() + "\"")
+					.body(new ByteArrayResource(file.getContent()));
 		}
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}

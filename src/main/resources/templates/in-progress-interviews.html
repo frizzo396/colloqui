@@ -20,8 +20,11 @@
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
-        <script type="text/javascript" th:src="@{/js/funzionalita2.js}"></script>
-        <script type="text/javascript" th:src="@{/js/funzionalita.js}"></script>
+      	<script type="text/javascript" th:src="@{/js/general.js}"></script>
+      	<script type="text/javascript" th:src="@{/js/registration.js}"></script>
+      	<script type="text/javascript" th:src="@{/js/availability.js}"></script>
+      	<script type="text/javascript" th:src="@{/js/table.js}"></script>
+      	<script type="text/javascript" th:src="@{/js/feedback.js}"></script>
         <script type="text/javascript" th:src="@{/js/sidebar.js}"></script>
     </head>
     <body>
@@ -68,20 +71,22 @@
                                         		</span>
                                         </td>
                                         <td class="remove" th:text= "${interview.site}"/>   
-                                        <td>
-                                        		<form action="#" th:action="@{/interview/download-cv/} + ${{interview.id}}" method="get">
-									                <button th:id="'interview_child_button_' + ${interview.id}" type="submit">
-									                    <i class='bx bxs-download' style="font-size: 16px;"></i>
-									                </button>
-									            </form>
+                                        <td>                                      		
+	                                        	<form id="downloadCV" action="#" th:action="@{/interview/download-cv/} + ${{interview.id}}" method="get">
+		                                        	<span th:if="${interview.cvId != null}">
+											                <button th:id="'interview_child_button_' + ${interview.id}" type="submit">
+											                    <i class='bx bxs-download' style="font-size: 16px;"></i>
+											                </button>
+											         </span>
+										         </form>							            
                                         </td>
                                         <td>
 	                                        <span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).SCHEDULED.value}">
 	                                            <span th:if="${interview.interviewType == 1}">
-	                                                <button type="submit" class="motiv-popup" th:data-parameter1="${interview.id}" onclick="GotoMotivationalFeedback(this.getAttribute('data-parameter1'));"><em id="plusIcon" class='bx bx-plus'></em></button>
+	                                                <button type="submit" class="motiv-popup" th:data-parameter1="${interview.id}" onclick="gotToMotivationalFeedback(this.getAttribute('data-parameter1'));"><em id="plusIcon" class='bx bx-plus'></em></button>
 	                                            </span>
 	                                            <span th:unless="${interview.interviewType == 1}">
-	                                                <button type="submit" class="tech-popup" th:data-parameter1="${interview.id}" onclick="GotoTechnicalFeedback(this.getAttribute('data-parameter1'));"><em id="plusIcon" class='bx bx-plus'></em></button>
+	                                                <button type="submit" class="tech-popup" th:data-parameter1="${interview.id}" onclick="goToTechnicalFeedback(this.getAttribute('data-parameter1'));"><em id="plusIcon" class='bx bx-plus'></em></button>
 	                                            </span>
 	                                            </span>
                                         </td>
