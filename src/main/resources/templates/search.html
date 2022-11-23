@@ -86,7 +86,12 @@
                                             <div class="column">
                                                <div class="form-group">
                                                    <label>Interviewer</label>
-                                                   <input type="text" th:field="*{enterpriseId}" placeholder="enterprise.id" id="enterpriseIdS"/>
+                                                   <select class="formcontrol selectpicker" th:field="*{enterpriseId}" id="enterpriseIdS">
+                                                            <option value="">Nothing selected</option>
+                                                             <option th:each="interviewer : ${interviewerList}" th:value="${interviewer.enterpriseId}" th:text="${interviewer.enterpriseId}">
+                                                               site
+                                                            </option>
+                                                    </select>
                                                </div>
                                              </div>
                                              <div class="column">
@@ -160,6 +165,7 @@
                                            		 <td th:switch="${interview.finalFeedback}">
 												    <span th:case="'OK'" th:style="'color: #008000'">OK</span>
 												    <span th:case="'KO'" th:style="'color: #b20000'">KO</span>
+												    <span th:case="'STANDBY'" th:style="'color: #eed202'">STANDBY</span>
 												    <div th:case="*">
 												    <span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).SCHEDULED.value}">
 												         <span th:if="${interview.interviewType == 1}">

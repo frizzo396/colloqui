@@ -11,6 +11,7 @@ import com.accenture.interview.rto.candidate.CandidateTypeRTO;
 import com.accenture.interview.rto.interview.CreateInterviewRTO;
 import com.accenture.interview.rto.interview.InProgressInterviewRTO;
 import com.accenture.interview.rto.interview.InterviewAndFeedbackRTO;
+import com.accenture.interview.rto.interview.InterviewMonthRTO;
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.rto.site.SiteRTO;
 import com.accenture.interview.service.CandidateService;
@@ -24,7 +25,6 @@ import com.accenture.interview.to.interview.SearchInterviewTO;
 import com.accenture.interview.to.mail.MailParametersTO;
 import com.accenture.interview.utils.constants.WebPaths;
 import com.accenture.interview.utils.enums.MailTypeEnum;
-import com.accenture.interview.utils.mail.MailUtils;
 
 /**
  * The Class InterviewFacade.
@@ -134,5 +134,55 @@ public class InterviewFacade {
 	 */
 	public List<InProgressInterviewRTO> getInProgressInterviews(String enterpriseId) {
 		return interviewService.getInProgressInterviews(enterpriseId);
+	}
+	
+	/**
+	 * Gets the in progress interviews number.
+	 *
+	 * @param enterpriseId the enterprise id
+	 * @return the in progress interviews number
+	 */
+	public Integer getInProgressInterviewsNumber(String enterpriseId) {
+		return interviewService.getInProgressInterviewsCount(enterpriseId);
+	}
+
+	/**
+	 * Gets the my interviews number.
+	 *
+	 * @param enterpriseId the enterprise id
+	 * @return the my interviews number
+	 */
+	public Integer getMyInterviewsNumber(String enterpriseId) {
+		return interviewService.getMyInterviewsCount(enterpriseId);
+	}
+
+	/**
+	 * Gets the month in progress interviews number.
+	 *
+	 * @param enterpriseId the enterprise id
+	 * @return the month in progress interviews number
+	 */
+	public Integer getMonthInProgressInterviewsNumber(String enterpriseId) {
+		return interviewService.getInProgressInterviewsMonthCount(enterpriseId);
+	}
+
+	/**
+	 * Gets the month completed interviews number.
+	 *
+	 * @param enterpriseId the enterprise id
+	 * @return the month completed interviews number
+	 */
+	public Integer getMonthCompletedInterviewsNumber(String enterpriseId) {
+		return interviewService.getMyInterviewsMonthCount(enterpriseId);
+	}
+
+	/**
+	 * Gets the year completed interviews.
+	 *
+	 * @param enterpriseId the enterprise id
+	 * @return the year completed interviews
+	 */
+	public List<InterviewMonthRTO> getYearCompletedInterviews(String enterpriseId) {
+		return interviewService.getCompletedYearInterviews(enterpriseId);
 	}
 }

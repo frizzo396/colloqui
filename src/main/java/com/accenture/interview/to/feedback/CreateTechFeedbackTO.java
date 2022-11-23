@@ -1,5 +1,6 @@
 package com.accenture.interview.to.feedback;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
 
 import lombok.Getter;
@@ -15,21 +16,27 @@ import lombok.Setter;
 public class CreateTechFeedbackTO {
 
 	/** The java. */
+	@Max(value = 10, message = "feedback.error.max-score.value")
 	private int java;
 
 	/** The sql voto. */
+	@Max(value = 10, message = "feedback.error.max-score.value")
 	private int sqlVoto;
 
 	/** The html css. */
+	@Max(value = 10, message = "feedback.error.max-score.value")
 	private int htmlCss;
 
 	/** The angular. */
+	@Max(value = 10, message = "feedback.error.max-score.value")
 	private int angular;
 
 	/** The spring. */
+	@Max(value = 10, message = "feedback.error.max-score.value")
 	private int spring;
 
 	/** The other. */
+	@Max(value = 10, message = "feedback.error.max-score.value")
 	private int other;
 
 	/** The final feedback. */

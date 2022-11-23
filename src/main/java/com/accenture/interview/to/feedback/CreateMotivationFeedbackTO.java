@@ -1,5 +1,6 @@
 package com.accenture.interview.to.feedback;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
 
 import lombok.Getter;
@@ -15,24 +16,31 @@ import lombok.Setter;
 public class CreateMotivationFeedbackTO {
 
 	/** The standing. */
+	@Max(value = 10, message = "feedback.error.max-score.value")
 	private int standing;
 
 	/** The school background. */
+	@Max(value = 10, message = "feedback.error.max-score.value")
 	private int schoolBackground;
 
 	/** The motivation. */
+	@Max(value = 10, message = "feedback.error.max-score.value")
 	private int motivation;
 
 	/** The soft skills. */
+	@Max(value = 10, message = "feedback.error.max-score.value")
 	private int softSkills;
 
 	/** The english level. */
+	@Max(value = 10, message = "feedback.error.max-score.value")
 	private int englishLevel;
 
 	/** The logic question. */
+	@Max(value = 10, message = "feedback.error.max-score.value")
 	private int logicQuestion;
 
 	/** The tech question. */
+	@Max(value = 10, message = "feedback.error.max-score.value")
 	private int techQuestion;
 
 	/** The final feedback. */

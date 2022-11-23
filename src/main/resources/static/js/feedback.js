@@ -4,10 +4,13 @@ jQuery(document).ready(function ($) {
     $('.motiv-popup').on('click', function (event) {
 		event.preventDefault();
 		var textAreas = document.getElementsByClassName("content");
-		document.getElementById("collapseIcon").className = "bx bx-plus";
-		Array.prototype.forEach.call(textAreas, function(cont) {
-		   	cont.style.display = 'none';
-		});
+		let collIcon = document.getElementById("collapseIcon");
+		if(collIcon != null) {
+			collIcon.className = "bx bx-plus";
+			Array.prototype.forEach.call(textAreas, function(cont) {
+			   	cont.style.display = 'none';
+			});
+		}
 		$('#motiv-modal').addClass('is-visible');
     	
     });
@@ -16,10 +19,13 @@ jQuery(document).ready(function ($) {
     $('.tech-popup').on('click', function (event) {
 		event.preventDefault();	
 		var textAreas = document.getElementsByClassName("content");
-		document.getElementById("collapseIcon").className = "bx bx-plus";
-		Array.prototype.forEach.call(textAreas, function(cont) {
-		   	cont.style.display = 'none';
-		});
+		let collIcon = document.getElementById("collapseIcon");
+		if(collIcon != null) {
+			collIcon.className = "bx bx-plus";
+			Array.prototype.forEach.call(textAreas, function(cont) {
+			   	cont.style.display = 'none';
+			});
+		}
 		$('#tech-modal').addClass('is-visible');
     
     });

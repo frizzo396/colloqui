@@ -82,7 +82,7 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 			+ "(i.interviewerId.enterpriseId = :entId OR :entId = '') AND "
 			+ "(:schedDate is null OR i.scheduledDate>=:schedDate) AND "
 			+ "(i.dueDate is null OR :dueDate is null OR i.dueDate<=:dueDate) "
-			+ "ORDER BY i.scheduledDate")
+			+ "ORDER BY i.id desc")
 	List<InterviewAndFeedbackRTO> findInterviewByParams(@Param("name") String candidateName,
 			@Param("surname") String candidateSurname,
 			@Param("intType") Long interviewType,
@@ -109,7 +109,7 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 			+ "i.candidateTypeId.id = ct.id and "
 			+ "s.id = i.site.id and "
 			+ "(i.assigner = :assigner) "
-			+ "ORDER BY i.scheduledDate")
+			+ "ORDER BY i.id desc")
 	List<InterviewAndFeedbackRTO> findAssignedInterviews(@Param("assigner") long assignerId);
 
 	/**
@@ -130,7 +130,7 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 			+ "and i.interviewerId.enterpriseId=:enterpriseId "
 			+ "and s.id = i.site.id "
 			+ "and i.status = 4 "
-			+ "order by i.scheduledDate desc")
+			+ "order by i.id desc")
 	List<InterviewAndFeedbackRTO> findCompletedInterviewsByEnterpriseId(@Param("enterpriseId") String enterpriseId);
 
 	/**

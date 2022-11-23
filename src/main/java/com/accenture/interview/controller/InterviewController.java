@@ -1,32 +1,24 @@
 package com.accenture.interview.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.accenture.interview.annotation.Registered;
-import com.accenture.interview.facade.CurriculumFacade;
 import com.accenture.interview.facade.InterviewFacade;
 import com.accenture.interview.facade.InterviewerFacade;
 import com.accenture.interview.rto.general.BaseResponseRTO;
-import com.accenture.interview.rto.general.DownloadFileRTO;
 import com.accenture.interview.rto.general.ErrorRTO;
 import com.accenture.interview.to.interview.CreateInterviewTO;
 import com.accenture.interview.to.interview.SearchInterviewTO;
-import com.accenture.interview.to.interview.UploadCvTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 import com.accenture.interview.utils.checkerror.CheckErrorsInsertInterview;
 
@@ -44,10 +36,6 @@ public class InterviewController {
 	/** The interviewer facade. */
 	@Autowired
 	private InterviewerFacade interviewerFacade;
-
-	/** The cv facade. */
-	@Autowired
-	private CurriculumFacade cvFacade;
 
 	/** The check errors insert interview. */
 	@Autowired
@@ -71,56 +59,6 @@ public class InterviewController {
 		return new ResponseEntity<>(new BaseResponseRTO(interviewFacade.addNewInterview(createInterviewTO)), HttpStatus.OK);
 	}
 
-	/**
-	 * Upload CV.
-	 *
-	 * @param uploadCvTO the upload cv TO
-	 * @return the response entity
-	 */
-	@PostMapping(path = "/upload-cv")
-	@Registered	
-	public String uploadCV(@ModelAttribute UploadCvTO uploadCvTO, Model model) {
-		String username = System.getProperty("user.name");
-		BaseResponseRTO response = cvFacade.uploadCurriculum(uploadCvTO);
-		if(ObjectUtils.isEmpty(response.getError())) {
-			model.addAttribute("interviewer", interviewerFacade.interviewerInfo(username));
-			model.addAttribute("inProgressInterviews", interviewerFacade.getInProgressInterviewsNumber(username));
-			model.addAttribute("myInterviews", interviewerFacade.getMyInterviewsNumber(username));
-			model.addAttribute("myInterviewsMonth", interviewerFacade.getMonthCompletedInterviewsNumber(username));
-			model.addAttribute("inProgressInterviewsMonth", interviewerFacade.getMonthInProgressInterviewsNumber(username));
-			model.addAttribute("yearMonthInterviews", interviewerFacade.getYearCompletedInterviews(username));
-			model.addAttribute("registerUserTO", new RegisterInterviewerTO());
-			return "home";
-		} 
-		else {
-			model.addAttribute("interviewer", interviewerFacade.interviewerInfo(username));
-			model.addAttribute("createInterviewTO", new CreateInterviewTO());
-			model.addAttribute("comboSitesDB", interviewFacade.getComboSites());
-			model.addAttribute("registerUserTO", new RegisterInterviewerTO());
-			model.addAttribute("uploadCvTO", new UploadCvTO());
-			return "insert";
-		}
-	}
-
-	/**
-	 * Download CV.
-	 *
-	 * @param interviewId the interview id
-	 * @return the response entity
-	 */
-	@GetMapping(path = "/download-cv/{cvId}")
-	@Registered	
-	public @ResponseBody ResponseEntity<Object> downloadCV(@PathVariable("cvId")Long interviewId) {
-		BaseResponseRTO response = cvFacade.downloadCurriculum(interviewId);
-		if(ObjectUtils.isEmpty(response.getError())) {			
-			DownloadFileRTO file = (DownloadFileRTO) response.getBody();
-			return ResponseEntity.ok()
-					.contentType(MediaType.APPLICATION_PDF)
-					.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFileName() + "\"")
-					.body(new ByteArrayResource(file.getContent()));
-		}
-		return new ResponseEntity<>(response, HttpStatus.OK);
-	}
 
 	/**
 	 * Search interview.
@@ -135,7 +73,8 @@ public class InterviewController {
 		model.addAttribute("interviewer", interviewerFacade.interviewerInfo(System.getProperty("user.name")));
 		model.addAttribute("searchInterviews", interviewFacade.searchInterviews(searchInterviewTO));
 		model.addAttribute("searchInterviewTO", new SearchInterviewTO());
-		model.addAttribute("comboSitesDB", interviewFacade.getComboSites());	
+		model.addAttribute("comboSitesDB", interviewFacade.getComboSites());
+		model.addAttribute("interviewerList", interviewerFacade.findAllInterviewers());
 		model.addAttribute("registerUserTO", new RegisterInterviewerTO());
 		return "search";
 	}

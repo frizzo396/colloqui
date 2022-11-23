@@ -5,7 +5,6 @@ package com.accenture.interview.exception;
  */
 public class CvNotFoundException extends Exception {
 
-	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = -568476495538271484L;
+
 }

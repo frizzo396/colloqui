@@ -17,9 +17,7 @@ import com.accenture.interview.to.feedback.CreateMotivationFeedbackTO;
 import com.accenture.interview.to.feedback.CreateTechFeedbackTO;
 import com.accenture.interview.to.mail.MailParametersTO;
 import com.accenture.interview.utils.constants.WebPaths;
-import com.accenture.interview.utils.date.DateUtils;
 import com.accenture.interview.utils.enums.MailTypeEnum;
-import com.accenture.interview.utils.mail.MailUtils;
 
 /**
  * The Class FeedbackFacade.

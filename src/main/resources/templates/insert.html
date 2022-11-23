@@ -88,7 +88,12 @@
                                                 <div class="column">
                                                     <div class="form-group">
                                                         <label>Interviewer</label>
-                                                        <input type="text" class="fieldEnterpriseId" th:field="*{enterpriseId}" placeholder="enterprise.id" />
+                                                        <select class="formcontrol selectpicker" th:field="*{enterpriseId}">
+                                                            <option value="">Nothing selected</option>
+                                                             <option th:each="interviewer : ${interviewerList}" th:value="${interviewer.enterpriseId}" th:text="${interviewer.enterpriseId}">
+                                                               site
+                                                            </option>
+                                                        </select>
                                                         <small th:if="${#fields.hasErrors('enterpriseId')}" th:errors="*{enterpriseId}">Interviewer Error</small>
                                                     </div>
                                                 </div>

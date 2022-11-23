@@ -82,5 +82,14 @@ public class InterviewerService {
 	public InterviewerRTO findInterviewerByEnterpriseIdOrMail(String enterpriseId, String mail) {
 		return interviewerRepository.findInterviewerByEnterpriseIdOrMail(enterpriseId, mail);
 	}
+	
+	/**
+	 * Find all interviewers.
+	 *
+	 * @return the list
+	 */
+	public List<InterviewerRTO> findAllInterviewers(){		
+		return interviewerRepository.findAllInterviewers();
+	}
 
 }

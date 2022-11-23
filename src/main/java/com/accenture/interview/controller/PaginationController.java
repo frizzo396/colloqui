@@ -29,6 +29,7 @@ public class PaginationController extends BaseController {
 	@Autowired
 	private InterviewFacade interviewFacade;
 
+	/** The interviewer facade. */
 	@Autowired
 	private InterviewerFacade interviewerFacade;	
 
@@ -36,7 +37,6 @@ public class PaginationController extends BaseController {
 	/**
 	 * Account page.
 	 *
-	 * @param enterpriseId the enterprise id
 	 * @return the model and view
 	 */
 	@GetMapping("/home")
@@ -46,11 +46,11 @@ public class PaginationController extends BaseController {
 		String username = System.getProperty("user.name");
 		modelAndView.setViewName("home.html");
 		modelAndView.addObject("interviewer", interviewerFacade.interviewerInfo(username));
-		modelAndView.addObject("inProgressInterviews", interviewerFacade.getInProgressInterviewsNumber(username));
-		modelAndView.addObject("myInterviews", interviewerFacade.getMyInterviewsNumber(username));
-		modelAndView.addObject("myInterviewsMonth", interviewerFacade.getMonthCompletedInterviewsNumber(username));
-		modelAndView.addObject("inProgressInterviewsMonth", interviewerFacade.getMonthInProgressInterviewsNumber(username));
-		modelAndView.addObject("yearMonthInterviews", interviewerFacade.getYearCompletedInterviews(username));
+		modelAndView.addObject("inProgressInterviews", interviewFacade.getInProgressInterviewsNumber(username));
+		modelAndView.addObject("myInterviews", interviewFacade.getMyInterviewsNumber(username));
+		modelAndView.addObject("myInterviewsMonth", interviewFacade.getMonthCompletedInterviewsNumber(username));
+		modelAndView.addObject("inProgressInterviewsMonth", interviewFacade.getMonthInProgressInterviewsNumber(username));
+		modelAndView.addObject("yearMonthInterviews", interviewFacade.getYearCompletedInterviews(username));
 		modelAndView.addObject("registerUserTO", new RegisterInterviewerTO());
 		return modelAndView;
 	}
@@ -59,7 +59,6 @@ public class PaginationController extends BaseController {
 	/**
 	 * Show form.
 	 *
-	 * @param enterpriseId the enterprise id
 	 * @return the model and view
 	 */
 	@GetMapping("/interview/new")
@@ -68,6 +67,7 @@ public class PaginationController extends BaseController {
 		ModelAndView modelAndView = new ModelAndView();
 		String username = System.getProperty("user.name");
 		modelAndView.addObject("interviewer", interviewerFacade.interviewerInfo(username));
+		modelAndView.addObject("interviewerList", interviewerFacade.findAllInterviewers());
 		modelAndView.addObject("createInterviewTO", new CreateInterviewTO());
 		modelAndView.addObject("comboSitesDB", interviewFacade.getComboSites());
 		modelAndView.addObject("registerUserTO", new RegisterInterviewerTO());
@@ -76,12 +76,18 @@ public class PaginationController extends BaseController {
 		return modelAndView;
 	}
 
+	/**
+	 * Search interview.
+	 *
+	 * @return the model and view
+	 */
 	@GetMapping("/interview/search")
 	@Registered
 	public ModelAndView searchInterview() {
 		ModelAndView modelAndView = new ModelAndView();
 		String username = System.getProperty("user.name");
 		modelAndView.addObject("interviewer", interviewerFacade.interviewerInfo(username));
+		modelAndView.addObject("interviewerList", interviewerFacade.findAllInterviewers());
 		modelAndView.addObject("searchInterviewTO", new SearchInterviewTO());	
 		modelAndView.addObject("comboSitesDB", interviewFacade.getComboSites());	
 		modelAndView.addObject("registerUserTO", new RegisterInterviewerTO());
@@ -93,7 +99,6 @@ public class PaginationController extends BaseController {
 	 * Show tech feedback form.
 	 *
 	 * @param idColloquio  the id colloquio
-	 * @param enterpriseId the enterprise id
 	 * @return the model and view
 	 */
 	@GetMapping("/feedback/technical")
@@ -113,9 +118,7 @@ public class PaginationController extends BaseController {
 	 * Show insert motivation feedback form.
 	 *
 	 * @param idColloquio  the id colloquio
-	 * @param enterpriseId the enterprise id
 	 * @return the model and view
-	 * @throws Exception the exception
 	 */
 	@GetMapping("/feedback/motivational")
 	@Registered
@@ -133,7 +136,6 @@ public class PaginationController extends BaseController {
 	/**
 	 * My interviews page.
 	 *
-	 * @param enterpriseId the enterprise id
 	 * @return the model and view
 	 */
 	@GetMapping("/interview/completed")
@@ -151,7 +153,6 @@ public class PaginationController extends BaseController {
 	/**
 	 * In progress page.
 	 *
-	 * @param enterpriseId the enterprise id
 	 * @return the model and view
 	 */
 	@GetMapping("/interview/in-progress")
@@ -170,7 +171,6 @@ public class PaginationController extends BaseController {
 	/**
 	 * In progress page.
 	 *
-	 * @param enterpriseId the enterprise id
 	 * @return the model and view
 	 */
 	@GetMapping("/interview/assigned")

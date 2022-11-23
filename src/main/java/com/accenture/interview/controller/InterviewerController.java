@@ -34,24 +34,9 @@ public class InterviewerController {
 	private InterviewerFacade interviewerFacade;
 	
 	/** The check errors insert interview. */
-	@Autowired private CheckErrorsRegisterInterviewer checkErrorsRegisterInterviewer;
+	@Autowired 
+	private CheckErrorsRegisterInterviewer checkErrorsRegisterInterviewer;
 	 
-
-	/**
-	 * Search interviewer.
-	 *
-	 * @param candidateName    the candidate name
-	 * @param candidateSurname the candidate surname
-	 * @param mail             the mail
-	 * @return the search interviewer response
-	 */
-	@GetMapping("/searchInterviewer")
-	@Registered	
-	public InterviewerRTO searchInterviewer(@RequestParam("candidateName") String candidateName,
-			@RequestParam("candidateSurname") String candidateSurname,
-			@RequestParam("mail") String mail) {
-		return interviewerFacade.searchInterviewer(candidateName, candidateSurname, mail);
-	}
 
 
 	/**
@@ -75,8 +60,7 @@ public class InterviewerController {
 	 */
 	@PostMapping("/register")
 	@Registered
-	public @ResponseBody ResponseEntity<Object> registerInterviewer(@RequestBody @ModelAttribute RegisterInterviewerTO registerUserTO) {
-		
+	public @ResponseBody ResponseEntity<Object> registerInterviewer(@RequestBody @ModelAttribute RegisterInterviewerTO registerUserTO) {		
 		ErrorRTO errorRTO = checkErrorsRegisterInterviewer.validate(registerUserTO);
 
 		if (!ObjectUtils.isEmpty(errorRTO)) {

@@ -74,7 +74,17 @@
                                                 </td>
                                                  <td th:text= "${interview.site}"/>
                                                   <td th:text= "${interview.enterpriseId}"/>
-                                                <td class="remove" th:style="${interview.finalFeedback} eq 'OK' ? 'color: #008000' : 'color: #b20000'" th:text="${interview.finalFeedback}" />
+                                                <td class="remove">
+                                                		<!-- <span th:style="${interview.finalFeedback} eq 'OK' ? 'color: #008000' : 'color: #b20000'" th:text="${interview.finalFeedback}"></span> -->
+                                                		<span th:if="${interview.finalFeedback eq 'OK' }">
+                                                			  <span th:style="'color: #008000'" th:text="${interview.finalFeedback}"></span>
+                                                		</span>
+                                                		<span th:if="${interview.finalFeedback eq 'KO' }">
+                                                			  <span th:style="'color: #b20000'" th:text="${interview.finalFeedback}"></span>
+                                                		</span>
+                                                		<span th:if="${interview.finalFeedback eq 'STANDBY' }">
+                                                			  <span th:style="'color: #eed202'" th:text="${interview.finalFeedback}"></span>
+                                                		</span>                                             		
                                                 <td>
                                                 	<span th:if="${interview.finalFeedback != null}">
 	                                                    <span th:if="${interview.interviewType == 1}">

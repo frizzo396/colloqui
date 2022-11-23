@@ -132,22 +132,7 @@ public class InterviewService {
 		}
 		return null;
 	}
-	/**
-	 * Find interviewer by name surname and mail.
-	 *
-	 * @param name the name
-	 * @param surname the surname
-	 * @param email the email
-	 * @return the string
-	 */
-	public String findEnterpriseIdByNameSurnameAndMail(String name, String surname, String email) {
-		Optional<Interview> opt = interviewRepository.findInterviewByNameSurnameAndMail(name, surname, email);
-		
-		if(opt.isPresent()) {
-			return opt.get().getInterviewerId().getEnterpriseId();
-		}
-		return null;
-	}
+
 
 	/**
 	 * Adds the new interview.

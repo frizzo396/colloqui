@@ -45,21 +45,21 @@
                                        <div class="column">
                                           <div class="form-group">
                                              <label>Java</label>
-                                             <input class ="num-input" type="number" min="0" max="10" th:field="*{java}" placeholder="java"/>
+                                             <input class ="num-input" type="number"  th:field="*{java}" placeholder="java"/>
                                              <small th:if="${#fields.hasErrors('java')}" th:errors="*{java}">java Error</small>
                                           </div>
                                        </div>
                                        <div class="column">
                                           <div class="form-group">
                                              <label>Spring</label>
-                                             <input class ="num-input" type="number" min="0" max="10" th:field="*{spring}" placeholder="spring"/>
+                                             <input class ="num-input" type="number"  th:field="*{spring}" placeholder="spring"/>
                                              <small th:if="${#fields.hasErrors('spring')}" th:errors="*{spring}">Spring Level Error</small>
                                           </div>
                                        </div>
                                        <div class="column">
                                           <div class="form-group">
                                              <label>SQL</label>
-                                             <input class ="num-input" type="number" min="0" max="10" th:field="*{sqlVoto}" placeholder="sql"/>
+                                             <input class ="num-input" type="number"  th:field="*{sqlVoto}" placeholder="sql"/>
                                              <small th:if="${#fields.hasErrors('sqlVoto')}" th:errors="*{sqlVoto}">SQL Voto Error</small>
                                           </div>
                                        </div>
@@ -68,21 +68,21 @@
                                        <div class="column">
                                           <div class="form-group">
                                              <label>HTML-CSS</label>
-                                             <input class ="num-input" type="number" min="0" max="10" th:field="*{htmlCss}" placeholder="html-css" />
+                                             <input class ="num-input" type="number"  th:field="*{htmlCss}" placeholder="html-css" />
                                              <small th:if="${#fields.hasErrors('htmlCss')}" th:errors="*{htmlCss}">htmlCss Error</small>
                                           </div>
                                        </div>
                                        <div class="column">
                                           <div class="form-group">
                                              <label>Angular</label>
-                                             <input class ="num-input" type="number" min="0" max="10" th:field="*{angular}"  placeholder="angular"/>
+                                             <input class ="num-input" type="number"  th:field="*{angular}"  placeholder="angular"/>
                                              <small th:if="${#fields.hasErrors('angular')}" th:errors="*{angular}">Angular Error</small>
                                           </div>
                                        </div>
                                        <div class="column">
                                           <div class="form-group">
                                              <label>Other</label>
-                                             <input class ="num-input" type="number" min="0" max="10" th:field="*{other}"  placeholder="other question">
+                                             <input class ="num-input" type="number"  th:field="*{other}"  placeholder="other question">
                                              <small th:if="${#fields.hasErrors('other')}" th:errors="*{other}">Other Error</small>
                                           </div>
                                        </div>
@@ -95,6 +95,7 @@
                                                 <option value="">Nothing selected</option>
                                                 <option value="OK">OK</option>
                                                 <option value="KO">KO</option>
+                                                <option value="STANDBY">STAND-BY</option>
                                              </select>
                                              <small th:if="${#fields.hasErrors('finalFeedback')}" th:errors="*{finalFeedback}">Final feedback Error</small>
                                           </div>
