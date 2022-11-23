@@ -28,5 +28,8 @@ public class RegisterInterviewerTO {
 	/** The enterprise id. */
 	@NotEmpty(message = "interviewer.error.enterpriseid.not-empty")
 	private String enterpriseId;
+	
+	/** The status. */
+	private long status;
 
 }

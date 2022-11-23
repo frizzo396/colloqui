@@ -1,0 +1,38 @@
+
+<div class="cd-popup-container" id="approveDateModal">
+	<div class="col-lg-8 col-lg-offset-2" id="modalColumn">
+		<div class="container" id="containerInsert">
+			<div class="row">
+				<header class="containerHeader">
+					<label class="containerLabel">Approve availability date</label> <em
+						id="closeModal" class='bx bx-x'></em>
+				</header>
+				<form class="inp-form" id="approveAvailability" action="#"
+					th:action="@{/availability/approve}"
+					th:object="${approveAvailabilityTO}" method="post">
+					<div class="col-lg-8 col-lg-offset-2" id="approveDateFormColumn">
+						<div class="row">
+							<div class="column">
+								<div class="form-group">
+									<label>Approved date</label> <input id="approvedIntId"
+										type="hidden" th:field="*{interviewId}" value=0 /> <select
+										class="formcontrol selectpicker" th:field="*{approvedDate}"
+										id="approvedDate">
+										<option value="">Nothing selected</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="row" id="singleButtonRow">
+							<div class="button-column">
+								<div class="form-group">
+									<button class="submit-button" type="submit">Submit</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

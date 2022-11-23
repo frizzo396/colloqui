@@ -51,7 +51,10 @@ public class InterviewerFacade {
 		if(!(ObjectUtils.isEmpty(interviewer)) 
 			&& !(isEnterpriseidAndMailEqual(request, interviewer.getEnterpriseId(), interviewer.getMail()))){
 			return new BaseResponseRTO(interviewer, messageSource.getMessage("interviewer.error.already-register", null, Locale.getDefault()));
-		}	
+		}
+		// QUANDO VIENE INSERITO UN NUOVO UTENTE, STATUS = 1
+		request.setStatus(1);	
+		
 		interviewerService.addNewInterviewer(request);
 		InterviewerRTO registering = interviewerService.findInterviewerByEnterpriseId(System.getProperty("user.name"));
 		MailParametersTO mailParams = new MailParametersTO(Arrays.asList(request.getMail()), 

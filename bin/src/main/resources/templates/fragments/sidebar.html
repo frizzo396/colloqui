@@ -1,0 +1,69 @@
+
+<div class="sidebar"
+	th:style="${interviewer.type==T(com.accenture.interview.utils.enums.InterviewerTypeEnum).getIdFromDescription('RESPONSABILE') ? 'height:450px' : 'height:330px'}">
+	<header id="sidebarHeader">
+		<em id="sidebarMenuIcon" class="bx bx-menu"></em>
+	</header>
+
+	<div id="sidebarLine"></div>
+	<ul class="nav-links">
+		<li onclick="RedirectHome()"><a> <em class="bx bx-home"
+				style="color: black;"></em> <span class="link_name">Home</span>
+		</a>
+			<ul class="sub-menu">
+				<li onclick="RedirectHome()"><a class="link_name">Home</a></li>
+			</ul></li>
+		<li
+			th:if="${interviewer.type==T(com.accenture.interview.utils.enums.InterviewerTypeEnum).getIdFromDescription('RESPONSABILE')}"
+			onclick="RedirectInsert()"><a> <em
+				class='bx bx-add-to-queue' style="color: black;"></em> <span
+				class="link_name">New</span>
+		</a>
+			<ul class="sub-menu">
+				<li onclick="RedirectInsert()"><a class="link_name">New</a></li>
+			</ul></li>
+		<li onclick="RedirectSearch()"><a> <em
+				class="bx bx-file-find" style="color: black;"></em> <span
+				class="link_name">Search</span>
+		</a>
+			<ul class="sub-menu">
+				<li onclick="RedirectSearch()"><a class="link_name">Search</a></li>
+			</ul></li>
+		<li
+			th:if="${interviewer.type==T(com.accenture.interview.utils.enums.InterviewerTypeEnum).getIdFromDescription('RESPONSABILE')}"
+			onclick="RedirectAssigned()"><a> <em
+				class="bx bx-select-multiple" style="color: black;"></em> <span
+				class="link_name">Assigned</span>
+		</a>
+			<ul class="sub-menu">
+				<li onclick="RedirectAssigned()"><a class="link_name">Assigned</a></li>
+			</ul></li>
+		<li onclick="RedirectMyInterviews()"><a> <em
+				class="bx bx-list-check" style="color: black;"></em> <span
+				class="link_name">Completed</span>
+		</a>
+			<ul class="sub-menu">
+				<li onclick="RedirectMyInterviews()"><a class="link_name">Completed</a></li>
+			</ul></li>
+		<li onclick="RedirectInProgress()"><a> <em class="bx bx-edit"
+				style="color: black;"></em> <span class="link_name">In
+					progress</span>
+		</a>
+			<ul class="sub-menu">
+				<li onclick="RedirectInProgress()"><a class="link_name">In
+						progress</a></li>
+			</ul></li>
+		<li
+			th:if="${interviewer.type==T(com.accenture.interview.utils.enums.InterviewerTypeEnum).getIdFromDescription('RESPONSABILE')}">
+			<a class="popup-register"> <em class="bx bx-user-plus"
+				style="color: black;"></em> <span class="link_name">Register</span>
+		</a>
+			<ul class="sub-menu">
+				<li class="popup-register"><a class="link_name">Register</a></li>
+			</ul>
+		</li>
+	</ul>
+</div>
+<section class="home-section">
+	<div class="home-content"></div>
+</section>

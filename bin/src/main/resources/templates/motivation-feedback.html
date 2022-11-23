@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="it">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Motivation Feedback</title>
+        <link th:href="@{/css/form.css}" rel="stylesheet" />
+        <link th:href="@{/css/sidebar.css}" rel="stylesheet" />
+        <link th:href="@{/css/container.css}" rel="stylesheet" />
+        <link th:href="@{/css/header.css}" rel="stylesheet" />
+        <link th:href="@{/css/snackbar.css}" rel="stylesheet" />
+        <link th:href="@{/css/general-style.css}" rel="stylesheet" />
+        <link th:href="@{/css/popup-container.css}" rel="stylesheet" />
+         <link href="https://fonts.cdnfonts.com/css/graphik" rel="stylesheet" type='text/css'>
+        <link th:rel="stylesheet" th:href="@{assets/bootstrap-select-1.13.9/dist/css/bootstrap-select.css}" />
+        <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
+        <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+        <script src="https://kit.fontawesome.com/ee5a107043.js" crossorigin="anonymous"></script>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+      	<script type="text/javascript" th:src="@{/js/general.js}"></script>
+      	<script type="text/javascript" th:src="@{/js/registration.js}"></script>
+      	<script type="text/javascript" th:src="@{/js/feedback.js}"></script>
+        <script type="text/javascript" th:src="@{/js/sidebar.js}"></script>
+    </head>
+    <body>
+        <!-- wrap -->
+        <div class="interview-html">        	            	
+				<!-- NUOVO DIV PER HEADER SUPERIORE -->
+				<div th:replace="fragments/header"></div>
+					            	
+                <div class="pageRow">
+                
+					<div class="col-lg-8 col-lg-offset-2" id="sidebarColumn">
+						<div th:replace="fragments/sidebar"></div>  				
+				 	</div>                          
+
+                    <div class="col-lg-8 col-lg-offset-2" id="containerColumn">
+                        <div class="container" id="containerInsert">
+                        	<header class="containerHeader">
+						              <label class="containerLabel">Insert motivational feedback</label>
+						    </header>	
+      						<div class="col-lg-8 col-lg-offset-2" id="insertFormColumn">
+                                    <form class="inp-form" id="insertMotivationalFeedback" action="#" th:action="@{/feedback/motivational/insert}" th:object="${createMotivationFeedbackTO}" method="post">
+                                        <div class="row">
+                                            <div class="column">
+                                                <div class="form-group">
+                                                    <label>Standing</label>
+                                                    <input class ="num-input" type="number" th:field="*{standing}" placeholder="standing" />
+                                                    <small th:if="${#fields.hasErrors('standing')}" th:errors="*{standing}">Standing Error</small>
+                                                </div>
+                                            </div>
+                                             <div class="column">
+                                                <div class="form-group">
+                                                    <label>Motivation</label>
+                                                    <input class ="num-input" type="number" th:field="*{motivation}" placeholder="motivation" />
+                                                    <small th:if="${#fields.hasErrors('motivation')}" th:errors="*{motivation}">Motivation Error</small>
+                                                </div>
+                                            </div>
+                                             <div class="column">
+                                                <div class="form-group">
+                                                    <label>School background</label>
+                                                    <input class ="num-input" type="number" th:field="*{schoolBackground}" placeholder="School background" />
+                                                    <small th:if="${#fields.hasErrors('schoolBackground')}" th:errors="*{schoolBackground}">School Background Error</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                     		<div class="column">
+                                                <div class="form-group">
+                                                    <label>English level</label>
+                                                    <input class ="num-input" type="number" th:field="*{englishLevel}" placeholder="English level" />
+                                                    <small th:if="${#fields.hasErrors('englishLevel')}" th:errors="*{englishLevel}">English Level Error</small>
+                                                </div>
+                                            </div>
+                                            <div class="column">
+                                                <div class="form-group">
+                                                    <label>Soft skills</label>
+                                                    <input class ="num-input" type="number" th:field="*{softSkills}" placeholder="Soft skills" />
+                                                    <small th:if="${#fields.hasErrors('softSkills')}" th:errors="*{softSkills}">Soft Skills Error</small>
+                                                </div>
+                                            </div>
+                                            <div class="column">
+                                                <div class="form-group">
+                                                    <label>Logic question</label>
+                                                    <input class ="num-input" type="number" th:field="*{logicQuestion}" placeholder="Logic question" />
+                                                    <small th:if="${#fields.hasErrors('logicQuestion')}" th:errors="*{logicQuestion}">Logic Question Error</small>
+                                                </div>
+                                            </div>
+                                           
+                                        </div>
+                                        <div class="row">
+                                           <div class="column">
+                                            <div class="form-group">
+                                                <label>Tech question</label>
+                                                <input class ="num-input" type="number" th:field="*{techQuestion}" placeholder="Tech question" />
+                                                <small th:if="${#fields.hasErrors('techQuestion')}" th:errors="*{techQuestion}">Tech Question Error</small>
+                                            </div>
+                                        </div>
+                                        <div class="column">
+                                            <div class="form-group">
+                                                <label for="finalFeedback">Final feedback</label>
+                                                <select class="formcontrol selectpicker" th:field="*{finalFeedback}" id="finalFeedback">
+                                                    <option value="">Nothing selected</option>
+                                                    <option value="OK">OK</option>
+                                                    <option value="KO">KO</option>
+                                                    <option value="STANDBY">STAND-BY</option>
+                                                </select>
+                                                <small th:if="${#fields.hasErrors('finalFeedback')}" th:errors="*{finalFeedback}">Final feedback Error</small>
+                                            </div>
+                                        </div>
+                                        </div>
+                                       
+                                        <div class="row">
+                                            <div class="one-column">
+                                                <div class="form-group">
+                                                    <label>Comment</label>
+                                                    <textarea id="subject" th:field="*{comment}" name="subject" placeholder="Write something.." style="height: 200px;"></textarea>
+                                                    <small th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}">Comment Error</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                         <div class="row" id="buttonRow">
+                                            <div class="button-column">
+                                                <div class="form-group">
+                                                    <button class="submit-button" type="submit">Submit</button>
+                                                </div>
+                                            </div>
+                                            <div class="button-column">
+                                               <div class="form-group">
+                                                    <button class="clear-button" type="reset" value="Reset">Clear</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                        </div>
+                    </div>
+
+                    <div class="cd-popup" role="alert">
+                        <div class="cd-popup-container" id="successModal">
+                            <a href="#0" class="cd-popup-close img-replace"></a>
+                        </div>
+                    </div>
+
+   				
+               		<div id="register-modal" class="cd-popup" role="alert">
+                                <div th:replace="fragments/registerUserModal"></div>
+               		</div>
+                </div>
+                <div  id="snackbar">
+               		<div  id="snackbarRow">
+               				  <div class="col-lg-8 col-lg-offset-2" id="snackbarTextColumn">
+               				 
+               				 </div>    				 
+               		</div>
+               </div>
+        </div>
+    </body>
+</html>

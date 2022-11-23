@@ -1,0 +1,280 @@
+@charset "ISO-8859-1";
+
+.container {
+    width: 100%;
+    background-color: #e3e4e8;
+    padding-top: 12px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+   	border-radius: 5px;
+    text-align: left;
+    position: relative;
+}
+
+.containerHeader {
+	padding-bottom: 23px;
+}
+
+#inProgressContainer {
+	height: 450px;
+}
+
+#assignedContainer {
+	height: 450px;
+}
+
+#completedContainer  {
+	height: 450px;
+}
+
+.containerLabel {
+	font-size: 16px;
+    color: black;
+    font-weight: 500;
+    line-height: 1em;
+}
+
+.inp-form label{
+    font-family: 'Graphik', sans-serif;
+	font-size:15px;
+	margin: 4px 4px 4px 0px ;
+	padding: 2px 2px 2px 0;
+  	display: inline-block;
+  	color: black;
+}
+
+#insertFormColumn {
+	background-color: white;
+	border-radius: 5px;
+}
+
+#searchFormColumn {
+	background-color: white;
+	border-radius: 5px;
+}
+
+#tableFormColumn {
+	background-color: white;
+	border-radius: 5px;
+	padding: 40px 40px 0px 40px;
+	height: 90%;
+}
+
+#registerUserColumn {
+	background-color: white;
+	border-radius: 5px;
+}
+
+#insertInterview {
+	padding-bottom: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+}
+
+#registerUser {
+	padding-bottom: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+}
+
+#buttonRow {
+    padding-top: 15px;
+    padding-bottom: 20px;
+}
+
+#buttonRow .column{
+	width: 50%;
+}
+
+#singleButtonRow {
+    padding-top: 15px;
+    padding-bottom: 3px;
+    text-align: center;
+}
+
+
+#registerSingleButtonRow {
+    padding-top: 5px;
+    padding-bottom: 15px;
+    text-align: center;
+}
+
+#registerSingleButtonRow .button-column{
+	width: 100%;
+}
+
+#registerSingleButtonRow button {
+	 width: 35%;  
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#singleButtonRow .button-column{
+	width: 100%;
+}
+
+#singleButtonRow button {
+	 width: 35%;  
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#availabilityDateRow .column {
+	width: 33%;
+}
+
+#cv {
+	padding: 3px;
+}
+
+
+#errorPageColumn {
+	width: 100%;
+}
+
+#errorRow {
+	padding-top: 5px;
+}
+
+#errorRow .column {
+	width: 100%;
+	display: inline-grid;
+}
+
+#searchInterview {
+    padding-bottom: 40px;
+    padding-left: 10px;
+     padding-right: 10px;
+    padding-top: 10px;
+}
+
+
+
+
+
+
+#insertMotivationalFeedback {
+    padding-bottom: 40px;
+    padding-left: 10px;
+     padding-right: 10px;
+    padding-top: 10px;
+}
+
+#insertTechFeedback {
+	    padding-bottom: 40px;
+    padding-left: 10px;
+     padding-right: 10px;
+    padding-top: 10px;
+}
+
+
+
+
+/*MODALS*/
+
+#modalFormColumn label{
+    font-family: 'Graphik', sans-serif;
+	font-size:15px;
+	margin:4px 4px 4px 0px;
+	padding: 2px 2px 2px 0;
+  	display: inline-block;
+  	color: black;
+}
+
+
+#motivationalTableModal {
+	border-radius: 5px !important;
+	margin-top: 3.1%;	
+}
+
+#availabilityTableModal {
+	border-radius: 5px !important;
+	margin-top: 3.1%;	
+	max-width: 600px;
+}
+
+#approveDateModal {
+	border-radius: 5px !important;
+	margin-top: 3.1%;	
+	max-width: 400px;
+}
+
+#uploadCVModal {
+	border-radius: 5px !important;
+	margin-top: 3.1%;	
+	max-width: 400px;
+}
+
+#modalFormColumn {
+	padding: 20px;
+	background-color: white;
+	display: inline-block;
+	    border-radius: 5px;
+}
+
+#approveDateFormColumn {
+	padding: 20px;
+	background-color: white;
+	display: inline-block;
+	border-radius: 5px;
+	width: 100%;
+}
+
+#uploadCVFormColumn {
+	padding: 20px;
+	background-color: white;
+	display: inline-block;
+	border-radius: 5px;
+	width: 100%;
+}
+
+#requestRegistrationFormColumn {
+	padding: 20px;
+	background-color: white;
+	display: inline-block;
+	border-radius: 5px;
+	width: 100%;
+}
+
+#containerReqRegistration {
+	width: 35%;
+	margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+}
+
+#approveDateFormColumn .column{
+	width: 100%;
+}
+
+#uploadCVFormColumn .column{
+	width: 100%;
+}
+
+#registerModal {
+	border-radius: 5px !important;
+	margin-top: 3.1%;	
+	max-width: 400px;
+}
+
+#techTableModal {
+	margin-top: 3.1%;
+	border-radius: 5px !important;
+}
+
+#closeMotModal {
+	color: white;
+    font-size: 15px;
+    margin-top: -10px;
+}
+
+#closeTechModal {
+	color: white;
+    font-size: 15px;
+    margin-top: -10px;
+}

@@ -1,0 +1,102 @@
+@charset "ISO-8859-1";
+
+
+#headerRow { 
+    background-color: #0a58ca; /* Indigo: #4b0082*/
+    width: 100%;
+    display: flex;
+    height: 8%;
+    margin-bottom: 25px;
+}
+
+#imageColumn {
+	display: flex;
+	position: relative;
+	width: 10%;
+	margin-left: 2%;
+}
+
+#userColumn {
+    display: flex;
+    position: relative;
+    align-items: center;
+    width: 10%;
+    margin-right: 3%;
+}
+
+#titleColumn {
+	display: flex;
+	position: relative;
+	align-items: center;
+	width: 90%;
+}
+
+
+
+#userContainer {
+	width: 100%;
+	display: inline-flex;
+}
+
+#nickname {
+	color: white;
+	margin: auto;
+	font-size: 11px;
+}
+
+#userIcon {
+    font-size: 25px;
+    color: white;
+    margin:auto;
+}
+
+#iconRow{
+    display: inline-flex;
+    width: 100%;
+    height: 80%;
+    margin-right: 3%;
+}
+
+#nicknameRow {
+	display: inline-flex;
+    width: 100%;
+}
+
+#accentureLogo {	
+display: block;
+  max-width:230px;
+  max-height:55px;
+  width: auto;
+  height: auto;
+}
+
+header{
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+}
+
+@media (max-width: 1000px){
+    header{
+        /* Reverse the axis of the header, making it vertical. */
+        flex-direction: column;
+
+        /* Align items to the begining (the left) of the header. */
+        align-items: flex-start;
+    }    
+}
+
+
+@media only screen  and (max-width:840px){ 	 
+	 #imageColumn {
+			width: 15%;
+		}
+	
+	#userColumn {	
+	    width: 15%;
+	}
+	
+	#titleColumn {
+	  width: 55%;
+	}
+	}
