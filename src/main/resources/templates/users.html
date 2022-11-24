@@ -47,16 +47,9 @@
                                     <tr>
                                         <th>Enterprise Id </th>
                                         <th>Ruolo </th>
-                                        <th>Mail </th>
+                                        <th class="remove">Mail </th>
                                         <th>Status </th>
-                                        <th>... </th>                                        
-                                        
-<!--                                         <th class="remove">Level</th>
-                                        <th class="remove">Interview Type</th>
-                                        <th>Availability</th>
-                                        <th class="remove">Site</th>
-                                        <th>CV</th>
-                                        <th>Feedback</th> -->
+                                        <th></th>                                                                                
                                     </tr>
                                     <tr class="tableRows" th:each="interviewer: ${interviewers}">
  										<td th:text="${interviewer.enterpriseId}" />
@@ -65,49 +58,13 @@
                                             <span th:if="${interviewer.type == T(com.accenture.interview.utils.enums.InterviewerTypeEnum).getIdFromDescription('RESPONSABILE')}">Responsabile</span>
                                             <span th:unless="${interviewer.type == T(com.accenture.interview.utils.enums.InterviewerTypeEnum).getIdFromDescription('RESPONSABILE')}">Normale</span>
                                         </td>
- 										<td th:text="${interviewer.mail}" />
- 										<!-- <td th:text="${interviewer.status}" /> --> 										
+ 										<td class="remove" th:text="${interviewer.mail}" />										
                                         <td>
                                             <span th:if="${interviewer.status == 1}">Attivo</span>
                                             <span th:unless="${interviewer.status == 1}">Inattivo/Eliminato</span>
                                         </td> 									 						
- 										<td th:text="..." />
- 										
-<!--  										<td class="remove" th:text= "${interview.candidateLevel}"/>   
-                                        <td class="remove">
-                                            <span th:if="${interview.interviewType == 1}">Motivazionale</span>
-                                            <span th:unless="${interview.interviewType == 1}">Tecnico</span>
-                                        </td>
-                                        <td>
-                                        		<span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).NEW.value}">
-                                        			<button type="submit" class="av-popup" th:data-parameter1="${interview.id}" onclick="createAvailablityModal(this.getAttribute('data-parameter1'));"><em id="plusIcon" class='bx bx-plus'></em></button>
-                                        		</span>
-                                        		<span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).IN_PROGRESS.value}">
-                                        			Sent to approval
-                                        		</span>  
-                                        		<span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).SCHEDULED.value}"  th:text="${#dates.format(interview.scheduledDate, 'dd-MM-YYYY HH:mm')}" >
-                                        		</span>
-                                        </td>
-                                        <td class="remove" th:text= "${interview.site}"/>  -->  
-<!--                                         <td>                                      		
-	                                        	<form id="downloadCV" action="#" th:action="@{/interview/curriculum/download/} + ${{interview.id}}" method="get">
-		                                        	<span th:if="${interview.cvId != null}">
-											                <button th:id="'interview_child_button_' + ${interview.id}" type="submit">
-											                    <em class='bx bxs-download' style="font-size: 16px;"></em>
-											                </button>
-											         </span>
-										         </form>							            
-                                        </td>
-                                        <td>
-	                                        <span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).SCHEDULED.value}">
-	                                            <span th:if="${interview.interviewType == 1}">
-	                                                <button type="submit" class="motiv-popup" th:data-parameter1="${interview.id}" onclick="goToMotivationalFeedback(this.getAttribute('data-parameter1'));"><em id="plusIcon" class='bx bx-plus'></em></button>
-	                                            </span>
-	                                            <span th:unless="${interview.interviewType == 1}">
-	                                                <button type="submit" class="tech-popup" th:data-parameter1="${interview.id}" onclick="goToTechnicalFeedback(this.getAttribute('data-parameter1'));"><em id="plusIcon" class='bx bx-plus'></em></button>
-	                                            </span>
-	                                            </span>
-                                        </td> -->
+ 										<td><a class='bx bx-dots-vertical-rounded'></a></td>
+ 										 
                                     </tr>
                                 </table>
                             </div>
