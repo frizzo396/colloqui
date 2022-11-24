@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * The Class SearchInterviewerResponse.
+ * The Class InterviewerRTO.
  */
 @Getter
 @Setter
@@ -31,6 +31,14 @@ public class InterviewerRTO {
 	
 	/** The status: 1 (attivo), 0 (inattivo/eliminato) */
 	private long status;
+	
+	
+	public InterviewerRTO(long id, String enterpriseId, String mail, long type) {
+		this.id = id;
+		this.enterpriseId = enterpriseId;
+		this.mail = mail;
+		this.type = type;
+	}	
 
 	/**
 	 * Instantiates a new search interviewer response.
@@ -40,9 +48,9 @@ public class InterviewerRTO {
 	public InterviewerRTO(Interviewer interviewer) {
 		this.id = interviewer.getId();
 		this.enterpriseId = interviewer.getEnterpriseId();
-		this.mail = interviewer.getMail();
-		
-		this.type = interviewer.getType();
+		this.mail = interviewer.getMail();		
+		this.type = interviewer.getType();		
+		this.status = interviewer.getStatus();
 	}
 	
 	/**
