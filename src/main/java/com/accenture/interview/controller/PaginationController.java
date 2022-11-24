@@ -169,7 +169,7 @@ public class PaginationController extends BaseController {
 	}
 
 	/**
-	 * In progress page.
+	 * Assigned page.
 	 *
 	 * @return the model and view
 	 */
@@ -178,12 +178,32 @@ public class PaginationController extends BaseController {
 	public ModelAndView assignedPage() {
 		ModelAndView modelAndView = new ModelAndView();
 		String username = System.getProperty("user.name");
-		modelAndView.addObject("interviewer", interviewerFacade.interviewerInfo(username));
+		modelAndView.addObject("interviewer", interviewerFacade.interviewerInfo(username));		
 		modelAndView.addObject("interviews", interviewFacade.getAssignedInterviews(username));
 		modelAndView.addObject("registerUserTO", new RegisterInterviewerTO());
 		modelAndView.addObject("approveAvailabilityTO", new ApproveAvailabilityTO());
 		modelAndView.setViewName("assigned.html");
 		return modelAndView;
 	}
+	
+	
+	/**
+	 * Users page.
+	 *
+	 * @return the model and view
+	 */
+	@GetMapping("/interview/users")
+	@Registered
+	public ModelAndView usersPage() {
+		ModelAndView modelAndView = new ModelAndView();
+		String username = System.getProperty("user.name");
+		modelAndView.addObject("interviewer", interviewerFacade.interviewerInfo(username));		
+		modelAndView.addObject("interviewers", interviewerFacade.findAllUsers());		
+		modelAndView.addObject("interviews", interviewFacade.getInProgressInterviews(username));
+		modelAndView.addObject("registerUserTO", new RegisterInterviewerTO());
+		modelAndView.addObject("insertAvailabilityTO", new InsertAvailabilityTO());
+		modelAndView.setViewName("users.html");
+		return modelAndView;
+	}	
 
 }
