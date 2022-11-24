@@ -1,49 +1,52 @@
-package com.accenture.interview.utils.checkerror;
+package com.accenture.interview.utils.checkerror.availability;
 
 import java.util.Locale;
 import java.util.Set;
+
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.ValidatorFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
+
 import com.accenture.interview.rto.general.ErrorRTO;
 import com.accenture.interview.service.InterviewService;
-import com.accenture.interview.to.interview.InsertAvailabilityTO;
+import com.accenture.interview.to.interview.ReassignInterviewTO;
+
 
 /**
- * The Class CheckErrorsInsertAvailability.
+ * The Class CheckErrorsReassignAvailability.
  */
 @Component
-public class CheckErrorsInsertAvailability {
+public class CheckErrorsReassignAvailability {
 	
 	/** The interview service. */
 	@Autowired
 	private InterviewService interviewService;
 	
-
 	/** The message source. */
 	@Autowired
 	private MessageSource messageSource;
-
+	
 
 	/**
 	 * Validate.
 	 *
-	 * @param insertAvailabilityTO the insert availability TO
+	 * @param reassignTO the reassign TO
 	 * @return the error RTO
 	 */
-	public ErrorRTO validate(InsertAvailabilityTO insertAvailabilityTO) {
+	public ErrorRTO validate(ReassignInterviewTO reassignTO) {		
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-		Set<ConstraintViolation<InsertAvailabilityTO>> violations = factory.getValidator().validate(insertAvailabilityTO);
+		Set<ConstraintViolation<ReassignInterviewTO>> violations = factory.getValidator().validate(reassignTO);
 
 		if (!violations.isEmpty()) {		
 			String errorMsg = messageSource.getMessage(violations.stream().findFirst().get().getMessage(), null, Locale.getDefault());
 			return new ErrorRTO(errorMsg);
 		}
-		if(ObjectUtils.isEmpty(interviewService.findInterviewById(insertAvailabilityTO.getInterviewId()))) {
+		if(ObjectUtils.isEmpty(interviewService.findInterviewById(reassignTO.getInterviewId()))) {
 			String errorMsg = messageSource.getMessage("interview.error.not-found", null, Locale.getDefault());
 			return new ErrorRTO(errorMsg);
 		}

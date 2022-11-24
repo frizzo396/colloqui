@@ -89,6 +89,17 @@
 	width: 50%;
 }
 
+#twoButtonRow {
+	padding-top: 15px;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+#twoButtonRow .submit-button { 
+	float: none;
+	width: 40%;	
+}
+
 #singleButtonRow {
     padding-top: 15px;
     padding-bottom: 3px;
@@ -199,6 +210,12 @@
 }
 
 #approveDateModal {
+	border-radius: 5px !important;
+	margin-top: 3.1%;	
+	max-width: 400px;
+}
+
+#reassignModal {
 	border-radius: 5px !important;
 	margin-top: 3.1%;	
 	max-width: 400px;

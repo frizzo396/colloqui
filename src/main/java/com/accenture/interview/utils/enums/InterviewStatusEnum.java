@@ -33,7 +33,10 @@ public enum InterviewStatusEnum
 	SCHEDULED(3),
 		
 	/** The completed. */
-	COMPLETED(4);
+	COMPLETED(4),
+	
+	/** The refused. */
+	REFUSED(5);
 	
 	/** The status. */
 	private Integer value;

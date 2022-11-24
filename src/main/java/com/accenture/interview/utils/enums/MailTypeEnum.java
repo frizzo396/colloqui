@@ -19,6 +19,8 @@ public enum MailTypeEnum
 
 	/** The availability approve. */
 	AVAILABILITY_APPROVE("mail.body.availability.approve"),
+	
+	AVAILABILITY_REFUSE("mail.body.availability.refuse"),
 
 	/** The feedback insert. */
 	FEEDBACK_INSERT("mail.body.feeback.insert"),

@@ -46,7 +46,7 @@ public class FeedbackFacade {
 	 * @return the creates the tech feedback response
 	 */
 	public CreateTechFeedbackRTO insertTechFeedback(CreateTechFeedbackTO createTechFeedbackTO, Long interviewId) {
-		InterviewRTO interview = interviewService.findInterviewForApproval((long) interviewId);
+		InterviewRTO interview = interviewService.findInterviewWithMailParams((long) interviewId);
 		TechnicalFeedback techFeedback = feedbackService.insertTechFeedback(createTechFeedbackTO, interviewId);
 		interviewService.updateInterviewTechFeedback(interviewId, techFeedback, createTechFeedbackTO.getFinalFeedback());
 		
@@ -67,7 +67,7 @@ public class FeedbackFacade {
 	 * @return the creates the motivation feedback response
 	 */
 	public CreateMotivationFeedbackRTO insertMotivationFeedback(CreateMotivationFeedbackTO feedbackTO, Long interviewId) {
-		InterviewRTO interview = interviewService.findInterviewForApproval((long) interviewId);
+		InterviewRTO interview = interviewService.findInterviewWithMailParams((long) interviewId);
 		MotivationFeedback motFeedback = feedbackService.insertMotivationFeedback(feedbackTO, interviewId);
 		interviewService.updateInterviewMotFeedback(interviewId, motFeedback, feedbackTO.getFinalFeedback());
 		

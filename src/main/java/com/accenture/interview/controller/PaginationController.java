@@ -15,6 +15,7 @@ import com.accenture.interview.to.feedback.CreateTechFeedbackTO;
 import com.accenture.interview.to.interview.ApproveAvailabilityTO;
 import com.accenture.interview.to.interview.CreateInterviewTO;
 import com.accenture.interview.to.interview.InsertAvailabilityTO;
+import com.accenture.interview.to.interview.ReassignInterviewTO;
 import com.accenture.interview.to.interview.SearchInterviewTO;
 import com.accenture.interview.to.interview.UploadCvTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
@@ -179,9 +180,11 @@ public class PaginationController extends BaseController {
 		ModelAndView modelAndView = new ModelAndView();
 		String username = System.getProperty("user.name");
 		modelAndView.addObject("interviewer", interviewerFacade.interviewerInfo(username));
+		modelAndView.addObject("interviewerList", interviewerFacade.findAllInterviewers());
 		modelAndView.addObject("interviews", interviewFacade.getAssignedInterviews(username));
 		modelAndView.addObject("registerUserTO", new RegisterInterviewerTO());
 		modelAndView.addObject("approveAvailabilityTO", new ApproveAvailabilityTO());
+		modelAndView.addObject("reassignInterviewTO", new ReassignInterviewTO());		
 		modelAndView.setViewName("assigned.html");
 		return modelAndView;
 	}

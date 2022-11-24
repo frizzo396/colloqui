@@ -43,7 +43,7 @@ public class InterviewService {
 	/** The interview repository. */
 	@Autowired
 	private InterviewRepository interviewRepository;
-	
+
 	/** The availability repository. */
 	@Autowired
 	private AvailabilityRepository availabilityRepository;
@@ -117,7 +117,7 @@ public class InterviewService {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Find interview by mail.
 	 *
@@ -182,7 +182,7 @@ public class InterviewService {
 		return this.interviewRepository.findCompletedInterviewsByEnterpriseId(enterpriseId);
 
 	}
-	
+
 	/**
 	 * Gets the assigned interviews.
 	 *
@@ -191,7 +191,7 @@ public class InterviewService {
 	 */
 	public List<InterviewAndFeedbackRTO> getAssignedInterviews(long assignerId) {
 		List<InterviewAndFeedbackRTO> interviews = this.interviewRepository.findAssignedInterviews(assignerId);
-		
+
 		for(InterviewAndFeedbackRTO interview: interviews) {
 			List<Date> availabilities = availabilityRepository.findAvailabilityDatesByInterviewId(interview.getIdColloquio());
 			interview.setAvailabilityDates(new DateListRTO(availabilities));
@@ -251,15 +251,15 @@ public class InterviewService {
 		StartEndDateRTO dates = DateUtils.calculateMonthDateIntervals();
 		return interviewRepository.getInProgressMonthCount(enterpriseId, dates.getStartDate(), dates.getEndDate());
 	}
-	
+
 	/**
 	 * Find interview for approval.
 	 *
 	 * @param interviewId the interview id
 	 * @return the interview RTO
 	 */
-	public InterviewRTO findInterviewForApproval(Long interviewId) {
-		return interviewRepository.findInterviewForApproval(interviewId);
+	public InterviewRTO findInterviewWithMailParams(Long interviewId) {
+		return interviewRepository.findInterviewWithMailParams(interviewId);
 	}
 
 	/**
@@ -307,6 +307,47 @@ public class InterviewService {
 			} catch (Exception e) {
 				return null;
 			}
+		}
+		return null;
+	}
+
+
+
+	/**
+	 * Refuse interview.
+	 *
+	 * @param interviewId the interview id
+	 * @return the long
+	 */
+	public Long refuseInterview(Long interviewId) {
+		Optional<Interview> optInterview = interviewRepository.findInterviewById(interviewId);
+		if(optInterview.isPresent()) {
+			Interview interview = optInterview.get();
+			interview.setStatus(InterviewStatusEnum.REFUSED.getValue());
+			interviewRepository.save(interview);	
+			return interviewId;
+		}
+		return null;
+	}
+	
+	/**
+	 * Reassign interview.
+	 *
+	 * @param interviewId the interview id
+	 * @param newInterviewer the new interviewer
+	 * @return the long
+	 */
+	public Long reassignInterview(Long interviewId, InterviewerRTO newInterviewer) {
+		Optional<Interview> optInterview = interviewRepository.findInterviewById(interviewId);
+		if(optInterview.isPresent()) {
+			Interview interview = optInterview.get();
+			interview.setInterviewerId(new Interviewer(newInterviewer.getId(), 
+					newInterviewer.getEnterpriseId(), 
+					newInterviewer.getMail(), 
+					newInterviewer.getType()));
+			interview.setStatus(InterviewStatusEnum.NEW.getValue());
+			interviewRepository.save(interview);	
+			return interviewId;
 		}
 		return null;
 	}

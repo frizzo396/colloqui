@@ -57,7 +57,8 @@ public class MailUtils {
 		String subject = null;
 
 		if(mailType.equals(MailTypeEnum.AVAILABILITY_APPROVE) || mailType.equals(MailTypeEnum.AVAILABILITY_INSERT) ||
-				mailType.equals(MailTypeEnum.FEEDBACK_INSERT) || mailType.equals(MailTypeEnum.INTERVIEW_INSERT)) {
+				mailType.equals(MailTypeEnum.FEEDBACK_INSERT) || mailType.equals(MailTypeEnum.INTERVIEW_INSERT)
+				|| mailType.equals(MailTypeEnum.AVAILABILITY_REFUSE)) {
 			subject = messageSource.getMessage("mail.subject.interview", null, Locale.getDefault());			
 		} 
 		else if(mailType.equals(MailTypeEnum.USER_REGISTER)) {

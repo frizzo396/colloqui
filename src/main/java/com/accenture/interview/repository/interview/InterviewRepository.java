@@ -224,7 +224,7 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 			+ "s.id = i.site.id and "
 			+ "ass.id = i.assigner and "
 			+ "i.id = :interviewId")
-	InterviewRTO findInterviewForApproval(@Param("interviewId") Long interviewId);
+	InterviewRTO findInterviewWithMailParams(@Param("interviewId") Long interviewId);
 
 
 }

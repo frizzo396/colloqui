@@ -52,6 +52,7 @@
                                                 <th>Interview date</th>
                                                 <th>Site</th>
                                                 <th>Interviewer</th>
+                                                <th>Status</th>
                                                 <th class="remove">Feedback</th>
                                                 <th>Detail</th>
                                             </tr>
@@ -68,14 +69,32 @@
                                                 		<span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).IN_PROGRESS.value}">
                                                 			<button id="approveDateBtn" th:data-parameter1="${interview.idColloquio}" th:data-parameter2="${interview.availabilityDates}" onclick="createApproveAvailablityModal(this.getAttribute('data-parameter1'), this.getAttribute('data-parameter2') )" type="submit" class="approve-popup">Approve</button>
                                                 		</span>
-                                                		<span th:if="${interview.status != T(com.accenture.interview.utils.enums.InterviewStatusEnum).IN_PROGRESS.value}">
+                                                		<span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).SCHEDULED.value 
+                                                							or interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).COMPLETED.value}">
                                                 			  <span th:text="${#dates.format(interview.scheduledDate, 'dd-MM-YYYY HH:mm')}"></span>
-                                                		</span>                                       		
+                                                		</span>      
+                                                		<span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).REFUSED.value}">
+                                                			<button id="reassignBtn" th:data-parameter1="${interview.idColloquio}" onclick="createReassignModal(this.getAttribute('data-parameter1') )" type="submit" class="reassign-popup">Reassign</button>
+                                                		</span>                                 		
                                                 </td>
                                                  <td th:text= "${interview.site}"/>
                                                   <td th:text= "${interview.enterpriseId}"/>
+                                                  <td>
+	                                                  <span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).NEW.value
+	                                                                      or interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).IN_PROGRESS.value}">	         
+	                                                                      <span>In progress</span>
+	                                                  </span>
+	                                                   <span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).SCHEDULED.value}">
+	                                                   					<span>Scheduled</span>
+	                                                    </span>
+	                                                  <span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).COMPLETED.value}">                                                  
+	                                                                     <span>Completed</span>
+	                                                  </span>
+	                                                   <span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).REFUSED.value}">                                                  
+	                                                                      <span>Refused</span>
+	                                                  </span>                                             
+                                                  </td>
                                                 <td class="remove">
-                                                		<!-- <span th:style="${interview.finalFeedback} eq 'OK' ? 'color: #008000' : 'color: #b20000'" th:text="${interview.finalFeedback}"></span> -->
                                                 		<span th:if="${interview.finalFeedback eq 'OK' }">
                                                 			  <span th:style="'color: #008000'" th:text="${interview.finalFeedback}"></span>
                                                 		</span>
@@ -110,6 +129,9 @@
                				</div>
                				<div id="approve-modal" class="cd-popup" role="alert">
                                 <div th:replace="fragments/approveDateModal"></div>
+               				</div>
+               				<div id="reassign-modal" class="cd-popup" role="alert">
+                                <div th:replace="fragments/reassignModal"></div>
                				</div>
                         </div>
                     </div>

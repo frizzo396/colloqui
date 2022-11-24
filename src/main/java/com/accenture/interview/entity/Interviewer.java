@@ -134,7 +134,7 @@ public class Interviewer {
 	 * @param enterpriseId the enterprise id
 	 * @param mail the mail
 	 */
-	public Interviewer(long id, @NotNull String enterpriseId, @NotNull String mail, long type) {
+	public Interviewer(long id, String enterpriseId, String mail, long type) {
 		super();
 		this.id = id;
 		this.enterpriseId = enterpriseId;
