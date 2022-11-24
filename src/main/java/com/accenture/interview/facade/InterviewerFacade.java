@@ -138,4 +138,13 @@ public class InterviewerFacade {
 	public List<InterviewerRTO> findAllInterviewers(){		
 		return interviewerService.findAllInterviewers();
 	}
+	
+	/**
+	 * Find all users.
+	 *
+	 * @return the list
+	 */
+	public List<InterviewerRTO> findAllUsers(){		
+		return interviewerService.findAllUsers();
+	}	
 }

@@ -48,7 +48,6 @@ public class Interviewer {
 	private List<Interview> interviewList;
 	
 	/** The status: 1 (attivo), 0 (inattivo/eliminato) */
-	@NotNull
 	@Column(name = "STATUS")	
 	private long status;
 

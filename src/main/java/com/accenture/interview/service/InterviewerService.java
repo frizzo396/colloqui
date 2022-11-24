@@ -91,5 +91,14 @@ public class InterviewerService {
 	public List<InterviewerRTO> findAllInterviewers(){		
 		return interviewerRepository.findAllInterviewers();
 	}
+	
+	/**
+	 * Find all users.
+	 *
+	 * @return the list
+	 */
+	public List<InterviewerRTO> findAllUsers(){		
+		return interviewerRepository.findAllUsers();
+	}	
 
 }

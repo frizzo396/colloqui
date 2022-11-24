@@ -27,7 +27,10 @@ public class InterviewerRTO {
 	private String mail;
 	
 	/** The type. */
-	private long type;	
+	private long type;
+	
+	/** The status: 1 (attivo), 0 (inattivo/eliminato) */
+	private long status;
 
 	/**
 	 * Instantiates a new search interviewer response.
