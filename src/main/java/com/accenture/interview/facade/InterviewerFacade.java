@@ -116,8 +116,8 @@ public class InterviewerFacade {
 		List<InterviewerRTO> allResponsibles = interviewerService.getAllResponsibles();		
 		MailParametersTO mailParams = new MailParametersTO(allResponsibles.stream().map(InterviewerRTO::getMail).collect(Collectors.toList()), 
 				Arrays.asList(requestTO.getMail()), 
-				Arrays.asList(requestTO.getEnterpriseId()),
-				Arrays.asList(requestTO.getEnterpriseId(), requestTO.getMail()), null);
+				Arrays.asList(requestTO.getEnterpriseId(), requestTO.getMail()),
+				Arrays.asList(requestTO.getEnterpriseId()), null);
 		
 		boolean result = mailService.sendMail(mailParams, MailTypeEnum.USER_REGISTER);	
 		if(!result) {

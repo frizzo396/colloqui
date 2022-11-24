@@ -258,11 +258,21 @@
 	width: 100%;
 }
 
+#containerReqRegistrationAcc {
+    width: 35%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 12.5%;
+    min-width: 350px;
+    display:none;
+}
+
 #containerReqRegistration {
 	width: 35%;
-	margin-left: auto;
+    margin-left: auto;
     margin-right: auto;
-    margin-top: 5%;
+    margin-top: 12.5%;
+    min-width: 350px;
 }
 
 #approveDateFormColumn .column{

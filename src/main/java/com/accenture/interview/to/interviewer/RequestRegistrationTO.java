@@ -22,6 +22,6 @@ public class RequestRegistrationTO {
 	
 	/** The mail. */
 	@Email(message = "interviewer.mail.invalid")
-	@NotEmpty(message = "interviewer.mail.notempty")
+	@NotEmpty(message = "interviewer.error.mail.not-empty")
 	private String mail;
 }

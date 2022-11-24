@@ -106,6 +106,8 @@ function createAvailablityModal(interviewId){
 function createApproveAvailablityModal(interviewId, dateInterviewList){
 	document.getElementById("approvedIntId").value = interviewId;	
 	let datesDropDown = document.getElementById("approvedDate");
+	datesDropDown.innerHTML = ""; //Clear
+	datesDropDown.add(new Option("Nothing selected", null)) ;
 	var obj = JSON.parse(dateInterviewList);	
 	let dateList = obj.availabilityDates;
 	

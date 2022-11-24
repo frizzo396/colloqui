@@ -19,6 +19,7 @@ import com.accenture.interview.to.interview.ReassignInterviewTO;
 import com.accenture.interview.to.interview.SearchInterviewTO;
 import com.accenture.interview.to.interview.UploadCvTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
+import com.accenture.interview.to.interviewer.RequestRegistrationTO;
 
 /**
  * The Class PaginationController.
@@ -33,8 +34,21 @@ public class PaginationController extends BaseController {
 	/** The interviewer facade. */
 	@Autowired
 	private InterviewerFacade interviewerFacade;	
-
-
+	
+	/**
+	 * Access page.
+	 *
+	 * @return the model and view
+	 */
+	@GetMapping("/access")
+	public ModelAndView accessPage() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("username", System.getProperty("user.name"));
+		modelAndView.addObject("requestRegistrationTO", new RequestRegistrationTO());
+		modelAndView.setViewName("access.html");
+		return modelAndView;
+	}
+	
 	/**
 	 * Account page.
 	 *

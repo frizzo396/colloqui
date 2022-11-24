@@ -20,6 +20,7 @@ import com.accenture.interview.rto.general.ErrorRTO;
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 import com.accenture.interview.to.interviewer.RequestRegistrationTO;
+import com.accenture.interview.utils.checkerror.CheckErrorsAccessInterviewer;
 import com.accenture.interview.utils.checkerror.CheckErrorsRegisterInterviewer;
 
 /**
@@ -36,9 +37,11 @@ public class InterviewerController {
 	/** The check errors insert interview. */
 	@Autowired 
 	private CheckErrorsRegisterInterviewer checkErrorsRegisterInterviewer;
+	
+	/** The check errors access interviewer. */
+	@Autowired
+	private CheckErrorsAccessInterviewer checkErrorsAccessInterviewer;
 	 
-
-
 	/**
 	 * Interviewer info.
 	 *
@@ -50,8 +53,7 @@ public class InterviewerController {
 	public InterviewerRTO interviewerInfo(@RequestParam("enterpriseId") String enterpriseId) {
 		return interviewerFacade.interviewerInfo(enterpriseId);
 	}
-	
-	
+		
 	/**
 	 * Creates the interviewer.
 	 *
@@ -82,6 +84,23 @@ public class InterviewerController {
 			return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
 		}
 		return new ResponseEntity<>(interviewerFacade.requestRegistration(requestTO), HttpStatus.OK);		
+	}	
+	
+	
+	/**
+	 * Access interviewer.
+	 *
+	 * @param enterpriseId the enterprise id
+	 * @return the response entity
+	 */
+	@PostMapping("/access")
+	public @ResponseBody ResponseEntity<Object> accessInterviewer(@RequestParam(name = "enterpriseId") String enterpriseId) {		
+		ErrorRTO errorRTO = checkErrorsAccessInterviewer.validate(enterpriseId);
+
+		if (!ObjectUtils.isEmpty(errorRTO)) {
+			return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
+		}
+		return new ResponseEntity<>(new BaseResponseRTO(enterpriseId, null), HttpStatus.OK);		
 	}	
 
 }
