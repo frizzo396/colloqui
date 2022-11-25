@@ -7,11 +7,14 @@
         <link th:href="@{/css/sidebar.css}" rel="stylesheet" />
         <link th:href="@{/css/container.css}" rel="stylesheet" />
         <link th:href="@{/css/header.css}" rel="stylesheet" />
-         <link th:href="@{/css/general-style.css}" rel="stylesheet" />
+        <link th:href="@{/css/general-style.css}" rel="stylesheet" />
         <link th:href="@{/css/popup-container.css}" rel="stylesheet" />
         <link th:href="@{/css/table.css}" rel="stylesheet" />
-         <link th:href="@{/css/snackbar.css}" rel="stylesheet" />
-          <link href="https://fonts.cdnfonts.com/css/graphik" rel="stylesheet" type='text/css'>
+        <link th:href="@{/css/snackbar.css}" rel="stylesheet" />
+        
+        <link th:href="@{/css/cta.css}" rel="stylesheet" />        
+        
+        <link href="https://fonts.cdnfonts.com/css/graphik" rel="stylesheet" type='text/css'>
         <link th:rel="stylesheet" th:href="@{assets/bootstrap-select-1.13.9/dist/css/bootstrap-select.css}" />
         <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
         <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
@@ -62,8 +65,17 @@
                                         <td>
                                             <span th:if="${interviewer.status == 1}">Attivo</span>
                                             <span th:unless="${interviewer.status == 1}">Inattivo/Eliminato</span>
-                                        </td> 									 						
- 										<td><a class='bx bx-dots-vertical-rounded'></a></td>
+                                        </td>				 										
+ 										<td>
+ 											<div class="dropdown"> 										
+ 												<i th:id="'ctaImg_' + ${interviewer.id}" class='bx bx-dots-vertical-rounded bx-sm' 
+ 												   th:onclick="'ctaFunction(\'' + 'ctaDropdown_' + ${interviewer.id} + '\')'"></i>
+												<div th:id="'ctaDropdown_' + ${interviewer.id}" class="dropdown-content">
+											    	<a href="#modifica">Modifica</a>
+											    	<a href="#abilita-disabilita">Abilita/Disabilita</a>
+												</div> 										
+ 											</div>
+ 										</td> 										
  										 
                                     </tr>
                                 </table>
@@ -86,5 +98,26 @@
                		</div>
                </div>
           </div>
+          
+		<script>
+		/* When the user clicks on the button, toggle between hiding and showing the dropdown content */
+		function ctaFunction(idDiv) {		  
+			document.getElementById(idDiv).classList.toggle("show");
+		}
+		
+		// Close the dropdown if the user clicks outside of it
+		window.onclick = function(event) {
+ 			if (!(event.target.id.includes("ctaDropdown") || event.target.id.includes("ctaImg"))) {
+			  var dropdowns = document.getElementsByClassName("dropdown-content");
+			  var i;
+			  for (i = 0; i < dropdowns.length; i++) {
+			    var openDropdown = dropdowns[i];
+			    if (openDropdown.classList.contains('show')) {
+			      openDropdown.classList.remove('show');
+			    }
+			  }
+			}
+		}
+		</script>          
     </body>
 </html>
