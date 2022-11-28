@@ -44,10 +44,11 @@
 	font-size: 11px;
 }
 
-#userIcon {
+#logoutIcon {
     font-size: 25px;
     color: white;
     margin:auto;
+    cursor: pointer;
 }
 
 #iconRow{

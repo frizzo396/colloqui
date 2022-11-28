@@ -1,6 +1,7 @@
 package com.accenture.interview.facade;
 
 import java.util.Arrays;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,6 +13,7 @@ import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.service.AvailabilityService;
 import com.accenture.interview.service.InterviewService;
 import com.accenture.interview.service.InterviewerService;
+import com.accenture.interview.service.general.EventService;
 import com.accenture.interview.service.general.MailService;
 import com.accenture.interview.to.interview.ApproveAvailabilityTO;
 import com.accenture.interview.to.interview.InsertAvailabilityTO;
@@ -42,13 +44,17 @@ public class AvailabilityFacade {
 	/** The mail service. */
 	@Autowired
 	private MailService mailService;
+	
+	/** The event service. */
+	@Autowired
+	private EventService eventService;
 
 
 	/**
 	 * Adds the availabilty interview.
 	 *
 	 * @param insertAvailabilityTO the insert availability TO
-	 * @return the long
+	 * @return the base response RTO
 	 */
 	public BaseResponseRTO addAvailabiltyInterview(InsertAvailabilityTO insertAvailabilityTO) {
 		String errorMsg = null;
@@ -75,7 +81,7 @@ public class AvailabilityFacade {
 	 * Approve availability.
 	 *
 	 * @param approveAvailabilityTO the approve availability TO
-	 * @return the long
+	 * @return the base response RTO
 	 */
 	public BaseResponseRTO approveAvailability(ApproveAvailabilityTO approveAvailabilityTO) {
 		String errorMsg = null;
@@ -88,11 +94,17 @@ public class AvailabilityFacade {
 					Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname(), DateUtils.formatDateToString(approveAvailabilityTO.getApprovedDate())), 
 					Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()), 
 					WebPaths.IN_PROGRESS);
-			boolean result = mailService.sendMail(mailParams, MailTypeEnum.AVAILABILITY_APPROVE);	
-
-			//TODO: Sent teams meeting to candidate
-			if(!result) {
+			boolean mailResult = mailService.sendMail(mailParams, MailTypeEnum.AVAILABILITY_APPROVE);	
+			
+			boolean teamsResult = eventService.sendTeamsInvitation(new Date(), interview.getCandidateMail(), 
+					interview.getCandidateName() + " " + interview.getCandidateSurname(),
+					interview.getInterviewerMail(), interview.getAssignerMail());
+			
+			if(!mailResult) {
 				errorMsg = mailService.mailNotSend();
+			}
+			if(!teamsResult) {
+				errorMsg = eventService.eventNotSendErrorMessage();
 			}
 		}
 		return new BaseResponseRTO(approveAvailabilityTO.getInterviewId(), errorMsg);
