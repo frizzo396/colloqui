@@ -36,7 +36,7 @@ $(document).ready(function (){
 		$.post($(this).attr('action'), $(this).serialize(), function (response){
 			if(response.error == null){
 					showToast("Operazione avvenuta con successo", "SUCCESS", 3000);
-					setTimeout(function(){RedirectHome()}, 1700);
+					setTimeout(function(){RedirectUsers()}, 1700);
 			} else {
 				showToast(response.error, "ERROR", 3000);
 			}
