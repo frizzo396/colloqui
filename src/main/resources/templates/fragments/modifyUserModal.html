@@ -4,35 +4,24 @@
 		<div class="container" id="containerInsert">
 			<div class="row">
 				<header class="containerHeader">
-					<label class="containerLabel">Register interviewer </label> <em
+					<label class="containerLabel">Modify interviewer </label> <em
 						id="closeModal" class='bx bx-x'></em>
 				</header>
 				<div class="col-lg-8 col-lg-offset-2" id="registerUserColumn">
-					<form id="registerUser" class="inp-form" action="#"
-						th:action="@{/interviewer/register}" th:object="${registerUserTO}"
+					<form id="modifyUser" class="inp-form" action="#"
+						th:action="@{/interviewer/modify}" th:object="${modifyUserTO}"
 						method="post">
-						<div class="form-group">
+						<div class="form-group">						
 							<div class="row">
 								<div class="column" style= "width: 100%">
 									<div class="form-group">
-										<label>Enterprise id</label> <input id="registerEntId"
-											type="text" th:field="*{enterpriseId}"
-											placeholder="enterprise.id" /> <small
-											th:if="${#fields.hasErrors('enterpriseId')}"
-											th:errors="*{enterpriseId}">Enterprise Id Error</small>
+										<label>Enterprise id</label> <input id="userEntId" th:field="*{enterpriseId}" />
 									</div>
-								</div>
-							</div>								
-							<div class="row">
-							<div class="column" style= "width: 100%">
 									<div class="form-group">
-										<label>Email</label> <input id="registerMail" type="email"
-											th:field="*{mail}" placeholder="mail@mail.com" /> <small
-											th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}">Email
-											Error</small>
-									</div>
+										<input id="userId" type="hidden" />
+									</div>									
 								</div>
-							</div>
+							</div>							
 							<div class="row">
 								<div class="column" id="rbResponsibleColumn">
 									<div class="form-group">
@@ -58,6 +47,7 @@
 									</div>
 								</div>
 							</div>
+							<br><br><br>
 						</div>
 					</form>
 				</div>

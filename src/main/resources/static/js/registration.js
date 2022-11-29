@@ -28,6 +28,24 @@ $(document).ready(function (){
 	});
 });
 
+// Modifica tipo intervistatore, 1 (Responsabile), 2 (Utente normale)
+$(document).ready(function (){
+	var $form= $('#modifyUser');
+	$form.submit(function (e) {
+		e.preventDefault(e);
+		$.post($(this).attr('action'), $(this).serialize(), function (response){
+			if(response.error == null){
+					showToast("Operazione avvenuta con successo", "SUCCESS", 3000);
+					setTimeout(function(){RedirectHome()}, 1700);
+			} else {
+				showToast(response.error, "ERROR", 3000);
+			}
+
+		}, 'json');
+		return false;
+	});
+});
+
 //Richiesta registrazione nuovo utente
 $(document).ready(function (){
 	var $form= $('#requestRegistration');

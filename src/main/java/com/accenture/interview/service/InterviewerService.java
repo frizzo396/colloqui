@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.accenture.interview.entity.Interviewer;
 import com.accenture.interview.repository.interviewer.InterviewerRepository;
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
+import com.accenture.interview.to.interviewer.ModifyInterviewerTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 
 /**
@@ -49,6 +50,24 @@ public class InterviewerService {
 			interviewer = new Interviewer(request);
 		}
 		interviewerRepository.save(interviewer);
+	}
+	
+	/**
+	 * Modifies the interview.
+	 *
+	 * @param request       the request
+	 * @return the creates the interview response
+	 */
+	public void modifyInterviewer(ModifyInterviewerTO request) {
+		Interviewer interviewer = null;
+		Optional<Interviewer> optInterviewer = interviewerRepository.findInterviewerEntityByEnterpriseId(request.getEnterpriseId());
+		
+		//Update flag
+		if(optInterviewer.isPresent()) {
+			interviewer = optInterviewer.get();
+			interviewer.setType(request.getIsResponsible());			
+			interviewerRepository.save(interviewer);			
+		}		
 	}	
 	
 	

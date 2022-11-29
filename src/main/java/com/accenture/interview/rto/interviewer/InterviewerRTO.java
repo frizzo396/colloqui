@@ -1,6 +1,7 @@
 package com.accenture.interview.rto.interviewer;
 
 import com.accenture.interview.entity.Interviewer;
+import com.accenture.interview.to.interviewer.ModifyInterviewerTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 
 import lombok.AllArgsConstructor;
@@ -61,6 +62,16 @@ public class InterviewerRTO {
 	public InterviewerRTO(RegisterInterviewerTO request) {		
 		this.enterpriseId = request.getEnterpriseId();
 		this.mail = request.getMail();
+		this.type = request.getIsResponsible().longValue();
+	}
+	
+	/**
+	 * Instantiates interviewer.
+	 *
+	 * @param request the modified interviewer request
+	 */
+	public InterviewerRTO(ModifyInterviewerTO request) {		
+		this.enterpriseId = request.getEnterpriseId();
 		this.type = request.getIsResponsible().longValue();
 	}	
 

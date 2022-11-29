@@ -15,6 +15,7 @@ import com.accenture.interview.rto.general.BaseResponseRTO;
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.service.InterviewerService;
 import com.accenture.interview.service.general.MailService;
+import com.accenture.interview.to.interviewer.ModifyInterviewerTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 import com.accenture.interview.to.interviewer.RequestRegistrationTO;
 import com.accenture.interview.to.mail.MailParametersTO;
@@ -66,6 +67,17 @@ public class InterviewerFacade {
 		}
 		return new BaseResponseRTO(new InterviewerRTO(request), null);
 	}
+	
+	/**
+	 * Modifies the interviewer.
+	 *
+	 * @param request the request
+	 * @return the interviewer response
+	 */
+	public BaseResponseRTO modifyInterviewer(ModifyInterviewerTO request) {
+		interviewerService.modifyInterviewer(request);		
+		return new BaseResponseRTO(new InterviewerRTO(request), null);
+	}	
 	
 	/**
 	 * Check enterprise id and mail.

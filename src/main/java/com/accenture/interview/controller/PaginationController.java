@@ -17,6 +17,7 @@ import com.accenture.interview.to.interview.CreateInterviewTO;
 import com.accenture.interview.to.interview.InsertAvailabilityTO;
 import com.accenture.interview.to.interview.SearchInterviewTO;
 import com.accenture.interview.to.interview.UploadCvTO;
+import com.accenture.interview.to.interviewer.ModifyInterviewerTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 
 /**
@@ -201,6 +202,7 @@ public class PaginationController extends BaseController {
 		modelAndView.addObject("interviewers", interviewerFacade.findAllUsers());		
 		modelAndView.addObject("interviews", interviewFacade.getInProgressInterviews(username));
 		modelAndView.addObject("registerUserTO", new RegisterInterviewerTO());
+		modelAndView.addObject("modifyUserTO", new ModifyInterviewerTO());
 		modelAndView.addObject("insertAvailabilityTO", new InsertAvailabilityTO());
 		modelAndView.setViewName("users.html");
 		return modelAndView;
