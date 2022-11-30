@@ -76,7 +76,7 @@
  												   th:onclick="'ctaFunction(\'' + 'ctaDropdown_' + ${interviewer.id} + '\')'"></i>
 												<div th:id="'ctaDropdown_' + ${interviewer.id}" class="dropdown-content">											    												    	
 											    	<a th:id="'modificaLink_' + ${interviewer.id}" th:attr="data-eid=${interviewer.enterpriseId}" th:onclick="'openPopupUser(' + ${interviewer.id} + ', event)'">Modifica</a>
-											    	<a href="#abilita-disabilita">Abilita/Disabilita</a>
+											    	<a th:id="'abilita-disabilitaLink_' + ${interviewer.id}" th:onclick="'abilitaDisabilita(' + ${interviewer.id} + ', event)'">Abilita/Disabilita</a>
 												</div>									
  											</div>
  										</td> 										
@@ -108,8 +108,21 @@
           </div>
           
 		<script>
-		function openPopupUser(userId, event) {			
-			// alert("test " + document.getElementById("modificaLink_" + userId).getAttribute('data-eid'));			
+		function abilitaDisabilita(userId, event) {
+			$.ajax({
+		        type: "POST",
+		        url: "/interview-ms/interviewer/enable-disable",
+		        data: {userIdParam : "" + userId},
+		        success: function (result) {
+		        	RedirectUsers();
+		        },
+		        error: function (result) {
+		        	showToast(result.responseText, "ERROR", 3000);
+		        }
+		    });			
+		}
+				
+		function openPopupUser(userId, event) {		
 			event.preventDefault();
 			$('#modify-modal').addClass('is-visible');
  			document.getElementById('userEntId').value = document.getElementById("modificaLink_" + userId).getAttribute('data-eid');

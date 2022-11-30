@@ -53,7 +53,7 @@ public class InterviewerService {
 	}
 	
 	/**
-	 * Modifies the interview.
+	 * Modifies the interviewer.
 	 *
 	 * @param request       the request
 	 * @return the creates the interview response
@@ -66,6 +66,33 @@ public class InterviewerService {
 		if(optInterviewer.isPresent()) {
 			interviewer = optInterviewer.get();
 			interviewer.setType(request.getIsResponsible());			
+			interviewerRepository.save(interviewer);			
+		}		
+	}
+	
+	/**
+	 * Enable/disable interviewer status.
+	 *
+	 * @param request       the request
+	 * @return the creates the interview response
+	 */
+	public void enableDisableInterviewer(ModifyInterviewerTO request) {
+		Interviewer interviewer = null;
+		Optional<Interviewer> optInterviewer = interviewerRepository.findInterviewerEntityById(request.getId());
+		
+		// Update status
+		if(optInterviewer.isPresent()) {
+			interviewer = optInterviewer.get();
+			
+			// enable status
+			if (interviewer.getStatus() == 0) {
+				interviewer.setStatus(1);
+			} else {
+				// disable status
+				if (interviewer.getStatus() == 1) {
+					interviewer.setStatus(0);
+				}					
+			}
 			interviewerRepository.save(interviewer);			
 		}		
 	}	

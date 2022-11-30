@@ -71,9 +71,9 @@ public class InterviewerController {
 	}
 	
 	/**
-	 * Modifies the interviewer.
+	 * Modifies the interviewer type.
 	 *
-	 * @param registerUserTO the register user TO
+	 * @param modifyUserTO the user TO
 	 * @return the response entity
 	 */
 	@PostMapping("/modify")
@@ -85,6 +85,21 @@ public class InterviewerController {
 			return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
 		}
 		return new ResponseEntity<>(interviewerFacade.modifyInterviewer(modifyUserTO), HttpStatus.OK);		
+	}
+	
+	/**
+	 * Modifies the interviewer status.
+	 *
+	 * @param modifyUserTO the user TO
+	 * @return the response entity
+	 */
+	@PostMapping("/enable-disable")
+	@Registered
+	public @ResponseBody ResponseEntity<Object> enableDisableInterviewer(@RequestParam("userIdParam") long id) {	
+		ModifyInterviewerTO modifyUserTO = new ModifyInterviewerTO();
+		modifyUserTO.setId(id);
+		
+		return new ResponseEntity<>(interviewerFacade.enableDisableInterviewer(modifyUserTO), HttpStatus.OK);
 	}	
 	
 	/**

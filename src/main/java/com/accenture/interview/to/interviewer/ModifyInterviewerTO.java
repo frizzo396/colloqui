@@ -25,5 +25,7 @@ public class ModifyInterviewerTO {
 	
 	/** The status. */
 	private long status;
-
+	
+	/** The id (primary key). */
+	private long id;
 }

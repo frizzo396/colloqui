@@ -206,6 +206,5 @@ public class PaginationController extends BaseController {
 		modelAndView.addObject("insertAvailabilityTO", new InsertAvailabilityTO());
 		modelAndView.setViewName("users.html");
 		return modelAndView;
-	}	
-
+	}
 }

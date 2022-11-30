@@ -77,6 +77,17 @@ public class InterviewerFacade {
 	public BaseResponseRTO modifyInterviewer(ModifyInterviewerTO request) {
 		interviewerService.modifyInterviewer(request);		
 		return new BaseResponseRTO(new InterviewerRTO(request), null);
+	}
+	
+	/**
+	 * Enable/disable interviewer status.
+	 *
+	 * @param request the request
+	 * @return the interviewer response
+	 */
+	public BaseResponseRTO enableDisableInterviewer(ModifyInterviewerTO request) {
+		interviewerService.enableDisableInterviewer(request);		
+		return new BaseResponseRTO(new InterviewerRTO(request), null);
 	}	
 	
 	/**

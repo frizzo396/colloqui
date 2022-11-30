@@ -70,9 +70,13 @@ public class InterviewerRTO {
 	 *
 	 * @param request the modified interviewer request
 	 */
-	public InterviewerRTO(ModifyInterviewerTO request) {		
+	public InterviewerRTO(ModifyInterviewerTO request) {
+		this.id = request.getId();		
 		this.enterpriseId = request.getEnterpriseId();
-		this.type = request.getIsResponsible().longValue();
+		
+		if (request.getIsResponsible() != null) {
+			this.type = request.getIsResponsible().longValue();
+		}
 	}	
 
 }
