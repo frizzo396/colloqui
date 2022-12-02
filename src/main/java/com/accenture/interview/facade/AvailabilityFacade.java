@@ -1,9 +1,12 @@
 package com.accenture.interview.facade;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
@@ -18,6 +21,7 @@ import com.accenture.interview.service.general.MailService;
 import com.accenture.interview.to.interview.ApproveAvailabilityTO;
 import com.accenture.interview.to.interview.InsertAvailabilityTO;
 import com.accenture.interview.to.interview.ReassignInterviewTO;
+import com.accenture.interview.to.mail.CalendarTO;
 import com.accenture.interview.to.mail.MailParametersTO;
 import com.accenture.interview.utils.constants.WebPaths;
 import com.accenture.interview.utils.date.DateUtils;
@@ -36,7 +40,7 @@ public class AvailabilityFacade {
 	/** The interview service. */
 	@Autowired
 	private InterviewService interviewService;
-	
+
 	/** The interviewer service. */
 	@Autowired
 	private InterviewerService interviewerService;
@@ -44,10 +48,13 @@ public class AvailabilityFacade {
 	/** The mail service. */
 	@Autowired
 	private MailService mailService;
-	
+
 	/** The event service. */
 	@Autowired
 	private EventService eventService;
+
+	@Autowired
+	private MessageSource messageSource;
 
 
 	/**
@@ -95,22 +102,32 @@ public class AvailabilityFacade {
 					Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()), 
 					WebPaths.IN_PROGRESS);
 			boolean mailResult = mailService.sendMail(mailParams, MailTypeEnum.AVAILABILITY_APPROVE);	
-			
-			boolean teamsResult = eventService.sendTeamsInvitation(new Date(), interview.getCandidateMail(), 
+
+			String webLink = eventService.sendTeamsInvitation(new Date(), interview.getCandidateMail(), 
 					interview.getCandidateName() + " " + interview.getCandidateSurname(),
 					interview.getInterviewerMail(), interview.getAssignerMail());
+			String body = messageSource.getMessage("teams.event.body", null, Locale.getDefault()).replace("$link", webLink);
+			mailService.sendCalendarMail(
+		            new CalendarTO.Builder()
+		                    .withSubject("Colloquio")
+		                    .withFrom(interview.getInterviewerMail())
+		                    .withBody(body)
+		                    .withToEmail(interview.getCandidateMail())
+		                    .withMeetingStartTime(LocalDateTime.now())
+		                    .withMeetingEndTime(LocalDateTime.now().plusHours(1))
+		                    .build());
 			
+			if(ObjectUtils.isEmpty(webLink)) {
+				errorMsg = eventService.eventNotSendErrorMessage();
+			}
 			if(!mailResult) {
 				errorMsg = mailService.mailNotSend();
-			}
-			if(!teamsResult) {
-				errorMsg = eventService.eventNotSendErrorMessage();
 			}
 		}
 		return new BaseResponseRTO(approveAvailabilityTO.getInterviewId(), errorMsg);
 	}
-	
-	
+
+
 	/**
 	 * Refuse availability.
 	 *
@@ -121,7 +138,7 @@ public class AvailabilityFacade {
 		String errorMsg = null;
 		InterviewRTO interview = interviewService.findInterviewWithMailParams(interviewId);		
 		Long refuseId = interviewService.refuseInterview(interviewId);
-		
+
 		MailParametersTO mailParams = new MailParametersTO(Arrays.asList(interview.getInterviewerMail()), 
 				Arrays.asList(interview.getAssignerMail()), 
 				Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()), 
@@ -134,7 +151,7 @@ public class AvailabilityFacade {
 		}
 		return new BaseResponseRTO(refuseId, errorMsg);
 	}
-	
+
 	/**
 	 * Reassign availability.
 	 *

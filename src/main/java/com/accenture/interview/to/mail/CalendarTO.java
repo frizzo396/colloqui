@@ -6,6 +6,8 @@ import java.util.UUID;
 public class CalendarTO {
 	private String uid = UUID.randomUUID().toString();
     private String toEmail;
+    private String from;
+    private String cc;
     private String subject;
     private String body;
     private LocalDateTime meetingStartTime;
@@ -13,6 +15,8 @@ public class CalendarTO {
  
     private CalendarTO(Builder builder) {
         toEmail = builder.toEmail;
+        from = builder.from;
+        cc = builder.cc;
         subject = builder.subject;
         body = builder.body;
         meetingStartTime = builder.meetingStartTime;
@@ -35,8 +39,18 @@ public class CalendarTO {
     public String getBody() {
         return body;
     }
- 
-    public LocalDateTime getMeetingStartTime() {
+    
+    public String getFrom() {
+		return from;
+	}
+
+	public String getCc() {
+		return cc;
+	}
+
+
+
+	public LocalDateTime getMeetingStartTime() {
         return meetingStartTime;
     }
  
@@ -46,12 +60,15 @@ public class CalendarTO {
  
     public static final class Builder {
         private String toEmail;
+        private String from;
+        private String cc;
         private String subject;
         private String body;
         private LocalDateTime meetingStartTime;
         private LocalDateTime meetingEndTime;
  
         public Builder() {
+          //empty
         }
  
         public Builder withToEmail(String val) {
@@ -61,6 +78,16 @@ public class CalendarTO {
  
         public Builder withSubject(String val) {
             subject = val;
+            return this;
+        }
+        
+        public Builder withCc(String val) {
+            cc = val;
+            return this;
+        }
+        
+        public Builder withFrom(String val) {
+            from = val;
             return this;
         }
  

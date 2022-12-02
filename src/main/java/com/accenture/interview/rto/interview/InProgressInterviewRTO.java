@@ -38,8 +38,10 @@ public class InProgressInterviewRTO {
 	/** The site. */
 	private String site;
 	
+	/** The status. */
 	private Integer status;
 	
+	/** The cv id. */
 	private Long cvId;
 	
 }

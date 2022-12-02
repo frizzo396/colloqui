@@ -8,6 +8,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
+import javax.mail.search.RecipientStringTerm;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
@@ -24,8 +26,11 @@ import com.microsoft.graph.models.DateTimeTimeZone;
 import com.microsoft.graph.models.EmailAddress;
 import com.microsoft.graph.models.Event;
 import com.microsoft.graph.models.ItemBody;
+import com.microsoft.graph.models.LobbyBypassSettings;
 import com.microsoft.graph.models.Location;
+import com.microsoft.graph.models.OnlineMeeting;
 import com.microsoft.graph.models.OnlineMeetingProviderType;
+import com.microsoft.graph.models.Recipient;
 import com.microsoft.graph.options.HeaderOption;
 import com.microsoft.graph.requests.GraphServiceClient;
 
@@ -69,7 +74,7 @@ public class EventService {
 	 * @param assignerMail the assigner mail
 	 * @return true, if successful
 	 */
-	public boolean sendTeamsInvitation(Date scheduledDate, String candidateMail, String candidate, String interviewerMail, String assignerMail) {
+	public String sendTeamsInvitation(Date scheduledDate, String candidateMail, String candidate, String interviewerMail, String assignerMail) {
 		try {
 			final ClientSecretCredential clientSecretCredential = new ClientSecretCredentialBuilder()
 					.clientId(clientId)
@@ -77,13 +82,14 @@ public class EventService {
 					.tenantId(tenantId)
 					.build();
 			final GraphServiceClient<?> graphClient = createClientWithAuthentication(clientSecretCredential, graphLink);			
-			graphClient.users(userId).events()
-				.buildRequest(new LinkedList<>(Arrays.asList(new HeaderOption("Content-Type", "application/json"))))
-				.post(createEvent(scheduledDate, candidateMail, candidate, interviewerMail, assignerMail));
-			return true;
+			Event post = graphClient.users(userId).events()
+					.buildRequest(new LinkedList<>(Arrays.asList(new HeaderOption("Content-Type", "application/json"))))
+					.post(createEvent(scheduledDate, candidateMail, candidate, interviewerMail, assignerMail));	
 			
+			return post.onlineMeeting.joinUrl;
+
 		} catch (Exception e) {
-			return false;
+			return null;
 		}
 	}
 
@@ -114,29 +120,49 @@ public class EventService {
 	 */
 	private Event createEvent(Date scheduledDate, String candidateMail, String candidate, String interviewerMail, String assignerMail) {
 		Event event = new Event();
-		event.isOnlineMeeting = true;
-		event.onlineMeetingProvider = OnlineMeetingProviderType.TEAMS_FOR_BUSINESS;
 		event.subject = "Colloquio Accenture - " + candidate;		
-		event.body = createBody(candidate);
+		event.body = createBody();
 		event.start = createEventDate(scheduledDate, EventDateTypeEnum.START);		
 		event.end = createEventDate(scheduledDate, EventDateTypeEnum.END);
 		Location location = new Location();
 		location.displayName = "Microsoft Teams";
 		event.location = location;
 		event.attendees = addPartecipants(candidateMail, interviewerMail, assignerMail);
+		event.isOnlineMeeting = true;
+		event.organizer = createOrganizer(interviewerMail);
+		event.onlineMeetingProvider = OnlineMeetingProviderType.TEAMS_FOR_BUSINESS;
 		return event;
 	} 
+	
+	
+	/*private OnlineMeeting createOnlineMeeting(Date scheduledDate, String candidateMail, String candidate, String interviewerMail, String assignerMail) {
+		OnlineMeeting meeting = new OnlineMeeting();
+		meeting.allowAttendeeToEnableCamera = true;
+		meeting.allowAttendeeToEnableMic = true;
+		meeting.
+	
+		return meeting;
+	} */
+	
+	
+	
+	private Recipient createOrganizer(String interviewerMail) {
+		Recipient organizer = new Recipient();		
+		EmailAddress organizerAdress = new EmailAddress();
+		organizerAdress.address = interviewerMail;
+		organizer.emailAddress = organizerAdress;
+		return organizer;
+	}
 
 	/**
 	 * Creates the body.
 	 *
 	 * @return the item body
 	 */
-	private ItemBody createBody(String candidate) {
+	private ItemBody createBody() {
 		ItemBody body = new ItemBody();
 		body.contentType = BodyType.HTML; 
-		//body.content = messageSource.getMessage("teams.event.body", null, Locale.getDefault());
-		body.content = "Colloquio Accenture - " + candidate;
+		body.content = messageSource.getMessage("teams.mail.body", null, Locale.getDefault());
 		return body;
 	}
 
