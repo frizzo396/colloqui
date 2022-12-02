@@ -59,7 +59,7 @@ public class MailService {
 			helper.setTo(mailParams.getTo().toArray(new String[0]));
 			helper.setText(mailUtils.getMailBody(mailParams.getBodyParams(), mailParams.getLink(), type), true);
 			mailSender.send(message);
-		} catch (MessagingException e) {
+		} catch (Exception e) {
 			return false;
 		}
 		return true;

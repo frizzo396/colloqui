@@ -52,17 +52,7 @@
 			<ul class="sub-menu">
 				<li onclick="RedirectInProgress()"><a class="link_name">In
 						progress</a></li>
-			</ul></li>
-		<li
-			th:if="${interviewer.type==T(com.accenture.interview.utils.enums.InterviewerTypeEnum).getIdFromDescription('RESPONSABILE')}">
-			<a class="popup-register"> <em class="bx bx-user-plus"
-				style="color: black;"></em> <span class="link_name">Register</span>
-		</a>
-			<ul class="sub-menu">
-				<li class="popup-register"><a class="link_name">Register</a></li>
-			</ul>			
-		</li>
-		
+			</ul></li>		
 		<li
 			th:if="${interviewer.type==T(com.accenture.interview.utils.enums.InterviewerTypeEnum).getIdFromDescription('RESPONSABILE')}"
 			onclick="RedirectUsers()"><a> <em

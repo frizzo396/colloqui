@@ -3,6 +3,11 @@ jQuery(document).ready(function ($) {
 
 });
 
+function redirectUsers() {
+	window.location.href = "/interview-ms/users";
+}
+
+
 //Salvataggio intervistatore
 $(document).ready(function (){
 	var $form= $('#registerUser');
@@ -10,15 +15,11 @@ $(document).ready(function (){
 		e.preventDefault(e);
 		$.post($(this).attr('action'), $(this).serialize(), function (response){
 			if(response.error == null){
-					// PER TOGLIERE ROTELLINA SPINNER - START
 					var submitBtn = document.getElementById('btn_register_submit');
 					setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); 
 					           showToast("Operazione avvenuta con successo", "SUCCESS", 3000); 
-					           setTimeout(function(){RedirectHome()}, 1700);}, 2000);
-					// PER TOGLIERE ROTELLINA SPINNER - END				
-				
-					// showToast("Operazione avvenuta con successo", "SUCCESS", 3000);
-					// setTimeout(function(){RedirectHome()}, 1700);
+					           setTimeout(function(){redirectUsers()}, 1700);}, 2000);
+					 redirectUsers()
 			} else if(response.body != null && response.error != null){ //Se user già presente, posso solo aggiornare il flag
 				var body = response.body;
 				document.getElementById("registerEntId").value = body.enterpriseId;
@@ -26,20 +27,14 @@ $(document).ready(function (){
 				document.getElementById('registerEntId').readOnly = true;
 				document.getElementById('registerMail').readOnly = true;
 				
-				// PER TOGLIERE ROTELLINA SPINNER - START
+
 				var submitBtn = document.getElementById('btn_register_submit');
 				setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); showToast(response.error, "ERROR", 3000);}, 2000);
-				// PER TOGLIERE ROTELLINA SPINNER - END				
-				
-				// showToast(response.error, "ERROR", 3000);
 			} else {
-				
-				// PER TOGLIERE ROTELLINA SPINNER - START
 				var submitBtn = document.getElementById('btn_register_submit');
-				setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); showToast(response.error, "ERROR", 3000);}, 2000);
-				// PER TOGLIERE ROTELLINA SPINNER - END
-								
-				// showToast(response.error, "ERROR", 3000);
+				setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); 
+				showToast(response.error, "ERROR", 3000);
+				 setTimeout(function(){redirectUsers()}, 1700);}, 2000);				 
 			}
 
 		}, 'json');
@@ -54,23 +49,15 @@ $(document).ready(function (){
 		e.preventDefault(e);
 		$.post($(this).attr('action'), $(this).serialize(), function (response){
 			if(response.error == null){				
-					// PER TOGLIERE ROTELLINA SPINNER - START
 					var submitBtn = document.getElementById('btn_modify_submit');
 					setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); 
 					           showToast("Operazione avvenuta con successo", "SUCCESS", 3000); 
-					           setTimeout(function(){RedirectUsers()}, 1700);}, 2000);
-					// PER TOGLIERE ROTELLINA SPINNER - END			
-								
-					// showToast("Operazione avvenuta con successo", "SUCCESS", 3000);
-					// setTimeout(function(){RedirectUsers()}, 1700);
+					           setTimeout(function(){redirectUsers()}, 1700);}, 2000);
+					  redirectUsers()
 			} else {
-				
-				// PER TOGLIERE ROTELLINA SPINNER - START
 				var submitBtn = document.getElementById('btn_modify_submit');
-				setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); showToast(response.error, "ERROR", 3000);}, 2000);
-				// PER TOGLIERE ROTELLINA SPINNER - END				
-				
-				// showToast(response.error, "ERROR", 3000);
+				setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); showToast(response.error, "ERROR", 3000);
+				setTimeout(function(){redirectUsers()}, 1700);}, 2000);
 			}
 
 		}, 'json');

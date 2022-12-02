@@ -210,7 +210,7 @@ public class PaginationController extends BaseController {
 	 *
 	 * @return the model and view
 	 */
-	@GetMapping("/interview/users")
+	@GetMapping("/users")
 	@Registered
 	public ModelAndView usersPage() {
 		ModelAndView modelAndView = new ModelAndView();

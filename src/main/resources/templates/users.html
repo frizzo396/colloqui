@@ -12,8 +12,7 @@
         <link th:href="@{/css/general-style.css}" rel="stylesheet" />
         <link th:href="@{/css/popup-container.css}" rel="stylesheet" />
         <link th:href="@{/css/table.css}" rel="stylesheet" />
-        <link th:href="@{/css/snackbar.css}" rel="stylesheet" />
-        
+        <link th:href="@{/css/snackbar.css}" rel="stylesheet" />       
         <link th:href="@{/css/cta.css}" rel="stylesheet" />        
         
         <link href="https://fonts.cdnfonts.com/css/graphik" rel="stylesheet" type='text/css'>
@@ -50,6 +49,9 @@
                     <div class="container" id="inProgressContainer">
                              <header class="containerHeader">
 						              <label class="containerLabel">Users</label>
+						              <a class="popup-register"> 
+						              		<em id="plusIconUsers" class='bx bx-plus'></em>
+						              </a>	
 						    </header>	
                             <div class="col-lg-8 col-lg-offset-2" id="tableFormColumn">
                                 <table id="usersTable" class="mytable paginated">
@@ -61,8 +63,7 @@
                                         <th></th>                                                                                
                                     </tr>
                                     <tr class="tableRows" th:each="interviewer: ${interviewers}">
- 										<td th:text="${interviewer.enterpriseId}" />
- 										<!-- <td th:text="${interviewer.type}" /> --> 										
+ 										<td th:text="${interviewer.enterpriseId}" />						
                                         <td>
                                             <span th:if="${interviewer.type == T(com.accenture.interview.utils.enums.InterviewerTypeEnum).getIdFromDescription('RESPONSABILE')}">Responsabile</span>
                                             <span th:unless="${interviewer.type == T(com.accenture.interview.utils.enums.InterviewerTypeEnum).getIdFromDescription('RESPONSABILE')}">Normale</span>
@@ -70,7 +71,7 @@
  										<td class="remove" th:text="${interviewer.mail}" />										
                                         <td>
                                             <span th:if="${interviewer.status == 1}">Attivo</span>
-                                            <span th:unless="${interviewer.status == 1}">Inattivo/Eliminato</span>
+                                            <span th:unless="${interviewer.status == 1}">Inattivo</span>
                                         </td>				 										
  										<td>
  											<div class="dropdown"> 										

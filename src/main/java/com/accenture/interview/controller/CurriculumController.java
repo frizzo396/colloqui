@@ -6,7 +6,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.accenture.interview.annotation.Registered;
 import com.accenture.interview.facade.CurriculumFacade;
@@ -53,27 +53,30 @@ public class CurriculumController {
 	 */
 	@PostMapping(path = "/upload")
 	@Registered	
-	public String uploadCV(@ModelAttribute UploadCvTO uploadCvTO, Model model) {
+	public ModelAndView uploadCV(@ModelAttribute UploadCvTO uploadCvTO) {
 		String username = System.getProperty("user.name");
+		ModelAndView modelAndView = new ModelAndView();
 		BaseResponseRTO response = cvFacade.uploadCurriculum(uploadCvTO);
 		if(ObjectUtils.isEmpty(response.getError())) {
-			model.addAttribute("interviewer", interviewerFacade.interviewerInfo(username));
-			model.addAttribute("inProgressInterviews", interviewFacade.getInProgressInterviewsNumber(username));
-			model.addAttribute("myInterviews", interviewFacade.getMyInterviewsNumber(username));
-			model.addAttribute("myInterviewsMonth", interviewFacade.getMonthCompletedInterviewsNumber(username));
-			model.addAttribute("inProgressInterviewsMonth", interviewFacade.getMonthInProgressInterviewsNumber(username));
-			model.addAttribute("yearMonthInterviews", interviewFacade.getYearCompletedInterviews(username));
-			model.addAttribute("registerUserTO", new RegisterInterviewerTO());
-			return "home";
+			modelAndView.addObject("interviewer", interviewerFacade.interviewerInfo(username));
+			modelAndView.addObject("inProgressInterviews", interviewFacade.getInProgressInterviewsNumber(username));
+			modelAndView.addObject("myInterviews", interviewFacade.getMyInterviewsNumber(username));
+			modelAndView.addObject("myInterviewsMonth", interviewFacade.getMonthCompletedInterviewsNumber(username));
+			modelAndView.addObject("inProgressInterviewsMonth", interviewFacade.getMonthInProgressInterviewsNumber(username));
+			modelAndView.addObject("yearMonthInterviews", interviewFacade.getYearCompletedInterviews(username));
+			modelAndView.addObject("registerUserTO", new RegisterInterviewerTO());
+			modelAndView.setViewName("home.html");
+			return modelAndView;
 		} 
 		else {
-			model.addAttribute("interviewer", interviewerFacade.interviewerInfo(username));
-			model.addAttribute("createInterviewTO", new CreateInterviewTO());
-			model.addAttribute("interviewerList", interviewerFacade.findAllInterviewers());
-			model.addAttribute("comboSitesDB", interviewFacade.getComboSites());
-			model.addAttribute("registerUserTO", new RegisterInterviewerTO());
-			model.addAttribute("uploadCvTO", new UploadCvTO());
-			return "insert";
+			modelAndView.addObject("interviewer", interviewerFacade.interviewerInfo(username));
+			modelAndView.addObject("createInterviewTO", new CreateInterviewTO());
+			modelAndView.addObject("interviewerList", interviewerFacade.findAllInterviewers());
+			modelAndView.addObject("comboSitesDB", interviewFacade.getComboSites());
+			modelAndView.addObject("registerUserTO", new RegisterInterviewerTO());
+			modelAndView.addObject("uploadCvTO", new UploadCvTO());
+			modelAndView.setViewName("insert.html");
+			return modelAndView;
 		}
 	}
 
