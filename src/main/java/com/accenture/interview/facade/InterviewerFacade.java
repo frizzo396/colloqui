@@ -15,6 +15,7 @@ import com.accenture.interview.rto.general.BaseResponseRTO;
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.service.InterviewerService;
 import com.accenture.interview.service.general.MailService;
+import com.accenture.interview.to.interviewer.ModifyInterviewerTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 import com.accenture.interview.to.interviewer.RequestRegistrationTO;
 import com.accenture.interview.to.mail.MailParametersTO;
@@ -51,7 +52,10 @@ public class InterviewerFacade {
 		if(!(ObjectUtils.isEmpty(interviewer)) 
 			&& !(isEnterpriseidAndMailEqual(request, interviewer.getEnterpriseId(), interviewer.getMail()))){
 			return new BaseResponseRTO(interviewer, messageSource.getMessage("interviewer.error.already-register", null, Locale.getDefault()));
-		}	
+		}
+		// QUANDO VIENE INSERITO UN NUOVO UTENTE, STATUS = 1
+		request.setStatus(1);	
+		
 		interviewerService.addNewInterviewer(request);
 		InterviewerRTO registering = interviewerService.findInterviewerByEnterpriseId(System.getProperty("user.name"));
 		MailParametersTO mailParams = new MailParametersTO(Arrays.asList(request.getMail()), 
@@ -63,6 +67,28 @@ public class InterviewerFacade {
 		}
 		return new BaseResponseRTO(new InterviewerRTO(request), null);
 	}
+	
+	/**
+	 * Modifies the interviewer.
+	 *
+	 * @param request the request
+	 * @return the interviewer response
+	 */
+	public BaseResponseRTO modifyInterviewer(ModifyInterviewerTO request) {
+		interviewerService.modifyInterviewer(request);		
+		return new BaseResponseRTO(new InterviewerRTO(request), null);
+	}
+	
+	/**
+	 * Enable/disable interviewer status.
+	 *
+	 * @param request the request
+	 * @return the interviewer response
+	 */
+	public BaseResponseRTO enableDisableInterviewer(ModifyInterviewerTO request) {
+		interviewerService.enableDisableInterviewer(request);		
+		return new BaseResponseRTO(new InterviewerRTO(request), null);
+	}	
 	
 	/**
 	 * Check enterprise id and mail.
@@ -135,4 +161,13 @@ public class InterviewerFacade {
 	public List<InterviewerRTO> findAllInterviewers(){		
 		return interviewerService.findAllInterviewers();
 	}
+	
+	/**
+	 * Find all users.
+	 *
+	 * @return the list
+	 */
+	public List<InterviewerRTO> findAllUsers(){		
+		return interviewerService.findAllUsers();
+	}	
 }

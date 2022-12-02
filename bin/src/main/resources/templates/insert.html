@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="it">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <title>Interview</title>
+        <link th:href="@{/css/form.css}" rel="stylesheet" />
+        <link th:href="@{/css/sidebar.css}" rel="stylesheet" />
+        <link th:href="@{/css/container.css}" rel="stylesheet" />
+        <link th:href="@{/css/header.css}" rel="stylesheet" />
+        <link th:href="@{/css/snackbar.css}" rel="stylesheet" />
+        <link th:href="@{/css/general-style.css}" rel="stylesheet" />
+        <link th:href="@{/css/popup-container.css}" rel="stylesheet" />
+        <link th:rel="stylesheet" th:href="@{assets/bootstrap-select-1.13.9/dist/css/bootstrap-select.css}" />
+        <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+        <link href="https://fonts.cdnfonts.com/css/graphik" rel="stylesheet"  type='text/css'>
+        <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
+
+        <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" th:src="@{/js/registration.js}"></script>
+        <script type="text/javascript" th:src="@{/js/general.js}"></script>
+        <script type="text/javascript" th:src="@{/js/interview.js}"></script>
+         <script type="text/javascript" th:src="@{/js/upload.js}"></script>
+          <script type="text/javascript" th:src="@{/js/availability.js}"></script>
+        <script type="text/javascript" th:src="@{/js/sidebar.js}"></script>
+    </head>
+    <body>
+        <div class="interview-html">               
+        
+			<!-- NUOVO DIV PER HEADER SUPERIORE -->
+			<div th:replace="fragments/header"></div>        
+       
+           <div class="pageRow">         
+				<!-- NUOVO DIV PER SIDEBAR (LATERALE) -->
+				<div class="col-lg-8 col-lg-offset-2" id="sidebarColumn">
+						<div th:replace="fragments/sidebar"></div>  				
+				 </div>            
+            
+                <div class="col-lg-8 col-lg-offset-2" id="containerColumn">
+                    <div class="container" id="containerInsert">
+                    		<header class="containerHeader">
+						              <label class="containerLabel">Insert Interview</label>
+						    </header>		
+                            <div class="col-lg-8 col-lg-offset-2" id="insertFormColumn">
+                                <form class="inp-form" id="insertInterview" action="#" th:action="@{/interview/create}" th:object="${createInterviewTO}" method="post" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <div class="2-column-container">
+                                            <div class="row">
+                                                <div class="column">
+                                                    <div class="form-group">
+                                                        <label>Name</label>
+                                                        <input type="text" th:field="*{candidateName}" placeholder="Name" />
+                                                        <small th:if="${#fields.hasErrors('candidateSurname')}" th:errors="*{candidateName}">Name Error</small>
+                                                    </div>
+                                                </div>
+                                                <div class="column">
+                                                    <div class="form-group">
+                                                        <label>Surname</label>
+                                                        <input type="text" th:field="*{candidateSurname}" placeholder="Surname" />
+                                                        <small th:if="${#fields.hasErrors('candidateSurname')}" th:errors="*{candidateSurname}">Surname Error</small>
+                                                    </div>
+                                                </div>
+                                                <div class="column">
+                                                    <div class="form-group">
+                                                        <label>Date of birth</label>
+                                                        <input class="datePicker" type="date" th:field="*{candidateBirth}" />
+                                                        <small th:if="${#fields.hasErrors('candidateBirth')}" th:errors="*{candidateBirth} ">Birth Error</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="column">
+                                                    <div class="form-group">
+                                                        <label>Email</label>
+                                                        <input type="email" th:field="*{mail}" placeholder="mail@mail.com" />
+                                                        <small th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}">Email Error</small>
+                                                    </div>
+                                                </div>
+                                                 <div class="column">
+                                                    <div class="form-group">
+                                                        <label>Qualification</label>
+                                                        <input type="text" th:field="*{eduQualification}" placeholder="Qualification" />
+                                                        <small th:if="${#fields.hasErrors('eduQualification')}" th:errors="*{eduQualification}">Qualification Error</small>
+                                                    </div>
+                                                </div>
+                                                <div class="column">
+                                                    <div class="form-group">
+                                                        <label>Interviewer</label>
+                                                        <select class="formcontrol selectpicker" th:field="*{enterpriseId}">
+                                                            <option value="">Nothing selected</option>
+                                                             <option th:each="interviewer : ${interviewerList}" th:value="${interviewer.enterpriseId}" th:text="${interviewer.enterpriseId}">
+                                                               site
+                                                            </option>
+                                                        </select>
+                                                        <small th:if="${#fields.hasErrors('enterpriseId')}" th:errors="*{enterpriseId}">Interviewer Error</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="column">
+                                                    <div class="form-group">
+                                                        <label for="candidateType">Candidate Level</label>
+                                                        <select  class="formcontrol selectpicker" th:field="*{candidateType}" id="candidateType">
+                                                            <option value="">Nothing selected</option>
+                                                            <option th:each="candidateType : ${T(com.accenture.interview.utils.enums.CandidateTypeEnum).values()}" th:value="${candidateType}" 
+                                                            			th:text="${candidateType.description}">
+                                                                candidate type
+                                                            </option>
+                                                        </select>
+                                                        <small th:if="${#fields.hasErrors('candidateType')}" th:errors="*{candidateType}">Candidate Type Error</small>
+                                                    </div>
+                                                </div>
+                                                <div class="column">
+                                                    <div class="form-group">
+                                                        <label>Interview type</label>
+                                                        <select class="form-control selectpicker" th:field="*{interviewType}" id="interviewType">
+                                                            <option value="">Nothing selected</option>
+                                                            <option th:each="interviewType : ${T(com.accenture.interview.utils.enums.InterviewTypeEnum).values()}" th:value="${interviewType}" 
+                                                            th:text="${interviewType.description}">
+                                                                interview type
+                                                            </option>
+                                                        </select>
+                                                        <small th:if="${#fields.hasErrors('interviewType')}" th:errors="*{interviewType}">Interview type Error</small>
+                                                    </div>
+                                                </div>
+                                                
+                                                <!-- 2022-10-13 NUOVA COLONNA site - START -->
+                                                <div class="column">
+                                                    <div class="form-group">
+                                                        <label>Site</label>
+                                                        <select class="formcontrol selectpicker" th:field="*{site}" id="site">
+                                                            <option value="">Nothing selected</option>
+                                                             <option th:each="siteElem : ${comboSitesDB}" th:value="${siteElem.id}" th:text="${siteElem.name}">
+                                                               site
+                                                            </option>
+                                                        </select>
+                                                        <small th:if="${#fields.hasErrors('site')}" th:errors="*{site}">Site Error</small>
+                                                    </div>
+                                                </div>                                                
+                                                <!-- 2022-10-13 NUOVA COLONNA site - END -->                                                
+                                             </div>  
+                                            <div class="row" id="buttonRow">
+                                                <div class="button-column">
+                                                    <div class="form-group">
+                                                        <button class="submit-button" id="insertInterviewBtn" type="submit">Submit</button>
+                                                    </div>
+                                                </div>
+                                                <div class="button-column">
+                                                    <div class="form-group">
+                                                        <button class="clear-button" type="reset" value="Reset">Clear</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                 </div>
+                            </div>
+                    </div>
+                </div>
+               <div id="register-modal" class="cd-popup" role="alert">
+                                <div th:replace="fragments/registerUserModal"></div>
+               </div>
+                <div id="upload-cv-modal" class="cd-popup" role="alert">
+                                <div th:replace="fragments/uploadCvModal"></div>
+               </div>
+  				<div  id="snackbar">
+               		<div  id="snackbarRow">
+               				  <div class="col-lg-8 col-lg-offset-2" id="snackbarTextColumn">
+               				 
+               				 </div>    				 
+               		</div>
+               </div>
+            </div>
+        </div>
+    </body>
+</html>

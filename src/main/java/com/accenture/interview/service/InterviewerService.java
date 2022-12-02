@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.accenture.interview.entity.Interviewer;
 import com.accenture.interview.repository.interviewer.InterviewerRepository;
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
+import com.accenture.interview.to.interviewer.ModifyInterviewerTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 
 /**
@@ -49,6 +50,51 @@ public class InterviewerService {
 			interviewer = new Interviewer(request);
 		}
 		interviewerRepository.save(interviewer);
+	}
+	
+	/**
+	 * Modifies the interviewer.
+	 *
+	 * @param request       the request
+	 * @return the creates the interview response
+	 */
+	public void modifyInterviewer(ModifyInterviewerTO request) {
+		Interviewer interviewer = null;
+		Optional<Interviewer> optInterviewer = interviewerRepository.findInterviewerEntityByEnterpriseId(request.getEnterpriseId());
+		
+		//Update flag
+		if(optInterviewer.isPresent()) {
+			interviewer = optInterviewer.get();
+			interviewer.setType(request.getIsResponsible());			
+			interviewerRepository.save(interviewer);			
+		}		
+	}
+	
+	/**
+	 * Enable/disable interviewer status.
+	 *
+	 * @param request       the request
+	 * @return the creates the interview response
+	 */
+	public void enableDisableInterviewer(ModifyInterviewerTO request) {
+		Interviewer interviewer = null;
+		Optional<Interviewer> optInterviewer = interviewerRepository.findInterviewerEntityById(request.getId());
+		
+		// Update status
+		if(optInterviewer.isPresent()) {
+			interviewer = optInterviewer.get();
+			
+			// enable status
+			if (interviewer.getStatus() == 0) {
+				interviewer.setStatus(1);
+			} else {
+				// disable status
+				if (interviewer.getStatus() == 1) {
+					interviewer.setStatus(0);
+				}					
+			}
+			interviewerRepository.save(interviewer);			
+		}		
 	}	
 	
 	
@@ -91,5 +137,14 @@ public class InterviewerService {
 	public List<InterviewerRTO> findAllInterviewers(){		
 		return interviewerRepository.findAllInterviewers();
 	}
+	
+	/**
+	 * Find all users.
+	 *
+	 * @return the list
+	 */
+	public List<InterviewerRTO> findAllUsers(){		
+		return interviewerRepository.findAllUsers();
+	}	
 
 }

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="it">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Interview</title>
+        <link th:href="@{/css/form.css}" rel="stylesheet" />
+        <link th:href="@{/css/sidebar.css}" rel="stylesheet" />
+        <link th:href="@{/css/container.css}" rel="stylesheet" />
+        <link th:href="@{/css/header.css}" rel="stylesheet" />
+         <link th:href="@{/css/general-style.css}" rel="stylesheet" />
+        <link th:href="@{/css/popup-container.css}" rel="stylesheet" />
+        <link th:href="@{/css/table.css}" rel="stylesheet" />
+         <link th:href="@{/css/snackbar.css}" rel="stylesheet" />
+          <link href="https://fonts.cdnfonts.com/css/graphik" rel="stylesheet" type='text/css'>
+        <link th:rel="stylesheet" th:href="@{assets/bootstrap-select-1.13.9/dist/css/bootstrap-select.css}" />
+        <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
+        <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+        <script src="https://kit.fontawesome.com/ee5a107043.js" crossorigin="anonymous"></script>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+      	<script type="text/javascript" th:src="@{/js/general.js}"></script>
+      	<script type="text/javascript" th:src="@{/js/registration.js}"></script>
+      	<script type="text/javascript" th:src="@{/js/availability.js}"></script>
+      	<script type="text/javascript" th:src="@{/js/table.js}"></script>
+      	<script type="text/javascript" th:src="@{/js/feedback.js}"></script>
+        <script type="text/javascript" th:src="@{/js/sidebar.js}"></script>
+    </head>
+    <body>
+        <div class="interview-html">
+			<div th:replace="fragments/header"></div>
+			
+            <div class="pageRow">
+            
+			<div class="col-lg-8 col-lg-offset-2" id="sidebarColumn">
+						<div th:replace="fragments/sidebar"></div>  				
+				 </div>      
+						
+                <div class="col-lg-8 col-lg-offset-2" id="containerColumn">
+                    <div class="container" id="inProgressContainer">
+                             <header class="containerHeader">
+						              <label class="containerLabel">In progress interviews</label>
+						    </header>	
+                            <div class="col-lg-8 col-lg-offset-2" id="tableFormColumn">
+                                <table id="inProgressTable" class="mytable paginated">
+                                    <tr>
+                                        <th>Candidate </th>
+                                        <th class="remove">Level</th>
+                                        <th class="remove">Interview Type</th>
+                                        <th>Availability</th>
+                                        <th class="remove">Site</th>
+                                        <th>CV</th>
+                                        <th>Feedback</th>
+                                    </tr>
+                                    <tr class="tableRows" th:each="interview: ${interviews}">
+ 										<td th:text="${interview.candidateName} + ' ' + ${interview.candidateSurname}" />       
+ 										<td class="remove" th:text= "${interview.candidateLevel}"/>   
+                                        <td class="remove">
+                                            <span th:if="${interview.interviewType == 1}">Motivazionale</span>
+                                            <span th:unless="${interview.interviewType == 1}">Tecnico</span>
+                                        </td>
+                                        <td>
+                                        		<span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).NEW.value}">
+                                        			<button type="submit" class="av-popup" th:data-parameter1="${interview.id}" onclick="createAvailablityModal(this.getAttribute('data-parameter1'));"><em id="plusIcon" class='bx bx-plus'></em></button>
+                                        		</span>
+                                        		<span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).IN_PROGRESS.value}">
+                                        			Sent to approval
+                                        		</span>  
+                                        		<span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).SCHEDULED.value}"  th:text="${#dates.format(interview.scheduledDate, 'dd-MM-YYYY HH:mm')}" >
+                                        		</span>
+                                        </td>
+                                        <td class="remove" th:text= "${interview.site}"/>   
+                                        <td>                                      		
+	                                        	<form id="downloadCV" action="#" th:action="@{/interview/curriculum/download/} + ${{interview.id}}" method="get">
+		                                        	<span th:if="${interview.cvId != null}">
+											                <button th:id="'interview_child_button_' + ${interview.id}" type="submit">
+											                    <em class='bx bxs-download' style="font-size: 16px;"></em>
+											                </button>
+											         </span>
+										         </form>							            
+                                        </td>
+                                        <td>
+	                                        <span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).SCHEDULED.value}">
+	                                            <span th:if="${interview.interviewType == 1}">
+	                                                <button type="submit" class="motiv-popup" th:data-parameter1="${interview.id}" onclick="goToMotivationalFeedback(this.getAttribute('data-parameter1'));"><em id="plusIcon" class='bx bx-plus'></em></button>
+	                                            </span>
+	                                            <span th:unless="${interview.interviewType == 1}">
+	                                                <button type="submit" class="tech-popup" th:data-parameter1="${interview.id}" onclick="goToTechnicalFeedback(this.getAttribute('data-parameter1'));"><em id="plusIcon" class='bx bx-plus'></em></button>
+	                                            </span>
+	                                            </span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                    </div>
+                </div>              
+                 <div id="register-modal" class="cd-popup" role="alert">
+                                <div th:replace="fragments/registerUserModal"></div>
+               </div>
+               
+               <div id="availability-modal" class="cd-popup" role="alert">
+                                <div th:replace="fragments/availabilityModal"></div>
+               </div>
+            </div>
+              <div  id="snackbar">
+               		<div  id="snackbarRow">
+               				  <div class="col-lg-8 col-lg-offset-2" id="snackbarTextColumn">
+               				 
+               				 </div>    				 
+               		</div>
+               </div>
+          </div>
+    </body>
+</html>

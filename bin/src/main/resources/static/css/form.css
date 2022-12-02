@@ -1,0 +1,300 @@
+
+.inp-form .row{
+	padding-top: 15px;
+}
+
+#containerColumn {
+    width: 70%;
+}
+
+#modalColumn {
+    width: 100%;
+}
+
+#registerRow .column {
+	width: 50%;
+}
+
+#rbRegisterColumn {
+	width: 100% !important;
+}
+
+#formTitle {
+    font-size: 15px;
+    font-family: 'Graphik', sans-serif;
+	color: white;
+	text-transform: uppercase;
+}
+
+
+#operationsHeader{
+	background-color: #1429eb;
+	position: absolute;
+    height: 13%;
+    width: 100%;
+    display: block;
+}
+
+
+
+.num-input {
+	color: #afb0b3 !important;
+}
+
+#inProgressTable button {
+	font-size: 12px !important;
+    margin: auto !important;
+    width: 60% !important;
+    border-radius: 5px !important;
+	background-color: #ffdead00 !important;
+	color: #0a58ca !important;
+    padding: 7px !important;
+}
+
+
+#openNavSpan {
+	font-size:30px;
+	cursor:pointer;
+	float: left;
+	margin-top: 30px;
+	margin-left: 10px;
+}
+
+
+
+.interview-form{
+	min-height:345px;
+	position:relative;
+	perspective:1000px;
+	transform-style:preserve-3d;
+	margin-top:60px;
+}
+.interview-form .group{
+	margin-bottom:15px;
+}
+.interview-form .group .label,
+.interview-form .group .input,
+.interview-form .group .button{
+	width:100%;
+	color:#fff;
+	display:block;
+}
+.interview-form .group .input,
+.interview-form .group .button{
+	border:none;
+	padding:15px 20px;
+	border-radius:25px;
+	background:rgba(255,255,255,.1);
+}
+
+.interview-form .group .label{
+	color:#aaa;
+	font-size:12px;
+}
+.interview-form .group .button{
+	background:#1161ee;
+}
+
+/*rotation form*/
+.interview-form .group label .icon:before,
+.interview-form .group label .icon:after{
+	content:'';
+	width:10px;
+	height:2px;
+	background:#fff;
+	position:absolute;
+	transition:all .2s ease-in-out 0s;
+}
+.interview-form .group label .icon:before{
+	left:3px;
+	width:5px;
+	bottom:6px;
+	transform:scale(0) rotate(0);
+}
+.interview-form .group label .icon:after{
+	top:6px;
+	right:0;
+	transform:scale(0) rotate(0);
+}
+
+.interview-form .group .check:checked + label{
+	color:#fff;
+}
+.interview-form .group .check:checked + label .icon{
+	background:#1429eb;
+}
+.interview-form .group .check:checked + label .icon:before{
+	transform:scale(1) rotate(45deg);
+}
+.interview-form .group .check:checked + label .icon:after{
+	transform:scale(1) rotate(-45deg);
+}
+.interview-html .interview:checked + .tab + .search + .tab + .interview-form .interview-htm{
+	transform:rotate(0);
+}
+.interview-html .search:checked + .tab + .interview-form .search-htm{
+	transform:rotate(0);
+}
+
+.hr{
+	height:2px;
+	margin:60px 0 50px 0;
+	background:rgba(255,255,255,.2);
+}
+.foot-lnk{
+	text-align:center;
+}
+.form-group input, .form-group select{
+	color: black;  
+}
+
+.form-group select{
+	color: #afb0b3;  
+}
+
+input[type=date]{
+    color: #afb0b3;
+}
+
+
+::-webkit-calendar-picker-indicator {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 24 24"><path fill="%23bbbbbb" d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>');
+}
+
+#cv {
+	    color: #afb0b3;
+}
+
+input[type=datetime-local]{
+    color: #afb0b3;
+}
+
+option{
+  color: black;
+}
+
+::placeholder { 
+  color: #afb0b3;
+}
+
+::placeholder {
+  color: #afb0b3;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+color: #afb0b3;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+color: #afb0b3;
+}
+
+
+.search-group input {
+  background-repeat:no-repeat;
+  background-size:16px 17px;
+  background-position: left 10px bottom 45%;
+}
+
+.search-group input:focus {
+  border-color: #afb0b3;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+
+ /* .container{margin:10px;}*/
+  .sidenav {padding-top: 15px; width: 50%;}
+  .sidenav a {font-size: 18px;}
+  .mytable td {font-size: 10px;}
+   #inProgressTable button { width: 90%; font-size: 10px; }
+   #motivationalTableModal {width: 80%;}
+   .add-feed-button {width: 100% !important;}
+}
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 1000px) {
+  .column,  input[type=submit] {
+    width: 100% !important;
+    margin-top: 0;
+  }
+  input[type=radio]{
+    width: 7% !important;
+	}
+	.rbColumn {
+		display: inline !important;
+		float: none !important;
+		padding-right: 0px !important;
+	}
+    .mytable td {font-size: 10px;}
+   #inProgressTable button { width: 90%; font-size: 10px; }
+   #motivationalTableModal {width: 80%;}
+}
+
+.is-visible .cd-popup-container, .is-visible .cd-popup-container2 {
+  -webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  -ms-transform: translateY(0);
+  -o-transform: translateY(0);
+  transform: translateY(0);
+}
+@media only screen and (min-width: 1170px) {
+  .cd-popup-container, .cd-popup-container2 {
+    margin: 8em auto;
+  }
+  	.rbColumn {
+		display: inline-flex !important;
+		float: left !important;
+		padding-right: 60px !important;
+	}
+}
+
+
+@media screen and (max-width: 1000px) {
+  .clear-button, .submit-button, .search-button {
+    width: 50%;
+    font-size: 100%;
+  }
+  
+  #btnRegisterUser {
+  	width: 50% !important;
+  }
+    #btnClearRegisterUser {
+  	width: 50% !important;
+  }
+  
+}
+
+
+
+.close {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    width: 10px;
+    height: 32px;
+}
+.close:hover {
+    opacity: 1;
+}
+.close:before, .close:after {
+    position: absolute;
+    right: 10px;
+    content: ' ';
+    height: 20px;
+}
+.close:before {
+    transform: rotate(45deg);
+}
+.close:after {
+    transform: rotate(-45deg);
+}
+
+
+
+.content {
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+

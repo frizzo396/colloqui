@@ -1,6 +1,5 @@
 package com.accenture.interview.to.interviewer;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -14,16 +13,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class RegisterInterviewerTO {	
+public class ModifyInterviewerTO {	
 
 	/** Responsible. */
 	@NotNull(message = "interviewer.error.responsible.not-null")
 	private Long isResponsible;
-
-	/** The mail. */
-	@Email(message = "interviewer.error.mail.invalid")
-	@NotEmpty(message = "interviewer.error.mail.not-empty")
-	private String mail;
 
 	/** The enterprise id. */
 	@NotEmpty(message = "interviewer.error.enterpriseid.not-empty")
@@ -31,5 +25,7 @@ public class RegisterInterviewerTO {
 	
 	/** The status. */
 	private long status;
-
+	
+	/** The id (primary key). */
+	private long id;
 }

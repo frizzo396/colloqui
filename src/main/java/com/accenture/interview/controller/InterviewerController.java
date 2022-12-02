@@ -18,6 +18,7 @@ import com.accenture.interview.facade.InterviewerFacade;
 import com.accenture.interview.rto.general.BaseResponseRTO;
 import com.accenture.interview.rto.general.ErrorRTO;
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
+import com.accenture.interview.to.interviewer.ModifyInterviewerTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 import com.accenture.interview.to.interviewer.RequestRegistrationTO;
 import com.accenture.interview.utils.checkerror.CheckErrorsAccessInterviewer;
@@ -69,6 +70,38 @@ public class InterviewerController {
 			return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
 		}
 		return new ResponseEntity<>(interviewerFacade.addNewInterviewer(registerUserTO), HttpStatus.OK);		
+	}
+	
+	/**
+	 * Modifies the interviewer type.
+	 *
+	 * @param modifyUserTO the user TO
+	 * @return the response entity
+	 */
+	@PostMapping("/modify")
+	@Registered
+	public @ResponseBody ResponseEntity<Object> modifyInterviewer(@RequestBody @ModelAttribute ModifyInterviewerTO modifyUserTO) {		
+		ErrorRTO errorRTO = checkErrorsRegisterInterviewer.validate(modifyUserTO);
+
+		if (!ObjectUtils.isEmpty(errorRTO)) {
+			return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
+		}
+		return new ResponseEntity<>(interviewerFacade.modifyInterviewer(modifyUserTO), HttpStatus.OK);		
+	}
+	
+	/**
+	 * Modifies the interviewer status.
+	 *
+	 * @param modifyUserTO the user TO
+	 * @return the response entity
+	 */
+	@PostMapping("/enable-disable")
+	@Registered
+	public @ResponseBody ResponseEntity<Object> enableDisableInterviewer(@RequestParam("userIdParam") long id) {	
+		ModifyInterviewerTO modifyUserTO = new ModifyInterviewerTO();
+		modifyUserTO.setId(id);
+		
+		return new ResponseEntity<>(interviewerFacade.enableDisableInterviewer(modifyUserTO), HttpStatus.OK);
 	}	
 	
 	/**

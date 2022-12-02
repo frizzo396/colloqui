@@ -46,6 +46,10 @@ public class Interviewer {
 	@OneToMany(mappedBy = "interviewerId")
 	@JsonIgnore
 	private List<Interview> interviewList;
+	
+	/** The status: 1 (attivo), 0 (inattivo/eliminato) */
+	@Column(name = "STATUS")	
+	private long status;
 
 	/**
 	 * Gets the id.
@@ -126,6 +130,7 @@ public class Interviewer {
 	public void setInterviewList(List<Interview> interviewList) {
 		this.interviewList = interviewList;
 	}
+		
 
 	/**
 	 * Instantiates a new interviewer.
@@ -154,6 +159,16 @@ public class Interviewer {
 		this.enterpriseId = registerInterviewerRequest.getEnterpriseId();
 		this.mail = registerInterviewerRequest.getMail();
 		this.type = registerInterviewerRequest.getIsResponsible();
+		
+		this.status = registerInterviewerRequest.getStatus();
+	}
+
+	public long getStatus() {
+		return status;
+	}
+
+	public void setStatus(long status) {
+		this.status = status;
 	}	
 
 }

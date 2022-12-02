@@ -15,6 +15,7 @@ import org.springframework.util.ObjectUtils;
 import com.accenture.interview.rto.general.ErrorRTO;
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.service.InterviewerService;
+import com.accenture.interview.to.interviewer.ModifyInterviewerTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 import com.accenture.interview.to.interviewer.RequestRegistrationTO;
 
@@ -35,7 +36,7 @@ public class CheckErrorsRegisterInterviewer {
 	 
 	
 	/**
-	 * Validate insert interview request.
+	 * Validate insert interviewer request.
 	 *
 	 * @param registerUserTO the register user TO
 	 * @return the sets the
@@ -51,6 +52,24 @@ public class CheckErrorsRegisterInterviewer {
 		
 		return null;
 	}
+	
+	/**
+	 * Validate modified interviewer request.
+	 *
+	 * @param modifyUserTO the modified user TO
+	 * @return the sets the
+	 */
+	public ErrorRTO validate(ModifyInterviewerTO modifyUserTO) {
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		Set<ConstraintViolation<ModifyInterviewerTO>> violations = factory.getValidator().validate(modifyUserTO);
+
+		if (!violations.isEmpty()) {
+			String errorMsg = messageSource.getMessage(violations.stream().findFirst().get().getMessage(), null, Locale.getDefault());
+			return new ErrorRTO(errorMsg);
+		}
+		
+		return null;
+	}	
 	
 	/**
 	 * Validate.
