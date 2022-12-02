@@ -54,7 +54,10 @@
 							<div class="row" id="registerSingleButtonRow">
 								<div class="button-column">
 									<div class="form-group">
-										<button class="submit-button" type="submit">Submit</button>
+										<!-- <button class="submit-button" type="submit">Submit</button> -->
+										<button id="btn_register_submit" class="submit-spinner" 
+										        type="submit" onclick="this.classList.toggle('submit-spinner--loading')">
+										<span class="button-text">Submit</span></button>
 									</div>
 								</div>
 							</div>

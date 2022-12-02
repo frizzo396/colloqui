@@ -7,9 +7,12 @@
 					<label class="containerLabel">Upload CV</label> <em
 						id="closeModal" class='bx bx-x'></em>
 				</header>
+								
+				
 				<form class="inp-form" id="uploadCV" action="#"
 					th:action="@{/interview/curriculum/upload}"
 					th:object="${uploadCvTO}" method="post" enctype="multipart/form-data" onsubmit="return validationUpload()">
+					
 					<div class="col-lg-8 col-lg-offset-2" id="uploadCVFormColumn">
 						<div class="row">
 							<div class="column">
@@ -23,7 +26,10 @@
 						<div class="row" id="singleButtonRow">
 							<div class="button-column">
 								<div class="form-group">
-									<button class="submit-button" type="submit">Upload</button>
+									<!-- <button class="submit-button" type="submit">Upload</button> -->
+									<button id="btn_upload_submit" class="submit-spinner"
+									        type="submit" onclick="this.classList.toggle('submit-spinner--loading')">
+									<span class="button-text">Upload</span></button>									
 								</div>
 							</div>
 						</div>

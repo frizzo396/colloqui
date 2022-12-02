@@ -6,13 +6,26 @@ jQuery(document).ready(function ($) {
 		$form.submit(function (e) {
 			e.preventDefault(e);
 			$.post($(this).attr('action'), $(this).serialize(), function (response){
-				if(response.error == null){
-						showToast("Colloquio inserito con successo", "SUCCESS", 3000);
-						document.getElementById('insertInterview').reset();
-						createUploadCVModal(response.body.interviewId);
+				if(response.error == null){					
+						// PER TOGLIERE ROTELLINA SPINNER - START
+						var submitBtn = document.getElementById('insertInterviewBtn');
+						setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); 
+						           showToast("Colloquio inserito con successo", "SUCCESS", 3000); 
+						           document.getElementById('insertInterview').reset();
+						           createUploadCVModal(response.body.interviewId);}, 2000);
+						// PER TOGLIERE ROTELLINA SPINNER - END						
+					
+						// showToast("Colloquio inserito con successo", "SUCCESS", 3000);
+						// document.getElementById('insertInterview').reset();						
+						// createUploadCVModal(response.body.interviewId);
 					}
 					else {
-						showToast(response.error, "ERROR", 3000);
+						// PER TOGLIERE ROTELLINA SPINNER - START
+						var submitBtn = document.getElementById('insertInterviewBtn');
+						setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); showToast(response.error, "ERROR", 3000);}, 2000);
+						// PER TOGLIERE ROTELLINA SPINNER - END
+													
+						// showToast(response.error, "ERROR", 3000);
 					}
 	
 			}, 'json');

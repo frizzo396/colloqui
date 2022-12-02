@@ -60,8 +60,20 @@
 		</a>
 			<ul class="sub-menu">
 				<li class="popup-register"><a class="link_name">Register</a></li>
+			</ul>			
+		</li>
+		
+		<li
+			th:if="${interviewer.type==T(com.accenture.interview.utils.enums.InterviewerTypeEnum).getIdFromDescription('RESPONSABILE')}"
+			onclick="RedirectUsers()"><a> <em
+				class='bx bx-user-circle' style="color: black;"></em> <span
+				class="link_name">Users</span>
+			</a>
+			<ul class="sub-menu">
+				<li onclick="RedirectUsers()"><a class="link_name">Users</a></li>
 			</ul>
 		</li>
+				
 	</ul>
 </div>
 <section class="home-section">
