@@ -38,11 +38,23 @@ jQuery(document).ready(function ($) {
 			e.preventDefault(e);
 				$.post($(this).attr('action'), $(this).serialize(), function (response){
 					if(response.error == null){
-						showToast("Operazione avvenuta con successo", "SUCCESS", 3000);
-						setTimeout(function(){RedirectHome()}, 1700);
+						// PER TOGLIERE ROTELLINA SPINNER - START
+						var submitBtn = document.getElementById('btn_mot-feed_submit');
+						setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); 
+						           showToast("Operazione avvenuta con successo", "SUCCESS", 3000); 
+						           setTimeout(function(){RedirectHome()}, 1700);}, 2000);
+						// PER TOGLIERE ROTELLINA SPINNER - END						
+						
+						// showToast("Operazione avvenuta con successo", "SUCCESS", 3000);
+						// setTimeout(function(){RedirectHome()}, 1700);
 					}
 					else {
-						showToast(response.error, "ERROR", 3000);
+						// PER TOGLIERE ROTELLINA SPINNER - START
+						var submitBtn = document.getElementById('btn_mot-feed_submit');
+						setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); showToast(response.error, "ERROR", 3000);}, 2000);
+						// PER TOGLIERE ROTELLINA SPINNER - END						
+						
+						// showToast(response.error, "ERROR", 3000);
 					}
 	
 			}, 'json');
@@ -56,12 +68,24 @@ jQuery(document).ready(function ($) {
 		$form.submit(function (e) {
 			e.preventDefault(e);
 			$.post($(this).attr('action'), $(this).serialize(), function (response){
-				if(response.error == null){
-						showToast("Operazione avvenuta con successo", "SUCCESS", 3000);
-						setTimeout(function(){RedirectHome()}, 1700);
+				if(response.error == null){					
+						// PER TOGLIERE ROTELLINA SPINNER - START
+						var submitBtn = document.getElementById('btn_tech-feed_submit');
+						setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); 
+						           showToast("Operazione avvenuta con successo", "SUCCESS", 3000); 
+						           setTimeout(function(){RedirectHome()}, 1700);}, 2000);
+						// PER TOGLIERE ROTELLINA SPINNER - END
+											
+						// showToast("Operazione avvenuta con successo", "SUCCESS", 3000);
+						// setTimeout(function(){RedirectHome()}, 1700);
 					}
-				else {
-						showToast(response.error, "ERROR", 3000);
+				else {					
+						// PER TOGLIERE ROTELLINA SPINNER - START
+						var submitBtn = document.getElementById('btn_tech-feed_submit');
+						setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); showToast(response.error, "ERROR", 3000);}, 2000);
+						// PER TOGLIERE ROTELLINA SPINNER - END
+												
+						// showToast(response.error, "ERROR", 3000);
 				}
 			}, 'json');
 			return false;

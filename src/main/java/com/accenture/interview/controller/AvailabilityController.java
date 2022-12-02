@@ -63,7 +63,7 @@ public class AvailabilityController {
 	 */
 	@PostMapping("/approve")
 	@Registered
-	public ResponseEntity<Object> approveAvailability(@RequestBody @ModelAttribute ApproveAvailabilityTO approveAvailabilityTO) {
+	public ResponseEntity<Object> approveAvailability(@RequestBody @ModelAttribute ApproveAvailabilityTO approveAvailabilityTO) {				
 		ErrorRTO errorRTO = checkErrorsApproveAvailability.validate(approveAvailabilityTO);
 		
 		if (!ObjectUtils.isEmpty(errorRTO)) {

@@ -79,3 +79,10 @@ function RedirectInProgress() {
     //window.location.href = "/interview-ms/interview/in-progress?enterpriseId=" + enterpriseId;
      window.location.href = "/interview-ms/interview/in-progress";
 }
+
+function RedirectUsers() {
+    const url_string = window.location.href;
+    const url = new URL(url_string);
+    const enterpriseId = url.searchParams.get("enterpriseId");
+     window.location.href = "/interview-ms/interview/users";
+}
