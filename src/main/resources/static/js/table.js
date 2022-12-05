@@ -6,14 +6,20 @@ jQuery(document).ready(function ($) {
 function pagination(){
     $('table.paginated').each(function () {
         var $table = $(this);
+        var tablePagRow = $(".table-row");
+        var tableColumnPag = $("#tableFormColumn");
         var itemsPerPage = 4;
         var currentPage = 0;
         var pages = Math.ceil($table.find("tr:not(:has(th))").length / itemsPerPage);
         $table.bind('repaginate', function () {
             if (pages > 1) {
                 var pager;
-                if ($table.next().hasClass("pager"))
-                    pager = $table.next().empty();  else
+                var pagerTest = $(".pager")[0];
+                if (pagerTest) {
+                   pagerTest.innerHTML  = ' ';
+                    pager = pagerTest;
+                }
+                else
                     pager = $('<div class="pager" style="padding-top: 30px; direction:ltr; color:black; padding-bottom: 30px;" align="center"></div>');
 
                 $('<a style="font-size:12px;"> « Prev&nbsp;&nbsp;&nbsp;&nbsp; </a>').bind('click', function () {
@@ -37,9 +43,9 @@ function pagination(){
                         currentPage++;
                     $table.trigger('repaginate');
                 }).appendTo(pager);
-
-                if (!$table.next().hasClass("pager")){
-					pager.insertAfter($table);
+							
+				 if (!pagerTest){	
+					pager.insertAfter(tablePagRow);
 				}
                 
                 //pager.insertBefore($table);	
@@ -62,12 +68,12 @@ function pagination(){
 				for (var i = 0; i < rows.length; i++) {
 				  if (rows[i].style.display === "none") {
 						let lastRow = rows[i-1];
-						var cells = lastRow.getElementsByTagName("td");
-						var firstCell = cells[0];
-						var lastCell = cells[cells.length -1];
-						firstCell.style.borderBottomLeftRadius = "5px";
-						lastCell.style.borderBottomRightRadius = "5px";						
-						break;
+							var cells = lastRow.getElementsByTagName("td");
+							var firstCell = cells[0];
+							var lastCell = cells[cells.length -1];
+							firstCell.style.borderBottomLeftRadius = "5px";
+							lastCell.style.borderBottomRightRadius = "5px";			
+							break;
 				  }
 				}
         });

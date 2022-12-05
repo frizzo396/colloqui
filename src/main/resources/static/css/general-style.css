@@ -242,6 +242,12 @@ input[type=file]::file-selector-button:hover {
   clear: both;
 }
 
+.table-row {
+	 width: 100%; 
+  clear: both;
+  min-height: 250px;
+}
+
 .inline{
 	float:left;
 }
