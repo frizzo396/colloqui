@@ -91,11 +91,13 @@ public class MailService {
 					"TZID:Europe/Berlin\n" +
 					"END:VTIMEZONE\n" +
 					"BEGIN:VEVENT\n" +
-					"ATTENDEE;ROLE=REQ-PARTICIPANT;RSVP=TRUE:MAILTO:\n" +
+					"ATTENDEE;ROLE=REQ-PARTICIPANT;CN=:MAILTO:" + calendarRequest.getToEmail() + " \n" +
+					"ATTENDEE;ROLE=REQ-PARTICIPANT;CN=:MAILTO:" + calendarRequest.getFrom() + " \n" +
+					"ATTENDEE;ROLE=OPT-PARTICIPANT;CN=:MAILTO:" + calendarRequest.getCc() + " \n" +
 					"ORGANIZER;CN=:MAILTO:\n" +
 					"DESCRIPTION;LANGUAGE=en-US:\n" +
 					"UID:"+calendarRequest.getUid()+"\n" +
-					"SUMMARY;LANGUAGE=en-US:Discussion\n" +
+					"SUMMARY;LANGUAGE=en-US:Colloquio Accenture\n" +
 					"DTSTART:" + formatter.format(calendarRequest.getMeetingStartTime()).replace(" ", "T") + "\n" +
 					"DTEND:" + formatter.format(calendarRequest.getMeetingEndTime()).replace(" ", "T") + "\n" +
 					"CLASS:PUBLIC\n" +

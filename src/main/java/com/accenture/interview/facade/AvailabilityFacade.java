@@ -1,8 +1,7 @@
 package com.accenture.interview.facade;
 
-import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,18 +102,17 @@ public class AvailabilityFacade {
 					WebPaths.IN_PROGRESS);
 			boolean mailResult = mailService.sendMail(mailParams, MailTypeEnum.AVAILABILITY_APPROVE);	
 
-			String webLink = eventService.sendTeamsInvitation(new Date(), interview.getCandidateMail(), 
-					interview.getCandidateName() + " " + interview.getCandidateSurname(),
-					interview.getInterviewerMail(), interview.getAssignerMail());
+			String webLink = eventService.createTeamsMeeting(approveAvailabilityTO.getApprovedDate());
 			String body = messageSource.getMessage("teams.event.body", null, Locale.getDefault()).replace("$link", webLink);
-			mailService.sendCalendarMail(
-		            new CalendarTO.Builder()
-		                    .withSubject("Colloquio")
+			String candidate = interview.getCandidateName() + " " + interview.getCandidateSurname();
+			mailService.sendCalendarMail(new CalendarTO.Builder()
+		                    .withSubject("Colloquio " + candidate)
 		                    .withFrom(interview.getInterviewerMail())
+		                    .withCc(interview.getAssignerMail())
 		                    .withBody(body)
 		                    .withToEmail(interview.getCandidateMail())
-		                    .withMeetingStartTime(LocalDateTime.now())
-		                    .withMeetingEndTime(LocalDateTime.now().plusHours(1))
+		                    .withMeetingStartTime(approveAvailabilityTO.getApprovedDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime())
+		                    .withMeetingEndTime(approveAvailabilityTO.getApprovedDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().plusHours(1))
 		                    .build());
 			
 			if(ObjectUtils.isEmpty(webLink)) {
