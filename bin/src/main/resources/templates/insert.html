@@ -3,7 +3,9 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <title>Interview</title>
+        <title>Insert</title>
+        <link rel='shortcut icon' type='image/x-icon' th:href="@{/images/accenture-icon.ico}" />
+        <link th:href="@{/css/spinner.css}" rel="stylesheet" />
         <link th:href="@{/css/form.css}" rel="stylesheet" />
         <link th:href="@{/css/sidebar.css}" rel="stylesheet" />
         <link th:href="@{/css/container.css}" rel="stylesheet" />
@@ -144,7 +146,10 @@
                                             <div class="row" id="buttonRow">
                                                 <div class="button-column">
                                                     <div class="form-group">
-                                                        <button class="submit-button" id="insertInterviewBtn" type="submit">Submit</button>
+                                                        <!-- <button class="submit-button" id="insertInterviewBtn" type="submit">Submit</button> -->
+														<button id="insertInterviewBtn" class="submit-spinner" 
+														        type="submit" onclick="this.classList.toggle('submit-spinner--loading')">
+														<span class="button-text">Submit</span></button>                                                        
                                                     </div>
                                                 </div>
                                                 <div class="button-column">
@@ -160,9 +165,6 @@
                             </div>
                     </div>
                 </div>
-               <div id="register-modal" class="cd-popup" role="alert">
-                                <div th:replace="fragments/registerUserModal"></div>
-               </div>
                 <div id="upload-cv-modal" class="cd-popup" role="alert">
                                 <div th:replace="fragments/uploadCvModal"></div>
                </div>

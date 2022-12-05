@@ -50,6 +50,10 @@ public class TechnicalFeedback {
 	@OneToOne(mappedBy = "techFeedbackId")
 	@JsonIgnore
 	private Interview interview;
+	
+	/** The scores in JSON format */
+	@Column(name = "scores")
+	private String scores;
 
 	/**
 	 * Instantiates a new tech feedback.

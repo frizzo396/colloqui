@@ -4,9 +4,13 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
 <title>Error</title>
+<link rel='shortcut icon' type='image/x-icon' th:href="@{/images/accenture-icon.ico}" />
+<link th:href="@{/css/spinner.css}" rel="stylesheet" />
 <link th:href="@{/css/form.css}" rel="stylesheet" />
 <link th:href="@{/css/container.css}" rel="stylesheet" />
 <link th:href="@{/css/header.css}" rel="stylesheet" />
+<link th:href="@{/css/access.css}" rel="stylesheet" />
+<link th:href="@{/css/snackbar.css}" rel="stylesheet" />
 <link th:href="@{/css/general-style.css}" rel="stylesheet" />
 <link th:rel="stylesheet"
 	th:href="@{assets/bootstrap-select-1.13.9/dist/css/bootstrap-select.css}" />
@@ -24,16 +28,18 @@
 <script type="text/javascript" th:src="@{/js/general.js}"></script>
 <script type="text/javascript" th:src="@{/js/registration.js}"></script>
 <script type="text/javascript" th:src="@{/js/availability.js}"></script>
-<body>
-	<div class="interview-html">
-		<div th:replace="fragments/header"></div>
+<body style="overflow-y: hidden;">
+	<div class="interview-html" id="errorBkg">
+	<div class="bg"id="backImageErr">
+			<img id="bgImage" src="../static/images/access-wallpaper.jpg"
+			th:src="@{/images/access-wallpaper.jpg}" alt="logo" />
+		</div>
 		<div class="pageRow">
 			<div class="col-lg-8 col-lg-offset-2" id="errorPageColumn">
 				<div class="container" id="containerReqRegistration">
 					<div class="row">
 						<header class="containerHeader">
-							<label class="containerLabel">Request registration</label> <em
-								id="closeModal" class='bx bx-x'></em>
+							<label class="containerLabel">Request registration</label>
 						</header>
 						<form class="inp-form" id="requestRegistration" action="#"
 							th:action="@{/interviewer/register/request}"
@@ -43,8 +49,8 @@
 								<div class="row" id="errorRow">
 									<div class="column">
 										<label>Il tuo enterprise id non è registrato al
-											sistema dei colloqui.<br>Richiedi l'abilitazione
-											ad un responsabile.</label> <input type="hidden" id="reqEntId"
+											sistema dei colloqui.<br>Inserisci la tua email per richiedere l'accesso.</label> 
+											<input type="hidden" id="reqEntId"
 											th:name="enterpriseId" th:field="*{enterpriseId}" />
 									</div>
 								</div>
@@ -69,6 +75,13 @@
 				</div>
 			</div>
 		</div>
+		<div  id="snackbar">
+               		<div  id="snackbarRow">
+               				  <div class="col-lg-8 col-lg-offset-2" id="snackbarTextColumn">
+               				 
+               				 </div>    				 
+               		</div>
+               </div>
 		<div style="display: none">
 			       <span th:text="${enterpriseId}" id="reqEnterpriseId"></span>
 	     </div>

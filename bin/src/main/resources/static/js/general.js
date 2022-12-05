@@ -6,6 +6,11 @@ jQuery(document).ready(function($){
   		$('.cd-popup2').removeClass('is-visible');
 	});
 	
+	
+	setTimeout(function() {
+        $("#yearGraph").trigger('click');        
+    },300);
+	
 	//Cambiamento colori su form - SELECT
 	$("select").change(function() {
 		var selectedValue = $(this).val();		
@@ -54,6 +59,9 @@ jQuery(document).ready(function($){
 	    $(".num-input").attr('style', 'color: #afb0b3 !important');
 	});
 	
+	$('#logoutIcon').click(function(){
+		 window.location.href = "/interview-ms/access";
+	});
 	//Al click "+" il simbolo diventa "-" e viceversa
 	$('.collapsible').click(function(){
 	var content = this.nextElementSibling;

@@ -33,56 +33,29 @@ $(document).ready(function (){
 });
 
 function RedirectHome() {
-    const url_string = window.location.href;
-    const url = new URL(url_string);
-    const enterpriseId = url.searchParams.get("enterpriseId");
-   // window.location.href = "/interview-ms/home?enterpriseId=" + enterpriseId;
     window.location.href = "/interview-ms/home";
 }
 
 function RedirectAssigned() {
-    const url_string = window.location.href;
-    const url = new URL(url_string);
-    const enterpriseId = url.searchParams.get("enterpriseId");
-   // window.location.href = "/interview-ms/home?enterpriseId=" + enterpriseId;
     window.location.href = "/interview-ms/interview/assigned";
 }
 
 function RedirectInsert() {
-    const url_string = window.location.href;
-    const url = new URL(url_string);
-    const enterpriseId = url.searchParams.get("enterpriseId");
-   // window.location.href = "/interview-ms/manage-interview?enterpriseId=" + enterpriseId;
    window.location.href = "/interview-ms/interview/new";
 }
 
 function RedirectSearch() {
-    const url_string = window.location.href;
-    const url = new URL(url_string);
-    const enterpriseId = url.searchParams.get("enterpriseId");
-   // window.location.href = "/interview-ms/manage-interview?enterpriseId=" + enterpriseId;
    window.location.href = "/interview-ms/interview/search";
 }
 
 function RedirectMyInterviews() {
-    const url_string = window.location.href;
-    const url = new URL(url_string);
-    const enterpriseId = url.searchParams.get("enterpriseId");
-    //window.location.href = "/interview-ms/interview/completed?enterpriseId=" + enterpriseId;
     window.location.href = "/interview-ms/interview/completed";
 }
 
 function RedirectInProgress() {
-    const url_string = window.location.href;
-    const url = new URL(url_string);
-    const enterpriseId = url.searchParams.get("enterpriseId");
-    //window.location.href = "/interview-ms/interview/in-progress?enterpriseId=" + enterpriseId;
      window.location.href = "/interview-ms/interview/in-progress";
 }
 
 function RedirectUsers() {
-    const url_string = window.location.href;
-    const url = new URL(url_string);
-    const enterpriseId = url.searchParams.get("enterpriseId");
-     window.location.href = "/interview-ms/interview/users";
+     window.location.href = "/interview-ms/users";
 }

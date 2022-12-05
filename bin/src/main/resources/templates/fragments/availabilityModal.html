@@ -22,27 +22,38 @@
 							</div>
 							<div class="column">
 								<div class="form-group">
-									<label>Second date</label> <input id="thirdAvDate"
-										class="datePicker" type="datetime-local"
-										th:field="*{thirdDate}" />
-								</div>
-							</div>
-							<div class="column">
-								<div class="form-group">
-									<label>Third date</label> <input id="secondAvDate"
+									<label>Second date</label> <input id="secondAvDate"
 										class="datePicker" type="datetime-local"
 										th:field="*{secondDate}" />
 								</div>
 							</div>
+							<div class="column">
+								<div class="form-group">
+									<label>Third date</label> <input id="thirdAvDate"
+										class="datePicker" type="datetime-local"
+										th:field="*{thirdDate}" />
+								</div>
+							</div>
 						</div>
-						<div class="row" id="singleButtonRow">
+						<div class="row" id="twoButtonRow">
 							<div class="button-column">
 								<div class="form-group">
-									<button class="submit-button" type="submit">Submit</button>
+									<button id="btn_submit" class="submit-spinner"   style="margin-left: 40%;"
+									        type="submit" onclick="this.classList.toggle('submit-spinner--loading')">
+									<span class="button-text">Submit</span></button>		
+								</div>
+							</div>
+							<div class="button-column">
+								<div class="form-group">	
+									<button class="submit-button" form="refuseAvailability" type="submit"  style="margin-right: 40%;">Reject</button>													
 								</div>
 							</div>
 						</div>
 					</div>
+				</form>
+				<form class="inp-form" id="refuseAvailability" action="#"
+					th:action="@{/availability/refuse}" method="post">
+					<input id="interviewIdHid2" type="hidden" th:name="interviewId"  value=0 /> 
 				</form>
 			</div>
 		</div>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="it">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <link rel='shortcut icon' type='image/x-icon' th:href="@{/images/accenture-icon.ico}" />
+        <title>Access</title>
+        <link th:href="@{/css/form.css}" rel="stylesheet" />
+        <link th:href="@{/css/container.css}" rel="stylesheet" />
+        <link th:href="@{/css/general-style.css}" rel="stylesheet" />
+        <link th:href="@{/css/snackbar.css}" rel="stylesheet" />
+        <link th:href="@{/css/access.css}" rel="stylesheet" />
+        <link th:rel="stylesheet"th:href="@{assets/bootstrap-select-1.13.9/dist/css/bootstrap-select.css}" />
+        <link th:rel="stylesheet"th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+        <link href="https://fonts.cdnfonts.com/css/graphik" rel="stylesheet"
+            type='text/css'>
+        <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css"
+            rel="stylesheet" />
+        <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" th:src="@{/js/general.js}"></script>
+        <script type="text/javascript" th:src="@{/js/access.js}"></script>
+        <script type="text/javascript" th:src="@{/js/registration.js}"></script>
+        <script type="text/javascript" th:src="@{/js/availability.js}"></script>
+    <body style="overflow-y: hidden;">
+        <div class="interview-html" id="accessBackGround">
+            <div class="bg" id ="backImage">
+                <img id="bgImage" src="../static/images/access-wallpaper.jpg"
+                    th:src="@{/images/access-wallpaper.jpg}" alt="logo" />
+            </div>
+            <div class="pageRow">
+                <div class="col-lg-8 col-lg-offset-2" id="accessPageColumn">
+                    <div class="container" id="containerAccess">
+                        <div class="row">
+                            <header class="containerHeader">
+                                <label class="containerLabel">Access</label> 
+                            </header>
+                            <form class="inp-form" id="userAccess" action="#" th:action="@{/interviewer/access}" method="post">
+                                <div class="col-lg-8 col-lg-offset-2" id="accessFormColumn">
+                                    <div class="row">
+                                        <div class="column">
+                                            <div class="form-group">
+                                                <label>Enterprise id</label> 
+                                                <input id="accessUsername" type="text" th:name="enterpriseId" value=0 readonly /> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" id="singleButtonRow">
+                                        <div class="button-column">
+                                            <div class="form-group">
+                                                <button class="submit-button" type="submit">Access</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="container" id="containerReqRegistrationAcc">
+                        <div class="row">
+                            <header class="containerHeader">
+                                <label class="containerLabel">Request registration</label>
+                            </header>
+                            <form class="inp-form" id="requestRegistration" action="#"
+                                th:action="@{/interviewer/register/request}"
+                                th:object="${requestRegistrationTO}" method="post">
+                                <div class="col-lg-8 col-lg-offset-2"
+                                    id="requestRegistrationFormColumn">
+                                    <div class="row" id="errorRow">
+                                        <div class="column">
+                                            <label>Il tuo enterprise id non è registrato al
+                                            sistema dei colloqui.<br>Inserisci la tua email per richiedere l'accesso.</label>
+                                            <input type="hidden" id="reqEntId"
+                                                th:name="enterpriseId" th:field="*{enterpriseId}" />
+                                        </div>
+                                    </div>
+                                    <div class="row"  id="errorRow">
+                                        <div class="column">
+                                            <div class="form-group">
+                                                <label>Mail</label> <input type="text" th:field="*{mail}"
+                                                    placeholder="mail@mail.com" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" id="singleButtonRow">
+                                        <div class="button-column">
+                                            <div class="form-group">
+                                                <button class="submit-button" type="submit" onclick= "getEnterpriseId()">Request</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="display: none">
+                <span th:text="${username}" id="reqEnterpriseId"></span>
+            </div>
+            <div  id="snackbar">
+                <div  id="snackbarRow">
+                    <div class="col-lg-8 col-lg-offset-2" id="snackbarTextColumn">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
