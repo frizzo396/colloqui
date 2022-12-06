@@ -75,6 +75,9 @@ public class TechnicalFeedback {
 		this.spring = createTechFeedbackRequest.getSpring();
 		this.other = createTechFeedbackRequest.getOther();
 		this.comment = createTechFeedbackRequest.getComment();
+		
+		// NUOVO CAMPO PER FORMATO JSON
+		this.scores = createTechFeedbackRequest.getScores();
 	}
 
 	public long getId() {

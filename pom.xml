@@ -130,6 +130,14 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        
+	    <!--  Gson: Java to Json conversion -->		
+	    <dependency>
+	        <groupId>com.google.code.gson</groupId>
+	        <artifactId>gson</artifactId>
+	        <scope>compile</scope>
+	    </dependency>		
+	            
     </dependencies>
 
     <build>

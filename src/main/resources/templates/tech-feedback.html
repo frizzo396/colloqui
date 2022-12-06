@@ -67,7 +67,7 @@
                                           <div class="form-group">
                                              <label>Punteggio</label>
                                              <input id="score_tech_1" class ="num-input" type="number"  th:field="*{techList[0].score}" placeholder="0"/>
-                                             <!-- <small th:if="${#fields.hasErrors('java')}" th:errors="*{java}">Java Error</small> -->                                             
+                                             <!-- <small th:if="${#fields.hasErrors('techList[0].score')}" th:errors="*{techList[0].score}">Error - numeric field</small> -->                                             
                                           </div>
                                        </div>
                                        <div class="column" style="width:30%">

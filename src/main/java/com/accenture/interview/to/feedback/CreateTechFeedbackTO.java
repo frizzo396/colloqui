@@ -63,6 +63,9 @@ public class CreateTechFeedbackTO {
 	private String tech_6;
 	// NUOVI CAMPI TESTUALI NELLA FORM - END
 	
+	// NUOVO CAMPO PER TRASFORMAZIONE JSON
+	private String scores;
+	
 	public CreateTechFeedbackTO() {
 		techMap = new HashMap<String,ScoreTechFeedbackTO>();
 		techMap.put("tech_1", new ScoreTechFeedbackTO("", 0));

@@ -46,12 +46,9 @@ public class FeedbackFacade {
 	 * @return the creates the tech feedback response
 	 */
 	public CreateTechFeedbackRTO insertTechFeedback(CreateTechFeedbackTO createTechFeedbackTO, Long interviewId) {
-		InterviewRTO interview = interviewService.findInterviewWithMailParams((long) interviewId);
-		
-		
-		/* 2022-12-06 BLOCCO COMMENTATO SOLO PER TEST - START
-		
+		InterviewRTO interview = interviewService.findInterviewWithMailParams((long) interviewId);		
 		TechnicalFeedback techFeedback = feedbackService.insertTechFeedback(createTechFeedbackTO, interviewId);
+		
 		interviewService.updateInterviewTechFeedback(interviewId, techFeedback, createTechFeedbackTO.getFinalFeedback());
 		
 		MailParametersTO mailParams = new MailParametersTO(Arrays.asList(interview.getInterviewerMail()), 
@@ -60,8 +57,6 @@ public class FeedbackFacade {
 				Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()), 
 				WebPaths.ASSIGNED);
 		mailService.sendMail(mailParams, MailTypeEnum.FEEDBACK_INSERT);
-		
-		2022-12-06 BLOCCO COMMENTATO SOLO PER TEST - END */
 		return new CreateTechFeedbackRTO(createTechFeedbackTO);
 	}
 
