@@ -42,53 +42,198 @@
 						              <label class="containerLabel">Insert technical feedback</label>
 						   </header>	
                         <div class="col-lg-8 col-lg-offset-2"  id="insertFormColumn">
-                           <form class="inp-form" id="insertTechFeedback" action="#" th:action="@{/feedback/technical/insert}" th:object="${createTechFeedbackTO}" method="post">
-                                   <div class="row">
-                                       <div class="column">
-                                          <div class="form-group">
-                                             <label>Java</label>
-                                             <input class ="num-input" type="number"  th:field="*{java}" placeholder="java"/>
-                                             <small th:if="${#fields.hasErrors('java')}" th:errors="*{java}">java Error</small>
-                                          </div>
-                                       </div>
-                                       <div class="column">
-                                          <div class="form-group">
-                                             <label>Spring</label>
-                                             <input class ="num-input" type="number"  th:field="*{spring}" placeholder="spring"/>
-                                             <small th:if="${#fields.hasErrors('spring')}" th:errors="*{spring}">Spring Level Error</small>
-                                          </div>
-                                       </div>
-                                       <div class="column">
-                                          <div class="form-group">
-                                             <label>SQL</label>
-                                             <input class ="num-input" type="number"  th:field="*{sqlVoto}" placeholder="sql"/>
-                                             <small th:if="${#fields.hasErrors('sqlVoto')}" th:errors="*{sqlVoto}">SQL Voto Error</small>
-                                          </div>
-                                       </div>
-                                    </div>
+                           <form class="inp-form" id="insertTechFeedback" action="#" th:action="@{/feedback/technical/insert}" th:object="${createTechFeedbackTO}" method="post">                                                              		
+                                   
                                     <div class="row">
-                                       <div class="column">
+<!--                                        <table>
+                                       		<tr th:each="elem : *{techMap}">
+                                       			<td><input type="text" th:field="*{techMap[__${elem.key}__]}"/></td>
+                                       		</tr>
+                                       </table>
+                                       
+                                       <table>
+                                       		<tr>
+                                       			<td><input type="text" th:field="*{techList[0].technology}"/></td>
+                                       		</tr>
+                                       </table>  -->                                      
+                                                                      
+                                       <div class="column" style="width:50%">
                                           <div class="form-group">
-                                             <label>HTML-CSS</label>
-                                             <input class ="num-input" type="number"  th:field="*{htmlCss}" placeholder="html-css" />
-                                             <small th:if="${#fields.hasErrors('htmlCss')}" th:errors="*{htmlCss}">htmlCss Error</small>
+                                             <label>Tecnologia 1</label>                                             
+                                             <input id="descr_tech_1" type="text" th:field="*{techList[0].technology}" placeholder="Java" />                                          
+                                          </div>
+                                       </div>                                   
+                                       <div class="column" style="width:20%">
+                                          <div class="form-group">
+                                             <label>Punteggio</label>
+                                             <input id="score_tech_1" class ="num-input" type="number"  th:field="*{techList[0].score}" placeholder="0"/>
+                                             <!-- <small th:if="${#fields.hasErrors('java')}" th:errors="*{java}">Java Error</small> -->                                             
                                           </div>
                                        </div>
-                                       <div class="column">
-                                          <div class="form-group">
-                                             <label>Angular</label>
-                                             <input class ="num-input" type="number"  th:field="*{angular}"  placeholder="angular"/>
-                                             <small th:if="${#fields.hasErrors('angular')}" th:errors="*{angular}">Angular Error</small>
+                                       <div class="column" style="width:30%">
+                                          <div class="form-group">                                          	 
+                                             <table>
+                                             	<tr style="height:25px"><td colspan="2">&nbsp;&nbsp;</td></tr>                                           	
+                                             	<tr><td colspan="2"><em id="plusIcon_1" class='bx bx-plus' 
+                                             	            style="font-size: 20px; color: #0a58ca; cursor: pointer;" 
+                                             	            onclick="var x = document.getElementById('div_tech_2'); x.style.display = 'block'; setupDivTech();"></em>
+                                             	    </td>
+                                             	</tr>
+                                             </table> 
                                           </div>
                                        </div>
-                                       <div class="column">
+                                    </div>                                    
+                                    <div id="div_tech_2" class="row" style="display: none;">
+                                       <div class="column" style="width:50%">
                                           <div class="form-group">
-                                             <label>Other</label>
-                                             <input class ="num-input" type="number"  th:field="*{other}"  placeholder="other question">
-                                             <small th:if="${#fields.hasErrors('other')}" th:errors="*{other}">Other Error</small>
+                                             <label>Tecnologia 2</label>
+											 <input id="descr_tech_2" type="text" th:field="*{techList[1].technology}" placeholder="Spring" /> 
+                                          </div>
+                                       </div>
+                                       <div class="column" style="width:20%">
+                                          <div class="form-group">
+                                             <label>Punteggio</label>
+                                             <input id="score_tech_2" class ="num-input" type="number"  th:field="*{techList[1].score}"  placeholder="0"/>
+                                             <!-- <small th:if="${#fields.hasErrors('spring')}" th:errors="*{spring}">Spring Error</small> -->
+                                          </div>
+                                       </div>
+                                       <div class="column" style="width:30%">
+                                          <div class="form-group">
+                                             <table>
+                                             	<tr style="height:25px"><td colspan="2">&nbsp;&nbsp;</td></tr>                                           	
+                                             	<tr><td><em id="plusIcon_2" class='bx bx-plus' 
+                                             	            style="font-size: 20px; color: #0a58ca; cursor: pointer;" 
+                                             	            onclick="var x = document.getElementById('div_tech_3'); x.style.display = 'block'; setupDivTech();"></em>
+                                             	    </td>
+                                             	    <td><em id="minusIcon_2" class='bx bx-minus'
+                                             	            style="font-size: 20px; color: #0a58ca; cursor: pointer;"
+                                             	            onclick="var x = document.getElementById('div_tech_2'); x.style.display = 'none'; deleteValues(2); setupDivTech();"></em>                                             	        
+                                             	    </td>
+                                             	</tr>
+                                             </table>
                                           </div>
                                        </div>
                                     </div>
+                                    <div id="div_tech_3" class="row" style="display: none;">
+                                       <div class="column" style="width:50%">
+                                          <div class="form-group">
+                                             <label>Tecnologia 3</label>
+											 <input id="descr_tech_3" type="text" th:field="*{techList[2].technology}" placeholder="SQL" />
+                                          </div>
+                                       </div>
+                                       <div class="column" style="width:20%">
+                                          <div class="form-group">
+                                             <label>Punteggio</label>
+                                             <input id="score_tech_3" class ="num-input" type="number"  th:field="*{techList[2].score}" placeholder="0"/>
+                                             <!-- <small th:if="${#fields.hasErrors('sqlVoto')}" th:errors="*{sqlVoto}">SQL Error</small> -->
+                                          </div>
+                                       </div>
+                                       <div class="column" style="width:30%">
+                                          <div class="form-group">
+                                             <table>
+                                             	<tr style="height:25px"><td colspan="2">&nbsp;&nbsp;</td></tr>                                           	
+                                             	<tr><td><em id="plusIcon_3" class='bx bx-plus' 
+                                             	            style="font-size: 20px; color: #0a58ca; cursor: pointer;" 
+                                             	            onclick="var x = document.getElementById('div_tech_4'); x.style.display = 'block'; setupDivTech();"></em>
+                                             	    </td>
+                                             	    <td><em id="minusIcon_3" class='bx bx-minus'
+                                             	            style="font-size: 20px; color: #0a58ca; cursor: pointer;"
+                                             	            onclick="var x = document.getElementById('div_tech_3'); x.style.display = 'none'; deleteValues(3); setupDivTech();"></em>                                             	        
+                                             	    </td>                                             	    
+                                             	</tr>
+                                             </table>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div id="div_tech_4" class="row" style="display: none;">
+                                       <div class="column" style="width:50%">
+                                          <div class="form-group">
+                                             <label>Tecnologia 4</label>
+											 <input id="descr_tech_4" type="text" th:field="*{techList[3].technology}" placeholder="HTML-CSS" />
+                                          </div>
+                                       </div>
+                                       <div class="column" style="width:20%">
+                                          <div class="form-group">
+                                             <label>Punteggio</label>
+                                             <input id="score_tech_4" class ="num-input" type="number"  th:field="*{techList[3].score}" placeholder="0"/>
+                                             <!-- <small th:if="${#fields.hasErrors('htmlCss')}" th:errors="*{htmlCss}">HTML-CSS Error</small> -->
+                                          </div>
+                                       </div>
+                                       <div class="column" style="width:30%">
+                                          <div class="form-group">
+                                             <table>
+                                             	<tr style="height:25px"><td colspan="2">&nbsp;&nbsp;</td></tr>                                           	
+                                             	<tr><td><em id="plusIcon_4" class='bx bx-plus' 
+                                             	            style="font-size: 20px; color: #0a58ca; cursor: pointer;" 
+                                             	            onclick="var x = document.getElementById('div_tech_5'); x.style.display = 'block'; setupDivTech();"></em>
+                                             	    </td>
+                                             	    <td><em id="minusIcon_4" class='bx bx-minus'
+                                             	            style="font-size: 20px; color: #0a58ca; cursor: pointer;"
+                                             	            onclick="var x = document.getElementById('div_tech_4'); x.style.display = 'none'; deleteValues(4); setupDivTech();"></em>                                             	        
+                                             	    </td>                                             	    
+                                             	</tr>
+                                             </table>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div id="div_tech_5" class="row" style="display: none;">
+                                       <div class="column" style="width:50%">
+                                          <div class="form-group">
+                                             <label>Tecnologia 5</label>
+											 <input id="descr_tech_5" type="text" th:field="*{techList[4].technology}" placeholder="Angular" />
+                                          </div>
+                                       </div>
+                                       <div class="column" style="width:20%">
+                                          <div class="form-group">
+                                             <label>Punteggio</label>
+                                             <input id="score_tech_5" class ="num-input" type="number"  th:field="*{techList[4].score}" placeholder="0"/>
+                                             <!-- <small th:if="${#fields.hasErrors('angular')}" th:errors="*{angular}">Angular Error</small> -->
+                                          </div>
+                                       </div>
+                                       <div class="column" style="width:30%">
+                                          <div class="form-group">
+                                             <table>
+                                             	<tr style="height:25px"><td colspan="2">&nbsp;&nbsp;</td></tr>                                           	
+                                             	<tr><td><em id="plusIcon_5" class='bx bx-plus' 
+                                             	            style="font-size: 20px; color: #0a58ca; cursor: pointer;" 
+                                             	            onclick="var x = document.getElementById('div_tech_6'); x.style.display = 'block'; setupDivTech();"></em>
+                                             	   	</td>
+                                             	    <td><em id="minusIcon_5" class='bx bx-minus'
+                                             	            style="font-size: 20px; color: #0a58ca; cursor: pointer;"
+                                             	            onclick="var x = document.getElementById('div_tech_5'); x.style.display = 'none'; deleteValues(5); setupDivTech();"></em>                                             	        
+                                             	    </td>                                             	   	
+                                             	</tr>
+                                             </table>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div id="div_tech_6" class="row" style="display: none;">
+                                       <div class="column" style="width:50%">
+                                          <div class="form-group">
+                                             <label>Tecnologia 6</label>
+                                             <input id="descr_tech_6" type="text" th:field="*{techList[5].technology}" placeholder="Other" />
+                                          </div>
+                                       </div>
+                                       <div class="column" style="width:20%">
+                                          <div class="form-group">
+                                             <label>Punteggio</label>
+                                             <input id="score_tech_6" class ="num-input" type="number"  th:field="*{techList[5].score}" placeholder="0"/>
+                                             <!-- <small th:if="${#fields.hasErrors('other')}" th:errors="*{other}">Other Error</small> -->
+                                          </div>
+                                       </div>
+                                       <div class="column" style="width:30%">
+                                          <div class="form-group">
+                                             <table>
+                                             	<tr style="height:25px"><td colspan="2">&nbsp;&nbsp;</td></tr>                                           	
+                                             	<tr><td colspan="2"><em id="minusIcon_6" class='bx bx-minus'
+                                             	            style="font-size: 20px; color: #0a58ca; cursor: pointer;"
+                                             	            onclick="var x = document.getElementById('div_tech_6'); x.style.display = 'none'; deleteValues(6); setupDivTech();"></em>                                             	        
+                                             	    </td>                                             	   	
+                                             	</tr>
+                                             </table>
+                                          </div>
+                                       </div>
+                                    </div>                                                                                                                                                
                                     <div class="row">                                                                          
                                         <div class="column">
                                         <div class="form-group">
@@ -111,8 +256,8 @@
                                                 <small th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}">Comment Error</small>
                                              </div>
                                           </div>
-                                       </div>
-                                       <div class="row" id="buttonRow">
+                                     </div>
+                                     <div class="row" id="buttonRow">
                                           <div class="button-column">
                                              <div class="form-group">
                                                 <!-- <button class="submit-button" type="submit">Submit</button> -->
@@ -126,7 +271,8 @@
                                                 <button class="clear-button" type="reset" value="Reset" >Clear</button>	
                                              </div>
                                           </div>
-                                       </div>
+                                     </div>
+
                                </form>  
                               </div>
                      </div>
@@ -141,5 +287,82 @@
                </div>
                </div>
          </div>
+   		<script>
+   		function deleteValues(num) {
+   			var descrTech = document.getElementById("descr_tech_" + num);
+   			var scoreTech = document.getElementById("score_tech_" + num);
+   			descrTech.value = '';
+   			scoreTech.value = '';
+   		}   		
+   		
+   		function setupDivTech() {
+   			var count = 1;
+   			var div_2 = document.getElementById('div_tech_2');
+   			var div_3 = document.getElementById('div_tech_3');
+   			var div_4 = document.getElementById('div_tech_4');
+   			var div_5 = document.getElementById('div_tech_5');
+   			var div_6 = document.getElementById('div_tech_6');
+   			
+   			if (div_2.style.display == "block") {
+   				count = count + 1;
+   			}
+   			if (div_3.style.display == "block") {
+   				count = count + 1;
+   			}
+   			if (div_4.style.display == "block") {
+   				count = count + 1;
+   			}
+   			if (div_5.style.display == "block") {
+   				count = count + 1;
+   			}
+   			if (div_6.style.display == "block") {
+   				count = count + 1;
+   			}
+			
+   			if (count == 1) {
+   				document.getElementById("plusIcon_1").style.display = "block";
+   			} else {
+   				document.getElementById("plusIcon_1").style.display = "none";
+   			}
+   			
+   			if (count == 2) {
+   				document.getElementById("plusIcon_2").style.display = "block";
+   				document.getElementById("minusIcon_2").style.display = "block";
+   			} else {
+   				document.getElementById("plusIcon_2").style.display = "none";
+   				document.getElementById("minusIcon_2").style.display = "none";
+   			}
+   			
+   			if (count == 3) {
+   				document.getElementById("plusIcon_3").style.display = "block";
+   				document.getElementById("minusIcon_3").style.display = "block";
+   			} else {
+   				document.getElementById("plusIcon_3").style.display = "none";
+   				document.getElementById("minusIcon_3").style.display = "none";
+   			}
+   			
+   			if (count == 4) {
+   				document.getElementById("plusIcon_4").style.display = "block";
+   				document.getElementById("minusIcon_4").style.display = "block";
+   			} else {
+   				document.getElementById("plusIcon_4").style.display = "none";
+   				document.getElementById("minusIcon_4").style.display = "none";
+   			}
+   			
+   			if (count == 5) {
+   				document.getElementById("plusIcon_5").style.display = "block";
+   				document.getElementById("minusIcon_5").style.display = "block";
+   			} else {
+   				document.getElementById("plusIcon_5").style.display = "none";
+   				document.getElementById("minusIcon_5").style.display = "none";
+   			}
+   			
+   			if (count == 6) {
+   				document.getElementById("minusIcon_6").style.display = "block";
+   			} else {
+   				document.getElementById("minusIcon_6").style.display = "none";
+   			}
+   		}
+   		</script>
    </body>
 </html>
