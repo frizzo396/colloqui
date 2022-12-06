@@ -24,7 +24,7 @@
 
 
 #approveDateBtn {
-    width: 70%;
+    width: 80%;
     border-radius: 5px;
 }
 
@@ -145,7 +145,6 @@ td:last-child
 
 #mytable {
     margin-top: 3px;
-    line-height: 1.5em;
 }
 
 

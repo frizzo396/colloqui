@@ -48,13 +48,13 @@
                               <div class="table-row" id="tablePagRow">
                                 <table id="inProgressTable" class="mytable paginated">
                                     <tr>
-                                        <th>Candidate </th>
-                                        <th class="remove">Level</th>
-                                        <th class="remove">Interview Type</th>
-                                        <th>Availability</th>
-                                        <th class="remove">Site</th>
-                                        <th>CV</th>
-                                        <th>Feedback</th>
+                                        <th style="width: 25%;">Candidate </th>
+                                        <th style="width: 7%;" class="remove">Level</th>
+                                        <th style="width: 10%;" class="remove">Type</th>
+                                        <th style="width: 10%;">Availability</th>
+                                        <th style="width: 12%;" class="remove">Site</th>
+                                        <th style="width:  7%;">CV</th>
+                                        <th style="width: 7%;">Feedback</th>
                                     </tr>
                                     <tr class="tableRows" th:each="interview: ${interviews}">
  										<td th:text="${interview.candidateName} + ' ' + ${interview.candidateSurname}" />       

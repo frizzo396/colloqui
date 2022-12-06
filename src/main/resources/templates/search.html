@@ -139,18 +139,18 @@
                                 </form>
                                 <div id="searchTableContainer" class="responsive">
                                 <div th:if= "${not #lists.isEmpty(searchInterviews)}">
-                               
+                                 <div class="table-row" id="tablePagRow">
                                     <table id="mytable" class="mytable paginated">
                                         <thead>
                                             <tr>
-                                                <th>Candidate</th>
-                                                <th>Level</th>
-                                                <th class="remove">Interview Type</th>
-                                                <th  class="remove">Interview date </th>
-                                                <th>Interviewer</th>
-                                                <th>Site</th>
-                                                <th>Feedback</th>
-                                                <th>Detail</th>
+                                                <th style="width: 25%;">Candidate</th>
+                                                <th style="width: 7%;">Level</th>
+                                                <th style="width: 10%;" class="remove">Type</th>
+                                                <th style="width: 10%;" class="remove">Date </th>
+                                                <th style="width: 14%;">Interviewer</th>
+                                                <th style="width: 12%;">Site</th>
+                                                <th style="width: 8%;">Feedback</th>
+                                                <th style="width: 8%;">Detail</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -194,6 +194,7 @@
                                             </tr>
                                         </tbody>
                                     </table>
+                                     </div>
                                     </div>
                                 </div>
                                 <div id="pagination"></div>
