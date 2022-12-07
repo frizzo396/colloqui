@@ -44,23 +44,11 @@
                         <div class="col-lg-8 col-lg-offset-2"  id="insertFormColumn">
                            <form class="inp-form" id="insertTechFeedback" action="#" th:action="@{/feedback/technical/insert}" th:object="${createTechFeedbackTO}" method="post">                                                              		
                                    
-                                    <div class="row">
-<!--                                        <table>
-                                       		<tr th:each="elem : *{techMap}">
-                                       			<td><input type="text" th:field="*{techMap[__${elem.key}__]}"/></td>
-                                       		</tr>
-                                       </table>
-                                       
-                                       <table>
-                                       		<tr>
-                                       			<td><input type="text" th:field="*{techList[0].technology}"/></td>
-                                       		</tr>
-                                       </table>  -->                                      
-                                                                      
+                                    <div class="row">                                                                      
                                        <div class="column" style="width:50%">
                                           <div class="form-group">
                                              <label>Tecnologia 1</label>                                             
-                                             <input id="descr_tech_1" type="text" th:field="*{techList[0].technology}" placeholder="Java" />                                          
+                                             <input id="descr_tech_1" type="text" th:field="*{techList[0].technology}" placeholder="" />                                          
                                           </div>
                                        </div>                                   
                                        <div class="column" style="width:20%">
@@ -86,7 +74,7 @@
                                        <div class="column" style="width:50%">
                                           <div class="form-group">
                                              <label>Tecnologia 2</label>
-											 <input id="descr_tech_2" type="text" th:field="*{techList[1].technology}" placeholder="Spring" /> 
+											 <input id="descr_tech_2" type="text" th:field="*{techList[1].technology}" placeholder="" /> 
                                           </div>
                                        </div>
                                        <div class="column" style="width:20%">
@@ -117,7 +105,7 @@
                                        <div class="column" style="width:50%">
                                           <div class="form-group">
                                              <label>Tecnologia 3</label>
-											 <input id="descr_tech_3" type="text" th:field="*{techList[2].technology}" placeholder="SQL" />
+											 <input id="descr_tech_3" type="text" th:field="*{techList[2].technology}" placeholder="" />
                                           </div>
                                        </div>
                                        <div class="column" style="width:20%">
@@ -147,7 +135,7 @@
                                        <div class="column" style="width:50%">
                                           <div class="form-group">
                                              <label>Tecnologia 4</label>
-											 <input id="descr_tech_4" type="text" th:field="*{techList[3].technology}" placeholder="HTML-CSS" />
+											 <input id="descr_tech_4" type="text" th:field="*{techList[3].technology}" placeholder="" />
                                           </div>
                                        </div>
                                        <div class="column" style="width:20%">
@@ -177,7 +165,7 @@
                                        <div class="column" style="width:50%">
                                           <div class="form-group">
                                              <label>Tecnologia 5</label>
-											 <input id="descr_tech_5" type="text" th:field="*{techList[4].technology}" placeholder="Angular" />
+											 <input id="descr_tech_5" type="text" th:field="*{techList[4].technology}" placeholder="" />
                                           </div>
                                        </div>
                                        <div class="column" style="width:20%">
@@ -207,7 +195,7 @@
                                        <div class="column" style="width:50%">
                                           <div class="form-group">
                                              <label>Tecnologia 6</label>
-                                             <input id="descr_tech_6" type="text" th:field="*{techList[5].technology}" placeholder="Other" />
+                                             <input id="descr_tech_6" type="text" th:field="*{techList[5].technology}" placeholder="" />
                                           </div>
                                        </div>
                                        <div class="column" style="width:20%">
@@ -287,7 +275,7 @@
    			var descrTech = document.getElementById("descr_tech_" + num);
    			var scoreTech = document.getElementById("score_tech_" + num);
    			descrTech.value = '';
-   			scoreTech.value = NaN;
+   			scoreTech.value = 0;
    		}   		
    		
    		function setupDivTech() {
