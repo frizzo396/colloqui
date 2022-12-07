@@ -14,24 +14,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CreateTechFeedbackRTO {
 
-	/** The java. */
-	private int java;
-
-	/** The sql voto. */
-	private int sqlVoto;
-
-	/** The html css. */
-	private int htmlCss;
-
-	/** The angular. */
-	private int angular;
-
-	/** The spring. */
-	private int spring;
-
-	/** The other. */
-	private int other;
-
 	/** The comment. */
 	private String comment;
 
