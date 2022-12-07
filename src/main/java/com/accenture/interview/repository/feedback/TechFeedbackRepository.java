@@ -31,7 +31,6 @@ public interface TechFeedbackRepository extends JpaRepository<TechnicalFeedback,
 	 * @param idColloquio the id colloquio
 	 * @return the tech feedback RTO by id interview
 	 */
-	@Query("select new com.accenture.interview.rto.feedback.TechnicalFeedbackRTO(i.java, i.sql, i.htmlCss, i.angular, i.spring, i.other, i.comment)" +
-			" from Tech_feedback i where i.interview.id=:idColloquio")
+	@Query("select tf from Tech_feedback tf where tf.interview.id=:idColloquio")
 	TechnicalFeedbackRTO getTechFeedbackRTOByIdInterview(@Param("idColloquio") Long idColloquio);
 }
