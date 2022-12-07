@@ -42,12 +42,6 @@ public class CreateTechFeedbackRTO {
 	 *                                  request
 	 */
 	public CreateTechFeedbackRTO(CreateTechFeedbackTO createTechFeedbackRequest) {
-		this.java = createTechFeedbackRequest.getJava();
-		this.sqlVoto = createTechFeedbackRequest.getSqlVoto();
-		this.htmlCss = createTechFeedbackRequest.getHtmlCss();
-		this.angular = createTechFeedbackRequest.getAngular();
-		this.spring = createTechFeedbackRequest.getSpring();
-		this.other = createTechFeedbackRequest.getOther();
 		this.comment = createTechFeedbackRequest.getComment();
 	}
 

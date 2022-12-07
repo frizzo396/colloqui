@@ -23,26 +23,6 @@ public class TechnicalFeedback {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-	/** The java. */
-	private long java;
-
-	/** The sql. */
-	@Column(name = "sql_voto")
-	private int sql;
-
-	/** The html css. */
-	@Column(name = "html_css")
-	private int htmlCss;
-
-	/** The angular. */
-	private int angular;
-
-	/** The spring. */
-	private int spring;
-
-	/** The other. */
-	private int other;
-
 	/** The comment. */
 	private String comment;
 
@@ -68,12 +48,6 @@ public class TechnicalFeedback {
 	 *                                  request
 	 */
 	public TechnicalFeedback(CreateTechFeedbackTO createTechFeedbackRequest) {
-		this.java = createTechFeedbackRequest.getJava();
-		this.sql = createTechFeedbackRequest.getSqlVoto();
-		this.htmlCss = createTechFeedbackRequest.getHtmlCss();
-		this.angular = createTechFeedbackRequest.getAngular();
-		this.spring = createTechFeedbackRequest.getSpring();
-		this.other = createTechFeedbackRequest.getOther();
 		this.comment = createTechFeedbackRequest.getComment();
 		
 		// NUOVO CAMPO PER FORMATO JSON
@@ -86,54 +60,6 @@ public class TechnicalFeedback {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public long getJava() {
-		return java;
-	}
-
-	public void setJava(long java) {
-		this.java = java;
-	}
-
-	public int getSql() {
-		return sql;
-	}
-
-	public void setSql(int sql) {
-		this.sql = sql;
-	}
-
-	public int getHtmlCss() {
-		return htmlCss;
-	}
-
-	public void setHtmlCss(int htmlCss) {
-		this.htmlCss = htmlCss;
-	}
-
-	public int getAngular() {
-		return angular;
-	}
-
-	public void setAngular(int angular) {
-		this.angular = angular;
-	}
-
-	public int getSpring() {
-		return spring;
-	}
-
-	public void setSpring(int spring) {
-		this.spring = spring;
-	}
-
-	public int getOther() {
-		return other;
-	}
-
-	public void setOther(int other) {
-		this.other = other;
 	}
 
 	public String getComment() {
