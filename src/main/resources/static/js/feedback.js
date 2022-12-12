@@ -19,7 +19,7 @@ jQuery(document).ready(function ($) {
     $('.tech-popup').on('click', function (event) {
 		event.preventDefault();	
 		var textAreas = document.getElementsByClassName("content");
-		let collIcon = document.getElementById("collapseIcon");
+		let collIcon = document.getElementById("collapseIcon2");		
 		if(collIcon != null) {
 			collIcon.className = "bx bx-plus";
 			Array.prototype.forEach.call(textAreas, function(cont) {
@@ -28,7 +28,7 @@ jQuery(document).ready(function ($) {
 		}
 		$('#tech-modal').addClass('is-visible');
     
-    });
+    });  
     
     
 	//Salvataggio feedback motivazionale colloquio
@@ -127,11 +127,18 @@ function createMotivationalModal(motivationalInterview){
 
 function createTechnicalModal(technicalInterview){
     var obj = JSON.parse(technicalInterview);
-    document.getElementById('techJava').value = obj.java; 
-    document.getElementById('techSql').value = obj.sql; 
-    document.getElementById('techHtml').value = obj.htmlCss; 
-    document.getElementById('techAngular').value = obj.angular; 
-    document.getElementById('techSpring').value = obj.spring;
-    document.getElementById('techOther').value = obj.other;  
+    
+    // FEEDBACK REGISTRATO IN FORMATO JSON NEL CAMPO SCORES - START
+    var scoresJson = obj.scores    
+    const objVect = JSON.parse(obj.scores);    
+    
+	for (let i = 0; i < objVect.length; i++) {
+	    var num = i + 1;
+	    document.getElementById('tech_descr_' + num).value = objVect[i].technology;
+	    document.getElementById('tech_score_' + num).value = objVect[i].score;
+	    document.getElementById("tech_col_" + num).style.display = "block";    
+	}    
+    // FEEDBACK REGISTRATO IN FORMATO JSON NEL CAMPO SCORES - END
+         
     document.getElementById('techComment').value = obj.comment; 
 }
