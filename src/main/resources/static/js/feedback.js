@@ -134,7 +134,7 @@ function createTechnicalModal(technicalInterview){
     
 	for (let i = 0; i < objVect.length; i++) {
 	    var num = i + 1;
-	    document.getElementById('tech_descr_' + num).value = objVect[i].technology;
+	    document.getElementById('tech_descr_' + num).textContent = objVect[i].technology;
 	    document.getElementById('tech_score_' + num).value = objVect[i].score;
 	    document.getElementById("tech_col_" + num).style.display = "block";    
 	}    
