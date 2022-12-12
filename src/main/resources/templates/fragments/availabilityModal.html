@@ -1,13 +1,13 @@
 
 <div class="cd-popup-container" id="availabilityTableModal">
 	<div class="col-lg-8 col-lg-offset-2" id="modalColumn">
-		<div class="container" id="containerInsert">
+		<div class="modal-container" id="containerInsertAvailability">
 			<div class="row">
 				<header class="containerHeader">
 					<label class="containerLabel">Interview availability</label> <em
 						id="closeModal" class='bx bx-x'></em>
 				</header>
-				<form class="inp-form" id="insertAvailability" action="#"
+				<form class="modal-form" id="insertAvailability" action="#"
 					th:action="@{/availability/insert}"
 					th:object="${insertAvailabilityTO}" method="post">
 					<div class="col-lg-8 col-lg-offset-2" id="modalFormColumn">
@@ -51,7 +51,7 @@
 						</div>
 					</div>
 				</form>
-				<form class="inp-form" id="refuseAvailability" action="#"
+				<form class="modal-form" id="refuseAvailability" action="#"
 					th:action="@{/availability/refuse}" method="post">
 					<input id="interviewIdHid2" type="hidden" th:name="interviewId"  value=0 /> 
 				</form>

@@ -1,14 +1,14 @@
 
 <div class="cd-popup-container" id="registerModal">
 	<div class="col-lg-8 col-lg-offset-2" id="modalColumn">
-		<div class="container" id="containerInsert">
+		<div class="modal-container" id="containerInsert">
 			<div class="row">
 				<header class="containerHeader">
 					<label class="containerLabel">Register interviewer </label> <em
 						id="closeModal" class='bx bx-x'></em>
 				</header>
 				<div class="col-lg-8 col-lg-offset-2" id="registerUserColumn">
-					<form id="registerUser" class="inp-form" action="#"
+					<form id="registerUser" class="modal-form" action="#"
 						th:action="@{/interviewer/register}" th:object="${registerUserTO}"
 						method="post">
 						<div class="form-group">

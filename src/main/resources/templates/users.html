@@ -30,10 +30,6 @@
       	<script type="text/javascript" th:src="@{/js/table.js}"></script>
       	<script type="text/javascript" th:src="@{/js/feedback.js}"></script>
         <script type="text/javascript" th:src="@{/js/sidebar.js}"></script>
-        
-        <style>
-        	a {cursor: pointer;}
-        </style>
     </head>
     <body>
         <div class="interview-html">
@@ -53,13 +49,13 @@
 						              		<em id="plusIconUsers" class='bx bx-plus'></em>
 						              </a>	
 						    </header>	
-                            <div class="col-lg-8 col-lg-offset-2" id="tableFormColumn">
-                            <div class="table-row" id="tablePagRow">
+                            <div class="col-lg-8 col-lg-offset-2" id="tableFormColumn" style="height: 89%;">
+                            <div class="table-row" id="tablePagRow" style="overflow: unset">
                                 <table id="usersTable" class="mytable paginated">
                                     <tr>
                                         <th style="width: 20%;">Enterprise Id </th>
                                         <th style="width: 12%;">Ruolo </th>
-                                        <th style="width: 30%;"class="remove">Mail </th>
+                                        <th class="remove" style="width: 30%;" >Mail </th>
                                         <th style="width: 10%;">Status </th>
                                         <th style="width: 7%;"></th>                                                                                
                                     </tr>
@@ -69,7 +65,7 @@
                                             <span th:if="${interviewer.type == T(com.accenture.interview.utils.enums.InterviewerTypeEnum).getIdFromDescription('RESPONSABILE')}">Responsabile</span>
                                             <span th:unless="${interviewer.type == T(com.accenture.interview.utils.enums.InterviewerTypeEnum).getIdFromDescription('RESPONSABILE')}">Normale</span>
                                         </td>
- 										<td class="remove" th:text="${interviewer.mail}" />										
+ 										<td class="remove"  th:text="${interviewer.mail}" />										
                                         <td>
                                             <span th:if="${interviewer.status == 1}">Attivo</span>
                                             <span th:unless="${interviewer.status == 1}">Inattivo</span>

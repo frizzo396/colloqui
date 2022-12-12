@@ -10,6 +10,19 @@
    	border-radius: 5px;
     text-align: left;
     position: relative;
+    height: 100%;
+}
+
+.modal-container {
+    width: 100%;
+    background-color: #e3e4e8;
+    padding-top: 12px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+   	border-radius: 5px;
+    text-align: left;
+    position: relative;
 }
 
 .containerHeader {
@@ -44,6 +57,15 @@
   	color: black;
 }
 
+.modal-form label{
+    font-family: 'Graphik', sans-serif;
+	font-size:15px;
+	margin: 4px 4px 4px 0px ;
+	padding: 2px 2px 2px 0;
+  	display: inline-block;
+  	color: black;
+}
+
 #insertFormColumn {
 	background-color: white;
 	border-radius: 5px;
@@ -52,6 +74,7 @@
 #searchFormColumn {
 	background-color: white;
 	border-radius: 5px;
+	height: 90%;
 }
 
 #tableFormColumn {
@@ -66,23 +89,15 @@
 	border-radius: 5px;
 }
 
-#insertInterview {
-	padding-bottom: 40px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 10px;
-}
 
 #registerUser {
 	padding-bottom: 40px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 10px;
 }
 
 #buttonRow {
-    padding-top: 15px;
-    padding-bottom: 20px;
+    padding-top: 40px;
+    display: flex;
+    width: 100%;
 }
 
 #buttonRow .column{
@@ -156,34 +171,6 @@
 	width: 100%;
 	display: inline-grid;
 }
-
-#searchInterview {
-    padding-bottom: 40px;
-    padding-left: 10px;
-     padding-right: 10px;
-    padding-top: 10px;
-}
-
-
-
-
-
-
-#insertMotivationalFeedback {
-    padding-bottom: 40px;
-    padding-left: 10px;
-     padding-right: 10px;
-    padding-top: 10px;
-}
-
-#insertTechFeedback {
-	    padding-bottom: 40px;
-    padding-left: 10px;
-     padding-right: 10px;
-    padding-top: 10px;
-}
-
-
 
 
 /*MODALS*/
@@ -305,3 +292,27 @@
     font-size: 15px;
     margin-top: -10px;
 }
+
+#containerSearchColumn {
+	width: 70%;
+	height: 500px;
+	overflow-y: scroll;
+}
+
+#containerSearch {
+	height: auto;
+    min-height: 89.9%;
+}
+
+#containerMotFeedColumn {
+	height: 500px;
+    overflow-y: scroll;
+    width: 70%;
+}
+
+#usersTableRow {
+	width: 100%;
+    clear: both;
+    min-height: 250px;
+}
+

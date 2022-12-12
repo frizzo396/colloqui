@@ -22,7 +22,7 @@ function pagination(){
                 else
                     pager = $('<div class="pager" style="padding-top: 30px; direction:ltr; color:black; padding-bottom: 30px;" align="center"></div>');
 
-                $('<a style="font-size:12px;"> « Prev&nbsp;&nbsp;&nbsp;&nbsp; </a>').bind('click', function () {
+                $('<a style="font-size:12px; cursor: pointer;"> « Prev&nbsp;&nbsp;&nbsp;&nbsp; </a>').bind('click', function () {
                     if (currentPage > 0)
                         currentPage--;
                     $table.trigger('repaginate');
@@ -38,7 +38,7 @@ function pagination(){
 
                 $('<span style="font-size: 12px" >Page '+(currentPage+1)+' of '+pages+'</span>').appendTo(pager);
 
-                $('<a style="font-size:12px"> &nbsp;&nbsp;&nbsp;&nbsp;Next » </a>').bind('click', function () {
+                $('<a style="font-size:12px; cursor: pointer;"> &nbsp;&nbsp;&nbsp;&nbsp;Next » </a>').bind('click', function () {
                     if (currentPage < pages - 1)
                         currentPage++;
                     $table.trigger('repaginate');
@@ -64,21 +64,26 @@ function pagination(){
                 'tbody tr:not(:has(th))').hide().slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage).show();
                 
                 //Border radius ultima riga tabella
-                	let rows = document.querySelectorAll('.tableRows');
-				for (var i = 0; i < rows.length; i++) {
-				  if (rows[i].style.display === "none") {
-						let lastRow = rows[i-1];
-							var cells = lastRow.getElementsByTagName("td");
-							var firstCell = cells[0];
-							var lastCell = cells[cells.length -1];
-							firstCell.style.borderBottomLeftRadius = "5px";
-							lastCell.style.borderBottomRightRadius = "5px";			
-							break;
-				  }
+                let rows = document.querySelectorAll('.tableRows');
+                setRoundedBorders(rows[rows.length -1]);
+                let rowToRound = 3;
+				for (var i = 0; i < rows.length; i++) {					
+				  	if(i == rowToRound){
+						setRoundedBorders(rows[i]);
+						rowToRound = rowToRound+4;
+					}
 				}
         });
 
         $table.trigger('repaginate');
     });
+    
+function setRoundedBorders(rowToRound){
+	var cells = rowToRound.getElementsByTagName("td");
+	var firstCell = cells[0];
+	var lastCell = cells[cells.length -1];
+	firstCell.style.borderBottomLeftRadius = "5px";
+	lastCell.style.borderBottomRightRadius = "5px";	
+}
 
 }

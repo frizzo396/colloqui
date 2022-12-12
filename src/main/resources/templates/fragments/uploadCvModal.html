@@ -1,7 +1,7 @@
 
 <div class="cd-popup-container" id="uploadCVModal">
 	<div class="col-lg-8 col-lg-offset-2" id="modalColumn">
-		<div class="container" id="containerInsert">
+		<div class="modal-container" id="containerInsert">
 			<div class="row">
 				<header class="containerHeader">
 					<label class="containerLabel">Upload CV</label> <em
@@ -9,7 +9,7 @@
 				</header>
 								
 				
-				<form class="inp-form" id="uploadCV" action="#"
+				<form class="modal-form" id="uploadCV" action="#"
 					th:action="@{/interview/curriculum/upload}"
 					th:object="${uploadCvTO}" method="post" enctype="multipart/form-data" onsubmit="return validationUpload()">
 					

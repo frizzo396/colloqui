@@ -1,13 +1,13 @@
 
 <div class="cd-popup-container" id="approveDateModal">
 	<div class="col-lg-8 col-lg-offset-2" id="modalColumn">
-		<div class="container" id="containerInsert">
+		<div class="modal-container" id="containerInsert">
 			<div class="row">
 				<header class="containerHeader">
 					<label class="containerLabel">Approve availability date</label> <em
 						id="closeModal" class='bx bx-x'></em>
 				</header>
-				<form class="inp-form" id="approveAvailability" action="#"
+				<form class="modal-form" id="approveAvailability" action="#"
 					th:action="@{/availability/approve}"
 					th:object="${approveAvailabilityTO}" method="post">
 					<div class="col-lg-8 col-lg-offset-2" id="approveDateFormColumn">
