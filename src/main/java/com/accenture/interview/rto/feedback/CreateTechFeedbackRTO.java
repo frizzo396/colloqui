@@ -14,24 +14,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CreateTechFeedbackRTO {
 
-	/** The java. */
-	private int java;
-
-	/** The sql voto. */
-	private int sqlVoto;
-
-	/** The html css. */
-	private int htmlCss;
-
-	/** The angular. */
-	private int angular;
-
-	/** The spring. */
-	private int spring;
-
-	/** The other. */
-	private int other;
-
 	/** The comment. */
 	private String comment;
 
@@ -42,12 +24,6 @@ public class CreateTechFeedbackRTO {
 	 *                                  request
 	 */
 	public CreateTechFeedbackRTO(CreateTechFeedbackTO createTechFeedbackRequest) {
-		this.java = createTechFeedbackRequest.getJava();
-		this.sqlVoto = createTechFeedbackRequest.getSqlVoto();
-		this.htmlCss = createTechFeedbackRequest.getHtmlCss();
-		this.angular = createTechFeedbackRequest.getAngular();
-		this.spring = createTechFeedbackRequest.getSpring();
-		this.other = createTechFeedbackRequest.getOther();
 		this.comment = createTechFeedbackRequest.getComment();
 	}
 

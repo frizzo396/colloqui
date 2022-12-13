@@ -2,57 +2,77 @@
 	<div class="col-lg-8 col-lg-offset-2" id="modalColumn">
 		<div class="container" id="containerInsert">
 			<div class="row">
-				<header class="containerHeader">
-					<label class="containerLabel">Feedback detail</label> <em
-						id="closeModal" class='bx bx-x'></em>
-				</header>
+					<div class="row" id="containerHeaderRow">
+					<div class="col-lg-8 col-lg-offset-2" id="headerLabelColumn" style="width:40%">
+						<label class="containerLabel">Feedback detail</label> 
+					</div>
+					<div class="col-lg-8 col-lg-offset-2" id="headerSpaceColumn">  
+                             
+                    </div>
+                    <div class="col-lg-8 col-lg-offset-2" id="headerIconColumn">
+                    	<div id="iconContainer">    
+						     <div class="row">
+									<em id="closeModal" class='bx bx-x'></em>
+						     </div>    
+						</div>	
+                    </div>
+                    
+					
+				</div>
 				<div class="col-lg-8 col-lg-offset-2" id="modalFormColumn">
 					<div class="row">
-						<div class="column">
+						<div id="tech_col_1" class="column" style="display: none;">
 							<div class="form-group">
-								<label>Java</label> <input id="techJava" type="number" value="0"
-									readonly />
+								<label id="tech_descr_1"></label> 
+								<input id="tech_score_1" type="number" readonly />
 							</div>
 						</div>
-						<div class="column">
+						<div id="tech_col_2" class="column" style="display: none;">
 							<div class="form-group">
-								<label>Spring</label> <input id="techSpring" type="number"
-									value="0" readonly />
+								<label id="tech_descr_2"></label> 
+								<input id="tech_score_2" type="number" readonly />
 							</div>
 						</div>
-						<div class="column">
+						<div id="tech_col_3" class="column" style="display: none;">
 							<div class="form-group">
-								<label>SQL</label> <input id="techSql" type="number" value="0"
-									readonly />
+								<label id="tech_descr_3"></label> 
+								<input id="tech_score_3" type="number" readonly />
 							</div>
 						</div>
 					</div>
 					<div class="row">
-						<div class="column">
+						<div id="tech_col_4" class="column" style="display: none;">
 							<div class="form-group">
-								<label>HTML-CSS</label> <input id="techHtml" type="number"
-									value="0" readonly />
+								<label id="tech_descr_4"></label>
+								<input id="tech_score_4" type="number" readonly />
 							</div>
 						</div>
-						<div class="column">
+						<div id="tech_col_5" class="column" style="display: none;">
 							<div class="form-group">
-								<label>Angular</label> <input id="techAngular" type="number"
-									value="0" readonly />
+								<label id="tech_descr_5"></label>
+								<input id="tech_score_5" type="number" readonly />
 							</div>
 						</div>
-						<div class="column">
+						<div id="tech_col_6" class="column" style="display: none;">
 							<div class="form-group">
-								<label>Other</label> <input id="techOther" type="number"
-									value="0" readonly>
+								<label id="tech_descr_6"></label> 
+								<input id="tech_score_6" type="number" readonly />
 							</div>
 						</div>
 					</div>
+					<div class="row">
+						<div id="no_score_div" class="column" style="display: none;">
+							<div class="form-group">
+								<label id="no_score_label"></label>
+							</div>
+						</div>
+					</div>					
 					<div class="row">
 						<div class="one-column">
 							<div class="form-group">
-								<label>Comment</label>
+								<label>Comment&nbsp;</label>
 								<button class="collapsible">
-									<em id="collapseIcon" class='bx bx-plus'></em>
+									<em id="collapseIcon2" class='bx bx-plus'></em>
 								</button>
 								<textarea id="techComment" class="content" name="subject"
 									style="height: 200px" readonly></textarea>

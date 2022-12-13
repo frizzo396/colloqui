@@ -3,11 +3,23 @@
 	<div class="col-lg-8 col-lg-offset-2" id="modalColumn">
 		<div class="modal-container" id="containerInsert">
 			<div class="row">
-				<header class="containerHeader">
-					<label class="containerLabel">Reassign interview</label> <em
-						id="closeModal" class='bx bx-x'></em>
-				</header>
-				<form class="modal-form" id="reassignInterview" action="#"
+					<div class="row" id="containerHeaderRow">
+					<div class="col-lg-8 col-lg-offset-2" id="headerLabelColumn" style="width:60%">
+						<label class="containerLabel">Reassign interview</label> 
+					</div>
+					<div class="col-lg-8 col-lg-offset-2" id="headerSpaceColumn">  
+                    </div>
+                    <div class="col-lg-8 col-lg-offset-2" id="headerIconColumn">
+                    	<div id="iconContainer">    
+						     <div class="row">
+									<em id="closeModal" class='bx bx-x'></em>
+						     </div>    
+						</div>	
+                    </div>
+                    
+					
+				</div>
+				<form id="reassignInterview" action="#"
 					th:action="@{/availability/reassign}"
 					th:object="${reassignInterviewTO}" method="post">
 					<div class="col-lg-8 col-lg-offset-2" id="approveDateFormColumn">

@@ -3,10 +3,23 @@
 	<div class="col-lg-8 col-lg-offset-2" id="modalColumn">
 		<div class="modal-container" id="containerInsertAvailability">
 			<div class="row">
-				<header class="containerHeader">
-					<label class="containerLabel">Interview availability</label> <em
-						id="closeModal" class='bx bx-x'></em>
-				</header>
+				<div class="row" id="containerHeaderRow">
+					<div class="col-lg-8 col-lg-offset-2" id="headerLabelColumn" style="width:40%">
+						<label class="containerLabel">Interview availability</label> 
+					</div>
+					<div class="col-lg-8 col-lg-offset-2" id="headerSpaceColumn">  
+                             
+                    </div>
+                    <div class="col-lg-8 col-lg-offset-2" id="headerIconColumn">
+                    	<div id="iconContainer">    
+						     <div class="row">
+									<em id="closeModal" class='bx bx-x'></em>
+						     </div>    
+						</div>	
+                    </div>
+                    
+					
+				</div>
 				<form class="modal-form" id="insertAvailability" action="#"
 					th:action="@{/availability/insert}"
 					th:object="${insertAvailabilityTO}" method="post">

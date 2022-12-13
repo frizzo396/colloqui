@@ -68,9 +68,11 @@ jQuery(document).ready(function($){
 		   if (content.style.display === "block") {
 	      		content.style.display = "none";
 	      		document.getElementById("collapseIcon").className = "bx bx-plus";
+	      		document.getElementById("collapseIcon2").className = "bx bx-plus"; // 2022-12-12 aggiunto
 	   		 } else {
 	      	content.style.display = "block";
 	      	document.getElementById("collapseIcon").className = "bx bx-minus";
+	      	document.getElementById("collapseIcon2").className = "bx bx-minus"; // 2022-12-12 aggiunto
 	    	}
 		  });	
 		  

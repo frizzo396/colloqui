@@ -19,7 +19,7 @@ jQuery(document).ready(function ($) {
     $('.tech-popup').on('click', function (event) {
 		event.preventDefault();	
 		var textAreas = document.getElementsByClassName("content");
-		let collIcon = document.getElementById("collapseIcon");
+		let collIcon = document.getElementById("collapseIcon2");		
 		if(collIcon != null) {
 			collIcon.className = "bx bx-plus";
 			Array.prototype.forEach.call(textAreas, function(cont) {
@@ -28,7 +28,7 @@ jQuery(document).ready(function ($) {
 		}
 		$('#tech-modal').addClass('is-visible');
     
-    });
+    });  
     
     
 	//Salvataggio feedback motivazionale colloquio
@@ -127,11 +127,54 @@ function createMotivationalModal(motivationalInterview){
 
 function createTechnicalModal(technicalInterview){
     var obj = JSON.parse(technicalInterview);
-    document.getElementById('techJava').value = obj.java; 
-    document.getElementById('techSql').value = obj.sql; 
-    document.getElementById('techHtml').value = obj.htmlCss; 
-    document.getElementById('techAngular').value = obj.angular; 
-    document.getElementById('techSpring').value = obj.spring;
-    document.getElementById('techOther').value = obj.other;  
+    
+    // FEEDBACK REGISTRATO IN FORMATO JSON NEL CAMPO SCORES - START
+    var scoresJson = obj.scores 
+    
+    document.getElementById("tech_descr_1").textContent = "";
+    document.getElementById("tech_score_1").value = "";
+    document.getElementById("tech_col_1").style.display = "none";
+    
+    document.getElementById("tech_descr_2").textContent = "";
+    document.getElementById("tech_score_2").value = "";
+    document.getElementById("tech_col_2").style.display = "none";
+    
+    document.getElementById("tech_descr_3").textContent = "";
+    document.getElementById("tech_score_3").value = "";
+    document.getElementById("tech_col_3").style.display = "none";
+    
+    document.getElementById("tech_descr_4").textContent = "";
+    document.getElementById("tech_score_4").value = "";
+    document.getElementById("tech_col_4").style.display = "none";
+    
+    document.getElementById("tech_descr_5").textContent = "";
+    document.getElementById("tech_score_5").value = "";
+    document.getElementById("tech_col_5").style.display = "none";
+    
+    document.getElementById("tech_descr_6").textContent = "";
+    document.getElementById("tech_score_6").value = "";
+    document.getElementById("tech_col_6").style.display = "none";
+    
+    document.getElementById("no_score_label").textContent = "";
+    document.getElementById("no_score_div").style.display = "none";
+    
+    if (scoresJson) {
+	    const objVect = JSON.parse(obj.scores);
+	    
+	    if (objVect.length >= 1) {
+			for (let i = 0; i < objVect.length; i++) {
+			    var num = i + 1;
+			    document.getElementById("tech_descr_" + num).textContent = objVect[i].technology;
+			    document.getElementById("tech_score_" + num).value = objVect[i].score;
+			    document.getElementById("tech_col_" + num).style.display = "block";    
+			}				
+		}	
+    } else {
+		document.getElementById("no_score_div").style.display = "block";
+		document.getElementById("no_score_label").textContent = "NESSUNO\u00a0SCORE!";
+		document.getElementById("no_score_label").style.width = "400px";
+	}
+    // FEEDBACK REGISTRATO IN FORMATO JSON NEL CAMPO SCORES - END
+         
     document.getElementById('techComment').value = obj.comment; 
 }

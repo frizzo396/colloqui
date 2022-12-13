@@ -1,10 +1,12 @@
 package com.accenture.interview.to.feedback;
 
-import javax.validation.constraints.Max;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -12,39 +14,30 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@NoArgsConstructor
 public class CreateTechFeedbackTO {
-
-	/** The java. */
-	@Max(value = 10, message = "feedback.error.max-score.value")
-	private int java;
-
-	/** The sql voto. */
-	@Max(value = 10, message = "feedback.error.max-score.value")
-	private int sqlVoto;
-
-	/** The html css. */
-	@Max(value = 10, message = "feedback.error.max-score.value")
-	private int htmlCss;
-
-	/** The angular. */
-	@Max(value = 10, message = "feedback.error.max-score.value")
-	private int angular;
-
-	/** The spring. */
-	@Max(value = 10, message = "feedback.error.max-score.value")
-	private int spring;
-
-	/** The other. */
-	@Max(value = 10, message = "feedback.error.max-score.value")
-	private int other;
+	
+	@Valid
+	private List<ScoreTechFeedbackTO> techList;
 
 	/** The final feedback. */
-	@NotEmpty(message = "feedback.final.notempty")
+	@NotEmpty(message = "feedback.error.final.not-empty")
 	private String finalFeedback;
 
 	/** The comment. */
-	@NotEmpty(message = "feedback.comment.notempty")
-	private String comment;
+	@NotEmpty(message = "feedback.error.comment.not-empty")
+	private String comment;	
+	
+	// NUOVO CAMPO PER TRASFORMAZIONE JSON
+	private String scores;
+	
+	public CreateTechFeedbackTO() {		
+		techList = new ArrayList<ScoreTechFeedbackTO>();
+		techList.add(new ScoreTechFeedbackTO("", ""));
+		techList.add(new ScoreTechFeedbackTO("", ""));
+		techList.add(new ScoreTechFeedbackTO("", ""));
+		techList.add(new ScoreTechFeedbackTO("", ""));
+		techList.add(new ScoreTechFeedbackTO("", ""));
+		techList.add(new ScoreTechFeedbackTO("", ""));
+	}
 
 }

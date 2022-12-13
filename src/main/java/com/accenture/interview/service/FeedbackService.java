@@ -18,6 +18,8 @@ import com.accenture.interview.rto.feedback.TechnicalFeedbackRTO;
 import com.accenture.interview.rto.interview.InterviewAndFeedbackRTO;
 import com.accenture.interview.to.feedback.CreateMotivationFeedbackTO;
 import com.accenture.interview.to.feedback.CreateTechFeedbackTO;
+import com.accenture.interview.to.feedback.ScoreTechFeedbackTO;
+import com.google.gson.Gson;
 
 /**
  * The Class FeedbackService.
@@ -46,6 +48,20 @@ public class FeedbackService {
 	 * @return the creates the tech feedback response
 	 */
 	public TechnicalFeedback insertTechFeedback(CreateTechFeedbackTO createTechFeedbackTO, Long interviewId) {
+		
+		// TRASFORMAZIONE IN JSON CAMPO SCORES - START
+		List<ScoreTechFeedbackTO> listFeedTO = createTechFeedbackTO.getTechList();		
+		List<ScoreTechFeedbackTO> filterList = new ArrayList<ScoreTechFeedbackTO>();
+		
+		for(ScoreTechFeedbackTO feedScore : listFeedTO) {
+			if (!feedScore.getTechnology().trim().equals("")) {
+				filterList.add(feedScore);
+			}
+		}		
+		String json = new Gson().toJson(filterList);
+		createTechFeedbackTO.setScores(json);
+		// TRASFORMAZIONE IN JSON CAMPO SCORES - END
+		
 		TechnicalFeedback techFeedback = new TechnicalFeedback(createTechFeedbackTO);
 		Optional<Interview> optInterview = interviewRepository.findInterviewById(interviewId);		
 		if(optInterview.isPresent()) {

@@ -71,6 +71,35 @@ display: block;
   height: auto;
 }
 
+
+#containerHeaderRow {
+	display: flex;
+    padding-bottom: 23px;
+}
+
+#headerLabelColumn {
+	width: 10%;
+    display: flex;
+    position: relative;
+}
+
+#headerSpaceColumn {
+	width: 70%;
+    display: flex;
+    position: relative;
+}
+
+#headerIconColumn {
+	width: 20%;
+    display: flex;
+    position: relative;
+}
+
+#iconContainer {
+	display: flex;
+    margin-left: 88%;
+}
+
 header{
     display: flex; 
     justify-content: space-between;
@@ -87,6 +116,12 @@ header{
     }    
 }
 
+@media only screen  and (max-width:550px){ 	 
+		#iconContainer {
+		margin-left: 80%
+	}
+}
+
 
 @media only screen  and (max-width:840px){ 	 
 	 #imageColumn {
@@ -100,4 +135,6 @@ header{
 	#titleColumn {
 	  width: 55%;
 	}
+	
+
 	}

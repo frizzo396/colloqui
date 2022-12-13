@@ -188,30 +188,35 @@
 #motivationalTableModal {
 	border-radius: 5px !important;
 	margin-top: 3.1%;	
+	width: 70%;
 }
 
 #availabilityTableModal {
 	border-radius: 5px !important;
 	margin-top: 3.1%;	
 	max-width: 600px;
+    width: 70%;
 }
 
 #approveDateModal {
 	border-radius: 5px !important;
 	margin-top: 3.1%;	
 	max-width: 400px;
+	width: 70%;
 }
 
 #reassignModal {
 	border-radius: 5px !important;
 	margin-top: 3.1%;	
 	max-width: 400px;
+	width: 70%;
 }
 
 #uploadCVModal {
 	border-radius: 5px !important;
 	margin-top: 3.1%;	
 	max-width: 400px;
+	width: 70%;
 }
 
 #modalFormColumn {
@@ -219,6 +224,7 @@
 	background-color: white;
 	display: inline-block;
 	    border-radius: 5px;
+	    width: 100%;
 }
 
 #approveDateFormColumn {
@@ -274,11 +280,13 @@
 	border-radius: 5px !important;
 	margin-top: 3.1%;	
 	max-width: 400px;
+	width: 70%;
 }
 
 #techTableModal {
 	margin-top: 3.1%;
 	border-radius: 5px !important;
+	width: 70%
 }
 
 #closeMotModal {

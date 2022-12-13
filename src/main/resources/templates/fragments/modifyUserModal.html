@@ -3,10 +3,23 @@
 	<div class="col-lg-8 col-lg-offset-2" id="modalColumn">
 		<div class="modal-container" id="containerInsert">
 			<div class="row">
-				<header class="containerHeader">
-					<label class="containerLabel">Modify interviewer </label> <em
-						id="closeModal" class='bx bx-x'></em>
-				</header>
+				<div class="row" id="containerHeaderRow">
+					<div class="col-lg-8 col-lg-offset-2" id="headerLabelColumn" style="width:40%">
+						<label class="containerLabel">Modify user</label> 
+					</div>
+					<div class="col-lg-8 col-lg-offset-2" id="headerSpaceColumn">  
+                             
+                    </div>
+                    <div class="col-lg-8 col-lg-offset-2" id="headerIconColumn">
+                    	<div id="iconContainer">    
+						     <div class="row">
+									<em id="closeModal" class='bx bx-x'></em>
+						     </div>    
+						</div>	
+                    </div>
+                    
+					
+				</div>
 				<div class="col-lg-8 col-lg-offset-2" id="registerUserColumn">
 					<form id="modifyUser" class="modal-form" action="#"
 						th:action="@{/interviewer/modify}" th:object="${modifyUserTO}"

@@ -15,27 +15,15 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TechnicalFeedbackRTO {
-
-	/** The java. */
-	private long java;
-
-	/** The sql. */
-	private int sql;
-
-	/** The html css. */
-	private int htmlCss;
-
-	/** The angular. */
-	private int angular;
-
-	/** The spring. */
-	private int spring;
-
-	/** The other. */
-	private int other;
+	
+	/** The id. */
+	private long id;
 
 	/** The comment. */
 	private String comment;
+	
+	/** The scores. */
+	private String scores;
 
 	/**
 	 * To string.

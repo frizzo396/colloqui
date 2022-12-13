@@ -275,10 +275,23 @@ color: #afb0b3;
 	}
 }
 
+@media screen and (max-width: 600px) {
+	.clear-button, .submit-button, .submit-spinner, .search-button {
+    width: 80% !important;
+    font-size: 100%;
+    
+  }
+  #registerSingleButtonRow button {
+  	 width: 35% !important;
+  }
+  #singleButtonRow button {
+  	width: 35% !important;
+  }
+}
 
-@media screen and (max-width: 1000px) {
+@media screen and (min-width: 601px) and(max-width: 1000px) {
   .clear-button, .submit-button, .submit-spinner, .search-button {
-    width: 50%;
+    width: 50% !important;
     font-size: 100%;
   }
   
