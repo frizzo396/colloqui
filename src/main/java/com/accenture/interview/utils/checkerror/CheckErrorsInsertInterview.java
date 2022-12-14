@@ -19,7 +19,6 @@ import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.service.CandidateService;
 import com.accenture.interview.service.InterviewService;
 import com.accenture.interview.service.InterviewerService;
-import com.accenture.interview.to.interview.ApproveAvailabilityTO;
 import com.accenture.interview.to.interview.CreateInterviewTO;
 
 /**

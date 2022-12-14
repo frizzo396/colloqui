@@ -2,9 +2,11 @@ package com.accenture.interview.utils.checkerror.availability;
 
 import java.util.Locale;
 import java.util.Set;
+
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.ValidatorFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
@@ -13,7 +15,6 @@ import org.springframework.util.ObjectUtils;
 import com.accenture.interview.exception.GenericException;
 import com.accenture.interview.rto.general.ErrorRTO;
 import com.accenture.interview.service.InterviewService;
-import com.accenture.interview.to.interview.ApproveAvailabilityTO;
 import com.accenture.interview.to.interview.InsertAvailabilityTO;
 
 /**

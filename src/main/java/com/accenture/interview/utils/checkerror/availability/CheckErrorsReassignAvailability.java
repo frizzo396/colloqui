@@ -15,7 +15,6 @@ import org.springframework.util.ObjectUtils;
 import com.accenture.interview.exception.GenericException;
 import com.accenture.interview.rto.general.ErrorRTO;
 import com.accenture.interview.service.InterviewService;
-import com.accenture.interview.to.interview.InsertAvailabilityTO;
 import com.accenture.interview.to.interview.ReassignInterviewTO;
 
 

@@ -43,6 +43,10 @@
     padding-bottom: 30px;
 }
 
+#requestRegistration {
+	padding-top: 0px;
+}
+
 .modal-form {
 	padding-left: 10px;
     padding-right: 10px;

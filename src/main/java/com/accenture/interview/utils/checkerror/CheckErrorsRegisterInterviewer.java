@@ -16,7 +16,6 @@ import com.accenture.interview.exception.GenericException;
 import com.accenture.interview.rto.general.ErrorRTO;
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.service.InterviewerService;
-import com.accenture.interview.to.interview.ApproveAvailabilityTO;
 import com.accenture.interview.to.interviewer.ModifyInterviewerTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 import com.accenture.interview.to.interviewer.RequestRegistrationTO;
