@@ -9,8 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
+
+import com.accenture.interview.exception.GenericException;
 import com.accenture.interview.rto.general.ErrorRTO;
 import com.accenture.interview.service.InterviewService;
+import com.accenture.interview.to.interview.ApproveAvailabilityTO;
 import com.accenture.interview.to.interview.InsertAvailabilityTO;
 
 /**
@@ -18,11 +21,11 @@ import com.accenture.interview.to.interview.InsertAvailabilityTO;
  */
 @Component
 public class CheckErrorsInsertAvailability {
-	
+
 	/** The interview service. */
 	@Autowired
 	private InterviewService interviewService;
-	
+
 
 	/** The message source. */
 	@Autowired
@@ -39,13 +42,18 @@ public class CheckErrorsInsertAvailability {
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Set<ConstraintViolation<InsertAvailabilityTO>> violations = factory.getValidator().validate(insertAvailabilityTO);
 
-		if (!violations.isEmpty()) {		
-			String errorMsg = messageSource.getMessage(violations.stream().findFirst().get().getMessage(), null, Locale.getDefault());
-			return new ErrorRTO(errorMsg);
-		}
-		if(ObjectUtils.isEmpty(interviewService.findInterviewById(insertAvailabilityTO.getInterviewId()))) {
-			String errorMsg = messageSource.getMessage("interview.error.not-found", null, Locale.getDefault());
-			return new ErrorRTO(errorMsg);
+		try {
+			if (!violations.isEmpty()) {	
+				ConstraintViolation<InsertAvailabilityTO> violation = violations.stream().findFirst().orElseThrow(GenericException::new);
+				String errorMsg = messageSource.getMessage(violation.getMessage(), null, Locale.getDefault());
+				return new ErrorRTO(errorMsg);
+			}
+			if(ObjectUtils.isEmpty(interviewService.findInterviewById(insertAvailabilityTO.getInterviewId()))) {
+				String errorMsg = messageSource.getMessage("interview.error.not-found", null, Locale.getDefault());
+				return new ErrorRTO(errorMsg);
+			}
+		} catch (GenericException e) {
+			return new ErrorRTO("Errore generico");
 		}
 		return null;
 	}

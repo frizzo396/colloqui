@@ -31,7 +31,7 @@ public class CreateTechFeedbackTO {
 	private String scores;
 	
 	public CreateTechFeedbackTO() {		
-		techList = new ArrayList<ScoreTechFeedbackTO>();
+		techList = new ArrayList<>();
 		techList.add(new ScoreTechFeedbackTO("", ""));
 		techList.add(new ScoreTechFeedbackTO("", ""));
 		techList.add(new ScoreTechFeedbackTO("", ""));

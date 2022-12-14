@@ -16,6 +16,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
 import com.accenture.interview.entity.Interview;
+import com.accenture.interview.exception.GenericException;
 import com.accenture.interview.rto.general.ErrorRTO;
 import com.accenture.interview.service.InterviewService;
 import com.accenture.interview.to.feedback.CreateMotivationFeedbackTO;
@@ -27,11 +28,11 @@ import com.accenture.interview.to.feedback.ScoreTechFeedbackTO;
  */
 @Component
 public class CheckErrorsInsertFeedback {
-	
+
 	/** The message source. */
 	@Autowired
 	private MessageSource messageSource;
-	
+
 	/** The interview service. */
 	@Autowired
 	private InterviewService interviewService;
@@ -48,18 +49,23 @@ public class CheckErrorsInsertFeedback {
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Set<ConstraintViolation<CreateMotivationFeedbackTO>> violations = factory.getValidator().validate(feedbackTO);
 
-		if (!violations.isEmpty()) {
-			errorMsg = messageSource.getMessage(violations.stream().findFirst().get().getMessage(), null, Locale.getDefault());
-			return new ErrorRTO(errorMsg);
-		}
-			
-		if(!isInterviewer(interviewId)) {
-			errorMsg = messageSource.getMessage("feedback.error.interviewer.not-equal", null, Locale.getDefault());
-			return new ErrorRTO(errorMsg);
+		try {
+			if (!violations.isEmpty()) {	
+				ConstraintViolation<CreateMotivationFeedbackTO> violation = violations.stream().findFirst().orElseThrow(GenericException::new);
+				errorMsg = messageSource.getMessage(violation.getMessage(), null, Locale.getDefault());
+				return new ErrorRTO(errorMsg);
+			}
+
+			if(!isInterviewer(interviewId)) {
+				errorMsg = messageSource.getMessage("feedback.error.interviewer.not-equal", null, Locale.getDefault());
+				return new ErrorRTO(errorMsg);
+			}
+		} catch (GenericException e) {
+			return new ErrorRTO("Errore generico");
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Validate.
 	 *
@@ -71,12 +77,12 @@ public class CheckErrorsInsertFeedback {
 		String errorMsg = null;
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Set<ConstraintViolation<CreateTechFeedbackTO>> violations = factory.getValidator().validate(createTechFeedbackTO);
-		
+
 		if (!violations.isEmpty()) {
 			errorMsg = messageSource.getMessage(violations.stream().findFirst().get().getMessage(), null, Locale.getDefault());
 			return new ErrorRTO(errorMsg);
 		}
-		
+
 		List<ScoreTechFeedbackTO> filtered = createTechFeedbackTO.getTechList().stream()
 				.filter(a -> (!ObjectUtils.isEmpty(a.getTechnology())))
 				.collect(Collectors.toList());
@@ -84,22 +90,22 @@ public class CheckErrorsInsertFeedback {
 			errorMsg = messageSource.getMessage("feedback.error.score.almost-one", null, Locale.getDefault());
 			return new ErrorRTO(errorMsg);
 		}
-		
+
 		createTechFeedbackTO.setTechList(filtered);		
-				
+
 		ErrorRTO techListErr = validateTechnologiesList(createTechFeedbackTO.getTechList());
 		if(!ObjectUtils.isEmpty(techListErr)) {
 			return techListErr;
 		}
-				
+
 		if(!isInterviewer(interviewId)) {
 			errorMsg = messageSource.getMessage("feedback.interviewer.notequal", null, Locale.getDefault());
 			return new ErrorRTO(errorMsg);
 		}
 		return null;
 	}
-	
-	
+
+
 	private ErrorRTO validateTechnologiesList(List<ScoreTechFeedbackTO> techList) {
 		String errorMsg = null;
 		for (ScoreTechFeedbackTO scoreTO : techList) {
@@ -107,22 +113,22 @@ public class CheckErrorsInsertFeedback {
 				errorMsg = messageSource.getMessage("feedback.error.score.not-empty", null, Locale.getDefault());
 				return new ErrorRTO(errorMsg);
 			}
-			
+
 			if(!isNumeric(scoreTO.getScore())) {
 				errorMsg = messageSource.getMessage("feedback.error.score.not-numeric", null, Locale.getDefault());
 				return new ErrorRTO(errorMsg);
 			}
-			
+
 			if(Integer.parseInt(scoreTO.getScore()) > 10) {
 				errorMsg = messageSource.getMessage("feedback.error.max-score.value", null, Locale.getDefault());
 				return new ErrorRTO(errorMsg);
 			}
-			
+
 		}
 		return null;
 	}
-	
-	
+
+
 	/**
 	 * Checks if is interviewer.
 	 *
@@ -131,7 +137,7 @@ public class CheckErrorsInsertFeedback {
 	 */
 	private boolean isInterviewer(Long interviewId) {
 		Interview interview = interviewService.findInterviewById(interviewId);
-		
+
 		if(!ObjectUtils.isEmpty(interview)) {
 			String enterpriseId = interview.getInterviewerId().getEnterpriseId();
 			if(enterpriseId.equals(System.getProperty("user.name"))) {
@@ -140,8 +146,8 @@ public class CheckErrorsInsertFeedback {
 		}
 		return false;
 	}
-	
-	
+
+
 	private boolean isNumeric(String score) {
 		try {
 			Integer.parseInt(score);

@@ -12,12 +12,14 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
+import com.accenture.interview.exception.GenericException;
 import com.accenture.interview.rto.candidate.CandidateTypeRTO;
 import com.accenture.interview.rto.general.ErrorRTO;
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.service.CandidateService;
 import com.accenture.interview.service.InterviewService;
 import com.accenture.interview.service.InterviewerService;
+import com.accenture.interview.to.interview.ApproveAvailabilityTO;
 import com.accenture.interview.to.interview.CreateInterviewTO;
 
 /**
@@ -37,7 +39,7 @@ public class CheckErrorsInsertInterview {
 	/** The interviewer service. */
 	@Autowired
 	private InterviewerService interviewerService;
-	
+
 	/** The message source. */
 	@Autowired
 	private MessageSource messageSource;
@@ -52,26 +54,31 @@ public class CheckErrorsInsertInterview {
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Set<ConstraintViolation<CreateInterviewTO>> violations = factory.getValidator().validate(createInterviewTO);
 
-		if (!violations.isEmpty()) {		
-			String errorMsg = messageSource.getMessage(violations.stream().findFirst().get().getMessage(), null, Locale.getDefault());
-			return new ErrorRTO(errorMsg);
-		}
+		try {
+			if (!violations.isEmpty()) {	
+				ConstraintViolation<CreateInterviewTO> violation = violations.stream().findFirst().orElseThrow(GenericException::new);
+				String errorMsg = messageSource.getMessage(violation.getMessage(), null, Locale.getDefault());
+				return new ErrorRTO(errorMsg);
+			}
 
-		if(interviewAlreadyExists(createInterviewTO.getMail())) {
-			return new ErrorRTO(messageSource.getMessage("interview.error.already-exists", null, Locale.getDefault()));
-		}
-		
-		if(!candidateTypeExists(createInterviewTO.getCandidateType())) {
-			return new ErrorRTO(messageSource.getMessage("interview.error.candidate.type.invalid", null, Locale.getDefault()));
-		}
+			if(interviewAlreadyExists(createInterviewTO.getMail())) {
+				return new ErrorRTO(messageSource.getMessage("interview.error.already-exists", null, Locale.getDefault()));
+			}
 
-		if(!interviewerExists(createInterviewTO.getEnterpriseId())) {
-			return new ErrorRTO(messageSource.getMessage("interviewer.not-found", null, Locale.getDefault())); 
+			if(!candidateTypeExists(createInterviewTO.getCandidateType())) {
+				return new ErrorRTO(messageSource.getMessage("interview.error.candidate.type.invalid", null, Locale.getDefault()));
+			}
+
+			if(!interviewerExists(createInterviewTO.getEnterpriseId())) {
+				return new ErrorRTO(messageSource.getMessage("interviewer.not-found", null, Locale.getDefault())); 
+			}
+		} catch (GenericException e) {
+			return new ErrorRTO("Errore generico");
 		}
 		return null;
 	}
-	
-	
+
+
 	/**
 	 * Interview already exists.
 	 *
@@ -83,8 +90,8 @@ public class CheckErrorsInsertInterview {
 	private boolean interviewAlreadyExists(String mail) {
 		return !ObjectUtils.isEmpty(interviewService.findInterviewByMail(mail));
 	}
-	
-	
+
+
 	/**
 	 * Interviewer exists.
 	 *
@@ -95,8 +102,8 @@ public class CheckErrorsInsertInterview {
 		InterviewerRTO interviewer = interviewerService.findInterviewerByEnterpriseId(enterpriseId);
 		return interviewer != null;	
 	}
-	
-	
+
+
 	/**
 	 * Candidate type exists.
 	 *

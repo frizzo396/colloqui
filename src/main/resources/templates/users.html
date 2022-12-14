@@ -83,8 +83,8 @@
                                         </td>				 										
  										<td>
  											<div class="dropdown"> 										
- 												<i th:id="'ctaImg_' + ${interviewer.id}" class='bx bx-dots-vertical-rounded bx-sm' style="cursor: pointer;"
- 												   th:onclick="'ctaFunction(\'' + 'ctaDropdown_' + ${interviewer.id} + '\')'"></i>
+ 												<em th:id="'ctaImg_' + ${interviewer.id}" class='bx bx-dots-vertical-rounded bx-sm' style="cursor: pointer;"
+ 												   th:onclick="'ctaFunction(\'' + 'ctaDropdown_' + ${interviewer.id} + '\')'"></em>
 												<div th:id="'ctaDropdown_' + ${interviewer.id}" class="dropdown-content">											    												    	
 											    	<a th:id="'modificaLink_' + ${interviewer.id}" th:attr="data-eid=${interviewer.enterpriseId}" th:onclick="'openPopupUser(' + ${interviewer.id} + ', event)'">Modifica</a>
 											    	<a th:id="'abilita-disabilitaLink_' + ${interviewer.id}" th:onclick="'abilitaDisabilita(' + ${interviewer.id} + ', event)'">Abilita/Disabilita</a>

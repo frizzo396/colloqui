@@ -39,11 +39,11 @@ public interface InterviewerRepository extends JpaRepository<Interviewer, Long> 
 	/**
 	 * Find interviewer entity by id (primary key).
 	 *
-	 * @param Id the id (primary key)
+	 * @param id the id (primary key)
 	 * @return the optional
 	 */
 	@Query("select ier from Interviewer ier where ier.id=:Id")
-	Optional<Interviewer> findInterviewerEntityById(@Param("Id") long Id);	
+	Optional<Interviewer> findInterviewerEntityById(@Param("Id") long id);	
 
 	/**
 	 * Find interviewer by enterprise id.

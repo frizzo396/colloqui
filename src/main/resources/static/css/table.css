@@ -31,8 +31,10 @@
 }
 
 #reassignBtn {
-    width: 70%;
+    width: 100%;
     border-radius: 5px;
+    margin-left: 0%;
+    margin-right: 0%;
 }
 
 #interview-table button{

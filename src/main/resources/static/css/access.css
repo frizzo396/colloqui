@@ -17,11 +17,17 @@
 }
 
 #containerAccess {
-    width: 35%;
+	width: 35%;
+    height: 57%;
     margin-left: auto;
     margin-right: auto;
     margin-top: 12.5%;
     min-width: 350px;
+    min-height: 250px;
+}
+
+#userAccess {
+	padding-top:0px;
 }
 
 #accessBackGround {

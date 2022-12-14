@@ -51,7 +51,7 @@ public class FeedbackService {
 		
 		// TRASFORMAZIONE IN JSON CAMPO SCORES - START
 		List<ScoreTechFeedbackTO> listFeedTO = createTechFeedbackTO.getTechList();		
-		List<ScoreTechFeedbackTO> filterList = new ArrayList<ScoreTechFeedbackTO>();
+		List<ScoreTechFeedbackTO> filterList = new ArrayList<>();
 		
 		for(ScoreTechFeedbackTO feedScore : listFeedTO) {
 			if (!feedScore.getTechnology().trim().equals("")) {
