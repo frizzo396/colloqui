@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -34,6 +35,7 @@ public class CreateInterviewTO {
 
 	/** The candidate birth. */
 	@NotNull(message = "interview.error.candidate.birthday.not-empty")
+	@PastOrPresent(message = "interview.error.candidate.birthday.not-future")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date candidateBirth;
 
