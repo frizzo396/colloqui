@@ -3,6 +3,7 @@ package com.accenture.interview.facade;
 import java.io.IOException;
 import java.util.Locale;
 
+import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
@@ -40,10 +41,10 @@ public class CurriculumFacade {
 		try {
 			Long cvId = cvService.uploadCv(uploadCvTO.getCurriculum(), uploadCvTO.getInterviewId());
 			response.setBody(cvId);
-		} catch (IOException e) {
-			response.setError(messageSource.getMessage("curriculum.upload.error", null, Locale.getDefault()));
 		} catch (InterviewNotFoundException e) {
 			response.setError(messageSource.getMessage("interview.error.not-found", null, Locale.getDefault()));
+		} catch (Exception e) {
+			response.setError(messageSource.getMessage("curriculum.upload.error", null, Locale.getDefault()));
 		}
 		return response;
 	}

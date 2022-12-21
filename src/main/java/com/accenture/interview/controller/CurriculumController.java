@@ -75,6 +75,8 @@ public class CurriculumController {
 			modelAndView.addObject("comboSitesDB", interviewFacade.getComboSites());
 			modelAndView.addObject("registerUserTO", new RegisterInterviewerTO());
 			modelAndView.addObject("uploadCvTO", new UploadCvTO());
+			modelAndView.addObject("uploadError", response.getError());
+			modelAndView.addObject("createdInterview", uploadCvTO.getInterviewId());
 			modelAndView.setViewName("insert.html");
 			return modelAndView;
 		}

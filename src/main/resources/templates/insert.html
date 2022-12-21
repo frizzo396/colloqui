@@ -162,6 +162,11 @@
                                 </form>
                                  </div>
                             </div>
+                             <label th:if="${createdInterview != null}"
+							th:text="${createdInterview}" id="createdInterview" style="display:none;"></label>
+                            <label th:if="${uploadError != null}"
+							th:text="${uploadError}" id="uploadError" style="display:none;"></label>
+			</div>
                     </div>
                 </div>
                 <div id="upload-cv-modal" class="cd-popup" role="alert">

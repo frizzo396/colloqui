@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.accenture.interview.to.feedback.CreateTechFeedbackTO;
@@ -20,7 +21,8 @@ public class TechnicalFeedback {
 
 	/** The id. */
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tech_feed_generator")
+	@SequenceGenerator(name="tech_feed_generator", sequenceName = "tech_feed_id_seq")
 	private long id;
 
 	/** The comment. */

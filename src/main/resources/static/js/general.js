@@ -93,7 +93,26 @@ jQuery(document).ready(function($){
              $('.cd-popup2').removeClass('is-visible');
         }
     })
+    
+    var uploadError = document.getElementById("uploadError");
+    if(uploadError != null){
+		rebuildCvModal(uploadError);
+	}
+   
 });
+
+function rebuildCvModal(uploadError){	
+	if(uploadError.innerHTML != ""){
+		var interviewId = document.getElementById("createdInterview");
+		if(interviewId != null){
+			createUploadCVModal(+interviewId.innerHTML);
+			showToast(uploadError.innerHTML, "ERROR", 3000)
+		}
+			
+	}
+	uploadError.innerHTML = "";
+}
+
 
 //Creazione toast di successo-errore-warning
 function showToast(message, state, delay) {

@@ -49,10 +49,10 @@ public class InterviewService {
 	private AvailabilityRepository availabilityRepository;
 
 	/**
-	 * Gets the interview from id.
+	 * Find interview by id.
 	 *
 	 * @param idColloquio the id colloquio
-	 * @return the interview from id
+	 * @return the interview
 	 */
 	public Interview findInterviewById(long idColloquio) {
 		Optional<Interview> opt = interviewRepository.findInterviewById(idColloquio);
@@ -67,7 +67,7 @@ public class InterviewService {
 	 * Update interview tech feedback.
 	 *
 	 * @param idColloquio the id colloquio
-	 * @param feedback      the feedback
+	 * @param feedback the feedback
 	 * @param finalFeedback the final feedback
 	 */
 	public void updateInterviewTechFeedback(Long idColloquio, TechnicalFeedback feedback, String finalFeedback) {
@@ -86,7 +86,7 @@ public class InterviewService {
 	 * Update interview mot feedback.
 	 *
 	 * @param idColloquio the id colloquio
-	 * @param feedback      the feedback
+	 * @param feedback the feedback
 	 * @param finalFeedback the final feedback
 	 */
 	public void updateInterviewMotFeedback(Long idColloquio, MotivationFeedback feedback, String finalFeedback) {
@@ -104,9 +104,9 @@ public class InterviewService {
 	/**
 	 * Find interview by name surname and mail.
 	 *
-	 * @param name    the name
+	 * @param name the name
 	 * @param surname the surname
-	 * @param email   the email
+	 * @param email the email
 	 * @return the interview
 	 */
 	public Interview findInterviewByNameSurnameAndMail(String name, String surname, String email) {
@@ -137,12 +137,12 @@ public class InterviewService {
 	/**
 	 * Adds the new interview.
 	 *
-	 * @param request       the request
+	 * @param request the request
 	 * @param type the type
-	 * @param interviewer   the interviewer
+	 * @param interviewer the interviewer
 	 * @param site the site
 	 * @param assigner the assigner
-	 * @return the creates the interview response
+	 * @return the long
 	 */
 	public Long addNewInterview(CreateInterviewTO request, CandidateTypeRTO type, InterviewerRTO interviewer, SiteRTO site, InterviewerRTO assigner) {
 		Interview interview = new Interview(request);
@@ -159,8 +159,7 @@ public class InterviewService {
 	/**
 	 * Search interview.
 	 *
-	 * @param searchInterviewTO the search interview
-	 * 
+	 * @param searchInterviewTO the search interview TO
 	 * @return the list
 	 */
 	public List<InterviewAndFeedbackRTO> searchInterview(SearchInterviewTO searchInterviewTO) {
@@ -173,10 +172,10 @@ public class InterviewService {
 	}
 
 	/**
-	 * Gets the my interviews.
+	 * Gets the completed interviews.
 	 *
 	 * @param enterpriseId the enterprise id
-	 * @return the my interviews
+	 * @return the completed interviews
 	 */
 	public List<InterviewAndFeedbackRTO> getCompletedInterviews(String enterpriseId) {
 		return this.interviewRepository.findCompletedInterviewsByEnterpriseId(enterpriseId);
@@ -231,10 +230,10 @@ public class InterviewService {
 	}
 
 	/**
-	 * Gets the in progress interviews month count.
+	 * Gets the my interviews month count.
 	 *
 	 * @param enterpriseId the enterprise id
-	 * @return the in progress interviews month count
+	 * @return the my interviews month count
 	 */
 	public Integer getMyInterviewsMonthCount(String enterpriseId) {
 		StartEndDateRTO dates = DateUtils.calculateMonthDateIntervals();
@@ -253,7 +252,7 @@ public class InterviewService {
 	}
 
 	/**
-	 * Find interview for approval.
+	 * Find interview with mail params.
 	 *
 	 * @param interviewId the interview id
 	 * @return the interview RTO
@@ -351,5 +350,17 @@ public class InterviewService {
 		}
 		return null;
 	}
-
+	
+	
+	/**
+	 * Find last interview id.
+	 *
+	 * @param enterpriseId the enterprise id
+	 * @return the long
+	 */
+	public Long findLastInterviewId(String enterpriseId) {
+		Interview interview = interviewRepository.findLastInterviewByEnterpriseId(enterpriseId);
+		return interview.getId();
+	}
+	
 }

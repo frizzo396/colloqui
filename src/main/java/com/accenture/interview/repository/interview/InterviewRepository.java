@@ -23,9 +23,9 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 	/**
 	 * Find interview by name surname and mail.
 	 *
-	 * @param candidateName    the candidate name
+	 * @param candidateName the candidate name
 	 * @param candidateSurname the candidate surname
-	 * @param mail             the mail
+	 * @param mail the mail
 	 * @return the optional
 	 */
 	@Query("select i from Interview i where i.candidateName= :candidate_name and i.candidateSurname= :candidate_surname and i.mail=:mail")
@@ -53,12 +53,12 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 	/**
 	 * Find interview by params.
 	 *
-	 * @param candidateName    the candidate name
+	 * @param candidateName the candidate name
 	 * @param candidateSurname the candidate surname
-	 * @param interviewType    the interview type
-	 * @param firstDate        the first date
-	 * @param secondDate       the second date
-	 * @param enterpriseId     the enterprise id
+	 * @param interviewType the interview type
+	 * @param firstDate the first date
+	 * @param secondDate the second date
+	 * @param enterpriseId the enterprise id
 	 * @param candidateType the candidate type
 	 * @param site the site
 	 * @return the list
@@ -113,10 +113,10 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 	List<InterviewAndFeedbackRTO> findAssignedInterviews(@Param("assigner") long assignerId);
 
 	/**
-	 * Gets the my interviews by enterprise id.
+	 * Find completed interviews by enterprise id.
 	 *
 	 * @param enterpriseId the enterprise id
-	 * @return the my interviews by enterprise id
+	 * @return the list
 	 */
 	@Query("select new com.accenture.interview.rto.interview.InterviewAndFeedbackRTO(i.id, i.candidateName, "
 			+ "i.candidateSurname, "
@@ -167,21 +167,21 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 	int getInProgressInterviewsCount(@Param("enterpriseId") String enterpriseId);
 
 	/**
-	 * Gets the my interviews count.
+	 * Gets the completed interviews count.
 	 *
 	 * @param enterpriseId the enterprise id
-	 * @return the my interviews count
+	 * @return the completed interviews count
 	 */
 	@Query("select count (i) from Interview i where i.interviewerId.enterpriseId=:enterpriseId and i.status = 4")
 	int getCompletedInterviewsCount(@Param("enterpriseId") String enterpriseId);
 
 	/**
-	 * Gets the my interviews month count.
+	 * Find completed interviews month count.
 	 *
 	 * @param enterpriseId the enterprise id
-	 * @param startDate    the start date
-	 * @param endDate      the end date
-	 * @return the my interviews month count
+	 * @param startDate the start date
+	 * @param endDate the end date
+	 * @return the int
 	 */
 	@Query("select count (i) from Interview i where i.interviewerId.enterpriseId=:enterpriseId and i.status = 4 and (i.dueDate BETWEEN :startDate and :endDate)")
 	int findCompletedInterviewsMonthCount(@Param("enterpriseId") String enterpriseId, @Param("startDate") Date startDate, @Param("endDate") Date endDate);
@@ -190,8 +190,8 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 	 * Gets the in progress month count.
 	 *
 	 * @param enterpriseId the enterprise id
-	 * @param startDate    the start date
-	 * @param endDate      the end date
+	 * @param startDate the start date
+	 * @param endDate the end date
 	 * @return the in progress month count
 	 */
 	@Query("select count (i) from Interview i where i.interviewerId.enterpriseId=:enterpriseId and i.status IN (1, 2, 3) and (i.scheduledDate BETWEEN :startDate and :endDate)")
@@ -201,8 +201,8 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 	 * Find year interviews.
 	 *
 	 * @param enterpriseId the enterprise id
-	 * @param startDate    the start date
-	 * @param endDate      the end date
+	 * @param startDate the start date
+	 * @param endDate the end date
 	 * @return the list
 	 */
 	@Query("select i from Interview i where i.interviewerId.enterpriseId=:enterpriseId and i.status = 4 and (i.dueDate BETWEEN :startDate and :endDate)")
@@ -210,10 +210,10 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 
 
 	/**
-	 * Find interview by params.
+	 * Find interview with mail params.
 	 *
 	 * @param interviewId the interview id
-	 * @return the list
+	 * @return the interview RTO
 	 */
 	@Query("SELECT new com.accenture.interview.rto.interview.InterviewRTO(i.id, s.siteName, i.candidateName, "
 			+ "i.candidateSurname, "
@@ -225,6 +225,16 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 			+ "ass.id = i.assigner and "
 			+ "i.id = :interviewId")
 	InterviewRTO findInterviewWithMailParams(@Param("interviewId") Long interviewId);
+	
+	
+	/**
+	 * Find last interview by enterprise id.
+	 *
+	 * @param enterpriseId the enterprise id
+	 * @return the interview
+	 */
+	@Query("select i from Interview i where i.interviewerId.enterpriseId=:enterpriseId and i.id = (SELECT MAX(t.id) FROM Interview t)")
+	Interview findLastInterviewByEnterpriseId(@Param("enterpriseId") String enterpriseId);
 
 
 }
