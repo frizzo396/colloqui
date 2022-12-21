@@ -47,13 +47,13 @@
                                     <div class="row">                                                                      
                                        <div class="column" style="width:50%">
                                           <div class="form-group">
-                                             <label>Tecnologia 1</label>                                             
+                                             <label>Technology</label>                                             
                                              <input id="descr_tech_1" class="text-input" type="text" th:field="*{techList[0].technology}" placeholder="Technology name" />                                          
                                           </div>
                                        </div>                                   
                                        <div class="column" style="width:20%">
                                           <div class="form-group">
-                                             <label>Punteggio</label>
+                                             <label>Score</label>
                                              <input id="score_tech_1" class="text-input" type="text"  th:field="*{techList[0].score}" placeholder="Technology score"/>                                                                                          
                                           </div>
                                        </div>
@@ -73,13 +73,13 @@
                                     <div id="div_tech_2" class="row" style="display: none;">
                                        <div class="column" style="width:50%">
                                           <div class="form-group">
-                                             <label>Tecnologia 2</label>
+                                             <label>Technology</label>
 											 <input id="descr_tech_2" type="text" th:field="*{techList[1].technology}" placeholder="Technology name" /> 
                                           </div>
                                        </div>
                                        <div class="column" style="width:20%">
                                           <div class="form-group">
-                                             <label>Punteggio</label>
+                                             <label>Score</label>
                                              <input id="score_tech_2" class="text-input" type="text" th:field="*{techList[1].score}"  placeholder="Technology score"/>
                                           </div>
                                        </div>
@@ -103,13 +103,13 @@
                                     <div id="div_tech_3" class="row" style="display: none;">
                                        <div class="column" style="width:50%">
                                           <div class="form-group">
-                                             <label>Tecnologia 3</label>
+                                             <label>Technology</label>
 											 <input id="descr_tech_3" class="text-input" type="text" th:field="*{techList[2].technology}" placeholder="Technology name" />
                                           </div>
                                        </div>
                                        <div class="column" style="width:20%">
                                           <div class="form-group">
-                                             <label>Punteggio</label>
+                                             <label>Score</label>
                                              <input id="score_tech_3" class="text-input" type="text"  th:field="*{techList[2].score}" placeholder="Technology score"/>                                             
                                           </div>
                                        </div>
@@ -133,13 +133,13 @@
                                     <div id="div_tech_4" class="row" style="display: none;">
                                        <div class="column" style="width:50%">
                                           <div class="form-group">
-                                             <label>Tecnologia 4</label>
+                                             <label>Technology</label>
 											 <input id="descr_tech_4" class="text-input" type="text" th:field="*{techList[3].technology}" placeholder="Technology name" />
                                           </div>
                                        </div>
                                        <div class="column" style="width:20%">
                                           <div class="form-group">
-                                             <label>Punteggio</label>
+                                             <label>Score</label>
                                              <input id="score_tech_4" class="text-input" type="text"  th:field="*{techList[3].score}" placeholder="Technology score"/>                                             
                                           </div>
                                        </div>
@@ -163,13 +163,13 @@
                                     <div id="div_tech_5" class="row" style="display: none;">
                                        <div class="column" style="width:50%">
                                           <div class="form-group">
-                                             <label>Tecnologia 5</label>
+                                             <label>Technology</label>
 											 <input id="descr_tech_5" class="text-input" type="text" th:field="*{techList[4].technology}" placeholder="Technology name" />
                                           </div>
                                        </div>
                                        <div class="column" style="width:20%">
                                           <div class="form-group">
-                                             <label>Punteggio</label>
+                                             <label>Score</label>
                                              <input id="score_tech_5" class="text-input" type="text"  th:field="*{techList[4].score}" placeholder="Technology score"/>                                             
                                           </div>
                                        </div>
@@ -193,13 +193,13 @@
                                     <div id="div_tech_6" class="row" style="display: none;">
                                        <div class="column" style="width:50%">
                                           <div class="form-group">
-                                             <label>Tecnologia 6</label>
+                                             <label>Technology</label>
                                              <input id="descr_tech_6" class="text-input" type="text" th:field="*{techList[5].technology}" placeholder="Technology name" />
                                           </div>
                                        </div>
                                        <div class="column" style="width:20%">
                                           <div class="form-group">
-                                             <label>Punteggio</label>
+                                             <label>Score</label>
                                              <input id="score_tech_6" class="text-input" type="text"  th:field="*{techList[5].score}" placeholder="Technology score"/>                                             
                                           </div>
                                        </div>
@@ -273,7 +273,7 @@
    			var descrTech = document.getElementById("descr_tech_" + num);
    			var scoreTech = document.getElementById("score_tech_" + num);
    			descrTech.value = '';
-   			scoreTech.value = 0;
+   			scoreTech.value = '';
    		}   		
    		
    		function setupDivTech() {

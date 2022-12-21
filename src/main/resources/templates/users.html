@@ -65,7 +65,7 @@
                                 <table id="usersTable" class="mytable paginated">
                                     <tr>
                                         <th style="width: 20%;">Enterprise Id </th>
-                                        <th style="width: 12%;">Ruolo </th>
+                                        <th style="width: 12%;">Role </th>
                                         <th class="remove" style="width: 30%;" >Mail </th>
                                         <th style="width: 10%;">Status </th>
                                         <th style="width: 7%;"></th>                                                                                
@@ -73,21 +73,21 @@
                                     <tr class="tableRows" th:each="interviewer: ${interviewers}">
  										<td th:text="${interviewer.enterpriseId}" />						
                                         <td>
-                                            <span th:if="${interviewer.type == T(com.accenture.interview.utils.enums.InterviewerTypeEnum).getIdFromDescription('RESPONSABILE')}">Responsabile</span>
-                                            <span th:unless="${interviewer.type == T(com.accenture.interview.utils.enums.InterviewerTypeEnum).getIdFromDescription('RESPONSABILE')}">Normale</span>
+                                            <span th:if="${interviewer.type == T(com.accenture.interview.utils.enums.InterviewerTypeEnum).getIdFromDescription('RESPONSABILE')}">Responsible</span>
+                                            <span th:unless="${interviewer.type == T(com.accenture.interview.utils.enums.InterviewerTypeEnum).getIdFromDescription('RESPONSABILE')}">Interviewer</span>
                                         </td>
  										<td class="remove"  th:text="${interviewer.mail}" />										
                                         <td>
-                                            <span th:if="${interviewer.status == 1}">Attivo</span>
-                                            <span th:unless="${interviewer.status == 1}">Inattivo</span>
+                                            <span th:if="${interviewer.status == 1}">Active</span>
+                                            <span th:unless="${interviewer.status == 1}">Disabled</span>
                                         </td>				 										
  										<td>
  											<div class="dropdown"> 										
  												<em th:id="'ctaImg_' + ${interviewer.id}" class='bx bx-dots-vertical-rounded bx-sm' style="cursor: pointer;"
  												   th:onclick="'ctaFunction(\'' + 'ctaDropdown_' + ${interviewer.id} + '\')'"></em>
 												<div th:id="'ctaDropdown_' + ${interviewer.id}" class="dropdown-content">											    												    	
-											    	<a th:id="'modificaLink_' + ${interviewer.id}" th:attr="data-eid=${interviewer.enterpriseId}" th:onclick="'openPopupUser(' + ${interviewer.id} + ', event)'">Modifica</a>
-											    	<a th:id="'abilita-disabilitaLink_' + ${interviewer.id}" th:onclick="'abilitaDisabilita(' + ${interviewer.id} + ', event)'">Abilita/Disabilita</a>
+											    	<a th:id="'modificaLink_' + ${interviewer.id}" th:attr="data-eid=${interviewer.enterpriseId}" th:onclick="'openPopupUser(' + ${interviewer.id} + ', event)'">Edit</a>
+											    	<a th:id="'abilita-disabilitaLink_' + ${interviewer.id}" th:onclick="'abilitaDisabilita(' + ${interviewer.id} + ', event)'">Enable/Disable</a>
 												</div>									
  											</div>
  										</td> 										

@@ -10,9 +10,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.accenture.interview.entity.Interview;
-import com.accenture.interview.facade.InterviewFacade;
-import com.accenture.interview.facade.InterviewerFacade;
 import com.accenture.interview.service.InterviewService;
 import com.accenture.interview.service.InterviewerService;
 import com.accenture.interview.service.SiteService;
