@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="liquibase" id="create_table_availability_1">
+        <preConditions onFail="MARK_RAN">
+            <foreignKeyConstraintExists foreignKeyName="AVAILABILITY_FK1"/>
+        </preConditions>
+        <dropForeignKeyConstraint baseTableName="AVAILABILITY" constraintName="AVAILABILITY_FK1"/>
+    </changeSet>
+
+    <changeSet author="liquibase" id="create_table_availability_2">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="AVAILABILITY" />
+        </preConditions>
+        <dropTable cascadeConstraints="true" tableName="AVAILABILITY" />
+    </changeSet>
+
+    <changeSet author="liquibase" id="create_table_availability_3">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="AVAILABILITY"></tableExists>
+            </not>
+        </preConditions>
+        <createTable tableName="AVAILABILITY">
+            <column name="ID" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="CURRICULUM_PK"/>
+            </column>
+            <column name="INT_DATE" type="DATETIME(6)" defaultValueComputed="NOW(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="INTERVIEW_ID" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="liquibase" id="create_table_availability_4">
+        <addForeignKeyConstraint
+                constraintName="AVAILABILITY_FK1"
+                referencedTableName="INTERVIEW"
+                referencedColumnNames="ID"
+                baseTableName="AVAILABILITY"
+                baseColumnNames="INTERVIEW_ID"/>
+    </changeSet>
+
+</databaseChangeLog>

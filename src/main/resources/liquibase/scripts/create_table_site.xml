@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="liquibase" id="create_table_site_1">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="SITE" />
+        </preConditions>
+        <dropTable cascadeConstraints="true" tableName="SITE" />
+    </changeSet>
+
+    <changeSet author="liquibase" id="create_table_site_2">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="SITE"></tableExists>
+            </not>
+        </preConditions>
+        <createTable tableName="SITE">
+            <column name="SITE_ID" type="NUMBER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="SITE_PK"/>
+            </column>
+            <column name="SITE_NAME" type="VARCHAR2(255 BYTE)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    
+    <changeSet author="liquibase" id="create_table_site_3">
+      <preConditions onFail="MARK_RAN">
+         <tableIsEmpty tableName="SITE"/>
+      </preConditions>
+      <insert tableName="SITE">
+         <column name="SITE_ID" valueNumeric="1"/>
+         <column name="SITE_NAME" value="Cagliari"/>
+      </insert>
+      <insert tableName="SITE">
+         <column name="SITE_ID" valueNumeric="2"/>
+         <column name="SITE_NAME" value="Napoli"/>
+      </insert>
+            <insert tableName="SITE">
+         <column name="SITE_ID" valueNumeric="3"/>
+         <column name="SITE_NAME" value="Bari"/>
+      </insert>
+            <insert tableName="SITE">
+         <column name="SITE_ID" valueNumeric="4"/>
+         <column name="SITE_NAME" value="Roma"/>
+      </insert>
+            <insert tableName="SITE">
+         <column name="SITE_ID" valueNumeric="5"/>
+         <column name="SITE_NAME" value="Milano"/>
+      </insert>
+   </changeSet>
+
+</databaseChangeLog>

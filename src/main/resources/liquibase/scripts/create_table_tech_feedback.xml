@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="liquibase" id="create_table_tech_feedback_1">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="TECHNICAL_FEEDBACK" />
+        </preConditions>
+        <dropTable cascadeConstraints="true" tableName="TECHNICAL_FEEDBACK" />
+    </changeSet>
+
+    <changeSet author="liquibase" id="create_table_tech_feedback_2">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="TECHNICAL_FEEDBACK"></tableExists>
+            </not>
+        </preConditions>
+        <createTable tableName="TECHNICAL_FEEDBACK">
+            <column name="ID" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="TECH_FEEDBACK_PK"/>
+            </column>
+            <column name="COMMENT" type="VARCHAR2(1000 BYTE)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SCORES" type="VARCHAR2(1000 BYTE)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+
+</databaseChangeLog>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+   <include relativeToChangelogFile="true" file="scripts/create_table_candidate_type.xml"/>
+   <include relativeToChangelogFile="true" file="scripts/create_table_site.xml"/>
+   <include relativeToChangelogFile="true" file="scripts/create_table_mot_feedback.xml"/>
+   <include relativeToChangelogFile="true" file="scripts/create_table_tech_feedback.xml"/>
+   <include relativeToChangelogFile="true" file="scripts/create_table_interviewer.xml"/>
+   <include relativeToChangelogFile="true" file="scripts/create_table_interview.xml"/>
+   <include relativeToChangelogFile="true" file="scripts/create_table_curriculum.xml"/>
+   <include relativeToChangelogFile="true" file="scripts/create_table_availability.xml"/>
+   <include relativeToChangelogFile="true" file="scripts/create_sequences.xml"/> 
+</databaseChangeLog>

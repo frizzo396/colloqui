@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="liquibase" id="create_table_interview_1">
+        <preConditions onFail="MARK_RAN">
+            <foreignKeyConstraintExists foreignKeyName="SHIFTS_FK1"/>
+        </preConditions>
+        <dropForeignKeyConstraint baseTableName="INTERVIEW" constraintName="INTERVIEW_FK1"/>
+    </changeSet>
+
+    <changeSet author="liquibase" id="create_table_interview_2">
+        <preConditions onFail="MARK_RAN">
+            <foreignKeyConstraintExists foreignKeyName="INTERVIEW_FK2"/>
+        </preConditions>
+        <dropForeignKeyConstraint baseTableName="INTERVIEW" constraintName="INTERVIEW_FK2"/>
+    </changeSet>
+    
+    <changeSet author="liquibase" id="create_table_interview_3">
+        <preConditions onFail="MARK_RAN">
+            <foreignKeyConstraintExists foreignKeyName="INTERVIEW_FK3"/>
+        </preConditions>
+        <dropForeignKeyConstraint baseTableName="INTERVIEW" constraintName="INTERVIEW_FK3"/>
+    </changeSet>
+    
+    <changeSet author="liquibase" id="create_table_interview_4">
+        <preConditions onFail="MARK_RAN">
+            <foreignKeyConstraintExists foreignKeyName="INTERVIEW_FK4"/>
+        </preConditions>
+        <dropForeignKeyConstraint baseTableName="INTERVIEW" constraintName="INTERVIEW_FK4"/>
+    </changeSet>
+
+    <changeSet author="liquibase" id="create_table_interview_5">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="INTERVIEW" />
+        </preConditions>
+        <dropTable cascadeConstraints="true" tableName="INTERVIEW" />
+    </changeSet>
+
+    <changeSet author="liquibase" id="create_table_interview_6">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="INTERVIEW"></tableExists>
+            </not>
+        </preConditions>
+        <createTable tableName="INTERVIEW">
+            <column name="ID" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="INTERVIEW_PK"/>
+            </column>
+            <column name="ASSIGNER_ID" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="CANDIDATE_BIRTH" type="DATETIME(6)" defaultValueComputed="NOW(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CANDIDATE_NAME" type="VARCHAR2(255 BYTE)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CANDIDATE_SURNAME" type="VARCHAR2(255 BYTE)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CURRICULUM_ID" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+             <column name="DUE_DATE" type="DATETIME(6)" defaultValueComputed="NOW(6)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="FINAL_FEEDBACK" type="VARCHAR2(10 BYTE)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="INTERVIEW_TYPE" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MAIL" type="VARCHAR2(255 BYTE)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="QUALIFICATION" type="VARCHAR2(255 BYTE)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SCHEDULED_DATE" type="DATETIME(6)" defaultValueComputed="NOW(6)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="STATUS" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+             <column name="CANDIDATE_TYPE_ID" type="NUMBER">
+                <constraints nullable="true"/>
+            </column>
+            <column name="INTERVIEWER_ID" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="MOTIVATION_FEEDBACK_ID" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="SITE" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TECH_FEEDBACK_ID" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="liquibase" id="create_table_interview_7">
+        <addForeignKeyConstraint
+                constraintName="INTERVIEW_FK1"
+                referencedTableName="CANDIDATE_TYPE"
+                referencedColumnNames="ID"
+                baseTableName="INTERVIEW"
+                baseColumnNames="CANDIDATE_TYPE_ID"/>
+    </changeSet>
+
+  	<changeSet author="liquibase" id="create_table_interview_8">
+        <addForeignKeyConstraint
+                constraintName="INTERVIEW_FK2"
+                referencedTableName="MOTIVATION_FEEDBACK"
+                referencedColumnNames="ID"
+                baseTableName="INTERVIEW"
+                baseColumnNames="MOTIVATION_FEEDBACK_ID"/>
+    </changeSet>
+    <changeSet author="liquibase" id="create_table_interview_9">
+        <addForeignKeyConstraint
+                constraintName="INTERVIEW_FK3"
+                referencedTableName="TECHNICAL_FEEDBACK"
+                referencedColumnNames="ID"
+                baseTableName="INTERVIEW"
+                baseColumnNames="TECH_FEEDBACK_ID"/>
+    </changeSet>
+    <changeSet author="liquibase" id="create_table_interview_10">
+        <addForeignKeyConstraint
+                constraintName="INTERVIEW_FK4"
+                referencedTableName="INTERVIEWER"
+                referencedColumnNames="ID"
+                baseTableName="INTERVIEW"
+                baseColumnNames="INTERVIEWER_ID"/>
+    </changeSet>
+
+</databaseChangeLog>

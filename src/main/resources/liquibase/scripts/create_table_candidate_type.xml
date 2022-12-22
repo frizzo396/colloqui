@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="liquibase" id="create_table_candidate_type_1">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="CANDIDATE_TYPE" />
+        </preConditions>
+        <dropTable cascadeConstraints="true" tableName="CANDIDATE_TYPE" />
+    </changeSet>
+
+    <changeSet author="liquibase" id="create_table_candidate_type_2">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="CANDIDATE_TYPE"></tableExists>
+            </not>
+        </preConditions>
+        <createTable tableName="CANDIDATE_TYPE">
+            <column name="ID" type="NUMBER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="CANDIDATE_TYPE_PK"/>
+            </column>
+            <column name="DESCRIPTION" type="VARCHAR2(255 BYTE)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    
+    <changeSet author="liquibase" id="create_table_candidate_type_3">
+      <preConditions onFail="MARK_RAN">
+         <tableIsEmpty tableName="CANDIDATE_TYPE"/>
+      </preConditions>
+      <insert tableName="CANDIDATE_TYPE">
+         <column name="ID" valueNumeric="1"/>
+         <column name="DESCRIPTION" value="Junior"/>
+      </insert>
+      <insert tableName="CANDIDATE_TYPE">
+         <column name="ID" valueNumeric="2"/>
+         <column name="DESCRIPTION" value="Senior"/>
+      </insert>
+      <insert tableName="CANDIDATE_TYPE">
+         <column name="ID" valueNumeric="3"/>
+         <column name="DESCRIPTION" value="Subco"/>
+      </insert>
+      <insert tableName="CANDIDATE_TYPE">
+         <column name="ID" valueNumeric="4"/>
+         <column name="DESCRIPTION" value="Stage"/>
+      </insert>
+       <insert tableName="CANDIDATE_TYPE">
+         <column name="ID" valueNumeric="5"/>
+         <column name="DESCRIPTION" value="Academy"/>
+      </insert>
+   </changeSet>
+
+</databaseChangeLog>

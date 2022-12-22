@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="liquibase" id="create_table_curriculum_1">
+        <preConditions onFail="MARK_RAN">
+            <foreignKeyConstraintExists foreignKeyName="CURRICULUM_FK1"/>
+        </preConditions>
+        <dropForeignKeyConstraint baseTableName="CURRICULUM" constraintName="CURRICULUM_FK1"/>
+    </changeSet>
+
+    <changeSet author="liquibase" id="create_table_curriculum_2">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="CURRICULUM" />
+        </preConditions>
+        <dropTable cascadeConstraints="true" tableName="CURRICULUM" />
+    </changeSet>
+
+    <changeSet author="liquibase" id="create_table_curriculum_3">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="CURRICULUM"></tableExists>
+            </not>
+        </preConditions>
+        <createTable tableName="CURRICULUM">
+            <column name="ID" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="CURRICULUM_PK"/>
+            </column>
+            <column name="CONTENT" type="LONGBLOB">
+                <constraints nullable="true"/>
+            </column>
+            <column name="FILE_NAME" type="VARCHAR2(255 BYTE)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="INTERVIEW_ID" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="UPLOAD_DATE" type="DATETIME(6)" defaultValueComputed="NOW(6)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="liquibase" id="create_table_curriculum_4">
+        <addForeignKeyConstraint
+                constraintName="CURRICULUM_FK1"
+                referencedTableName="INTERVIEW"
+                referencedColumnNames="ID"
+                baseTableName="CURRICULUM"
+                baseColumnNames="INTERVIEW_ID"/>
+    </changeSet>
+
+</databaseChangeLog>

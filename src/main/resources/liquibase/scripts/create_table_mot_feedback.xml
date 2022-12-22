@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="liquibase" id="create_table_mot_feedback_1">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="MOTIVATION_FEEDBACK" />
+        </preConditions>
+        <dropTable cascadeConstraints="true" tableName="MOTIVATION_FEEDBACK" />
+    </changeSet>
+
+    <changeSet author="liquibase" id="create_table_mot_feedback_2">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="MOTIVATION_FEEDBACK"></tableExists>
+            </not>
+        </preConditions>
+        <createTable tableName="MOTIVATION_FEEDBACK">
+            <column name="ID" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="MOT_FEEDBACK_PK"/>
+            </column>
+            <column name="COMMENT" type="VARCHAR2(255 BYTE)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ENGLISH_LEVEL" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LOGIC_QUESTION" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MOTIVATION" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SCHOOL_BACKGROUND" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SOFT_SKILLS" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="STANDING" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+              <column name="TECH_QUESTION" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+
+</databaseChangeLog>

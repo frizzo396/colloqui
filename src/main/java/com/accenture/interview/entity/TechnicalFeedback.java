@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * The Class TechFeedback.
  */
 @Entity(name = "Tech_feedback")
-@Table(name = "tech_feedback")
+@Table(name = "technical_feedback")
 public class TechnicalFeedback {
 
 	/** The id. */

@@ -136,7 +136,11 @@
 	        <groupId>com.google.code.gson</groupId>
 	        <artifactId>gson</artifactId>
 	        <scope>compile</scope>
-	    </dependency>		
+	    </dependency>
+	     <dependency>
+                 <groupId>org.liquibase</groupId> 
+                 <artifactId>liquibase-core</artifactId>
+       </dependency>		
 	            
     </dependencies>
 
