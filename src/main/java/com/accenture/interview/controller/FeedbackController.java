@@ -17,7 +17,7 @@ import com.accenture.interview.rto.general.BaseResponseRTO;
 import com.accenture.interview.rto.general.ErrorRTO;
 import com.accenture.interview.to.feedback.CreateMotivationFeedbackTO;
 import com.accenture.interview.to.feedback.CreateTechFeedbackTO;
-import com.accenture.interview.utils.checkerror.CheckErrorsInsertFeedback;
+import com.accenture.interview.utils.checkerror.feedback.CheckErrorsInsertFeedback;
 
 /**
  * The Class FeedbackController.

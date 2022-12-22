@@ -21,8 +21,8 @@ import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.to.interviewer.ModifyInterviewerTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 import com.accenture.interview.to.interviewer.RequestRegistrationTO;
-import com.accenture.interview.utils.checkerror.CheckErrorsAccessInterviewer;
-import com.accenture.interview.utils.checkerror.CheckErrorsRegisterInterviewer;
+import com.accenture.interview.utils.checkerror.interviewer.CheckErrorsAccessInterviewer;
+import com.accenture.interview.utils.checkerror.interviewer.CheckErrorsRegisterInterviewer;
 
 /**
  * The Class InterviewerController.

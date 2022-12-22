@@ -1,4 +1,4 @@
-package com.accenture.interview.utils.checkerror;
+package com.accenture.interview.utils.checkerror.interviewer;
 
 import java.util.Locale;
 
