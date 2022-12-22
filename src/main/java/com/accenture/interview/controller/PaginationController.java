@@ -21,6 +21,7 @@ import com.accenture.interview.to.interview.UploadCvTO;
 import com.accenture.interview.to.interviewer.ModifyInterviewerTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 import com.accenture.interview.to.interviewer.RequestRegistrationTO;
+import com.accenture.interview.utils.constants.PaginationConstants;
 
 /**
  * The Class PaginationController.
@@ -44,8 +45,8 @@ public class PaginationController extends BaseController {
 	@GetMapping("/access")
 	public ModelAndView accessPage() {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("username", System.getProperty("user.name"));
-		modelAndView.addObject("requestRegistrationTO", new RequestRegistrationTO());
+		modelAndView.addObject(PaginationConstants.USERNAME, System.getProperty(PaginationConstants.USER_NAME));
+		modelAndView.addObject(PaginationConstants.REQUEST_REGISTRATION_TO, new RequestRegistrationTO());
 		modelAndView.setViewName("access.html");
 		return modelAndView;
 	}
@@ -59,15 +60,15 @@ public class PaginationController extends BaseController {
 	@Registered
 	public ModelAndView accountPage() {
 		ModelAndView modelAndView = new ModelAndView();
-		String username = System.getProperty("user.name");
+		String username = System.getProperty(PaginationConstants.USER_NAME);
 		modelAndView.setViewName("home.html");
-		modelAndView.addObject("interviewer", interviewerFacade.interviewerInfo(username));
-		modelAndView.addObject("inProgressInterviews", interviewFacade.getInProgressInterviewsNumber(username));
-		modelAndView.addObject("myInterviews", interviewFacade.getMyInterviewsNumber(username));
-		modelAndView.addObject("myInterviewsMonth", interviewFacade.getMonthCompletedInterviewsNumber(username));
-		modelAndView.addObject("inProgressInterviewsMonth", interviewFacade.getMonthInProgressInterviewsNumber(username));
-		modelAndView.addObject("yearMonthInterviews", interviewFacade.getYearCompletedInterviews(username));
-		modelAndView.addObject("registerUserTO", new RegisterInterviewerTO());
+		modelAndView.addObject(PaginationConstants.INTERVIEWER, interviewerFacade.interviewerInfo(username));
+		modelAndView.addObject(PaginationConstants.IN_PROGRESS_INTERVIEWS, interviewFacade.getInProgressInterviewsNumber(username));
+		modelAndView.addObject(PaginationConstants.MY_INTERVIEWS, interviewFacade.getMyInterviewsNumber(username));
+		modelAndView.addObject(PaginationConstants.MY_INTERVIEWS_MONTH, interviewFacade.getMonthCompletedInterviewsNumber(username));
+		modelAndView.addObject(PaginationConstants.IN_PROGRESS_INTERVIEWS_MONTH, interviewFacade.getMonthInProgressInterviewsNumber(username));
+		modelAndView.addObject(PaginationConstants.YEAR_MONTH_INTERVIEWS, interviewFacade.getYearCompletedInterviews(username));
+		modelAndView.addObject(PaginationConstants.REGISTER_USER_TO, new RegisterInterviewerTO());
 		return modelAndView;
 	}
 
@@ -81,13 +82,13 @@ public class PaginationController extends BaseController {
 	@Registered
 	public ModelAndView insertInterview() {
 		ModelAndView modelAndView = new ModelAndView();
-		String username = System.getProperty("user.name");
-		modelAndView.addObject("interviewer", interviewerFacade.interviewerInfo(username));
-		modelAndView.addObject("interviewerList", interviewerFacade.findAllInterviewers());
-		modelAndView.addObject("createInterviewTO", new CreateInterviewTO());
-		modelAndView.addObject("comboSitesDB", interviewFacade.getComboSites());
-		modelAndView.addObject("registerUserTO", new RegisterInterviewerTO());
-		modelAndView.addObject("uploadCvTO", new UploadCvTO());
+		String username = System.getProperty(PaginationConstants.USER_NAME);
+		modelAndView.addObject(PaginationConstants.INTERVIEWER, interviewerFacade.interviewerInfo(username));
+		modelAndView.addObject(PaginationConstants.INTERVIEWER_LIST, interviewerFacade.findAllInterviewers());
+		modelAndView.addObject(PaginationConstants.CREATE_INTERVIEW_TO, new CreateInterviewTO());
+		modelAndView.addObject(PaginationConstants.COMBO_SITES, interviewFacade.getComboSites());
+		modelAndView.addObject(PaginationConstants.REGISTER_USER_TO, new RegisterInterviewerTO());
+		modelAndView.addObject(PaginationConstants.UPLOAD_CV_TO, new UploadCvTO());
 		modelAndView.setViewName("insert.html");
 		return modelAndView;
 	}
@@ -101,12 +102,12 @@ public class PaginationController extends BaseController {
 	@Registered
 	public ModelAndView searchInterview() {
 		ModelAndView modelAndView = new ModelAndView();
-		String username = System.getProperty("user.name");
-		modelAndView.addObject("interviewer", interviewerFacade.interviewerInfo(username));
-		modelAndView.addObject("interviewerList", interviewerFacade.findAllInterviewers());
-		modelAndView.addObject("searchInterviewTO", new SearchInterviewTO());	
-		modelAndView.addObject("comboSitesDB", interviewFacade.getComboSites());	
-		modelAndView.addObject("registerUserTO", new RegisterInterviewerTO());
+		String username = System.getProperty(PaginationConstants.USER_NAME);
+		modelAndView.addObject(PaginationConstants.INTERVIEWER, interviewerFacade.interviewerInfo(username));
+		modelAndView.addObject(PaginationConstants.INTERVIEWER_LIST, interviewerFacade.findAllInterviewers());
+		modelAndView.addObject(PaginationConstants.SEARCH_INTERVIEW_TO, new SearchInterviewTO());	
+		modelAndView.addObject(PaginationConstants.COMBO_SITES, interviewFacade.getComboSites());	
+		modelAndView.addObject(PaginationConstants.REGISTER_USER_TO, new RegisterInterviewerTO());
 		modelAndView.setViewName("search.html");
 		return modelAndView;
 	}
@@ -122,10 +123,10 @@ public class PaginationController extends BaseController {
 	public ModelAndView showTechFeedbackForm(@RequestParam("idColloquio") String idColloquio) {
 		ModelAndView modelAndView = new ModelAndView();
 		updateInterviewId(Long.parseLong(idColloquio));
-		String username = System.getProperty("user.name");
-		modelAndView.addObject("interviewer", interviewerFacade.interviewerInfo(username));
-		modelAndView.addObject("createTechFeedbackTO", new CreateTechFeedbackTO());
-		modelAndView.addObject("registerUserTO", new RegisterInterviewerTO());
+		String username = System.getProperty(PaginationConstants.USER_NAME);
+		modelAndView.addObject(PaginationConstants.INTERVIEWER, interviewerFacade.interviewerInfo(username));
+		modelAndView.addObject(PaginationConstants.CREATE_TECH_FEED_TO, new CreateTechFeedbackTO());
+		modelAndView.addObject(PaginationConstants.REGISTER_USER_TO, new RegisterInterviewerTO());
 		modelAndView.setViewName("tech-feedback.html");
 		return modelAndView;
 	}
@@ -141,10 +142,10 @@ public class PaginationController extends BaseController {
 	public ModelAndView showInsertMotivationFeedbackForm(@RequestParam("idColloquio") String idColloquio) {
 		ModelAndView modelAndView = new ModelAndView();
 		updateInterviewId(Long.parseLong(idColloquio));
-		String username = System.getProperty("user.name");
-		modelAndView.addObject("interviewer", interviewerFacade.interviewerInfo(username));
-		modelAndView.addObject("createMotivationFeedbackTO", new CreateMotivationFeedbackTO());
-		modelAndView.addObject("registerUserTO", new RegisterInterviewerTO());
+		String username = System.getProperty(PaginationConstants.USER_NAME);
+		modelAndView.addObject(PaginationConstants.INTERVIEWER, interviewerFacade.interviewerInfo(username));
+		modelAndView.addObject(PaginationConstants.CREATE_MOT_FEED_TO, new CreateMotivationFeedbackTO());
+		modelAndView.addObject(PaginationConstants.REGISTER_USER_TO, new RegisterInterviewerTO());
 		modelAndView.setViewName("motivation-feedback.html");
 		return modelAndView;
 	}
@@ -158,10 +159,10 @@ public class PaginationController extends BaseController {
 	@Registered
 	public ModelAndView myInterviewsPage() {
 		ModelAndView modelAndView = new ModelAndView();
-		String username = System.getProperty("user.name");
-		modelAndView.addObject("interviewer", interviewerFacade.interviewerInfo(username));
-		modelAndView.addObject("interviews", interviewFacade.getCompletedInterviews(username));
-		modelAndView.addObject("registerUserTO", new RegisterInterviewerTO());
+		String username = System.getProperty(PaginationConstants.USER_NAME);
+		modelAndView.addObject(PaginationConstants.INTERVIEWER, interviewerFacade.interviewerInfo(username));
+		modelAndView.addObject(PaginationConstants.INTERVIEWS, interviewFacade.getCompletedInterviews(username));
+		modelAndView.addObject(PaginationConstants.REGISTER_USER_TO, new RegisterInterviewerTO());
 		modelAndView.setViewName("completed.html");
 		return modelAndView;
 	}
@@ -175,11 +176,11 @@ public class PaginationController extends BaseController {
 	@Registered
 	public ModelAndView inProgressPage() {
 		ModelAndView modelAndView = new ModelAndView();
-		String username = System.getProperty("user.name");
-		modelAndView.addObject("interviewer", interviewerFacade.interviewerInfo(username));
-		modelAndView.addObject("interviews", interviewFacade.getInProgressInterviews(username));
-		modelAndView.addObject("registerUserTO", new RegisterInterviewerTO());
-		modelAndView.addObject("insertAvailabilityTO", new InsertAvailabilityTO());
+		String username = System.getProperty(PaginationConstants.USER_NAME);
+		modelAndView.addObject(PaginationConstants.INTERVIEWER, interviewerFacade.interviewerInfo(username));
+		modelAndView.addObject(PaginationConstants.INTERVIEWS, interviewFacade.getInProgressInterviews(username));
+		modelAndView.addObject(PaginationConstants.REGISTER_USER_TO, new RegisterInterviewerTO());
+		modelAndView.addObject(PaginationConstants.INSERT_AVAILABILITY_TO, new InsertAvailabilityTO());
 		modelAndView.setViewName("in-progress-interviews.html");
 		return modelAndView;
 	}
@@ -193,13 +194,13 @@ public class PaginationController extends BaseController {
 	@Registered
 	public ModelAndView assignedPage() {
 		ModelAndView modelAndView = new ModelAndView();
-		String username = System.getProperty("user.name");
-		modelAndView.addObject("interviewer", interviewerFacade.interviewerInfo(username));
-		modelAndView.addObject("interviewerList", interviewerFacade.findAllInterviewers());
-		modelAndView.addObject("interviews", interviewFacade.getAssignedInterviews(username));
-		modelAndView.addObject("registerUserTO", new RegisterInterviewerTO());
-		modelAndView.addObject("approveAvailabilityTO", new ApproveAvailabilityTO());
-		modelAndView.addObject("reassignInterviewTO", new ReassignInterviewTO());		
+		String username = System.getProperty(PaginationConstants.USER_NAME);
+		modelAndView.addObject(PaginationConstants.INTERVIEWER, interviewerFacade.interviewerInfo(username));
+		modelAndView.addObject(PaginationConstants.INTERVIEWER_LIST, interviewerFacade.findAllInterviewers());
+		modelAndView.addObject(PaginationConstants.INTERVIEWS, interviewFacade.getAssignedInterviews(username));
+		modelAndView.addObject(PaginationConstants.REGISTER_USER_TO, new RegisterInterviewerTO());
+		modelAndView.addObject(PaginationConstants.APPROVE_AVAILABILITY_TO, new ApproveAvailabilityTO());
+		modelAndView.addObject(PaginationConstants.REASSIGN_INTERVIEW_TO, new ReassignInterviewTO());		
 		modelAndView.setViewName("assigned.html");
 		return modelAndView;
 	}
@@ -214,13 +215,13 @@ public class PaginationController extends BaseController {
 	@Registered
 	public ModelAndView usersPage() {
 		ModelAndView modelAndView = new ModelAndView();
-		String username = System.getProperty("user.name");
-		modelAndView.addObject("interviewer", interviewerFacade.interviewerInfo(username));		
-		modelAndView.addObject("interviewers", interviewerFacade.findAllUsers());		
-		modelAndView.addObject("interviews", interviewFacade.getInProgressInterviews(username));
-		modelAndView.addObject("registerUserTO", new RegisterInterviewerTO());
-		modelAndView.addObject("modifyUserTO", new ModifyInterviewerTO());
-		modelAndView.addObject("insertAvailabilityTO", new InsertAvailabilityTO());
+		String username = System.getProperty(PaginationConstants.USER_NAME);
+		modelAndView.addObject(PaginationConstants.INTERVIEWER, interviewerFacade.interviewerInfo(username));		
+		modelAndView.addObject(PaginationConstants.INTERVIEWER_LIST, interviewerFacade.findAllUsers());		
+		modelAndView.addObject(PaginationConstants.INTERVIEWS, interviewFacade.getInProgressInterviews(username));
+		modelAndView.addObject(PaginationConstants.REGISTER_USER_TO, new RegisterInterviewerTO());
+		modelAndView.addObject(PaginationConstants.MODIFY_USER_TO, new ModifyInterviewerTO());
+		modelAndView.addObject(PaginationConstants.INSERT_AVAILABILITY_TO, new InsertAvailabilityTO());
 		modelAndView.setViewName("users.html");
 		return modelAndView;
 	}

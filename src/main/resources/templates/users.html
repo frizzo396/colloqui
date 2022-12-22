@@ -63,6 +63,7 @@
                             <div class="col-lg-8 col-lg-offset-2" id="tableFormColumn" style="height: 89%;">
                             <div class="table-row" id="tablePagRow" style="overflow: unset">
                                 <table id="usersTable" class="mytable paginated">
+                                <caption style="display:none"></caption>
                                     <tr>
                                         <th style="width: 20%;">Enterprise Id </th>
                                         <th style="width: 12%;">Role </th>
@@ -70,7 +71,7 @@
                                         <th style="width: 10%;">Status </th>
                                         <th style="width: 7%;"></th>                                                                                
                                     </tr>
-                                    <tr class="tableRows" th:each="interviewer: ${interviewers}">
+                                    <tr class="tableRows" th:each="interviewer: ${interviewerList}">
  										<td th:text="${interviewer.enterpriseId}" />						
                                         <td>
                                             <span th:if="${interviewer.type == T(com.accenture.interview.utils.enums.InterviewerTypeEnum).getIdFromDescription('RESPONSABILE')}">Responsible</span>
