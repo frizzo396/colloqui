@@ -6,18 +6,18 @@
 
     <changeSet author="liquibase" id="create_table_site_1">
         <preConditions onFail="MARK_RAN">
-            <tableExists tableName="SITE" />
+            <tableExists tableName="site" />
         </preConditions>
-        <dropTable cascadeConstraints="true" tableName="SITE" />
+        <dropTable cascadeConstraints="true" tableName="site" />
     </changeSet>
 
     <changeSet author="liquibase" id="create_table_site_2">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="SITE"></tableExists>
+                <tableExists tableName="site"></tableExists>
             </not>
         </preConditions>
-        <createTable tableName="SITE">
+        <createTable tableName="site">
             <column name="SITE_ID" type="NUMBER">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="SITE_PK"/>
             </column>
@@ -29,25 +29,25 @@
     
     <changeSet author="liquibase" id="create_table_site_3">
       <preConditions onFail="MARK_RAN">
-         <tableIsEmpty tableName="SITE"/>
+         <tableIsEmpty tableName="site"/>
       </preConditions>
-      <insert tableName="SITE">
+      <insert tableName="site">
          <column name="SITE_ID" valueNumeric="1"/>
          <column name="SITE_NAME" value="Cagliari"/>
       </insert>
-      <insert tableName="SITE">
+      <insert tableName="site">
          <column name="SITE_ID" valueNumeric="2"/>
          <column name="SITE_NAME" value="Napoli"/>
       </insert>
-            <insert tableName="SITE">
+            <insert tableName="site">
          <column name="SITE_ID" valueNumeric="3"/>
          <column name="SITE_NAME" value="Bari"/>
       </insert>
-            <insert tableName="SITE">
+            <insert tableName="site">
          <column name="SITE_ID" valueNumeric="4"/>
          <column name="SITE_NAME" value="Roma"/>
       </insert>
-            <insert tableName="SITE">
+            <insert tableName="site">
          <column name="SITE_ID" valueNumeric="5"/>
          <column name="SITE_NAME" value="Milano"/>
       </insert>

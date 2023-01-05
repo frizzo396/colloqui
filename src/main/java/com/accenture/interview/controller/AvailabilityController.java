@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.accenture.interview.annotation.Registered;
 import com.accenture.interview.facade.AvailabilityFacade;
 import com.accenture.interview.rto.general.BaseResponseRTO;
 import com.accenture.interview.rto.general.ErrorRTO;
@@ -57,7 +55,6 @@ public class AvailabilityController {
 	 * @return the response entity
 	 */
 	@PostMapping("/insert")
-	@Registered
 	public ResponseEntity<Object> insertAvailability(@RequestBody @ModelAttribute InsertAvailabilityTO insertAvailabilityTO) {
 		ErrorRTO errorRTO = checkErrorsInsertAvailability.validate(insertAvailabilityTO);
 		
@@ -74,7 +71,6 @@ public class AvailabilityController {
 	 * @return the response entity
 	 */
 	@PostMapping("/approve")
-	@Registered
 	public ResponseEntity<Object> approveAvailability(@RequestBody @ModelAttribute ApproveAvailabilityTO approveAvailabilityTO) {				
 		ErrorRTO errorRTO = checkErrorsApproveAvailability.validate(approveAvailabilityTO);
 		
@@ -91,7 +87,6 @@ public class AvailabilityController {
 	 * @return the response entity
 	 */
 	@PostMapping("/refuse")
-	@Registered
 	public ResponseEntity<Object> refuseAvailability(@RequestParam(value = "interviewId") Long interviewId) {
 		ErrorRTO errorRTO = checkErrorsRefuseAvailability.validate(interviewId);
 		
@@ -108,7 +103,6 @@ public class AvailabilityController {
 	 * @return the response entity
 	 */
 	@PostMapping("/reassign")
-	@Registered
 	public ResponseEntity<Object> reassignAvailability(@RequestBody @ModelAttribute ReassignInterviewTO reassignTO) {
 		ErrorRTO errorRTO = checkErrorsReassignAvailability.validate(reassignTO);
 		

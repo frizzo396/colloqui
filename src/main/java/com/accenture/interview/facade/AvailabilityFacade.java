@@ -1,26 +1,20 @@
 package com.accenture.interview.facade;
 
-import java.time.ZoneId;
 import java.util.Arrays;
-import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
-
 import com.accenture.interview.rto.general.BaseResponseRTO;
 import com.accenture.interview.rto.interview.InterviewRTO;
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.service.AvailabilityService;
 import com.accenture.interview.service.InterviewService;
 import com.accenture.interview.service.InterviewerService;
-import com.accenture.interview.service.general.EventService;
 import com.accenture.interview.service.general.MailService;
 import com.accenture.interview.to.interview.ApproveAvailabilityTO;
 import com.accenture.interview.to.interview.InsertAvailabilityTO;
 import com.accenture.interview.to.interview.ReassignInterviewTO;
-import com.accenture.interview.to.mail.CalendarTO;
 import com.accenture.interview.to.mail.MailParametersTO;
 import com.accenture.interview.utils.constants.WebPaths;
 import com.accenture.interview.utils.date.DateUtils;
@@ -47,13 +41,6 @@ public class AvailabilityFacade {
 	/** The mail service. */
 	@Autowired
 	private MailService mailService;
-
-	/** The event service. */
-	@Autowired
-	private EventService eventService;
-
-	@Autowired
-	private MessageSource messageSource;
 
 
 	/**
@@ -102,7 +89,7 @@ public class AvailabilityFacade {
 					WebPaths.IN_PROGRESS);
 			boolean mailResult = mailService.sendMail(mailParams, MailTypeEnum.AVAILABILITY_APPROVE);	
 
-			String webLink = eventService.createTeamsMeeting(approveAvailabilityTO.getApprovedDate());
+			/*String webLink = eventService.createTeamsMeeting(approveAvailabilityTO.getApprovedDate());
 			String body = messageSource.getMessage("teams.event.body", null, Locale.getDefault()).replace("$link", webLink);
 			String candidate = interview.getCandidateName() + " " + interview.getCandidateSurname();
 			mailService.sendCalendarMail(new CalendarTO.Builder()
@@ -117,7 +104,7 @@ public class AvailabilityFacade {
 			
 			if(ObjectUtils.isEmpty(webLink)) {
 				errorMsg = eventService.eventNotSendErrorMessage();
-			}
+			}*/
 			if(!mailResult) {
 				errorMsg = mailService.mailNotSend();
 			}

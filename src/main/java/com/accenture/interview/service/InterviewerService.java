@@ -3,6 +3,7 @@ package com.accenture.interview.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,8 +39,9 @@ public class InterviewerService {
 	 * @param request       the request
 	 * @return the creates the interview response
 	 */
-	public void addNewInterviewer(RegisterInterviewerTO request) {
+	public String addNewInterviewer(RegisterInterviewerTO request) {
 		Interviewer interviewer = null;
+		String password = null;
 		Optional<Interviewer> optInterviewer = interviewerRepository.findInterviewerEntityByEnterpriseId(request.getEnterpriseId());
 		
 		//Update flag
@@ -47,9 +49,13 @@ public class InterviewerService {
 			interviewer = optInterviewer.get();
 			interviewer.setType(request.getIsResponsible());
 		} else {
+			String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%";
+			password = RandomStringUtils.random(10, characters);
+			request.setPassword(password);
 			interviewer = new Interviewer(request);
 		}
 		interviewerRepository.save(interviewer);
+		return password;
 	}
 	
 	/**

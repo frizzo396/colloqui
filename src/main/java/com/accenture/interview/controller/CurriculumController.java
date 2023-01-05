@@ -1,5 +1,7 @@
 package com.accenture.interview.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
@@ -15,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.accenture.interview.annotation.Registered;
 import com.accenture.interview.facade.CurriculumFacade;
 import com.accenture.interview.facade.InterviewFacade;
 import com.accenture.interview.facade.InterviewerFacade;
@@ -52,9 +52,8 @@ public class CurriculumController {
 	 * @return the response entity
 	 */
 	@PostMapping(path = "/upload")
-	@Registered	
-	public ModelAndView uploadCV(@ModelAttribute UploadCvTO uploadCvTO) {
-		String username = System.getProperty("user.name");
+	public ModelAndView uploadCV(@ModelAttribute UploadCvTO uploadCvTO, HttpSession session) {
+		String username = (String) session.getAttribute("entId");
 		ModelAndView modelAndView = new ModelAndView();
 		BaseResponseRTO response = cvFacade.uploadCurriculum(uploadCvTO);
 		if(ObjectUtils.isEmpty(response.getError())) {
@@ -89,7 +88,6 @@ public class CurriculumController {
 	 * @return the response entity
 	 */
 	@GetMapping(path = "/download/{cvId}")
-	@Registered	
 	public @ResponseBody ResponseEntity<Object> downloadCV(@PathVariable("cvId")Long interviewId) {
 		BaseResponseRTO response = cvFacade.downloadCurriculum(interviewId);
 		if(ObjectUtils.isEmpty(response.getError())) {			

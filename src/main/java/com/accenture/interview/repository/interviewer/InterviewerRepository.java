@@ -51,7 +51,7 @@ public interface InterviewerRepository extends JpaRepository<Interviewer, Long> 
 	 * @param enterpriseId the enterprise id
 	 * @return the optional
 	 */
-	@Query("select new com.accenture.interview.rto.interviewer.InterviewerRTO(ier.id, ier.enterpriseId, ier.mail, ier.type) from Interviewer ier where ier.enterpriseId=:enterpriseId")
+	@Query("select new com.accenture.interview.rto.interviewer.InterviewerRTO(ier.id, ier.enterpriseId, ier.mail, ier.password, ier.type) from Interviewer ier where ier.enterpriseId=:enterpriseId")
 	InterviewerRTO findInterviewerByEnterpriseId(@Param("enterpriseId") String enterpriseId);
 		
 	/**

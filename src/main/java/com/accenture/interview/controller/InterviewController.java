@@ -1,5 +1,7 @@
 package com.accenture.interview.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,8 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.accenture.interview.annotation.Registered;
 import com.accenture.interview.facade.InterviewFacade;
 import com.accenture.interview.facade.InterviewerFacade;
 import com.accenture.interview.rto.general.BaseResponseRTO;
@@ -49,14 +49,13 @@ public class InterviewController {
 	 * @return the response entity
 	 */
 	@PostMapping(path = "/create")
-	@Registered	
-	public @ResponseBody ResponseEntity<Object> createInterview(@RequestBody @ModelAttribute CreateInterviewTO createInterviewTO) {
+	public @ResponseBody ResponseEntity<Object> createInterview(@RequestBody @ModelAttribute CreateInterviewTO createInterviewTO, HttpSession session) {
 		ErrorRTO errorRTO = checkErrorsInsertInterview.validate(createInterviewTO);
 
 		if (!ObjectUtils.isEmpty(errorRTO)) {
 			return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
 		}
-		return new ResponseEntity<>(new BaseResponseRTO(interviewFacade.addNewInterview(createInterviewTO)), HttpStatus.OK);
+		return new ResponseEntity<>(new BaseResponseRTO(interviewFacade.addNewInterview(createInterviewTO, (String) session.getAttribute("entId"))), HttpStatus.OK);
 	}
 
 
@@ -68,9 +67,8 @@ public class InterviewController {
 	 * @return the string
 	 */
 	@PostMapping("/search")
-	@Registered	
-	public String searchInterview(@RequestBody @ModelAttribute SearchInterviewTO searchInterviewTO, Model model) {
-		model.addAttribute("interviewer", interviewerFacade.interviewerInfo(System.getProperty("user.name")));
+	public String searchInterview(@RequestBody @ModelAttribute SearchInterviewTO searchInterviewTO, Model model, HttpSession session) {
+		model.addAttribute("interviewer", interviewerFacade.interviewerInfo((String) session.getAttribute("entId")));
 		model.addAttribute("searchInterviews", interviewFacade.searchInterviews(searchInterviewTO));
 		model.addAttribute("searchInterviewTO", new SearchInterviewTO());
 		model.addAttribute("comboSitesDB", interviewFacade.getComboSites());

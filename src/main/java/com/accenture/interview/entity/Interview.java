@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -29,8 +28,7 @@ public class Interview {
 
 	/** The id. */
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "int_generator")
-	@SequenceGenerator(name="int_generator", sequenceName = "interview_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
 	@NotNull
@@ -56,10 +54,6 @@ public class Interview {
 	/** The mail. */
 	@NotNull
 	private String mail;
-
-	/** The candidate cv. */
-	@Column(name = "candidate_cv")
-	private String candidateCv;
 
 	/** The candidate type id. */
 	@ManyToOne
@@ -177,14 +171,6 @@ public class Interview {
 
 	public void setMail(String mail) {
 		this.mail = mail;
-	}
-
-	public String getCandidateCv() {
-		return candidateCv;
-	}
-
-	public void setCandidateCv(String candidateCv) {
-		this.candidateCv = candidateCv;
 	}
 
 	public CandidateType getCandidateTypeId() {

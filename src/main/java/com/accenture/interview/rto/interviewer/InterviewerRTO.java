@@ -33,6 +33,8 @@ public class InterviewerRTO {
 	/** The status: 1 (attivo), 0 (inattivo/eliminato) */
 	private long status;
 	
+	private String password;
+	
 	
 	public InterviewerRTO(long id, String enterpriseId, String mail, long type) {
 		this.id = id;
@@ -40,6 +42,22 @@ public class InterviewerRTO {
 		this.mail = mail;
 		this.type = type;
 	}	
+	
+	public InterviewerRTO(long id, String enterpriseId, String mail, long type, long status) {
+		this.id = id;
+		this.enterpriseId = enterpriseId;
+		this.mail = mail;
+		this.type = type;
+		this.status = status;
+	}
+	
+	public InterviewerRTO(long id, String enterpriseId, String mail, String password, long type) {
+		this.id = id;
+		this.enterpriseId = enterpriseId;
+		this.mail = mail;
+		this.type = type;
+		this.password = password;
+	}
 
 	/**
 	 * Instantiates a new search interviewer response.

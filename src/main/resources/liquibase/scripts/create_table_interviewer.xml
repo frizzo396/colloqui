@@ -6,18 +6,18 @@
 
     <changeSet author="liquibase" id="create_table_interviewer_1">
         <preConditions onFail="MARK_RAN">
-            <tableExists tableName="INTERVIEWER" />
+            <tableExists tableName="interviewer" />
         </preConditions>
-        <dropTable cascadeConstraints="true" tableName="INTERVIEWER" />
+        <dropTable cascadeConstraints="true" tableName="interviewer" />
     </changeSet>
 
     <changeSet author="liquibase" id="create_table_interviewer_2">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="INTERVIEWER"></tableExists>
+                <tableExists tableName="interviewer"></tableExists>
             </not>
         </preConditions>
-        <createTable tableName="INTERVIEWER">
+        <createTable tableName="interviewer">
             <column name="ID" type="BIGINT" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="INTERVIEWER_PK"/>
             </column>
@@ -28,6 +28,9 @@
                 <constraints nullable="false"/>
             </column>
              <column name="STATUS" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+             <column name="PASSWORD" type="VARCHAR2(255 BYTE)">
                 <constraints nullable="false"/>
             </column>
              <column name="TYPE" type="NUMBER">

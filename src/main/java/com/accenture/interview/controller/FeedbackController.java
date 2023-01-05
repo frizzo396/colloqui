@@ -1,5 +1,7 @@
 package com.accenture.interview.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,8 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.accenture.interview.annotation.Registered;
 import com.accenture.interview.controller.base.BaseController;
 import com.accenture.interview.facade.FeedbackFacade;
 import com.accenture.interview.rto.general.BaseResponseRTO;
@@ -42,9 +42,8 @@ public class FeedbackController extends BaseController {
 	 * @return the response entity
 	 */
 	@PostMapping("/motivational/insert")
-	@Registered
-	public ResponseEntity<Object> addMotivationFeedback(@RequestBody @ModelAttribute CreateMotivationFeedbackTO createMotivationFeedbackTO) {
-		ErrorRTO errorRTO = checkErrorsInsertFeedback.validate(createMotivationFeedbackTO, interviewId);
+	public ResponseEntity<Object> addMotivationFeedback(@RequestBody @ModelAttribute CreateMotivationFeedbackTO createMotivationFeedbackTO, HttpSession session) {
+		ErrorRTO errorRTO = checkErrorsInsertFeedback.validate(createMotivationFeedbackTO, interviewId, (String) session.getAttribute("entId"));
 		
 		if (!ObjectUtils.isEmpty(errorRTO)) {
 			return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
@@ -60,9 +59,8 @@ public class FeedbackController extends BaseController {
 	 * @return the response entity
 	 */
 	@PostMapping("/technical/insert")
-	@Registered
-	public ResponseEntity<BaseResponseRTO> addTechFeedback(@RequestBody @ModelAttribute CreateTechFeedbackTO createTechFeedbackTO) {
-		ErrorRTO errorRTO = checkErrorsInsertFeedback.validate(createTechFeedbackTO, interviewId);
+	public ResponseEntity<BaseResponseRTO> addTechFeedback(@RequestBody @ModelAttribute CreateTechFeedbackTO createTechFeedbackTO, HttpSession session) {
+		ErrorRTO errorRTO = checkErrorsInsertFeedback.validate(createTechFeedbackTO, interviewId, (String) session.getAttribute("entId"));
 
 		if (!ObjectUtils.isEmpty(errorRTO)) {
 			return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);

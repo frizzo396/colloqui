@@ -24,11 +24,12 @@ $(document).ready(function (){
 						  window.location.href = "/interview-ms/home";					
 					}, 2000);
 				}
-				else {								
-					document.getElementById("containerAccess").style.display = 'none';
-					document.getElementById("containerReqRegistrationAcc").style.display = 'block';	
-					//document.getElementById("backImage").style.height = '120.6%';		
-					showToast(response.error, "ERROR", 3000);			
+				else {	
+					showToast(response.error, "ERROR", 3000);
+					if(response.error == "Utente non registrato"){
+						document.getElementById("containerAccess").style.display = 'none';
+						document.getElementById("containerReqRegistrationAcc").style.display = 'block';	
+					}															
 				}	
 		}, 'json');
 		return false;

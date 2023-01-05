@@ -1,5 +1,7 @@
 package com.accenture.interview.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,12 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.accenture.interview.annotation.Registered;
 import com.accenture.interview.facade.InterviewerFacade;
 import com.accenture.interview.rto.general.BaseResponseRTO;
 import com.accenture.interview.rto.general.ErrorRTO;
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
+import com.accenture.interview.to.interviewer.AccessUserTO;
 import com.accenture.interview.to.interviewer.ModifyInterviewerTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 import com.accenture.interview.to.interviewer.RequestRegistrationTO;
@@ -50,7 +51,6 @@ public class InterviewerController {
 	 * @return the interviewer
 	 */
 	@GetMapping("/getUserInfo")
-	@Registered
 	public InterviewerRTO interviewerInfo(@RequestParam("enterpriseId") String enterpriseId) {
 		return interviewerFacade.interviewerInfo(enterpriseId);
 	}
@@ -62,14 +62,13 @@ public class InterviewerController {
 	 * @return the response entity
 	 */
 	@PostMapping("/register")
-	@Registered
-	public @ResponseBody ResponseEntity<Object> registerInterviewer(@RequestBody @ModelAttribute RegisterInterviewerTO registerUserTO) {		
+	public @ResponseBody ResponseEntity<Object> registerInterviewer(@RequestBody @ModelAttribute RegisterInterviewerTO registerUserTO, HttpSession session) {		
 		ErrorRTO errorRTO = checkErrorsRegisterInterviewer.validate(registerUserTO);
 
 		if (!ObjectUtils.isEmpty(errorRTO)) {
 			return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
 		}
-		return new ResponseEntity<>(interviewerFacade.addNewInterviewer(registerUserTO), HttpStatus.OK);		
+		return new ResponseEntity<>(interviewerFacade.addNewInterviewer(registerUserTO, (String) session.getAttribute("entId")), HttpStatus.OK);		
 	}
 	
 	/**
@@ -79,7 +78,6 @@ public class InterviewerController {
 	 * @return the response entity
 	 */
 	@PostMapping("/modify")
-	@Registered
 	public @ResponseBody ResponseEntity<Object> modifyInterviewer(@RequestBody @ModelAttribute ModifyInterviewerTO modifyUserTO) {		
 		ErrorRTO errorRTO = checkErrorsRegisterInterviewer.validate(modifyUserTO);
 
@@ -96,7 +94,6 @@ public class InterviewerController {
 	 * @return the response entity
 	 */
 	@PostMapping("/enable-disable")
-	@Registered
 	public @ResponseBody ResponseEntity<Object> enableDisableInterviewer(@RequestParam("userIdParam") long id) {	
 		ModifyInterviewerTO modifyUserTO = new ModifyInterviewerTO();
 		modifyUserTO.setId(id);
@@ -127,13 +124,14 @@ public class InterviewerController {
 	 * @return the response entity
 	 */
 	@PostMapping("/access")
-	public @ResponseBody ResponseEntity<Object> accessInterviewer(@RequestParam(name = "enterpriseId") String enterpriseId) {		
-		ErrorRTO errorRTO = checkErrorsAccessInterviewer.validate(enterpriseId);
+	public @ResponseBody ResponseEntity<Object> accessInterviewer(@RequestBody @ModelAttribute AccessUserTO accessUserTO, HttpSession session) {		
+		ErrorRTO errorRTO = checkErrorsAccessInterviewer.validate(accessUserTO);
 
 		if (!ObjectUtils.isEmpty(errorRTO)) {
 			return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
 		}
-		return new ResponseEntity<>(new BaseResponseRTO(enterpriseId, null), HttpStatus.OK);		
+		session.setAttribute("entId", accessUserTO.getEnterpriseId());
+		return new ResponseEntity<>(new BaseResponseRTO(accessUserTO.getEnterpriseId(), null), HttpStatus.OK);		
 	}	
 
 }

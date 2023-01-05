@@ -31,5 +31,7 @@ public class RegisterInterviewerTO {
 	
 	/** The status. */
 	private long status;
+	
+	private String password;
 
 }

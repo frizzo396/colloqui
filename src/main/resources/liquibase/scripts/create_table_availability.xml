@@ -8,12 +8,12 @@
         <preConditions onFail="MARK_RAN">
             <foreignKeyConstraintExists foreignKeyName="AVAILABILITY_FK1"/>
         </preConditions>
-        <dropForeignKeyConstraint baseTableName="AVAILABILITY" constraintName="AVAILABILITY_FK1"/>
+        <dropForeignKeyConstraint baseTableName="availability" constraintName="AVAILABILITY_FK1"/>
     </changeSet>
 
     <changeSet author="liquibase" id="create_table_availability_2">
         <preConditions onFail="MARK_RAN">
-            <tableExists tableName="AVAILABILITY" />
+            <tableExists tableName="availability" />
         </preConditions>
         <dropTable cascadeConstraints="true" tableName="AVAILABILITY" />
     </changeSet>
@@ -21,10 +21,10 @@
     <changeSet author="liquibase" id="create_table_availability_3">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="AVAILABILITY"></tableExists>
+                <tableExists tableName="availability"></tableExists>
             </not>
         </preConditions>
-        <createTable tableName="AVAILABILITY">
+        <createTable tableName="availability">
             <column name="ID" type="BIGINT" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="CURRICULUM_PK"/>
             </column>
@@ -40,9 +40,9 @@
     <changeSet author="liquibase" id="create_table_availability_4">
         <addForeignKeyConstraint
                 constraintName="AVAILABILITY_FK1"
-                referencedTableName="INTERVIEW"
+                referencedTableName="interview"
                 referencedColumnNames="ID"
-                baseTableName="AVAILABILITY"
+                baseTableName="availability"
                 baseColumnNames="INTERVIEW_ID"/>
     </changeSet>
 

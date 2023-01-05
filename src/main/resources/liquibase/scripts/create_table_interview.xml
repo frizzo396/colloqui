@@ -6,35 +6,35 @@
 
     <changeSet author="liquibase" id="create_table_interview_1">
         <preConditions onFail="MARK_RAN">
-            <foreignKeyConstraintExists foreignKeyName="SHIFTS_FK1"/>
+            <foreignKeyConstraintExists foreignKeyName="INTERVIEW_FK1"/>
         </preConditions>
-        <dropForeignKeyConstraint baseTableName="INTERVIEW" constraintName="INTERVIEW_FK1"/>
+        <dropForeignKeyConstraint baseTableName="interview" constraintName="INTERVIEW_FK1"/>
     </changeSet>
 
     <changeSet author="liquibase" id="create_table_interview_2">
         <preConditions onFail="MARK_RAN">
             <foreignKeyConstraintExists foreignKeyName="INTERVIEW_FK2"/>
         </preConditions>
-        <dropForeignKeyConstraint baseTableName="INTERVIEW" constraintName="INTERVIEW_FK2"/>
+        <dropForeignKeyConstraint baseTableName="interview" constraintName="INTERVIEW_FK2"/>
     </changeSet>
     
     <changeSet author="liquibase" id="create_table_interview_3">
         <preConditions onFail="MARK_RAN">
             <foreignKeyConstraintExists foreignKeyName="INTERVIEW_FK3"/>
         </preConditions>
-        <dropForeignKeyConstraint baseTableName="INTERVIEW" constraintName="INTERVIEW_FK3"/>
+        <dropForeignKeyConstraint baseTableName="interview" constraintName="INTERVIEW_FK3"/>
     </changeSet>
     
     <changeSet author="liquibase" id="create_table_interview_4">
         <preConditions onFail="MARK_RAN">
             <foreignKeyConstraintExists foreignKeyName="INTERVIEW_FK4"/>
         </preConditions>
-        <dropForeignKeyConstraint baseTableName="INTERVIEW" constraintName="INTERVIEW_FK4"/>
+        <dropForeignKeyConstraint baseTableName="interview" constraintName="INTERVIEW_FK4"/>
     </changeSet>
 
     <changeSet author="liquibase" id="create_table_interview_5">
         <preConditions onFail="MARK_RAN">
-            <tableExists tableName="INTERVIEW" />
+            <tableExists tableName="interview" />
         </preConditions>
         <dropTable cascadeConstraints="true" tableName="INTERVIEW" />
     </changeSet>
@@ -42,10 +42,10 @@
     <changeSet author="liquibase" id="create_table_interview_6">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="INTERVIEW"></tableExists>
+                <tableExists tableName="interview"></tableExists>
             </not>
         </preConditions>
-        <createTable tableName="INTERVIEW">
+        <createTable tableName="interview">
             <column name="ID" type="BIGINT" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="INTERVIEW_PK"/>
             </column>
@@ -106,34 +106,34 @@
     <changeSet author="liquibase" id="create_table_interview_7">
         <addForeignKeyConstraint
                 constraintName="INTERVIEW_FK1"
-                referencedTableName="CANDIDATE_TYPE"
+                referencedTableName="candidate_type"
                 referencedColumnNames="ID"
-                baseTableName="INTERVIEW"
+                baseTableName="interview"
                 baseColumnNames="CANDIDATE_TYPE_ID"/>
     </changeSet>
 
   	<changeSet author="liquibase" id="create_table_interview_8">
         <addForeignKeyConstraint
                 constraintName="INTERVIEW_FK2"
-                referencedTableName="MOTIVATION_FEEDBACK"
+                referencedTableName="motivation_feedback"
                 referencedColumnNames="ID"
-                baseTableName="INTERVIEW"
+                baseTableName="interview"
                 baseColumnNames="MOTIVATION_FEEDBACK_ID"/>
     </changeSet>
     <changeSet author="liquibase" id="create_table_interview_9">
         <addForeignKeyConstraint
                 constraintName="INTERVIEW_FK3"
-                referencedTableName="TECHNICAL_FEEDBACK"
+                referencedTableName="technical_feedback"
                 referencedColumnNames="ID"
-                baseTableName="INTERVIEW"
+                baseTableName="interview"
                 baseColumnNames="TECH_FEEDBACK_ID"/>
     </changeSet>
     <changeSet author="liquibase" id="create_table_interview_10">
         <addForeignKeyConstraint
                 constraintName="INTERVIEW_FK4"
-                referencedTableName="INTERVIEWER"
+                referencedTableName="interviewer"
                 referencedColumnNames="ID"
-                baseTableName="INTERVIEW"
+                baseTableName="interview"
                 baseColumnNames="INTERVIEWER_ID"/>
     </changeSet>
 

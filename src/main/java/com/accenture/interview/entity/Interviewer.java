@@ -8,9 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -27,12 +25,10 @@ public class Interviewer {
 
 	/** The id. */
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_generator")
-	@SequenceGenerator(name="user_generator", sequenceName = "interviewer_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	/** The enterprise id. */
-	@NotNull
 	@Column(name = "enterprise_id")
 	private String enterpriseId;
 	
@@ -41,8 +37,11 @@ public class Interviewer {
 	private long type;	
 
 	/** The mail. */
-	@NotNull
+	@Column(name = "mail")	
 	private String mail;
+	
+	@Column(name = "password")	
+	private String password;
 
 	/** The interview list. */
 	@OneToMany(mappedBy = "interviewerId")
@@ -161,7 +160,7 @@ public class Interviewer {
 		this.enterpriseId = registerInterviewerRequest.getEnterpriseId();
 		this.mail = registerInterviewerRequest.getMail();
 		this.type = registerInterviewerRequest.getIsResponsible();
-		
+		this.password = registerInterviewerRequest.getPassword();
 		this.status = registerInterviewerRequest.getStatus();
 	}
 
@@ -171,6 +170,14 @@ public class Interviewer {
 
 	public void setStatus(long status) {
 		this.status = status;
-	}	
+	}
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}	
+		
 }

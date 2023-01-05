@@ -71,11 +71,11 @@ public class InterviewFacade {
 	 * @param request the request
 	 * @return the creates the interview RTO
 	 */
-	public CreateInterviewRTO addNewInterview(CreateInterviewTO request) {
+	public CreateInterviewRTO addNewInterview(CreateInterviewTO request, String enterpriseId) {
 		CreateInterviewRTO response = null;
 		CandidateTypeRTO candidateType = candidateService.getCandidateType(request.getCandidateType());
 		InterviewerRTO interviewer = interviewerService.findInterviewerByEnterpriseId(request.getEnterpriseId());
-		InterviewerRTO assigner = interviewerService.findInterviewerByEnterpriseId(System.getProperty("user.name"));
+		InterviewerRTO assigner = interviewerService.findInterviewerByEnterpriseId(enterpriseId);
 		SiteRTO site = siteService.findSiteById(Long.parseLong(request.getSite()));
 
 		if (!(ObjectUtils.isEmpty(interviewer))) {

@@ -38,13 +38,21 @@
                             <header class="containerHeader">
                                 <label class="containerLabel">Access</label> 
                             </header>
-                            <form class="inp-form" id="userAccess" action="#" th:action="@{/interviewer/access}" method="post">
+                            <form class="inp-form" id="userAccess" action="#" th:action="@{/interviewer/access}" th:object="${accessUserTO}" method="post">
                                 <div class="col-lg-8 col-lg-offset-2" id="accessFormColumn">
                                     <div class="row">
                                         <div class="column">
                                             <div class="form-group">
                                                 <label>Enterprise id</label> 
-                                                <input id="accessUsername" type="text" th:name="enterpriseId" value=0 readonly /> 
+                                                <input id="accessUsername" type="text" th:field="*{enterpriseId}"/> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                     <div class="row">
+                                        <div class="column">
+                                            <div class="form-group">
+                                                <label>Password</label> 
+                                                <input id="accessPassword" type="password" th:field="*{password}"/> 
                                             </div>
                                         </div>
                                     </div>

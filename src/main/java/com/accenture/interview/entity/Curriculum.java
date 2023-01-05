@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -30,8 +29,7 @@ public class Curriculum {
 	
 	/** The id. */
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cv_generator")
-	@SequenceGenerator(name="cv_generator", sequenceName = "cv_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
 	/** The availabile date. */

@@ -44,7 +44,7 @@ public class CheckErrorsInsertFeedback {
 	 * @param interviewId the interview id
 	 * @return the error RTO
 	 */
-	public ErrorRTO validate(CreateMotivationFeedbackTO feedbackTO, Long interviewId) {
+	public ErrorRTO validate(CreateMotivationFeedbackTO feedbackTO, Long interviewId, String enterpriseId) {
 		String errorMsg = null;
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Set<ConstraintViolation<CreateMotivationFeedbackTO>> violations = factory.getValidator().validate(feedbackTO);
@@ -56,7 +56,7 @@ public class CheckErrorsInsertFeedback {
 				return new ErrorRTO(errorMsg);
 			}
 
-			if(!isInterviewer(interviewId)) {
+			if(!isInterviewer(interviewId, enterpriseId)) {
 				errorMsg = messageSource.getMessage("feedback.error.interviewer.not-equal", null, Locale.getDefault());
 				return new ErrorRTO(errorMsg);
 			}
@@ -73,7 +73,7 @@ public class CheckErrorsInsertFeedback {
 	 * @param interviewId the interview id
 	 * @return the error RTO
 	 */
-	public ErrorRTO validate(CreateTechFeedbackTO createTechFeedbackTO, Long interviewId) {
+	public ErrorRTO validate(CreateTechFeedbackTO createTechFeedbackTO, Long interviewId, String enterpriseId) {
 		String errorMsg = null;
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Set<ConstraintViolation<CreateTechFeedbackTO>> violations = factory.getValidator().validate(createTechFeedbackTO);
@@ -98,7 +98,7 @@ public class CheckErrorsInsertFeedback {
 			return techListErr;
 		}
 
-		if(!isInterviewer(interviewId)) {
+		if(!isInterviewer(interviewId, enterpriseId)) {
 			errorMsg = messageSource.getMessage("feedback.interviewer.notequal", null, Locale.getDefault());
 			return new ErrorRTO(errorMsg);
 		}
@@ -135,12 +135,12 @@ public class CheckErrorsInsertFeedback {
 	 * @param interviewId the interview id
 	 * @return true, if is interviewer
 	 */
-	private boolean isInterviewer(Long interviewId) {
+	private boolean isInterviewer(Long interviewId, String enterpriseId) {
 		Interview interview = interviewService.findInterviewById(interviewId);
 
 		if(!ObjectUtils.isEmpty(interview)) {
-			String enterpriseId = interview.getInterviewerId().getEnterpriseId();
-			if(enterpriseId.equals(System.getProperty("user.name"))) {
+			String entId = interview.getInterviewerId().getEnterpriseId();
+			if(entId.equals(enterpriseId)) {
 				return true;
 			}
 		}

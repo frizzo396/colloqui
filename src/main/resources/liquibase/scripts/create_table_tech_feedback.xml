@@ -6,18 +6,18 @@
 
     <changeSet author="liquibase" id="create_table_tech_feedback_1">
         <preConditions onFail="MARK_RAN">
-            <tableExists tableName="TECHNICAL_FEEDBACK" />
+            <tableExists tableName="technical_feedback" />
         </preConditions>
-        <dropTable cascadeConstraints="true" tableName="TECHNICAL_FEEDBACK" />
+        <dropTable cascadeConstraints="true" tableName="technical_feedback" />
     </changeSet>
 
     <changeSet author="liquibase" id="create_table_tech_feedback_2">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="TECHNICAL_FEEDBACK"></tableExists>
+                <tableExists tableName="technical_feedback"></tableExists>
             </not>
         </preConditions>
-        <createTable tableName="TECHNICAL_FEEDBACK">
+        <createTable tableName="technical_feedback">
             <column name="ID" type="BIGINT" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="TECH_FEEDBACK_PK"/>
             </column>

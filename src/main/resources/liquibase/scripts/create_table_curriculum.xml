@@ -8,23 +8,23 @@
         <preConditions onFail="MARK_RAN">
             <foreignKeyConstraintExists foreignKeyName="CURRICULUM_FK1"/>
         </preConditions>
-        <dropForeignKeyConstraint baseTableName="CURRICULUM" constraintName="CURRICULUM_FK1"/>
+        <dropForeignKeyConstraint baseTableName="curriculum" constraintName="CURRICULUM_FK1"/>
     </changeSet>
 
     <changeSet author="liquibase" id="create_table_curriculum_2">
         <preConditions onFail="MARK_RAN">
-            <tableExists tableName="CURRICULUM" />
+            <tableExists tableName="curriculum" />
         </preConditions>
-        <dropTable cascadeConstraints="true" tableName="CURRICULUM" />
+        <dropTable cascadeConstraints="true" tableName="curriculum" />
     </changeSet>
 
     <changeSet author="liquibase" id="create_table_curriculum_3">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="CURRICULUM"></tableExists>
+                <tableExists tableName="curriculum"></tableExists>
             </not>
         </preConditions>
-        <createTable tableName="CURRICULUM">
+        <createTable tableName="curriculum">
             <column name="ID" type="BIGINT" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="CURRICULUM_PK"/>
             </column>
@@ -46,9 +46,9 @@
     <changeSet author="liquibase" id="create_table_curriculum_4">
         <addForeignKeyConstraint
                 constraintName="CURRICULUM_FK1"
-                referencedTableName="INTERVIEW"
+                referencedTableName="interview"
                 referencedColumnNames="ID"
-                baseTableName="CURRICULUM"
+                baseTableName="curriculum"
                 baseColumnNames="INTERVIEW_ID"/>
     </changeSet>
 
