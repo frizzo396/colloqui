@@ -1,12 +1,12 @@
 
-<div class="sidebar" style="height: 350px">
+<div class="sidebar" style="height: 420px">
 	<header id="sidebarHeader">
 		<em id="sidebarMenuIcon" class="bx bx-menu"></em>
 	</header>
 
 	<div id="sidebarLine"></div>
 	<ul class="nav-links">
-		<li th:if="${interviewer.type!=T(com.accenture.interview.utils.enums.InterviewerTypeEnum).getIdFromDescription('RESPONSABILE')}"
+		<li
 		 onclick="RedirectHome()"><a> <em class="bx bx-home"
 				style="color: black;"></em> <span class="link_name">Home</span>
 		</a>
@@ -38,7 +38,7 @@
 			<ul class="sub-menu">
 				<li onclick="RedirectAssigned()"><a class="link_name">Assigned</a></li>
 			</ul></li>
-		<li th:if="${interviewer.type!=T(com.accenture.interview.utils.enums.InterviewerTypeEnum).getIdFromDescription('RESPONSABILE')}"
+		<li
 			onclick="RedirectMyInterviews()"><a> <em
 				class="bx bx-list-check" style="color: black;"></em> <span
 				class="link_name">Completed</span>
@@ -46,7 +46,7 @@
 			<ul class="sub-menu">
 				<li onclick="RedirectMyInterviews()"><a class="link_name">Completed</a></li>
 			</ul></li>
-		<li th:if="${interviewer.type!=T(com.accenture.interview.utils.enums.InterviewerTypeEnum).getIdFromDescription('RESPONSABILE')}"
+		<li
 			onclick="RedirectInProgress()"><a> <em class="bx bx-edit"
 				style="color: black;"></em> <span class="link_name">In
 					progress</span>
