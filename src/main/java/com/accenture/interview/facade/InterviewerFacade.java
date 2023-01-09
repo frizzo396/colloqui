@@ -46,7 +46,7 @@ public class InterviewerFacade {
 	 * @param request the request
 	 * @return the creates the interviewer response
 	 */
-	public BaseResponseRTO addNewInterviewer(RegisterInterviewerTO request, String enterpriseId) {
+	public BaseResponseRTO addNewInterviewer(RegisterInterviewerTO request) {
 		InterviewerRTO interviewer = interviewerService.findInterviewerByEnterpriseIdOrMail(request.getEnterpriseId(), request.getMail());	
 
 		if(!(ObjectUtils.isEmpty(interviewer)) 
@@ -57,13 +57,12 @@ public class InterviewerFacade {
 		request.setStatus(1);	
 		
 		String password = interviewerService.addNewInterviewer(request);
-		InterviewerRTO registering = interviewerService.findInterviewerByEnterpriseId(enterpriseId);
-		ArrayList<String> bodyParams = new ArrayList<String>();
+		ArrayList<String> bodyParams = new ArrayList<>();
 		if(!ObjectUtils.isEmpty(password)) {
 			bodyParams.add(password);
 		}
 		MailParametersTO mailParams = new MailParametersTO(Arrays.asList(request.getMail()), 
-				Arrays.asList(registering.getMail()), bodyParams, new ArrayList<>(), WebPaths.HOME);
+				new ArrayList<>(), bodyParams, new ArrayList<>(), WebPaths.HOME);
 		
 		boolean result = mailService.sendMail(mailParams, MailTypeEnum.USER_WELCOME);	
 		if(!result) {

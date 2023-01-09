@@ -1,13 +1,13 @@
 
-<div class="sidebar"
-	th:style="${interviewer.type==T(com.accenture.interview.utils.enums.InterviewerTypeEnum).getIdFromDescription('RESPONSABILE') ? 'height:450px' : 'height:330px'}">
+<div class="sidebar" style="height: 350px">
 	<header id="sidebarHeader">
 		<em id="sidebarMenuIcon" class="bx bx-menu"></em>
 	</header>
 
 	<div id="sidebarLine"></div>
 	<ul class="nav-links">
-		<li onclick="RedirectHome()"><a> <em class="bx bx-home"
+		<li th:if="${interviewer.type!=T(com.accenture.interview.utils.enums.InterviewerTypeEnum).getIdFromDescription('RESPONSABILE')}"
+		 onclick="RedirectHome()"><a> <em class="bx bx-home"
 				style="color: black;"></em> <span class="link_name">Home</span>
 		</a>
 			<ul class="sub-menu">

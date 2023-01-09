@@ -36,7 +36,7 @@ public class InterviewerController {
 	@Autowired
 	private InterviewerFacade interviewerFacade;
 	
-	/** The check errors insert interview. */
+	/** The check errors register interviewer. */
 	@Autowired 
 	private CheckErrorsRegisterInterviewer checkErrorsRegisterInterviewer;
 	
@@ -48,7 +48,7 @@ public class InterviewerController {
 	 * Interviewer info.
 	 *
 	 * @param enterpriseId the enterprise id
-	 * @return the interviewer
+	 * @return the interviewer RTO
 	 */
 	@GetMapping("/getUserInfo")
 	public InterviewerRTO interviewerInfo(@RequestParam("enterpriseId") String enterpriseId) {
@@ -56,9 +56,10 @@ public class InterviewerController {
 	}
 		
 	/**
-	 * Creates the interviewer.
+	 * Register interviewer.
 	 *
 	 * @param registerUserTO the register user TO
+	 * @param session the session
 	 * @return the response entity
 	 */
 	@PostMapping("/register")
@@ -68,13 +69,13 @@ public class InterviewerController {
 		if (!ObjectUtils.isEmpty(errorRTO)) {
 			return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
 		}
-		return new ResponseEntity<>(interviewerFacade.addNewInterviewer(registerUserTO, (String) session.getAttribute("entId")), HttpStatus.OK);		
+		return new ResponseEntity<>(interviewerFacade.addNewInterviewer(registerUserTO), HttpStatus.OK);		
 	}
 	
 	/**
-	 * Modifies the interviewer type.
+	 * Modify interviewer.
 	 *
-	 * @param modifyUserTO the user TO
+	 * @param modifyUserTO the modify user TO
 	 * @return the response entity
 	 */
 	@PostMapping("/modify")
@@ -88,9 +89,9 @@ public class InterviewerController {
 	}
 	
 	/**
-	 * Modifies the interviewer status.
+	 * Enable disable interviewer.
 	 *
-	 * @param modifyUserTO the user TO
+	 * @param id the id
 	 * @return the response entity
 	 */
 	@PostMapping("/enable-disable")
@@ -120,7 +121,8 @@ public class InterviewerController {
 	/**
 	 * Access interviewer.
 	 *
-	 * @param enterpriseId the enterprise id
+	 * @param accessUserTO the access user TO
+	 * @param session the session
 	 * @return the response entity
 	 */
 	@PostMapping("/access")
