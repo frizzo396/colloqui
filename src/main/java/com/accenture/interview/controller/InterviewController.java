@@ -19,8 +19,11 @@ import com.accenture.interview.rto.general.BaseResponseRTO;
 import com.accenture.interview.rto.general.ErrorRTO;
 import com.accenture.interview.to.interview.CreateInterviewTO;
 import com.accenture.interview.to.interview.SearchInterviewTO;
+import com.accenture.interview.to.interviewer.AccessUserTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
+import com.accenture.interview.to.interviewer.RequestRegistrationTO;
 import com.accenture.interview.utils.checkerror.interview.CheckErrorsInsertInterview;
+import com.accenture.interview.utils.constants.PaginationConstants;
 
 /**
  * The Class InterviewController.
@@ -50,7 +53,10 @@ public class InterviewController {
 	 */
 	@PostMapping(path = "/create")
 	public @ResponseBody ResponseEntity<Object> createInterview(@RequestBody @ModelAttribute CreateInterviewTO createInterviewTO, HttpSession session) {
-		ErrorRTO errorRTO = checkErrorsInsertInterview.validate(createInterviewTO);
+	   if(ObjectUtils.isEmpty(session.getAttribute("entId"))) {
+	      return new ResponseEntity<>(new BaseResponseRTO(null, PaginationConstants.EXPIRED), HttpStatus.OK);
+	   }
+	   ErrorRTO errorRTO = checkErrorsInsertInterview.validate(createInterviewTO);
 
 		if (!ObjectUtils.isEmpty(errorRTO)) {
 			return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
@@ -68,7 +74,12 @@ public class InterviewController {
 	 */
 	@PostMapping("/search")
 	public String searchInterview(@RequestBody @ModelAttribute SearchInterviewTO searchInterviewTO, Model model, HttpSession session) {
-		model.addAttribute("interviewer", interviewerFacade.interviewerInfo((String) session.getAttribute("entId")));
+		if(ObjectUtils.isEmpty(session.getAttribute("entId"))) {
+		   model.addAttribute("accessUserTO", new AccessUserTO());
+		   model.addAttribute(PaginationConstants.REQUEST_REGISTRATION_TO, new RequestRegistrationTO());
+		   return "access";
+		}	   
+	   model.addAttribute("interviewer", interviewerFacade.interviewerInfo((String) session.getAttribute("entId")));
 		model.addAttribute("searchInterviews", interviewFacade.searchInterviews(searchInterviewTO));
 		model.addAttribute("searchInterviewTO", new SearchInterviewTO());
 		model.addAttribute("comboSitesDB", interviewFacade.getComboSites());

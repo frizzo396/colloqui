@@ -134,3 +134,11 @@ function showToast(message, state, delay) {
 	}
 	setTimeout(function(){ snackB.className = snackB.className.replace("show", ""); }, delay);
 }
+
+
+function redirectAccess(){
+	showToast("Sessione scaduta", "ERROR", 3000);
+	window.setTimeout(function(){
+		window.location.href = "/interview-ms/access";		
+    	}, 2000);		
+}

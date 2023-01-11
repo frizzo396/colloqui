@@ -71,6 +71,9 @@ public final class PaginationConstants {
 	/** The Constant REQUEST_REGISTRATION_TO. */
 	public static final String REQUEST_REGISTRATION_TO = "requestRegistrationTO";
 	
+	/** The Constant EXPIRED. */
+	public static final String EXPIRED = "EXPIRED";
+	
 	/**
 	 * Instantiates a new pagination constants.
 	 */

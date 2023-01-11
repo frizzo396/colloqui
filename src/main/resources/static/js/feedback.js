@@ -43,18 +43,14 @@ jQuery(document).ready(function ($) {
 						setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); 
 						           showToast("Operazione avvenuta con successo", "SUCCESS", 3000); 
 						           setTimeout(function(){RedirectHome()}, 1700);}, 2000);
-						// PER TOGLIERE ROTELLINA SPINNER - END						
-						
-						// showToast("Operazione avvenuta con successo", "SUCCESS", 3000);
-						// setTimeout(function(){RedirectHome()}, 1700);
 					}
 					else {
-						// PER TOGLIERE ROTELLINA SPINNER - START
-						var submitBtn = document.getElementById('btn_mot-feed_submit');
-						setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); showToast(response.error, "ERROR", 3000);}, 2000);
-						// PER TOGLIERE ROTELLINA SPINNER - END						
-						
-						// showToast(response.error, "ERROR", 3000);
+						if(response.error == "EXPIRED"){
+							redirectAccess();	
+						} else {
+							var submitBtn = document.getElementById('btn_mot-feed_submit');
+							setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); showToast(response.error, "ERROR", 3000);}, 2000);
+						}
 					}
 	
 			}, 'json');
@@ -74,18 +70,14 @@ jQuery(document).ready(function ($) {
 						setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); 
 						           showToast("Operazione avvenuta con successo", "SUCCESS", 3000); 
 						           setTimeout(function(){RedirectHome()}, 1700);}, 2000);
-						// PER TOGLIERE ROTELLINA SPINNER - END
-											
-						// showToast("Operazione avvenuta con successo", "SUCCESS", 3000);
-						// setTimeout(function(){RedirectHome()}, 1700);
 					}
-				else {					
-						// PER TOGLIERE ROTELLINA SPINNER - START
-						var submitBtn = document.getElementById('btn_tech-feed_submit');
-						setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); showToast(response.error, "ERROR", 3000);}, 2000);
-						// PER TOGLIERE ROTELLINA SPINNER - END
-												
-						// showToast(response.error, "ERROR", 3000);
+				else {		
+						if(response.error == "EXPIRED"){
+							redirectAccess();	
+						} else {
+							var submitBtn = document.getElementById('btn_tech-feed_submit');
+							setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); showToast(response.error, "ERROR", 3000);}, 2000);
+						}
 				}
 			}, 'json');
 			return false;

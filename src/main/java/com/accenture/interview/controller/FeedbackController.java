@@ -18,6 +18,7 @@ import com.accenture.interview.rto.general.ErrorRTO;
 import com.accenture.interview.to.feedback.CreateMotivationFeedbackTO;
 import com.accenture.interview.to.feedback.CreateTechFeedbackTO;
 import com.accenture.interview.utils.checkerror.feedback.CheckErrorsInsertFeedback;
+import com.accenture.interview.utils.constants.PaginationConstants;
 
 /**
  * The Class FeedbackController.
@@ -26,45 +27,51 @@ import com.accenture.interview.utils.checkerror.feedback.CheckErrorsInsertFeedba
 @RequestMapping("/feedback")
 public class FeedbackController extends BaseController {
 
-	/** The feedback facade. */
-	@Autowired
-	private FeedbackFacade feedbackFacade;
+   /** The feedback facade. */
+   @Autowired
+   private FeedbackFacade feedbackFacade;
 
-	/** The check errors insert motivation feedback. */
-	@Autowired
-	private CheckErrorsInsertFeedback checkErrorsInsertFeedback;
+   /** The check errors insert motivation feedback. */
+   @Autowired
+   private CheckErrorsInsertFeedback checkErrorsInsertFeedback;
 
-	/**
-	 * Adds the motivation feedback.
-	 *
-	 * @param createMotivationFeedbackTO the create motivation
-	 *                                   feedback TO
-	 * @return the response entity
-	 */
-	@PostMapping("/motivational/insert")
-	public ResponseEntity<Object> addMotivationFeedback(@RequestBody @ModelAttribute CreateMotivationFeedbackTO createMotivationFeedbackTO, HttpSession session) {
-		ErrorRTO errorRTO = checkErrorsInsertFeedback.validate(createMotivationFeedbackTO, interviewId, (String) session.getAttribute("entId"));
-		
-		if (!ObjectUtils.isEmpty(errorRTO)) {
-			return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
-		}
-		return new ResponseEntity<>(new BaseResponseRTO(feedbackFacade.insertMotivationFeedback(createMotivationFeedbackTO, interviewId)), HttpStatus.OK);
+   /**
+    * Adds the motivation feedback.
+    *
+    * @param createMotivationFeedbackTO the create motivation
+    *                                   feedback TO
+    * @return the response entity
+    */
+   @PostMapping("/motivational/insert")
+   public ResponseEntity<Object> addMotivationFeedback(@RequestBody @ModelAttribute CreateMotivationFeedbackTO createMotivationFeedbackTO, HttpSession session) {
+      if(ObjectUtils.isEmpty(session.getAttribute("entId"))) {
+         return new ResponseEntity<>(new BaseResponseRTO(null, PaginationConstants.EXPIRED), HttpStatus.OK);
+      }
+      ErrorRTO errorRTO = checkErrorsInsertFeedback.validate(createMotivationFeedbackTO, interviewId, (String) session.getAttribute("entId"));
 
-	}
+      if (!ObjectUtils.isEmpty(errorRTO)) {
+         return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
+      }
+      return new ResponseEntity<>(new BaseResponseRTO(feedbackFacade.insertMotivationFeedback(createMotivationFeedbackTO, interviewId)), HttpStatus.OK);
 
-	/**
-	 * Adds the tech feedback.
-	 *
-	 * @param createTechFeedbackTO the create tech feedback TO
-	 * @return the response entity
-	 */
-	@PostMapping("/technical/insert")
-	public ResponseEntity<BaseResponseRTO> addTechFeedback(@RequestBody @ModelAttribute CreateTechFeedbackTO createTechFeedbackTO, HttpSession session) {
-		ErrorRTO errorRTO = checkErrorsInsertFeedback.validate(createTechFeedbackTO, interviewId, (String) session.getAttribute("entId"));
+   }
 
-		if (!ObjectUtils.isEmpty(errorRTO)) {
-			return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
-		}
-		return new ResponseEntity<>(new BaseResponseRTO(feedbackFacade.insertTechFeedback(createTechFeedbackTO, interviewId)), HttpStatus.OK);
-	}
+   /**
+    * Adds the tech feedback.
+    *
+    * @param createTechFeedbackTO the create tech feedback TO
+    * @return the response entity
+    */
+   @PostMapping("/technical/insert")
+   public ResponseEntity<BaseResponseRTO> addTechFeedback(@RequestBody @ModelAttribute CreateTechFeedbackTO createTechFeedbackTO, HttpSession session) {
+      if(ObjectUtils.isEmpty(session.getAttribute("entId"))) {
+         return new ResponseEntity<>(new BaseResponseRTO(null, PaginationConstants.EXPIRED), HttpStatus.OK);
+      }
+      ErrorRTO errorRTO = checkErrorsInsertFeedback.validate(createTechFeedbackTO, interviewId, (String) session.getAttribute("entId"));
+
+      if (!ObjectUtils.isEmpty(errorRTO)) {
+         return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
+      }
+      return new ResponseEntity<>(new BaseResponseRTO(feedbackFacade.insertTechFeedback(createTechFeedbackTO, interviewId)), HttpStatus.OK);
+   }
 }

@@ -21,20 +21,26 @@ $(document).ready(function (){
 					           setTimeout(function(){redirectUsers()}, 1700);}, 2000);
 					 redirectUsers()
 			} else if(response.body != null && response.error != null){ //Se user già presente, posso solo aggiornare il flag
-				var body = response.body;
-				document.getElementById("registerEntId").value = body.enterpriseId;
-				document.getElementById("registerMail").value = body.mail;
-				document.getElementById('registerEntId').readOnly = true;
-				document.getElementById('registerMail').readOnly = true;
-				
-
-				var submitBtn = document.getElementById('btn_register_submit');
-				setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); showToast(response.error, "ERROR", 3000);}, 2000);
+				if(response.error == "EXPIRED"){
+						redirectAccess();	
+				} else {
+					var body = response.body;
+					document.getElementById("registerEntId").value = body.enterpriseId;
+					document.getElementById("registerMail").value = body.mail;
+					document.getElementById('registerEntId').readOnly = true;
+					document.getElementById('registerMail').readOnly = true;
+					var submitBtn = document.getElementById('btn_register_submit');
+					setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); showToast(response.error, "ERROR", 3000);}, 2000);
+				}
 			} else {
-				var submitBtn = document.getElementById('btn_register_submit');
-				setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); 
-				showToast(response.error, "ERROR", 3000);
-				 setTimeout(function(){redirectUsers()}, 1700);}, 2000);				 
+				if(response.error == "EXPIRED"){
+					redirectAccess();	
+				} else {
+					var submitBtn = document.getElementById('btn_register_submit');
+					setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); 
+					showToast(response.error, "ERROR", 3000);
+				 	setTimeout(function(){redirectUsers()}, 1700);}, 2000);
+				}				 
 			}
 
 		}, 'json');
@@ -55,9 +61,13 @@ $(document).ready(function (){
 					           setTimeout(function(){redirectUsers()}, 1700);}, 2000);
 					  redirectUsers()
 			} else {
-				var submitBtn = document.getElementById('btn_modify_submit');
-				setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); showToast(response.error, "ERROR", 3000);
-				setTimeout(function(){redirectUsers()}, 1700);}, 2000);
+				if(response.error == "EXPIRED"){
+					redirectAccess();	
+				} else {
+					var submitBtn = document.getElementById('btn_modify_submit');
+					setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); showToast(response.error, "ERROR", 3000);
+					setTimeout(function(){redirectUsers()}, 1700);}, 2000);
+				}
 			}
 
 		}, 'json');

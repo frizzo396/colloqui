@@ -31,18 +31,14 @@ $(document).ready(function (){
 					setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); 
 					           showToast("Operazione avvenuta con successo", "SUCCESS", 3000); 
 					           setTimeout(function(){RedirectInProgress()}, 1500);}, 2000);
-					// PER TOGLIERE ROTELLINA SPINNER - END					
-				
-					// showToast("Operazione avvenuta con successo", "SUCCESS", 3000);
-					// setTimeout(function(){RedirectInProgress()}, 1500);
 				}
 				else {
-					// PER TOGLIERE ROTELLINA SPINNER - START
-					var submitBtn = document.getElementById('btn_submit');
-					setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); showToast(response.error, "ERROR", 3000);}, 2000);
-					// PER TOGLIERE ROTELLINA SPINNER - END						
-					
-					//showToast(response.error, "ERROR", 3000);
+					if(response.error == "EXPIRED"){
+						redirectAccess();	
+					} else {
+						var submitBtn = document.getElementById('btn_submit');
+						setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); showToast(response.error, "ERROR", 3000);}, 2000);
+					}
 				}
 
 		}, 'json');
@@ -57,24 +53,19 @@ $(document).ready(function (){
 	$form.submit(function (e) {
 		e.preventDefault(e);
 		$.post($(this).attr('action'), $(this).serialize(), function (response){
-			if(response.error == null){
-					// PER TOGLIERE ROTELLINA SPINNER - START					
+			if(response.error == null){					
 					var submitBtn = document.getElementById('btn_approve_submit');
 					setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); 
-					           showToast("Operazione avvenuta con successo", "SUCCESS", 3000); 
-					           setTimeout(function(){RedirectAssigned()}, 1500);}, 2000);
-					// PER TOGLIERE ROTELLINA SPINNER - END
-					
-					// showToast("Operazione avvenuta con successo", "SUCCESS", 3000);
-					// setTimeout(function(){RedirectAssigned()}, 1500);
+					showToast("Operazione avvenuta con successo", "SUCCESS", 3000); 
+					setTimeout(function(){RedirectAssigned()}, 1500);}, 2000);
 				}
 				else {
-					// PER TOGLIERE ROTELLINA SPINNER - START					
-					var submitBtn = document.getElementById('btn_approve_submit');
-					setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); showToast(response.error, "ERROR", 3000);}, 2000);
-					// PER TOGLIERE ROTELLINA SPINNER - END	
-										
-					// showToast(response.error, "ERROR", 3000);
+					if(response.error == "EXPIRED"){
+						redirectAccess();	
+					} else {			
+						var submitBtn = document.getElementById('btn_approve_submit');
+						setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); showToast(response.error, "ERROR", 3000);}, 2000);
+					}
 				}
 
 		}, 'json');
@@ -93,7 +84,11 @@ $(document).ready(function (){
 					setTimeout(function(){RedirectInProgress()}, 1500);
 				}
 				else {
-					showToast(response.error, "ERROR", 3000);
+					if(response.error == "EXPIRED"){
+						redirectAccess();	
+					} else {
+						showToast(response.error, "ERROR", 3000);
+					}
 				}
 		}, 'json');
 		return false;
@@ -111,7 +106,11 @@ $(document).ready(function (){
 					setTimeout(function(){RedirectAssigned()}, 1500);
 				}
 				else {
-					showToast(response.error, "ERROR", 3000);
+					if(response.error == "EXPIRED"){
+						redirectAccess();	
+					} else {
+						showToast(response.error, "ERROR", 3000);
+					}
 				}
 
 		}, 'json');

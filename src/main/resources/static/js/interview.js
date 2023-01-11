@@ -14,8 +14,12 @@ jQuery(document).ready(function ($) {
 						           createUploadCVModal(response.body.interviewId);}, 2000);
 					}
 					else {
-						var submitBtn = document.getElementById('insertInterviewBtn');
-						setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); showToast(response.error, "ERROR", 3000);}, 2000);
+						if(response.error == "EXPIRED"){
+							redirectAccess();	
+						} else {
+							var submitBtn = document.getElementById('insertInterviewBtn');
+							setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); showToast(response.error, "ERROR", 3000);}, 2000);
+						}
 					}
 	
 			}, 'json');

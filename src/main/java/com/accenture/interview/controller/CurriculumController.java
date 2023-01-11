@@ -17,87 +17,73 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.accenture.interview.facade.CurriculumFacade;
-import com.accenture.interview.facade.InterviewFacade;
-import com.accenture.interview.facade.InterviewerFacade;
 import com.accenture.interview.rto.general.BaseResponseRTO;
 import com.accenture.interview.rto.general.DownloadFileRTO;
-import com.accenture.interview.to.interview.CreateInterviewTO;
 import com.accenture.interview.to.interview.UploadCvTO;
-import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
+import com.accenture.interview.utils.constants.PaginationConstants;
+import com.accenture.interview.utils.page.RedirectUtils;
 
 /**
- * The Class AvailabilityController.
+ * The Class CurriculumController.
  */
 @RestController
 @RequestMapping("/interview/curriculum")
 public class CurriculumController {
-	
-	/** The interview facade. */
-	@Autowired
-	private InterviewFacade interviewFacade;
 
-	/** The interviewer facade. */
-	@Autowired
-	private InterviewerFacade interviewerFacade;
+   /** The cv facade. */
+   @Autowired
+   private CurriculumFacade cvFacade;
 
-	/** The cv facade. */
-	@Autowired
-	private CurriculumFacade cvFacade;
-	
-	/**
-	 * Upload CV.
-	 *
-	 * @param uploadCvTO the upload cv TO
-	 * @return the response entity
-	 */
-	@PostMapping(path = "/upload")
-	public ModelAndView uploadCV(@ModelAttribute UploadCvTO uploadCvTO, HttpSession session) {
-		String username = (String) session.getAttribute("entId");
-		ModelAndView modelAndView = new ModelAndView();
-		BaseResponseRTO response = cvFacade.uploadCurriculum(uploadCvTO);
-		if(ObjectUtils.isEmpty(response.getError())) {
-			modelAndView.addObject("interviewer", interviewerFacade.interviewerInfo(username));
-			modelAndView.addObject("inProgressInterviews", interviewFacade.getInProgressInterviewsNumber(username));
-			modelAndView.addObject("myInterviews", interviewFacade.getMyInterviewsNumber(username));
-			modelAndView.addObject("myInterviewsMonth", interviewFacade.getMonthCompletedInterviewsNumber(username));
-			modelAndView.addObject("inProgressInterviewsMonth", interviewFacade.getMonthInProgressInterviewsNumber(username));
-			modelAndView.addObject("yearMonthInterviews", interviewFacade.getYearCompletedInterviews(username));
-			modelAndView.addObject("registerUserTO", new RegisterInterviewerTO());
-			modelAndView.setViewName("home.html");
-			return modelAndView;
-		} 
-		else {
-			modelAndView.addObject("interviewer", interviewerFacade.interviewerInfo(username));
-			modelAndView.addObject("createInterviewTO", new CreateInterviewTO());
-			modelAndView.addObject("interviewerList", interviewerFacade.findAllInterviewers());
-			modelAndView.addObject("comboSitesDB", interviewFacade.getComboSites());
-			modelAndView.addObject("registerUserTO", new RegisterInterviewerTO());
-			modelAndView.addObject("uploadCvTO", new UploadCvTO());
-			modelAndView.addObject("uploadError", response.getError());
-			modelAndView.addObject("createdInterview", uploadCvTO.getInterviewId());
-			modelAndView.setViewName("insert.html");
-			return modelAndView;
-		}
-	}
+   /** The redirect utils. */
+   @Autowired
+   private RedirectUtils redirectUtils;
 
-	/**
-	 * Download CV.
-	 *
-	 * @param interviewId the interview id
-	 * @return the response entity
-	 */
-	@GetMapping(path = "/download/{cvId}")
-	public @ResponseBody ResponseEntity<Object> downloadCV(@PathVariable("cvId")Long interviewId) {
-		BaseResponseRTO response = cvFacade.downloadCurriculum(interviewId);
-		if(ObjectUtils.isEmpty(response.getError())) {			
-			DownloadFileRTO file = (DownloadFileRTO) response.getBody();
-			return ResponseEntity.ok()
-					.contentType(MediaType.APPLICATION_PDF)
-					.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFileName() + "\"")
-					.body(new ByteArrayResource(file.getContent()));
-		}
-		return new ResponseEntity<>(response, HttpStatus.OK);
-	}
+   /**
+    * Upload CV.
+    *
+    * @param uploadCvTO the upload cv TO
+    * @param session the session
+    * @return the model and view
+    */
+   @PostMapping(path = "/upload")
+   public ModelAndView uploadCV(@ModelAttribute UploadCvTO uploadCvTO, HttpSession session) {
+      if(ObjectUtils.isEmpty(session.getAttribute("entId"))) {
+         return redirectUtils.redirectAccess();
+      }  
+      String username = (String) session.getAttribute("entId");
+      BaseResponseRTO response = cvFacade.uploadCurriculum(uploadCvTO);
+      if(ObjectUtils.isEmpty(response.getError())) {        
+         return redirectUtils.redirectHome(username);
+      } 
+      return redirectUtils.redirectInsert(username, response.getError(), uploadCvTO.getInterviewId());
+   }
+
+   /**
+    * Download CV.
+    *
+    * @param interviewId the interview id
+    * @param session the session
+    * @return the response entity
+    */
+   @GetMapping(path = "/download/{cvId}")
+   public @ResponseBody ResponseEntity<Object> downloadCV(@PathVariable("cvId")Long interviewId, HttpSession session) {
+      if(ObjectUtils.isEmpty(session.getAttribute("entId"))) {
+         return new ResponseEntity<>(new BaseResponseRTO(null, PaginationConstants.EXPIRED), HttpStatus.OK);
+      }
+      BaseResponseRTO response = cvFacade.downloadCurriculum(interviewId);
+      if(ObjectUtils.isEmpty(response.getError())) {			
+         DownloadFileRTO file = (DownloadFileRTO) response.getBody();
+         return ResponseEntity.ok()
+               .contentType(MediaType.APPLICATION_PDF)
+               .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFileName() + "\"")
+               .body(new ByteArrayResource(file.getContent()));
+      }
+      return new ResponseEntity<>(response, HttpStatus.OK);
+   }
+
+
+
 
 }
