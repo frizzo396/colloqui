@@ -50,7 +50,7 @@ public class InterviewerService {
 			interviewer.setType(request.getIsResponsible());
 		} else {
 			String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%";
-			password = RandomStringUtils.random(10, characters);
+         password = RandomStringUtils.random(8, characters);
 			request.setPassword(password);
 			interviewer = new Interviewer(request);
 		}
