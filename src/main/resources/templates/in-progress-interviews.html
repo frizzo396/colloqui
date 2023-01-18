@@ -9,11 +9,11 @@
         <link th:href="@{/css/sidebar.css}" rel="stylesheet" />
         <link th:href="@{/css/container.css}" rel="stylesheet" />
         <link th:href="@{/css/header.css}" rel="stylesheet" />
-         <link th:href="@{/css/general-style.css}" rel="stylesheet" />
+        <link th:href="@{/css/general-style.css}" rel="stylesheet" />
         <link th:href="@{/css/popup-container.css}" rel="stylesheet" />
         <link th:href="@{/css/table.css}" rel="stylesheet" />
-         <link th:href="@{/css/snackbar.css}" rel="stylesheet" />
-          <link href="https://fonts.cdnfonts.com/css/graphik" rel="stylesheet" type='text/css'>
+        <link th:href="@{/css/snackbar.css}" rel="stylesheet" />
+        <link href="https://fonts.cdnfonts.com/css/graphik" rel="stylesheet" type='text/css'>
         <link th:rel="stylesheet" th:href="@{assets/bootstrap-select-1.13.9/dist/css/bootstrap-select.css}" />
         <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
         <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
@@ -28,6 +28,34 @@
       	<script type="text/javascript" th:src="@{/js/table.js}"></script>
       	<script type="text/javascript" th:src="@{/js/feedback.js}"></script>
         <script type="text/javascript" th:src="@{/js/sidebar.js}"></script>
+        
+		<style>
+		.tooltip {
+		  position: relative;
+		  display: inline-block;
+		  /* border-bottom: 1px dotted black; */
+		}
+		
+		.tooltip .tooltiptext {
+		  visibility: hidden;
+		  width: 200px;
+		  background-color: #e3e4e8;
+		  color: black;
+		  text-align: center;
+		  border-radius: 6px;
+		  padding: 5px 0;
+		  
+		  /* Position the tooltip */
+		  position: absolute;
+		  z-index: 1;
+		  top: -5px;
+		  left: 105%;
+		}
+		
+		.tooltip:hover .tooltiptext {
+		  visibility: visible;
+		}
+		</style>        
     </head>
     <body>
         <div class="interview-html">
@@ -52,18 +80,26 @@
                                         <th style="width: 25%;">Candidate </th>
                                         <th style="width: 7%;"  >Level</th>
                                         <th style="width: 10%;"  >Type</th>
-                                        <th style="width: 10%;">Availability</th>
                                         <th style="width: 12%;"  >Site</th>
-                                        <th style="width:  7%;">CV</th>
+                                        <th style="width:  7%;">Note</th>
+                                        <th style="width: 10%;">Availability</th>                                        
+                                        <th style="width:  7%;">CV</th>                                        
                                         <th style="width: 7%;">Feedback</th>
                                     </tr>
                                     <tr class="tableRows" th:each="interview: ${interviews}">
  										<td th:text="${interview.candidateName} + ' ' + ${interview.candidateSurname}" />       
- 										<td   th:text= "${interview.candidateLevel}"/>   
-                                        <td  >
+ 										<td th:text= "${interview.candidateLevel}"/>   
+                                        <td>
                                             <span th:if="${interview.interviewType == 1}">Motivazionale</span>
                                             <span th:unless="${interview.interviewType == 1}">Tecnico</span>
                                         </td>
+                                        <td   th:text= "${interview.site}"/>
+                                        <td>
+                                       		<div th:if="${interview.note != null and interview.note != ''}" class="tooltip motiv-popup">
+                                       			<em id="detailIcon" class='bx bx-show'></em>
+                                       			<span th:text="${interview.note}" class="tooltiptext" ></span>
+                                       		</div>
+                                        </td>                                        
                                         <td>
                                         		<span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).NEW.value}">
                                         			<button type="submit" class="av-popup" th:data-parameter1="${interview.id}" onclick="createAvailablityModal(this.getAttribute('data-parameter1'));"><em id="plusIcon" class='bx bx-plus'></em></button>
@@ -73,8 +109,7 @@
                                         		</span>  
                                         		<span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).SCHEDULED.value}"  th:text="${#dates.format(interview.scheduledDate, 'dd-MM-YYYY HH:mm')}" >
                                         		</span>
-                                        </td>
-                                        <td   th:text= "${interview.site}"/>   
+                                        </td>                                           
                                         <td>                                      		
 	                                        	<form id="downloadCV" action="#" th:action="@{/interview/curriculum/download/} + ${{interview.id}}" method="get">
 		                                        	<span th:if="${interview.cvId != null}">

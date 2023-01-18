@@ -107,6 +107,10 @@ public class Interview {
 	/** The curriculumId. */
 	@Column(name = "curriculum_id")
 	private Long curriculumId;
+	
+	/** The note. */
+	@Column(name = "note")
+	private String note;	
 
 	/**
 	 * Instantiates a new interview.
@@ -126,7 +130,8 @@ public class Interview {
 		this.candidateBirth = createInterviewRequest.getCandidateBirth();
 		this.mail = createInterviewRequest.getMail();
 		this.qualification = createInterviewRequest.getEduQualification();
-		this.status = InterviewStatusEnum.NEW.getValue();
+		this.status = InterviewStatusEnum.NEW.getValue();		
+		this.note = createInterviewRequest.getNote();
 	}
 
 	public Integer getMonth() {
@@ -279,6 +284,11 @@ public class Interview {
 		this.curriculumId = curriculumId;
 	}
 
+	public String getNote() {
+		return note;
+	}
 
-	
+	public void setNote(String note) {
+		this.note = note;
+	}	
 }

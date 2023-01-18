@@ -343,6 +343,13 @@ color: #afb0b3;
   background-color: #f1f1f1;
 }
 
+/* NUOVO STILE TEXTAREA NOTE PER INSERIMENTO INTERVIEW */
+.content_note {
+  display: none;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
 
 #insertAvailability {
 	padding-top: 0px;

@@ -148,7 +148,7 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 			+ "i.scheduledDate, "
 			+ "s.siteName, "
 			+ "i.status,"
-			+ "i.curriculumId) "
+			+ "i.curriculumId, i.note) " /* 2023-01-17 AGGIUNTO CAMPO NOTE */
 			+ "from Interview i, CandidateType ct, Site s "
 			+ "where i.interviewerId.enterpriseId=:enterpriseId "
 			+ "and i.candidateTypeId.id = ct.id "

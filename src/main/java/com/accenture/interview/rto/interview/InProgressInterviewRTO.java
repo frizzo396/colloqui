@@ -44,4 +44,6 @@ public class InProgressInterviewRTO {
 	/** The cv id. */
 	private Long cvId;
 	
+	/** The note. */
+	private String note; /* 2023-01-17 AGGIUNTO CAMPO NOTE */
 }

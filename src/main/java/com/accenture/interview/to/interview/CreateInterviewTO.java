@@ -60,5 +60,6 @@ public class CreateInterviewTO {
 	@NotEmpty(message = "interview.error.enterpriseid.not-empty")
 	private String enterpriseId;
 	
-
+	/** The note. */	
+	private String note;
 }
