@@ -17,6 +17,7 @@ import com.accenture.interview.rto.general.ErrorRTO;
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.service.InterviewerService;
 import com.accenture.interview.to.interviewer.ModifyInterviewerTO;
+import com.accenture.interview.to.interviewer.ChangePasswordInterviewerTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 import com.accenture.interview.to.interviewer.RequestRegistrationTO;
 
@@ -65,6 +66,24 @@ public class CheckErrorsRegisterInterviewer {
 		Set<ConstraintViolation<ModifyInterviewerTO>> violations = factory.getValidator().validate(modifyUserTO);
 		
 		Optional<ConstraintViolation<ModifyInterviewerTO>> optViolation = violations.stream().findFirst();
+		if(optViolation.isPresent()) {
+			String errorMsg = messageSource.getMessage(optViolation.get().getMessage(), null, Locale.getDefault());
+			return new ErrorRTO(errorMsg);
+		}
+		return null;
+	}
+	
+	/**
+	 * Validate change password interviewer request.
+	 *
+	 * @param modifyUserTO the modified user TO
+	 * @return the sets the
+	 */
+	public ErrorRTO validate(ChangePasswordInterviewerTO modifyPwdUserTO) {
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		Set<ConstraintViolation<ChangePasswordInterviewerTO>> violations = factory.getValidator().validate(modifyPwdUserTO);
+		
+		Optional<ConstraintViolation<ChangePasswordInterviewerTO>> optViolation = violations.stream().findFirst();
 		if(optViolation.isPresent()) {
 			String errorMsg = messageSource.getMessage(optViolation.get().getMessage(), null, Locale.getDefault());
 			return new ErrorRTO(errorMsg);

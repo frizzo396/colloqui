@@ -9,6 +9,7 @@ import com.accenture.interview.facade.InterviewerFacade;
 import com.accenture.interview.to.interview.CreateInterviewTO;
 import com.accenture.interview.to.interview.UploadCvTO;
 import com.accenture.interview.to.interviewer.AccessUserTO;
+import com.accenture.interview.to.interviewer.ChangePasswordInterviewerTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 import com.accenture.interview.to.interviewer.RequestRegistrationTO;
 import com.accenture.interview.utils.constants.PaginationConstants;
@@ -42,6 +43,9 @@ public class RedirectUtils {
       modelAndView.addObject("inProgressInterviewsMonth", interviewFacade.getMonthInProgressInterviewsNumber(username));
       modelAndView.addObject("yearMonthInterviews", interviewFacade.getYearCompletedInterviews(username));
       modelAndView.addObject("registerUserTO", new RegisterInterviewerTO());
+      
+      modelAndView.addObject(PaginationConstants.CHANGE_PASSWORD_INTERVIEWER_TO, new ChangePasswordInterviewerTO());
+      
       modelAndView.setViewName("home.html");
       return modelAndView;
    }
@@ -64,6 +68,9 @@ public class RedirectUtils {
       modelAndView.addObject("uploadCvTO", new UploadCvTO());
       modelAndView.addObject("uploadError", errorMessage);
       modelAndView.addObject("createdInterview", interviewId);
+      
+      modelAndView.addObject(PaginationConstants.CHANGE_PASSWORD_INTERVIEWER_TO, new ChangePasswordInterviewerTO());
+      
       modelAndView.setViewName("insert.html");
       return modelAndView;
    }

@@ -1,17 +1,22 @@
 package com.accenture.interview.service;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
 import com.accenture.interview.entity.Interviewer;
 import com.accenture.interview.repository.interviewer.InterviewerRepository;
+import com.accenture.interview.rto.general.BaseResponseRTO;
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.to.interviewer.ModifyInterviewerTO;
+import com.accenture.interview.to.interviewer.ChangePasswordInterviewerTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
+import com.accenture.interview.utils.checkerror.interviewer.CheckNewPassword;
 
 /**
  * The Class InterviewerService.
@@ -75,6 +80,47 @@ public class InterviewerService {
 			interviewerRepository.save(interviewer);			
 		}		
 	}
+	
+	/**
+	 * Changes the password of interviewer.
+	 *
+	 * @param request       the request
+	 * @return the creates the interview response
+	 */
+	public BaseResponseRTO changePasswordInterviewer(ChangePasswordInterviewerTO request, MessageSource messageSource) {
+		Interviewer interviewer = null;
+		Optional<Interviewer> optInterviewer = interviewerRepository.findInterviewerEntityByEnterpriseId(request.getEnterpriseId());		
+		
+		BaseResponseRTO resRTO;
+		resRTO = null;
+		
+		if(optInterviewer.isPresent()) {
+			interviewer = optInterviewer.get();
+						
+			// password fornita nella popup modale
+			String formOldPassword = request.getOldPassword();			
+			// password presente nel database
+			String dbCurrentPassword = interviewer.getPassword();
+			
+			// CONTROLLO DELLA VECCHIA PASSWORD
+			if (dbCurrentPassword.equals(formOldPassword)) {
+				
+				// PROSEGUO CON LA VERIFICA DELLA NUOVA PASSWORD				
+				String newPassword = request.getNewPassword();
+				 
+				if (CheckNewPassword.checkNewPassword(newPassword)) {					
+					interviewer.setPassword(newPassword);
+					interviewerRepository.save(interviewer);					
+					resRTO = new BaseResponseRTO(new InterviewerRTO(request), null);
+				} else {
+					resRTO = new BaseResponseRTO(interviewer, messageSource.getMessage("interviewer.change-pwd.error.password-not-valid", null, Locale.getDefault()));					
+				}									
+			} else {
+				resRTO = new BaseResponseRTO(interviewer, messageSource.getMessage("interviewer.change-pwd.error.password-not-present", null, Locale.getDefault()));
+			}
+		}		
+		return resRTO;
+	}	
 	
 	/**
 	 * Enable/disable interviewer status.

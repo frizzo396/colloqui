@@ -58,15 +58,42 @@ $(document).ready(function (){
 					var submitBtn = document.getElementById('btn_modify_submit');
 					setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); 
 					           showToast("Operazione avvenuta con successo", "SUCCESS", 3000); 
-					           setTimeout(function(){redirectUsers()}, 1700);}, 2000);
-					  redirectUsers()
+					           setTimeout(function(){RedirectUsers()}, 1700);}, 2000);
+					  // RedirectUsers()
 			} else {
 				if(response.error == "EXPIRED"){
 					redirectAccess();	
 				} else {
 					var submitBtn = document.getElementById('btn_modify_submit');
 					setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); showToast(response.error, "ERROR", 3000);
-					setTimeout(function(){redirectUsers()}, 1700);}, 2000);
+					setTimeout(function(){RedirectUsers()}, 1700);}, 2000);
+				}
+			}
+
+		}, 'json');
+		return false;
+	});
+});
+
+// Cambio password intervistatore
+$(document).ready(function (){
+	var $form= $('#changePasswordUser');
+	$form.submit(function (e) {
+		e.preventDefault(e);
+		$.post($(this).attr('action'), $(this).serialize(), function (response){
+			if(response.error == null){				
+					var submitBtn = document.getElementById('btn_modify_pwd_submit');
+					setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); 
+					           showToast("Operazione avvenuta con successo", "SUCCESS", 3000); 
+					           setTimeout(function(){RedirectHome()}, 1700);}, 2000);
+					  // RedirectHome();
+			} else {
+				if(response.error == "EXPIRED"){
+					redirectAccess();	
+				} else {
+					var submitBtn = document.getElementById('btn_modify_pwd_submit');
+					setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); 
+					           showToast(response.error, "ERROR", 3000);}, 2000);					
 				}
 			}
 

@@ -14,11 +14,18 @@
 					<em id="logoutIcon" class="bx bx-log-out-circle"></em> 
 				</div>
 			</div>
-			<div class="row" id="nicknameRow">
-				<label th:if="${interviewer == null}" id="nickname"></label> <label
-					th:unless="${interviewer == null}"
-					th:text="${interviewer.enterpriseId}" id="nickname">User</label>
-			</div>
+			<div class="row" id="nicknameRow">					
+				<div class="dropdown-hd">					
+					<label th:if="${interviewer == null}" id="nickname"></label>
+					<label th:unless="${interviewer == null}"
+						th:text="${interviewer.enterpriseId}" id="nickname" style="cursor: pointer;"
+						th:onclick="ctaFunctionPassword('ctaDropdownPassword')">User</label>			
+					
+					<div id="ctaDropdownPassword" class="dropdown-content-hd">											    												    	
+				    	<a id="modificaPassword" th:attr="data-eid=${interviewer.enterpriseId}" th:onclick="'openPopupPassword(' + ${interviewer.id} + ', event)'">Change Password</a>			    	
+					</div>												
+				</div>							   							
+			</div>											
 		</div>
 	</div>
 </div>

@@ -16,6 +16,7 @@ import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.service.InterviewerService;
 import com.accenture.interview.service.general.MailService;
 import com.accenture.interview.to.interviewer.ModifyInterviewerTO;
+import com.accenture.interview.to.interviewer.ChangePasswordInterviewerTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 import com.accenture.interview.to.interviewer.RequestRegistrationTO;
 import com.accenture.interview.to.mail.MailParametersTO;
@@ -83,6 +84,19 @@ public class InterviewerFacade {
 	}
 	
 	/**
+	 * Changes the password of interviewer.
+	 *
+	 * @param request the request
+	 * @return the interviewer response
+	 */
+	public BaseResponseRTO changePasswordInterviewer(ChangePasswordInterviewerTO request) {
+		// interviewerService.changePasswordInterviewer(request);		
+		// return new BaseResponseRTO(new InterviewerRTO(request), null);
+		BaseResponseRTO resRTO = interviewerService.changePasswordInterviewer(request, messageSource);
+		return resRTO;		
+	}	
+	
+	/**
 	 * Enable/disable interviewer status.
 	 *
 	 * @param request the request
@@ -133,8 +147,6 @@ public class InterviewerFacade {
 	}
 
 	
-
-
 	/**
 	 * Request registration.
 	 *

@@ -70,7 +70,10 @@ public final class PaginationConstants {
 	
 	/** The Constant REQUEST_REGISTRATION_TO. */
 	public static final String REQUEST_REGISTRATION_TO = "requestRegistrationTO";
-	
+		
+	/** The Constant CHANGE_PASSWORD_INTERVIEWER_TO. */
+	public static final String CHANGE_PASSWORD_INTERVIEWER_TO = "changePasswordInterviewerTO";	
+		
 	/** The Constant EXPIRED. */
 	public static final String EXPIRED = "EXPIRED";
 	

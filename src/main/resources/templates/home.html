@@ -4,6 +4,7 @@
 	    <meta charset="UTF-8"/>
 	    <title>Home</title>
 	    <link rel='shortcut icon' type='image/x-icon' th:href="@{/images/accenture-icon.ico}" />
+	    <link th:href="@{/css/spinner.css}" rel="stylesheet" />
 		<link th:href="@{/css/form.css}" rel="stylesheet" />
         <link th:href="@{/css/sidebar.css}" rel="stylesheet" />
         <link th:href="@{/css/home.css}" rel="stylesheet" />
@@ -12,6 +13,9 @@
         <link th:href="@{/css/header.css}" rel="stylesheet" />
         <link th:href="@{/css/general-style.css}" rel="stylesheet" />
         <link th:href="@{/css/popup-container.css}" rel="stylesheet" />
+        
+        <link th:href="@{/css/cta_header.css}" rel="stylesheet" />
+        
         <link href="https://fonts.cdnfonts.com/css/graphik" rel="stylesheet" type='text/css'>
         <link th:rel="stylesheet" th:href="@{assets/bootstrap-select-1.13.9/dist/css/bootstrap-select.css}" />
         <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
@@ -25,6 +29,8 @@
         <script type="text/javascript" th:src="@{/js/sidebar.js}"></script>
         <script type="text/javascript" th:src="@{/js/charts.js}"></script>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        
+        <script type="text/javascript" th:src="@{/js/cta-header.js}"></script>
 	</head>
     <body>
     
@@ -69,6 +75,10 @@
 										  </div>	
 			
 						</div>
+						
+						<div id="change-password-modal" class="cd-popup" role="alert">
+						     <div th:replace="fragments/changePasswordModal"></div>
+						</div>						
 					</div>
 					 <div style="display: none">
 			        		 <span th:text="${inProgressInterviews}" id="inProgressNumber"></span>
@@ -143,5 +153,21 @@
 			window.addEventListener('click', drawVisualization, false);
 		/*]]>*/
 	</script>
+	
+    <script>
+  	  // Chiude la dropdown se l'utente clicca fuori da essa
+     window.onclick = function(event) {
+     	if (!(event.target.id.includes("ctaDropdownPassword") || event.target.id.includes("nickname"))) {
+     	  var dropdowns = document.getElementsByClassName("dropdown-content-hd");
+     	  var i;
+     	  for (i = 0; i < dropdowns.length; i++) {
+     	    var openDropdown = dropdowns[i];
+     	    if (openDropdown.classList.contains('show')) {
+     	      openDropdown.classList.remove('show');
+     	    }
+     	  }
+     	}
+     }      
+    </script>	
     </body>
 </html>

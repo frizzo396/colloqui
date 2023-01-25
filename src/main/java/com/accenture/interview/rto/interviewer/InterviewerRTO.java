@@ -2,6 +2,7 @@ package com.accenture.interview.rto.interviewer;
 
 import com.accenture.interview.entity.Interviewer;
 import com.accenture.interview.to.interviewer.ModifyInterviewerTO;
+import com.accenture.interview.to.interviewer.ChangePasswordInterviewerTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 
 import lombok.AllArgsConstructor;
@@ -95,6 +96,17 @@ public class InterviewerRTO {
 		if (request.getIsResponsible() != null) {
 			this.type = request.getIsResponsible().longValue();
 		}
+	}
+	
+	/**
+	 * Instantiates interviewer.
+	 *
+	 * @param request the change password interviewer request
+	 */
+	public InterviewerRTO(ChangePasswordInterviewerTO request) {
+		this.id = request.getId();		
+		this.enterpriseId = request.getEnterpriseId();		
+		this.password = request.getNewPassword();
 	}	
 
 }

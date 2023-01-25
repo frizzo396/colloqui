@@ -20,6 +20,7 @@ import com.accenture.interview.rto.general.ErrorRTO;
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.to.interviewer.AccessUserTO;
 import com.accenture.interview.to.interviewer.ModifyInterviewerTO;
+import com.accenture.interview.to.interviewer.ChangePasswordInterviewerTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 import com.accenture.interview.to.interviewer.RequestRegistrationTO;
 import com.accenture.interview.utils.checkerror.interviewer.CheckErrorsAccessInterviewer;
@@ -93,7 +94,36 @@ public class InterviewerController {
          return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
       }
       return new ResponseEntity<>(interviewerFacade.modifyInterviewer(modifyUserTO), HttpStatus.OK);		
-   }
+   }  
+   
+   /**
+    * Change password of the interviewer.
+    *
+    * @param modifyUserTO the modify user TO
+    * @return the response entity
+    */
+   @PostMapping("/change-pwd")
+   public @ResponseBody ResponseEntity<Object> changePasswordInterviewer(@RequestBody @ModelAttribute ChangePasswordInterviewerTO changePasswordInterviewerTO, HttpSession session) {		
+      if(ObjectUtils.isEmpty(session.getAttribute("entId"))) {
+         return new ResponseEntity<>(new BaseResponseRTO(null, PaginationConstants.EXPIRED), HttpStatus.OK);
+      }   
+      
+      ErrorRTO errorRTO = checkErrorsRegisterInterviewer.validate(changePasswordInterviewerTO);
+      if (!ObjectUtils.isEmpty(errorRTO)) {
+         return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
+      }
+      
+		/*
+		 * System.out.println("################### vecchia password: " +
+		 * changePasswordInterviewerTO.getOldPassword() + " - nuova password: " +
+		 * changePasswordInterviewerTO.getNewPassword() + " ###################");
+		 */
+      
+      // per effettuare il cambio password
+      return new ResponseEntity<>(interviewerFacade.changePasswordInterviewer(changePasswordInterviewerTO), HttpStatus.OK);
+      
+      // return new ResponseEntity<>(new BaseResponseRTO(), HttpStatus.OK);
+   }   
 
    /**
     * Enable disable interviewer.

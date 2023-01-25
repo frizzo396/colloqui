@@ -3,7 +3,6 @@ package com.accenture.interview.utils.checkerror.interview;
 import java.util.Locale;
 import java.util.Set;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.ValidatorFactory;
