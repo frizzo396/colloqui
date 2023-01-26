@@ -112,6 +112,9 @@ public class Interview {
 	@Column(name = "note")
 	private String note;	
 
+   @Column(name = "updated_date")
+   private Date updatedDate;
+
 	/**
 	 * Instantiates a new interview.
 	 */
@@ -132,6 +135,7 @@ public class Interview {
 		this.qualification = createInterviewRequest.getEduQualification();
 		this.status = InterviewStatusEnum.NEW.getValue();		
 		this.note = createInterviewRequest.getNote();
+      this.updatedDate = new Date();
 	}
 
 	public Integer getMonth() {
@@ -290,5 +294,14 @@ public class Interview {
 
 	public void setNote(String note) {
 		this.note = note;
-	}	
+   }
+
+   public Date getUpdatedDate() {
+      return updatedDate;
+   }
+
+   public void setUpdatedDate(Date updatedDate) {
+      this.updatedDate = updatedDate;
+   }
+
 }

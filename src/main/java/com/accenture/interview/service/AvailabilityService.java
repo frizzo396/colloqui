@@ -42,6 +42,7 @@ public class AvailabilityService {
 		Optional<Interview> optInterview = interviewRepository.findInterviewById(insertAvailabilityTO.getInterviewId());		
 		if(optInterview.isPresent()) {
 			Interview interview = optInterview.get();
+         interview.setUpdatedDate(new Date());
 			interview.setStatus(InterviewStatusEnum.IN_PROGRESS.getValue());
 			List<Availability> availabilityList = createAvailabilityList(interview, insertAvailabilityTO);
 			interviewRepository.save(interview);
@@ -58,6 +59,7 @@ public class AvailabilityService {
 		Optional<Interview> optInterview = interviewRepository.findInterviewById(approveAvailabilityTO.getInterviewId());		
 		if(optInterview.isPresent()) {
 			Interview interview = optInterview.get();
+         interview.setUpdatedDate(new Date());
 			interview.setStatus(InterviewStatusEnum.SCHEDULED.getValue());
 			interview.setScheduledDate(approveAvailabilityTO.getApprovedDate());
 			interviewRepository.save(interview);			

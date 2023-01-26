@@ -6,9 +6,9 @@ jQuery(document).ready(function ($) {
 		var textAreas = document.getElementsByClassName("content");
 		let collIcon = document.getElementById("collapseIcon");
 		if(collIcon != null) {
-			collIcon.className = "bx bx-plus";
+			collIcon.className = "bx bx-minus";
 			Array.prototype.forEach.call(textAreas, function(cont) {
-			   	cont.style.display = 'none';
+			   	cont.style.display = 'block';
 			});
 		}
 		$('#motiv-modal').addClass('is-visible');
@@ -21,9 +21,9 @@ jQuery(document).ready(function ($) {
 		var textAreas = document.getElementsByClassName("content");
 		let collIcon = document.getElementById("collapseIcon2");		
 		if(collIcon != null) {
-			collIcon.className = "bx bx-plus";
+			collIcon.className = "bx bx-minus";
 			Array.prototype.forEach.call(textAreas, function(cont) {
-			   	cont.style.display = 'none';
+			   	cont.style.display = 'block';
 			});
 		}
 		$('#tech-modal').addClass('is-visible');
@@ -115,6 +115,7 @@ function createMotivationalModal(motivationalInterview){
 	document.getElementById('motLogic').value = obj.logicQuestion;
 	document.getElementById('motTech').value = obj.techQuestion;
 	document.getElementById('motComment').value = obj.comment;
+	document.getElementById('motComment').style.display = block;
 }
 
 function createTechnicalModal(technicalInterview){
