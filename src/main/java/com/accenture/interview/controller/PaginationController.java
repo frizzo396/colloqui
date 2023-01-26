@@ -212,6 +212,7 @@ public class PaginationController extends BaseController {
 		modelAndView.addObject(PaginationConstants.INTERVIEWS, interviewFacade.getInProgressInterviews(username));
 		modelAndView.addObject(PaginationConstants.REGISTER_USER_TO, new RegisterInterviewerTO());
 		modelAndView.addObject(PaginationConstants.INSERT_AVAILABILITY_TO, new InsertAvailabilityTO());
+      modelAndView.addObject(PaginationConstants.CHANGE_PASSWORD_INTERVIEWER_TO, new ChangePasswordInterviewerTO());
 		modelAndView.setViewName("in-progress-interviews.html");
 		return modelAndView;
 	}
@@ -230,6 +231,7 @@ public class PaginationController extends BaseController {
 		String username = (String) session.getAttribute("entId");
 		modelAndView.addObject(PaginationConstants.INTERVIEWER, interviewerFacade.interviewerInfo(username));
 		modelAndView.addObject(PaginationConstants.INTERVIEWER_LIST, interviewerFacade.findAllInterviewers());
+      modelAndView.addObject(PaginationConstants.COMBO_SITES, interviewFacade.getComboSites());
       modelAndView.addObject("searchAssignedTO", new SearchAssignedTO());
       modelAndView.addObject("comboStatus", InterviewStatusEnum.getInterviewStatusList());
 		modelAndView.addObject(PaginationConstants.REGISTER_USER_TO, new RegisterInterviewerTO());
@@ -258,8 +260,7 @@ public class PaginationController extends BaseController {
 		modelAndView.addObject(PaginationConstants.INTERVIEWS, interviewFacade.getInProgressInterviews(username));
 		modelAndView.addObject(PaginationConstants.REGISTER_USER_TO, new RegisterInterviewerTO());
 		modelAndView.addObject(PaginationConstants.MODIFY_USER_TO, new ModifyInterviewerTO());
-		modelAndView.addObject(PaginationConstants.INSERT_AVAILABILITY_TO, new InsertAvailabilityTO());
-		
+      modelAndView.addObject(PaginationConstants.INSERT_AVAILABILITY_TO, new InsertAvailabilityTO());
 		modelAndView.addObject(PaginationConstants.CHANGE_PASSWORD_INTERVIEWER_TO, new ChangePasswordInterviewerTO());
 		modelAndView.setViewName("users.html");
 		return modelAndView;

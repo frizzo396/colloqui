@@ -24,6 +24,7 @@ import com.accenture.interview.to.interview.ReassignInterviewTO;
 import com.accenture.interview.to.interview.SearchAssignedTO;
 import com.accenture.interview.to.interview.SearchInterviewTO;
 import com.accenture.interview.to.interviewer.AccessUserTO;
+import com.accenture.interview.to.interviewer.ChangePasswordInterviewerTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 import com.accenture.interview.to.interviewer.RequestRegistrationTO;
 import com.accenture.interview.utils.checkerror.interview.CheckErrorsInsertInterview;
@@ -94,6 +95,7 @@ public class InterviewController {
 		model.addAttribute("registerUserTO", new RegisterInterviewerTO());
       model.addAttribute(PaginationConstants.APPROVE_AVAILABILITY_TO, new ApproveAvailabilityTO());
       model.addAttribute(PaginationConstants.REASSIGN_INTERVIEW_TO, new ReassignInterviewTO());
+      model.addAttribute(PaginationConstants.CHANGE_PASSWORD_INTERVIEWER_TO, new ChangePasswordInterviewerTO());
       return "search";
 	}
 
@@ -121,6 +123,7 @@ public class InterviewController {
       model.addAttribute("registerUserTO", new RegisterInterviewerTO());
       model.addAttribute(PaginationConstants.APPROVE_AVAILABILITY_TO, new ApproveAvailabilityTO());
       model.addAttribute(PaginationConstants.REASSIGN_INTERVIEW_TO, new ReassignInterviewTO());
+      model.addAttribute(PaginationConstants.CHANGE_PASSWORD_INTERVIEWER_TO, new ChangePasswordInterviewerTO());
       return "assigned";
    }
 

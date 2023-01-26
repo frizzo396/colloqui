@@ -61,6 +61,7 @@
 #nicknameRow {
 	display: inline-flex;
     width: 100%;
+    padding-top: 2px;
 }
 
 #accentureLogo {	
