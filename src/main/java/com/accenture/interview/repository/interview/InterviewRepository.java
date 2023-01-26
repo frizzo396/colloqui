@@ -92,6 +92,17 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 			@Param("candidateType") String candidateType,
 			@Param("site") String site);
 
+   /**
+    * Find interview by params.
+    *
+    * @param candidateName the candidate name
+    * @param interviewType the interview type
+    * @param enterpriseId  the enterprise id
+    * @param candidateType the candidate type
+    * @param site          the site
+    * @param status        the status
+    * @return the list
+    */
    @Query("SELECT new com.accenture.interview.rto.interview.InterviewAndFeedbackRTO(i.id, i.candidateName, "
 	         + "i.candidateSurname, "
 	         + "ct.description, "
@@ -120,7 +131,6 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 	/**
 	 * Find assigned interviews.
 	 *
-	 * @param assignerId the assigner id
 	 * @return the list
 	 */
 	@Query("SELECT new com.accenture.interview.rto.interview.InterviewAndFeedbackRTO(i.id, i.candidateName, "
@@ -250,7 +260,7 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 			+ "i.id = :interviewId")
 	InterviewRTO findInterviewWithMailParams(@Param("interviewId") Long interviewId);
 	
-	
+
 	/**
 	 * Find last interview by enterprise id.
 	 *
