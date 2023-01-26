@@ -22,7 +22,7 @@
 			<ul class="sub-menu">
 				<li onclick="RedirectInsert()"><a class="link_name">New</a></li>
 			</ul></li>
-		<li onclick="RedirectSearch()"><a> <em
+		<li th:if="${interviewer.type==T(com.accenture.interview.utils.enums.InterviewerTypeEnum).getIdFromDescription('NORMALE')}" onclick="RedirectSearch()"><a> <em
 				class="bx bx-file-find" style="color: black;"></em> <span
 				class="link_name">Search</span>
 		</a>
@@ -33,18 +33,10 @@
 			th:if="${interviewer.type==T(com.accenture.interview.utils.enums.InterviewerTypeEnum).getIdFromDescription('RESPONSABILE')}"
 			onclick="RedirectAssigned()"><a> <em
 				class="bx bx-select-multiple" style="color: black;"></em> <span
-				class="link_name">Assigned</span>
+				class="link_name">Search</span>
 		</a>
 			<ul class="sub-menu">
-				<li onclick="RedirectAssigned()"><a class="link_name">Assigned</a></li>
-			</ul></li>
-		<li
-			onclick="RedirectMyInterviews()"><a> <em
-				class="bx bx-list-check" style="color: black;"></em> <span
-				class="link_name">Completed</span>
-		</a>
-			<ul class="sub-menu">
-				<li onclick="RedirectMyInterviews()"><a class="link_name">Completed</a></li>
+				<li onclick="RedirectAssigned()"><a class="link_name">Search</a></li>
 			</ul></li>
 		<li
 			onclick="RedirectInProgress()"><a> <em class="bx bx-edit"
@@ -54,7 +46,16 @@
 			<ul class="sub-menu">
 				<li onclick="RedirectInProgress()"><a class="link_name">In
 						progress</a></li>
-			</ul></li>		
+			</ul></li>	
+		<li
+			onclick="RedirectMyInterviews()"><a> <em
+				class="bx bx-list-check" style="color: black;"></em> <span
+				class="link_name">Completed</span>
+		</a>
+			<ul class="sub-menu">
+				<li onclick="RedirectMyInterviews()"><a class="link_name">Completed</a></li>
+			</ul>
+		</li>	
 		<li
 			th:if="${interviewer.type==T(com.accenture.interview.utils.enums.InterviewerTypeEnum).getIdFromDescription('RESPONSABILE')}"
 			onclick="RedirectUsers()"><a> <em

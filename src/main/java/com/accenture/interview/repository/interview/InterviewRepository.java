@@ -74,8 +74,8 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 			+ "i.status) FROM Interview i, CandidateType ct, Site s WHERE "
 			+ "i.candidateTypeId.id = ct.id and "
 			+ "s.id = i.site.id and "
-			+ "(i.candidateName = :name OR :name = '') AND "
-			+ "(i.candidateSurname = :surname OR :surname = '') AND "
+         + "(i.candidateName LIKE CONCAT('%',:name,'%') OR :name = '') AND "
+         + "(i.candidateSurname LIKE CONCAT('%',:surname,'%') OR :surname = '') AND "
 			+ "(i.candidateTypeId.description = :candidateType OR :candidateType = '') AND "
 			+ "(i.site.siteName = :site OR :site = '') AND "
 			+ "(:intType is null OR i.interviewType = :intType) AND "
@@ -92,6 +92,31 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 			@Param("candidateType") String candidateType,
 			@Param("site") String site);
 
+   @Query("SELECT new com.accenture.interview.rto.interview.InterviewAndFeedbackRTO(i.id, i.candidateName, "
+	         + "i.candidateSurname, "
+	         + "ct.description, "
+	         + "i.interviewType, "
+	         + "i.scheduledDate, "
+	         + "s.siteName, "
+	         + "i.interviewerId.enterpriseId, "
+	         + "i.finalFeedback, "
+	         + "i.status) FROM Interview i, CandidateType ct, Site s WHERE "
+	         + "i.candidateTypeId.id = ct.id and "
+	         + "s.id = i.site.id and "
+         + "(i.candidateName LIKE CONCAT('%',:candidateName,'%') OR i.candidateSurname LIKE CONCAT('%',:candidateName,'%') OR :candidateName = '') AND "
+	         + "(i.candidateTypeId.description = :candidateType OR :candidateType = '') AND "
+	         + "(i.site.siteName = :site OR :site = '') AND "
+	         + "(:intType is null OR i.interviewType = :intType) AND "
+         + "(i.status = :status OR :status is null) AND "
+         + "(i.interviewerId.enterpriseId = :entId OR :entId = '') "
+	         + "ORDER BY i.id desc")
+	   List<InterviewAndFeedbackRTO> findInterviewByParams(@Param("candidateName") String candidateName,
+	         @Param("intType") Long interviewType,
+	         @Param("entId") String enterpriseId,
+	         @Param("candidateType") String candidateType,
+            @Param("site") String site,
+            @Param("status") Integer status);
+
 	/**
 	 * Find assigned interviews.
 	 *
@@ -107,10 +132,9 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 			+ "i.interviewerId.enterpriseId, "
 			+ "i.finalFeedback, i.status) FROM Interview i, CandidateType ct, Site s WHERE "
 			+ "i.candidateTypeId.id = ct.id and "
-			+ "s.id = i.site.id and "
-			+ "(i.assigner = :assigner) "
+         + "s.id = i.site.id "
 			+ "ORDER BY i.id desc")
-	List<InterviewAndFeedbackRTO> findAssignedInterviews(@Param("assigner") long assignerId);
+   List<InterviewAndFeedbackRTO> findAssignedInterviews();
 
 	/**
 	 * Find completed interviews by enterprise id.

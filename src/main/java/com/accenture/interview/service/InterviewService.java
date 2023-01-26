@@ -29,6 +29,7 @@ import com.accenture.interview.rto.interview.InterviewRTO;
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.rto.site.SiteRTO;
 import com.accenture.interview.to.interview.CreateInterviewTO;
+import com.accenture.interview.to.interview.SearchAssignedTO;
 import com.accenture.interview.to.interview.SearchInterviewTO;
 import com.accenture.interview.utils.date.DateUtils;
 import com.accenture.interview.utils.enums.InterviewStatusEnum;
@@ -171,6 +172,22 @@ public class InterviewService {
 				searchInterviewTO.getCandidateType(), searchInterviewTO.getSite());
 	}
 
+   /**
+    * Search assigned interviews.
+    *
+    * @param searchInterviewTO the search interview TO
+    * @return the list
+    */
+   public List<InterviewAndFeedbackRTO> searchAssignedInterviews(SearchAssignedTO searchInterviewTO) {
+      Long interviewType = getInterviewTypeFromString(searchInterviewTO.getInterviewType());
+      return interviewRepository.findInterviewByParams(searchInterviewTO.getCandidateName(),
+            interviewType,
+            searchInterviewTO.getEnterpriseId(),
+            searchInterviewTO.getCandidateType(),
+            searchInterviewTO.getSite(),
+            searchInterviewTO.getStatus());
+   }
+
 	/**
 	 * Gets the completed interviews.
 	 *
@@ -185,11 +202,10 @@ public class InterviewService {
 	/**
 	 * Gets the assigned interviews.
 	 *
-	 * @param assignerId the assigner id
 	 * @return the assigned interviews
 	 */
-	public List<InterviewAndFeedbackRTO> getAssignedInterviews(long assignerId) {
-		List<InterviewAndFeedbackRTO> interviews = this.interviewRepository.findAssignedInterviews(assignerId);
+   public List<InterviewAndFeedbackRTO> getAssignedInterviews() {
+      List<InterviewAndFeedbackRTO> interviews = this.interviewRepository.findAssignedInterviews();
 
 		for(InterviewAndFeedbackRTO interview: interviews) {
 			List<Date> availabilities = availabilityRepository.findAvailabilityDatesByInterviewId(interview.getIdColloquio());

@@ -1,6 +1,7 @@
 package com.accenture.interview.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +12,8 @@ import com.accenture.interview.entity.Availability;
 import com.accenture.interview.entity.Interview;
 import com.accenture.interview.repository.interview.AvailabilityRepository;
 import com.accenture.interview.repository.interview.InterviewRepository;
+import com.accenture.interview.rto.interview.DateListRTO;
+import com.accenture.interview.rto.interview.InterviewAndFeedbackRTO;
 import com.accenture.interview.to.interview.ApproveAvailabilityTO;
 import com.accenture.interview.to.interview.InsertAvailabilityTO;
 import com.accenture.interview.utils.enums.InterviewStatusEnum;
@@ -78,5 +81,19 @@ public class AvailabilityService {
 		availabilityList.add(thirdAvailability);		
 		return availabilityList;	
 	}
+
+   /**
+    * Adds the availability dates.
+    *
+    * @param interviews the interviews
+    * @return the list
+    */
+   public List<InterviewAndFeedbackRTO> addAvailabilityDates(List<InterviewAndFeedbackRTO> interviews) {
+      for (InterviewAndFeedbackRTO interview : interviews) {
+         List<Date> availabilities = availabilityRepository.findAvailabilityDatesByInterviewId(interview.getIdColloquio());
+         interview.setAvailabilityDates(new DateListRTO(availabilities));
+      }
+      return interviews;
+   }
 
 }

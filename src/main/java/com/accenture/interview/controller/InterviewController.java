@@ -13,17 +13,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.accenture.interview.facade.InterviewFacade;
 import com.accenture.interview.facade.InterviewerFacade;
 import com.accenture.interview.rto.general.BaseResponseRTO;
 import com.accenture.interview.rto.general.ErrorRTO;
+import com.accenture.interview.to.interview.ApproveAvailabilityTO;
 import com.accenture.interview.to.interview.CreateInterviewTO;
+import com.accenture.interview.to.interview.ReassignInterviewTO;
+import com.accenture.interview.to.interview.SearchAssignedTO;
 import com.accenture.interview.to.interview.SearchInterviewTO;
 import com.accenture.interview.to.interviewer.AccessUserTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 import com.accenture.interview.to.interviewer.RequestRegistrationTO;
 import com.accenture.interview.utils.checkerror.interview.CheckErrorsInsertInterview;
 import com.accenture.interview.utils.constants.PaginationConstants;
+import com.accenture.interview.utils.enums.InterviewStatusEnum;
 
 /**
  * The Class InterviewController.
@@ -46,11 +51,12 @@ public class InterviewController {
 
 
 	/**
-	 * Creates the interview.
-	 *
-	 * @param createInterviewTO the create interview TO
-	 * @return the response entity
-	 */
+    * Creates the interview.
+    *
+    * @param createInterviewTO the create interview TO
+    * @param session           the session
+    * @return the response entity
+    */
 	@PostMapping(path = "/create")
 	public @ResponseBody ResponseEntity<Object> createInterview(@RequestBody @ModelAttribute CreateInterviewTO createInterviewTO, HttpSession session) {
 	   if(ObjectUtils.isEmpty(session.getAttribute("entId"))) {
@@ -66,12 +72,13 @@ public class InterviewController {
 
 
 	/**
-	 * Search interview.
-	 *
-	 * @param searchInterviewTO the search interview TO
-	 * @param model the model
-	 * @return the string
-	 */
+    * Search interview.
+    *
+    * @param searchInterviewTO the search interview TO
+    * @param model             the model
+    * @param session           the session
+    * @return the string
+    */
 	@PostMapping("/search")
 	public String searchInterview(@RequestBody @ModelAttribute SearchInterviewTO searchInterviewTO, Model model, HttpSession session) {
 		if(ObjectUtils.isEmpty(session.getAttribute("entId"))) {
@@ -85,7 +92,36 @@ public class InterviewController {
 		model.addAttribute("comboSitesDB", interviewFacade.getComboSites());
 		model.addAttribute("interviewerList", interviewerFacade.findAllInterviewers());
 		model.addAttribute("registerUserTO", new RegisterInterviewerTO());
-		return "search";
+      model.addAttribute(PaginationConstants.APPROVE_AVAILABILITY_TO, new ApproveAvailabilityTO());
+      model.addAttribute(PaginationConstants.REASSIGN_INTERVIEW_TO, new ReassignInterviewTO());
+      return "search";
 	}
+
+   /**
+    * Search assigned interview.
+    *
+    * @param searchInterviewTO the search interview TO
+    * @param model             the model
+    * @param session           the session
+    * @return the string
+    */
+   @PostMapping("/search-assigned")
+   public String searchAssignedInterview(@RequestBody @ModelAttribute SearchAssignedTO searchInterviewTO, Model model, HttpSession session) {
+      if (ObjectUtils.isEmpty(session.getAttribute("entId"))) {
+         model.addAttribute("accessUserTO", new AccessUserTO());
+         model.addAttribute(PaginationConstants.REQUEST_REGISTRATION_TO, new RequestRegistrationTO());
+         return "access";
+      }
+      model.addAttribute("interviewer", interviewerFacade.interviewerInfo((String) session.getAttribute("entId")));
+      model.addAttribute("searchInterviews", interviewFacade.searchAssignedInterviews(searchInterviewTO));
+      model.addAttribute("searchAssignedTO", new SearchAssignedTO());
+      model.addAttribute("comboSitesDB", interviewFacade.getComboSites());
+      model.addAttribute("comboStatus", InterviewStatusEnum.getInterviewStatusList());
+      model.addAttribute("interviewerList", interviewerFacade.findAllInterviewers());
+      model.addAttribute("registerUserTO", new RegisterInterviewerTO());
+      model.addAttribute(PaginationConstants.APPROVE_AVAILABILITY_TO, new ApproveAvailabilityTO());
+      model.addAttribute(PaginationConstants.REASSIGN_INTERVIEW_TO, new ReassignInterviewTO());
+      return "assigned";
+   }
 
 }

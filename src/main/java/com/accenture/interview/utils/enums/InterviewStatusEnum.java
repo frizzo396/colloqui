@@ -1,43 +1,53 @@
 package com.accenture.interview.utils.enums;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.accenture.interview.to.interview.InterviewStatusTO;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
  * The Enum InterviewStatusEnum.
  */
-
-/**
- * Gets the value.
- *
- * @return the value
- */
 @Getter
-
-/**
- * Instantiates a new interview status enum.
- *
- * @param value the value
- */
 @AllArgsConstructor
 public enum InterviewStatusEnum
 {	
 	
 	/** The new. */
-	NEW(1),
+   NEW(1, "New"),
 	
 	/** The in progress. */
-	IN_PROGRESS(2),
+   IN_PROGRESS(2, "In progress"),
 	
 	/** The scheduled. */
-	SCHEDULED(3),
+   SCHEDULED(3, "Scheduled"),
 		
 	/** The completed. */
-	COMPLETED(4),
+   COMPLETED(4, "Completed"),
 	
 	/** The refused. */
-	REFUSED(5);
+   REFUSED(5, "Refused");
 	
-	/** The status. */
+   /** The value. */
 	private Integer value;
+	
+   /** The description. */
+	private String description;
+	
+	
+	
+   /**
+    * Gets the interview status list.
+    *
+    * @return the interview status list
+    */
+   public static List<InterviewStatusTO> getInterviewStatusList() {
+      return Arrays.asList(InterviewStatusEnum.values()).stream()
+            .map(a -> new InterviewStatusTO(a.getValue(), a.getDescription()))
+            .collect(Collectors.toList());
+   }
 }

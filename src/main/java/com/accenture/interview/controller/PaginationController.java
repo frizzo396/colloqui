@@ -17,6 +17,7 @@ import com.accenture.interview.to.interview.ApproveAvailabilityTO;
 import com.accenture.interview.to.interview.CreateInterviewTO;
 import com.accenture.interview.to.interview.InsertAvailabilityTO;
 import com.accenture.interview.to.interview.ReassignInterviewTO;
+import com.accenture.interview.to.interview.SearchAssignedTO;
 import com.accenture.interview.to.interview.SearchInterviewTO;
 import com.accenture.interview.to.interview.UploadCvTO;
 import com.accenture.interview.to.interviewer.AccessUserTO;
@@ -24,6 +25,7 @@ import com.accenture.interview.to.interviewer.ModifyInterviewerTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 import com.accenture.interview.to.interviewer.RequestRegistrationTO;
 import com.accenture.interview.utils.constants.PaginationConstants;
+import com.accenture.interview.utils.enums.InterviewStatusEnum;
 
 /**
  * The Class PaginationController.
@@ -113,7 +115,7 @@ public class PaginationController extends BaseController {
 		String username = (String) session.getAttribute("entId");
 		modelAndView.addObject(PaginationConstants.INTERVIEWER, interviewerFacade.interviewerInfo(username));
 		modelAndView.addObject(PaginationConstants.INTERVIEWER_LIST, interviewerFacade.findAllInterviewers());
-		modelAndView.addObject(PaginationConstants.SEARCH_INTERVIEW_TO, new SearchInterviewTO());	
+      modelAndView.addObject(PaginationConstants.SEARCH_INTERVIEW_TO, new SearchInterviewTO());
 		modelAndView.addObject(PaginationConstants.COMBO_SITES, interviewFacade.getComboSites());	
 		modelAndView.addObject(PaginationConstants.REGISTER_USER_TO, new RegisterInterviewerTO());
 		modelAndView.setViewName("search.html");
@@ -215,11 +217,14 @@ public class PaginationController extends BaseController {
 		String username = (String) session.getAttribute("entId");
 		modelAndView.addObject(PaginationConstants.INTERVIEWER, interviewerFacade.interviewerInfo(username));
 		modelAndView.addObject(PaginationConstants.INTERVIEWER_LIST, interviewerFacade.findAllInterviewers());
-		modelAndView.addObject(PaginationConstants.INTERVIEWS, interviewFacade.getAssignedInterviews(username));
+      modelAndView.addObject("searchAssignedTO", new SearchAssignedTO());
+      modelAndView.addObject("comboStatus", InterviewStatusEnum.getInterviewStatusList());
 		modelAndView.addObject(PaginationConstants.REGISTER_USER_TO, new RegisterInterviewerTO());
 		modelAndView.addObject(PaginationConstants.APPROVE_AVAILABILITY_TO, new ApproveAvailabilityTO());
-		modelAndView.addObject(PaginationConstants.REASSIGN_INTERVIEW_TO, new ReassignInterviewTO());		
-		modelAndView.setViewName("assigned.html");
+      modelAndView.addObject(PaginationConstants.REASSIGN_INTERVIEW_TO, new ReassignInterviewTO());
+      modelAndView.addObject(PaginationConstants.SEARCH_INTERVIEW_TO, new SearchInterviewTO());
+      modelAndView.addObject(PaginationConstants.COMBO_SITES, interviewFacade.getComboSites());
+      modelAndView.setViewName("assigned.html");
 		return modelAndView;
 	}
 	
