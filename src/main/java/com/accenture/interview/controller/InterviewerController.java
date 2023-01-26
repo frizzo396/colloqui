@@ -113,16 +113,8 @@ public class InterviewerController {
          return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
       }
       
-		/*
-		 * System.out.println("################### vecchia password: " +
-		 * changePasswordInterviewerTO.getOldPassword() + " - nuova password: " +
-		 * changePasswordInterviewerTO.getNewPassword() + " ###################");
-		 */
-      
       // per effettuare il cambio password
       return new ResponseEntity<>(interviewerFacade.changePasswordInterviewer(changePasswordInterviewerTO), HttpStatus.OK);
-      
-      // return new ResponseEntity<>(new BaseResponseRTO(), HttpStatus.OK);
    }   
 
    /**

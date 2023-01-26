@@ -93,7 +93,7 @@ $(document).ready(function (){
 				} else {
 					var submitBtn = document.getElementById('btn_modify_pwd_submit');
 					setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); 
-					           showToast(response.error, "ERROR", 3000);}, 2000);					
+					           showToast(response.error, "ERROR", 6000);}, 4000);					
 				}
 			}
 

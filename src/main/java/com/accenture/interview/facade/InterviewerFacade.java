@@ -90,8 +90,6 @@ public class InterviewerFacade {
 	 * @return the interviewer response
 	 */
 	public BaseResponseRTO changePasswordInterviewer(ChangePasswordInterviewerTO request) {
-		// interviewerService.changePasswordInterviewer(request);		
-		// return new BaseResponseRTO(new InterviewerRTO(request), null);
 		BaseResponseRTO resRTO = interviewerService.changePasswordInterviewer(request, messageSource);
 		return resRTO;		
 	}	

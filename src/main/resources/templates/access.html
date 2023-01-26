@@ -20,11 +20,16 @@
             type='text/css'>
         <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css"
             rel="stylesheet" />
+            
+        <link th:href="@{/css/password-icons.css}" rel="stylesheet" />
+            
         <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
         <script type="text/javascript" th:src="@{/js/general.js}"></script>
         <script type="text/javascript" th:src="@{/js/access.js}"></script>
         <script type="text/javascript" th:src="@{/js/registration.js}"></script>
         <script type="text/javascript" th:src="@{/js/availability.js}"></script>
+        
+        <script type="text/javascript" th:src="@{/js/password.js}"></script>
     <body style="overflow-y: hidden;">
         <div class="interview-html" id="accessBackGround">
             <div class="bg" id ="backImage">
@@ -51,8 +56,13 @@
                                      <div class="row">
                                         <div class="column">
                                             <div class="form-group">
-                                                <label>Password</label> 
-                                                <input id="accessPassword" type="password" th:field="*{password}"/> 
+                                            	<label>Password</label>
+                                            	<div class="form-group">
+	                                            	<div class="input-icons">	                                                
+		                                                <i class='bx bx-low-vision icon-access' id="toggleAccessPassword"></i> 
+		                                                <input class="input-field" id="accessPassword" type="password" th:field="*{password}"/>
+		                                            </div>
+		                                        </div>
                                             </div>
                                         </div>
                                     </div>
