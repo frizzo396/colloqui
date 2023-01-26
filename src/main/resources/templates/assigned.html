@@ -1,56 +1,128 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="it">
-   <head>
-      <meta charset="UTF-8" />
-      <title>Assigned</title>
-      <link rel='shortcut icon' type='image/x-icon' th:href="@{/images/accenture-icon.ico}" />
-      <link th:href="@{/css/form.css}" rel="stylesheet" />
-      <link th:href="@{/css/sidebar.css}" rel="stylesheet" />
-      <link th:href="@{/css/container.css}" rel="stylesheet" />
-      <link th:href="@{/css/header.css}" rel="stylesheet" />
-      <link th:href="@{/css/general-style.css}" rel="stylesheet" />
-      <link th:href="@{/css/popup-container.css}" rel="stylesheet" />
-      <link th:href="@{/css/table.css}" rel="stylesheet" />
-      <link th:href="@{/css/spinner.css}" rel="stylesheet" />
-      <link th:href="@{/css/snackbar.css}" rel="stylesheet" />
-      
-      <link th:href="@{/css/cta_header.css}" rel="stylesheet" />
-      <link th:href="@{/css/password-icons.css}" rel="stylesheet" />      
-      
-      <link href="https://fonts.cdnfonts.com/css/graphik" rel="stylesheet" type='text/css'>
-      <link th:rel="stylesheet" th:href="@{assets/bootstrap-select-1.13.9/dist/css/bootstrap-select.css}" />
-      <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
-      <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-      <script src="https://kit.fontawesome.com/ee5a107043.js" crossorigin="anonymous"></script>
-      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-      <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
-      <script type="text/javascript" th:src="@{/js/general.js}"></script>
-      <script type="text/javascript" th:src="@{/js/registration.js}"></script>
-      <script type="text/javascript" th:src="@{/js/table.js}"></script>
-      <script type="text/javascript" th:src="@{/js/feedback.js}"></script>
-      <script type="text/javascript" th:src="@{/js/sidebar.js}"></script>
-      <script type="text/javascript" th:src="@{/js/availability.js}"></script>
-      
-      <script type="text/javascript" th:src="@{/js/cta-header.js}"></script>
-      <script type="text/javascript" th:src="@{/js/password.js}"></script>
-  </head>
-   <body>
-      <div class="interview-html">
-         <div th:replace="fragments/header"></div>
-         <div class="pageRow">
-            <div class="col-lg-8 col-lg-offset-2" id="sidebarColumn">
-               <div th:replace="fragments/sidebar"></div>
-            </div>
-            <div class="col-lg-8 col-lg-offset-2" id="containerColumn">
-               <div class="container" id="assignedContainer">
-                  <header class="containerHeader">
-                     <label class="containerLabel">Assigned interviews</label>
-                  </header>
-                  <div class="col-lg-8 col-lg-offset-2" id="tableFormColumn">
-                  <div class="table-row" id="tablePagRow">
-                     <table id="completedTable" class="mytable paginated">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <title>Search</title>
+        <link rel='shortcut icon' type='image/x-icon' th:href="@{/images/accenture-icon.ico}" />
+        <link th:href="@{/css/spinner.css}" rel="stylesheet" />
+        <link th:href="@{/css/form.css}" rel="stylesheet" />
+        <link th:href="@{/css/sidebar.css}" rel="stylesheet" />
+        <link th:href="@{/css/container.css}" rel="stylesheet" />
+        <link th:href="@{/css/header.css}" rel="stylesheet" />
+        <link th:href="@{/css/snackbar.css}" rel="stylesheet" />
+        <link th:href="@{/css/table.css}" rel="stylesheet" />
+        <link th:href="@{/css/general-style.css}" rel="stylesheet" />
+        <link th:href="@{/css/popup-container.css}" rel="stylesheet" />
+         <link href="https://fonts.cdnfonts.com/css/graphik" rel="stylesheet" type='text/css'>
+        <link th:rel="stylesheet" th:href="@{assets/bootstrap-select-1.13.9/dist/css/bootstrap-select.css}" />
+        <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+        <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
+
+        <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+ 		<script type="text/javascript" th:src="@{/js/registration.js}"></script>
+        <script type="text/javascript" th:src="@{/js/general.js}"></script>
+        <script type="text/javascript" th:src="@{/js/interview.js}"></script>
+        <script type="text/javascript" th:src="@{/js/table.js}"></script>
+        <script type="text/javascript" th:src="@{/js/feedback.js}"></script>
+        <script type="text/javascript" th:src="@{/js/sidebar.js}"></script>
+        <script type="text/javascript" th:src="@{/js/availability.js}"></script>
+    </head>
+    <body>
+        <div class="interview-html">               
+        
+			<!-- NUOVO DIV PER HEADER SUPERIORE -->
+			<div th:replace="fragments/header"></div>        
+        
+            <div class="pageRow">   
+            
+				<div class="col-lg-8 col-lg-offset-2" id="sidebarColumn">
+						<div th:replace="fragments/sidebar"></div>  				
+				 </div>       
+            
+                <div class="col-lg-8 col-lg-offset-2" id="containerSearchColumn">
+               <div class="container" id="containerSearch">
+                           <header class="containerHeader">
+						              <label class="containerLabel">Search Interview</label>
+						    </header>
+                              <div class="col-lg-8 col-lg-offset-2" id="searchFormColumn">
+                              <div class="row" id="searchFormRow">
+                                <form id="searchInterview" class="inp-form" action="#" th:action="@{/interview/search-assigned}" th:object="${searchAssignedTO}" method="post" > 
+                                    <div class="search-group">
+                                        <div class="row">
+                                            <div class="column">
+                                                <div class="form-group">
+                                                    <label> Candidate</label>
+                                                    <input type="text" th:field="*{candidateName}" id="candidateNameId" placeholder="Name" />
+                                                </div>
+                                            </div>                                        
+                                             <div class="column">
+	                                            	<div class="form-group">
+	                                                        <label for="candidateType">Candidate Level</label>
+	                                                        <select class="formcontrol selectpicker" th:field="*{candidateType}" id="candidateType">
+	                                                            <option value="">Nothing selected</option>
+	                                                            <option th:each="candidateType : ${T(com.accenture.interview.utils.enums.CandidateTypeEnum).values()}" th:value="${candidateType}" th:text="${candidateType.description}">
+	                                                                candidate type
+	                                                            </option>
+	                                                        </select>
+	                                           		</div>
+	                                        </div>
+	                                           	<div class="column">
+                                                <div class="form-group">
+                                                    <label>Interview Type</label>
+                                                    <select class="form-control selectpicker" th:field="*{interviewType}" id="interviewType2">
+                                                        <option value="">Nothing selected</option>
+                                                        <option th:each="interviewType : ${T(com.accenture.interview.utils.enums.InterviewTypeEnum).values()}" th:value="${interviewType}" th:text="${interviewType.description}">interview type </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        
+                                        </div>
+                                        <div class="row">
+                                     
+                                            <div class="column">
+                                               <div class="form-group">
+                                                   <label>Interviewer</label>
+                                                   <select class="formcontrol selectpicker" th:field="*{enterpriseId}" id="enterpriseIdS">
+                                                            <option value="">Nothing selected</option>
+                                                             <option th:each="interviewer : ${interviewerList}" th:value="${interviewer.enterpriseId}" th:text="${interviewer.enterpriseId}">
+                                                               site
+                                                            </option>
+                                                    </select>
+                                               </div>
+                                             </div>
+                                             <div class="column">
+                                               	<div class="form-group">
+                                                        <label>Site</label>
+                                                        <select class="formcontrol selectpicker" th:field="*{site}" id="site">
+                                                            <option value="">Nothing selected</option>
+                                                             <option th:each="siteElem : ${comboSitesDB}" th:value="${siteElem.name}" th:text="${siteElem.name}">
+                                                               site
+                                                            </option>
+                                                        </select>
+                                               		</div>
+                                               </div>
+                                               <div class="column">
+                                               	<div class="form-group">
+                                                        <label>Status</label>
+                                                        <select class="formcontrol selectpicker" th:field="*{status}" id="status">
+                                                            <option value="">Nothing selected</option>
+                                                             <option th:each="statusElem : ${comboStatus}" th:value="${statusElem.id}" th:text="${statusElem.description}">
+                                                               site
+                                                            </option>
+                                                            
+                                                        </select>
+                                               		</div>
+                                               </div>
+                                        </div>                                                                                                             
+                                    </div>
+                                </form>
+                                <div id="searchTableContainer" class="responsive">
+                                <div th:if= "${not #lists.isEmpty(searchInterviews)}">
+                                 <div class="table-row" id="tablePagRow">
+                                    <table id="completedTable" class="mytable paginated">
                      	<caption style="display:none"></caption>
                         <thead>
                            <tr>
@@ -66,7 +138,7 @@
                            </tr>
                         </thead>
                         <tbody>
-                           <tr class="tableRows" th:each="interview: ${interviews}">
+                           <tr class="tableRows" th:each="interview: ${searchInterviews}">
                               <td th:text="${interview.candidateName} + ' ' + ${interview.candidateSurname}" />                                               
                               <td th:text= "${interview.candidateLevel}"/>
                               <td>
@@ -88,8 +160,10 @@
                               <td th:text= "${interview.site}"/>
                               <td th:text= "${interview.enterpriseId}"/>
                               <td>
-                                 <span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).NEW.value
-                                    or interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).IN_PROGRESS.value}">	         
+                              	<span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).NEW.value}">
+                                 <span>New</span>
+                                 </span>
+                                 <span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).IN_PROGRESS.value}">	         
                                  <span>In progress</span>
                                  </span>
                                  <span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).SCHEDULED.value}">
@@ -125,49 +199,50 @@
                            </tr>
                         </tbody>
                      </table>
-                     </div>
-                  </div>
-                  <div id="motiv-modal" class="cd-popup" role="alert">
-                     <div th:replace="fragments/motivFeedbackModal"></div>
-                  </div>
-                  <div id="tech-modal" class="cd-popup2" role="alert">
-                     <div th:replace="fragments/techFeedbackModal"></div>
-                  </div>
-                  <div id="approve-modal" class="cd-popup" role="alert">
-                     <div th:replace="fragments/approveDateModal"></div>
-                  </div>
-                  <div id="reassign-modal" class="cd-popup" role="alert">
-                     <div th:replace="fragments/reassignModal"></div>
-                  </div>
-                  
-				<div id="change-password-modal" class="cd-popup" role="alert">
-				     <div th:replace="fragments/changePasswordModal"></div>
-				</div>                
+                                     </div>
+                                    </div>
+                                </div>
+                                 <div class="row" id="searchButtonRow">
+                                        	<input type="hidden" id="searchTO" th:value="${searchAssignedTO}"/>
+                                            <div class="button-column">
+                                                <div class="form-group">
+                                                    <button  class="search-button" form="searchInterview" type="submit" >Search</button>
+                                                </div>
+                                            </div>
+                                            <div class="button-column">
+                                                <div class="form-group">
+                                                    <button class="clear-button" form="searchInterview" type="reset" value="Reset" onclick="resetSearchTable()">Clear</button>
+                                                </div>
+                                            </div>
+                                </div>
+                                </div>
+
+                            <div id="pagination"></div>
+                            </div>
+                        	<div id="motiv-modal" class="cd-popup" role="alert">
+									<div th:replace="fragments/motivFeedbackModal"></div>
+                            </div>
+                            <div id="tech-modal" class="cd-popup2" role="alert">
+                                <div th:replace="fragments/techFeedbackModal"></div>
+                            </div>
+                            <div id="approve-modal" class="cd-popup" role="alert">
+                     			<div th:replace="fragments/approveDateModal"></div>
+                  			</div>
+                 			<div id="reassign-modal" class="cd-popup" role="alert">
+                     			<div th:replace="fragments/reassignModal"></div>
+                  			</div>
+                    </div>
+                    
+                                       <!-- New Interview -->
+                </div>
+               <div  id="snackbar">
+               		<div  id="snackbarRow">
+               				  <div class="col-lg-8 col-lg-offset-2" id="snackbarTextColumn">
+               				 
+               				 </div>    				 
+               		</div>
                </div>
             </div>
-         </div>
-         <div  id="snackbar">
-            <div  id="snackbarRow">
-               <div class="col-lg-8 col-lg-offset-2" id="snackbarTextColumn">
-               </div>
-            </div>
-         </div>
-      </div>
-      
-      <script>
-	   	  // Chiude la dropdown se l'utente clicca fuori da essa
-	      window.onclick = function(event) {
-	      	if (!(event.target.id.includes("ctaDropdownPassword") || event.target.id.includes("nickname"))) {
-	      	  var dropdowns = document.getElementsByClassName("dropdown-content-hd");
-	      	  var i;
-	      	  for (i = 0; i < dropdowns.length; i++) {
-	      	    var openDropdown = dropdowns[i];
-	      	    if (openDropdown.classList.contains('show')) {
-	      	      openDropdown.classList.remove('show');
-	      	    }
-	      	  }
-	      	}
-	      }      
-      </script>
-   </body>
+        </div>
+    </body>
 </html>

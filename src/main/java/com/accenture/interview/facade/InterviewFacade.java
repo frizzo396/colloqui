@@ -14,6 +14,7 @@ import com.accenture.interview.rto.interview.InterviewAndFeedbackRTO;
 import com.accenture.interview.rto.interview.InterviewMonthRTO;
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.rto.site.SiteRTO;
+import com.accenture.interview.service.AvailabilityService;
 import com.accenture.interview.service.CandidateService;
 import com.accenture.interview.service.FeedbackService;
 import com.accenture.interview.service.InterviewService;
@@ -21,6 +22,7 @@ import com.accenture.interview.service.InterviewerService;
 import com.accenture.interview.service.SiteService;
 import com.accenture.interview.service.general.MailService;
 import com.accenture.interview.to.interview.CreateInterviewTO;
+import com.accenture.interview.to.interview.SearchAssignedTO;
 import com.accenture.interview.to.interview.SearchInterviewTO;
 import com.accenture.interview.to.mail.MailParametersTO;
 import com.accenture.interview.utils.constants.WebPaths;
@@ -52,6 +54,10 @@ public class InterviewFacade {
 	@Autowired
 	private InterviewService interviewService;
 
+   /** The availability service. */
+   @Autowired
+   private AvailabilityService availabilityService;
+
 	/** The mail service. */
 	@Autowired
 	private MailService mailService;
@@ -66,11 +72,12 @@ public class InterviewFacade {
 	}
 
 	/**
-	 * Adds the new interview.
-	 *
-	 * @param request the request
-	 * @return the creates the interview RTO
-	 */
+    * Adds the new interview.
+    *
+    * @param request      the request
+    * @param enterpriseId the enterprise id
+    * @return the creates the interview RTO
+    */
 	public CreateInterviewRTO addNewInterview(CreateInterviewTO request, String enterpriseId) {
 		CreateInterviewRTO response = null;
 		CandidateTypeRTO candidateType = candidateService.getCandidateType(request.getCandidateType());
@@ -100,8 +107,23 @@ public class InterviewFacade {
 	 */
 	public List<InterviewAndFeedbackRTO> searchInterviews(SearchInterviewTO searchInterviewTO) {
 		List<InterviewAndFeedbackRTO> interviews = interviewService.searchInterview(searchInterviewTO);
+      interviews = availabilityService.addAvailabilityDates(interviews);
 		return feedbackService.getFeedbacks(interviews);
 	}
+
+   /**
+    * Search assigned interviews.
+    *
+    * @param searchInterviewTO the search interview TO
+    * @return the list
+    */
+   public List<InterviewAndFeedbackRTO> searchAssignedInterviews(SearchAssignedTO searchInterviewTO) {
+      String site = searchInterviewTO.getSite().replace(",", "");
+      searchInterviewTO.setSite(site);
+      List<InterviewAndFeedbackRTO> interviews = interviewService.searchAssignedInterviews(searchInterviewTO);
+      interviews = availabilityService.addAvailabilityDates(interviews);
+      return feedbackService.getFeedbacks(interviews);
+   }
 
 	/**
 	 * Gets the completed interviews.
@@ -117,12 +139,10 @@ public class InterviewFacade {
 	/**
 	 * Gets the assigned interviews.
 	 *
-	 * @param enterpriseId the enterprise id
 	 * @return the assigned interviews
 	 */
-	public List<InterviewAndFeedbackRTO> getAssignedInterviews(String enterpriseId) {
-		InterviewerRTO assigner = interviewerService.findInterviewerByEnterpriseId(enterpriseId);
-		List<InterviewAndFeedbackRTO> interviewAndFeedbackList = interviewService.getAssignedInterviews(assigner.getId());
+   public List<InterviewAndFeedbackRTO> getAssignedInterviews() {
+      List<InterviewAndFeedbackRTO> interviewAndFeedbackList = interviewService.getAssignedInterviews();
 		return feedbackService.getFeedbacks(interviewAndFeedbackList);
 	}
 

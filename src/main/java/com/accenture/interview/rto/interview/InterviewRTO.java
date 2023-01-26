@@ -26,7 +26,7 @@ public class InterviewRTO {
 	/** The candidate surname. */
 	private String candidateSurname;
 
-	/** The mail. */
+   /** The candidate mail. */
 	private String candidateMail;
 
 	/** The interviewer mail. */

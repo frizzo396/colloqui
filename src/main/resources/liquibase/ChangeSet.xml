@@ -13,4 +13,6 @@
    <include relativeToChangelogFile="true" file="scripts/create_table_curriculum.xml"/>
    <include relativeToChangelogFile="true" file="scripts/create_table_availability.xml"/>
    <include relativeToChangelogFile="true" file="scripts/create_sequences.xml"/> 
+   <include relativeToChangelogFile="true" file="scripts/add_column_note.xml"/> 
+   
 </databaseChangeLog>

@@ -5,6 +5,7 @@ import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
+
 import com.accenture.interview.rto.general.BaseResponseRTO;
 import com.accenture.interview.rto.interview.InterviewRTO;
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
@@ -41,7 +42,6 @@ public class AvailabilityFacade {
 	/** The mail service. */
 	@Autowired
 	private MailService mailService;
-
 
 	/**
 	 * Adds the availabilty interview.
