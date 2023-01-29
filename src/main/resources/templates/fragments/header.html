@@ -10,20 +10,26 @@
 	<div class="col-lg-8 col-lg-offset-2" id="userColumn">
 		<div id="userContainer">
 			<div class="row" id="iconRow">
-				<div th:if="${interviewer != null}">
-					<em id="logoutIcon" class="bx bx-log-out-circle"></em> 
-				</div>
-			</div>
+				<form id="logoutUser"  action="#" th:action="@{/logout}" method="post">
+					<div th:if="${interviewer != null}">
+						<button id="logoutButton" type="submit" style="color: #0a58ca;">
+							<em id="logoutIcon" class="bx bx-log-out-circle"></em> 
+						</button>
+					</div>
+				</form>
+			</div>						 											      				
 			<div class="row" id="nicknameRow">					
 				<div class="dropdown-hd">					
-					<label th:if="${interviewer == null}" id="nickname"></label>
-					<label th:unless="${interviewer == null}"
+				<span th:if="${interviewer != null}">
+										<label th:unless="${interviewer == null}"
 						th:text="${interviewer.enterpriseId}" id="nickname" style="cursor: pointer;"
 						th:onclick="ctaFunctionPassword('ctaDropdownPassword')">User</label>			
 					
 					<div id="ctaDropdownPassword" class="dropdown-content-hd">											    												    	
 				    	<a id="modificaPassword" th:attr="data-eid=${interviewer.enterpriseId}" th:onclick="'openPopupPassword(' + ${interviewer.id} + ', event)'">Change Password</a>			    	
-					</div>												
+					</div>	
+				</span>
+											
 				</div>							   							
 			</div>											
 		</div>

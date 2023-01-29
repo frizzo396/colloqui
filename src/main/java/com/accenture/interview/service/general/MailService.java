@@ -53,7 +53,7 @@ public class MailService {
 		try {
 			MimeMessage message = mailSender.createMimeMessage();
 			message.setSubject(mailUtils.getMailSubject(mailParams.getSubjectParams(), type));
-			MimeMessageHelper helper = new MimeMessageHelper(message, true);
+			MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 			helper.setFrom(from);
 			helper.setCc(mailParams.getCc().toArray(new String[0])); 
 			helper.setTo(mailParams.getTo().toArray(new String[0]));

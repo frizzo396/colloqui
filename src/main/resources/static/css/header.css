@@ -21,7 +21,7 @@
     position: relative;
     align-items: center;
     width: 10%;
-    margin-right: 3%;
+    margin-right: 3.5%;
 }
 
 #titleColumn {
@@ -55,13 +55,12 @@
     display: inline-flex;
     width: 100%;
     height: 80%;
-    margin-right: 3%;
 }
 
 #nicknameRow {
 	display: inline-flex;
     width: 100%;
-    padding-top: 2px;
+    padding-top: 11px;
 }
 
 #accentureLogo {	
@@ -95,6 +94,8 @@ display: block;
     display: flex;
     position: relative;
 }
+
+#logoutButton:hover {background-color: #0a58ca;}
 
 #iconContainer {
 	display: flex;
