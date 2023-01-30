@@ -33,6 +33,13 @@
     animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
 
+/* cambio password: nuovo stile per messaggio di errore */
+#snackbar.show_error {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 1.7s 8.5s;
+    animation: fadein 0.5s, fadeout 1.7s 8.5s;
+}
+
 @-webkit-keyframes fadein {
     from {bottom: 3%; opacity: 0;}
     to {bottom: 2%; opacity: 1;}

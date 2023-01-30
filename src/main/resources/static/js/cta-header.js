@@ -11,6 +11,13 @@ function openPopupPassword(userId, event) {
 	
 	document.getElementById('inputOldPassword').value = "";
 	document.getElementById('inputNewPassword').value = "";
+	
+	var oldPassword = document.getElementById('inputOldPassword');
+	var newPassword = document.getElementById('inputNewPassword');
+	oldPassword.setAttribute('type', 'password');			
+	$("#toggleOldPassword").attr('class', 'bx bx-low-vision icon');
+	newPassword.setAttribute('type', 'password');			
+	$("#toggleNewPassword").attr('class', 'bx bx-low-vision icon');		
 }		
 
 // Quando l'utente clicca sulla CTA, mostra o nasconde la dropdown
