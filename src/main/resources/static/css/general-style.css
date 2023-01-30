@@ -319,4 +319,21 @@ input[type=file]::file-selector-button:hover {
     width: 100%;
 }
 
+#assignedFilters {
+    font-family: 'Graphik', sans-serif;
+    font-size: 15px;
+    margin: 4px 4px 4px 0px;
+    padding: 2px 2px 2px 0;
+    display: inline-block;
+    color: black;
+    margin-left: 4%;
+    margin-top: 2.5%;
+}
 
+#searchInterview {
+	display: none;
+	padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 0px; 
+    padding-bottom: 0px;
+}

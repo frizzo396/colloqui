@@ -14,13 +14,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.accenture.interview.facade.InterviewerFacade;
 import com.accenture.interview.rto.general.BaseResponseRTO;
 import com.accenture.interview.rto.general.ErrorRTO;
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.to.interviewer.AccessUserTO;
-import com.accenture.interview.to.interviewer.ModifyInterviewerTO;
 import com.accenture.interview.to.interviewer.ChangePasswordInterviewerTO;
+import com.accenture.interview.to.interviewer.ModifyInterviewerTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 import com.accenture.interview.to.interviewer.RequestRegistrationTO;
 import com.accenture.interview.utils.checkerror.interviewer.CheckErrorsAccessInterviewer;
@@ -163,7 +164,7 @@ public class InterviewerController {
       if (!ObjectUtils.isEmpty(errorRTO)) {
          return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
       }
-      session.setMaxInactiveInterval(600);	
+      session.setMaxInactiveInterval(1200);
       session.setAttribute("entId", accessUserTO.getEnterpriseId());
       return new ResponseEntity<>(new BaseResponseRTO(accessUserTO.getEnterpriseId(), null), HttpStatus.OK);		
    }	

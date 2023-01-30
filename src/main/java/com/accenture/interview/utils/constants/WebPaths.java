@@ -15,7 +15,7 @@ public class WebPaths {
 	public static final String IN_PROGRESS = HOST + "/interview-ms/interview/in-progress";
 	
 	/** The Constant IN_PROGRESS. */
-	public static final String ASSIGNED = HOST + "/interview-ms/interview/assigned";
+   public static final String ASSIGNED = HOST + "/interview-ms/interview/search-assigned";
 
 	/**
 	 * Instantiates a new web paths.

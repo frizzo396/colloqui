@@ -100,6 +100,9 @@
             <column name="TECH_FEEDBACK_ID" type="BIGINT">
                 <constraints nullable="true"/>
             </column>
+             <column name="UPDATED_DATE" type="DATETIME(6)" defaultValueComputed="NOW(6)">
+                <constraints nullable="true"/>
+            </column>
         </createTable>
     </changeSet>
 

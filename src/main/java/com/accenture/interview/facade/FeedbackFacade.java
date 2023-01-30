@@ -1,6 +1,8 @@
 package com.accenture.interview.facade;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -10,8 +12,10 @@ import com.accenture.interview.entity.TechnicalFeedback;
 import com.accenture.interview.rto.feedback.CreateMotivationFeedbackRTO;
 import com.accenture.interview.rto.feedback.CreateTechFeedbackRTO;
 import com.accenture.interview.rto.interview.InterviewRTO;
+import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.service.FeedbackService;
 import com.accenture.interview.service.InterviewService;
+import com.accenture.interview.service.InterviewerService;
 import com.accenture.interview.service.general.MailService;
 import com.accenture.interview.to.feedback.CreateMotivationFeedbackTO;
 import com.accenture.interview.to.feedback.CreateTechFeedbackTO;
@@ -29,6 +33,10 @@ public class FeedbackFacade {
 	@Autowired
 	private InterviewService interviewService;
 
+   /** The interviewer service. */
+   @Autowired
+   private InterviewerService interviewerService;
+
 	/** The feedback service. */
 	@Autowired
 	private FeedbackService feedbackService;
@@ -39,20 +47,20 @@ public class FeedbackFacade {
 
 
 	/**
-	 * Insert tech feedback.
-	 *
-	 * @param createTechFeedbackTO the create tech feedback TO
-	 * @param interviewId the id colloquio
-	 * @return the creates the tech feedback response
-	 */
+    * Insert tech feedback.
+    *
+    * @param createTechFeedbackTO the create tech feedback TO
+    * @param interviewId          the interview id
+    * @return the creates the tech feedback RTO
+    */
 	public CreateTechFeedbackRTO insertTechFeedback(CreateTechFeedbackTO createTechFeedbackTO, Long interviewId) {
       InterviewRTO interview = interviewService.findInterviewWithMailParams(interviewId);
 		TechnicalFeedback techFeedback = feedbackService.insertTechFeedback(createTechFeedbackTO, interviewId);
-		
+      List<String> responsibleMails = interviewerService.getAllResponsibles().stream().map(InterviewerRTO::getMail).collect(Collectors.toList());
 		interviewService.updateInterviewTechFeedback(interviewId, techFeedback, createTechFeedbackTO.getFinalFeedback());
 		
 		MailParametersTO mailParams = new MailParametersTO(Arrays.asList(interview.getInterviewerMail()), 
-				Arrays.asList(interview.getAssignerMail()), 
+            responsibleMails,
             Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname(), createTechFeedbackTO.getFinalFeedback(), createTechFeedbackTO.getComment()),
             Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()),
 				WebPaths.ASSIGNED);
@@ -61,19 +69,20 @@ public class FeedbackFacade {
 	}
 
 	/**
-	 * Insert motivation feedback.
-	 *
-	 * @param feedbackTO the feedback TO
-	 * @param interviewId the id colloquio
-	 * @return the creates the motivation feedback response
-	 */
+    * Insert motivation feedback.
+    *
+    * @param feedbackTO  the feedback TO
+    * @param interviewId the interview id
+    * @return the creates the motivation feedback RTO
+    */
 	public CreateMotivationFeedbackRTO insertMotivationFeedback(CreateMotivationFeedbackTO feedbackTO, Long interviewId) {
 		InterviewRTO interview = interviewService.findInterviewWithMailParams((long) interviewId);
 		MotivationFeedback motFeedback = feedbackService.insertMotivationFeedback(feedbackTO, interviewId);
+      List<String> responsibleMails = interviewerService.getAllResponsibles().stream().map(InterviewerRTO::getMail).collect(Collectors.toList());
 		interviewService.updateInterviewMotFeedback(interviewId, motFeedback, feedbackTO.getFinalFeedback());
 		
 		MailParametersTO mailParams = new MailParametersTO(Arrays.asList(interview.getInterviewerMail()), 
-				Arrays.asList(interview.getAssignerMail()), 
+            responsibleMails,
             Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname(), feedbackTO.getFinalFeedback(), feedbackTO.getComment()),
 				Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()), 
 				WebPaths.ASSIGNED);

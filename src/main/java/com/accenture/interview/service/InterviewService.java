@@ -78,6 +78,7 @@ public class InterviewService {
 			interview.setFinalFeedback(finalFeedback);
 			interview.setTechFeedbackId(feedback);
 			interview.setDueDate(new Date());
+         interview.setUpdatedDate(new Date());
 			interview.setStatus(InterviewStatusEnum.COMPLETED.getValue());
 			interviewRepository.save(interview);
 		}
@@ -97,6 +98,7 @@ public class InterviewService {
 			interview.setFinalFeedback(finalFeedback);
 			interview.setMotivationFeedbackId(feedback);
 			interview.setDueDate(new Date());
+         interview.setUpdatedDate(new Date());
 			interview.setStatus(InterviewStatusEnum.COMPLETED.getValue());
 			interviewRepository.save(interview);
 		}
@@ -338,6 +340,7 @@ public class InterviewService {
 		Optional<Interview> optInterview = interviewRepository.findInterviewById(interviewId);
 		if(optInterview.isPresent()) {
 			Interview interview = optInterview.get();
+         interview.setUpdatedDate(new Date());
 			interview.setStatus(InterviewStatusEnum.REFUSED.getValue());
 			interviewRepository.save(interview);	
 			return interviewId;
@@ -360,6 +363,7 @@ public class InterviewService {
 					newInterviewer.getEnterpriseId(), 
 					newInterviewer.getMail(), 
 					newInterviewer.getType()));
+         interview.setUpdatedDate(new Date());
 			interview.setStatus(InterviewStatusEnum.NEW.getValue());
 			interviewRepository.save(interview);	
 			return interviewId;

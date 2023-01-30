@@ -63,7 +63,7 @@ function RedirectHome() {
 }
 
 function RedirectAssigned() {
-    window.location.href = "/interview-ms/interview/assigned";
+    window.location.href = "/interview-ms/interview/search-assigned";
 }
 
 function RedirectInsert() {

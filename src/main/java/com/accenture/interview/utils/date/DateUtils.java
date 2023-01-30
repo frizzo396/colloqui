@@ -74,7 +74,7 @@ public class DateUtils {
 				.atZone(ZoneId.systemDefault())
 				.toLocalDateTime();
 
-		return localDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+      return localDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
 	}
 
 }

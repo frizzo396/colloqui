@@ -3,7 +3,9 @@ package com.accenture.interview.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -52,19 +54,37 @@ public class PaginationController extends BaseController {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("accessUserTO", new AccessUserTO());
 		modelAndView.addObject(PaginationConstants.REQUEST_REGISTRATION_TO, new RequestRegistrationTO());
-		modelAndView.setViewName("access.html");
+      modelAndView.setViewName("access.html");
 		return modelAndView;
 	}
 	
+   /**
+    * Logout.
+    *
+    * @param session the session
+    * @return the model and view
+    */
+   @PostMapping("/logout")
+   public ModelAndView logout(HttpSession session) {
+      ModelAndView modelAndView = new ModelAndView();
+      session.removeAttribute("entId");
+      session.invalidate();
+      modelAndView.addObject("accessUserTO", new AccessUserTO());
+      modelAndView.addObject(PaginationConstants.REQUEST_REGISTRATION_TO, new RequestRegistrationTO());
+      modelAndView.setViewName("access.html");
+      return modelAndView;
+   }
+
 	/**
-	 * Account page.
-	 *
-	 * @return the model and view
-	 */
+    * Account page.
+    *
+    * @param session the session
+    * @return the model and view
+    */
 	@GetMapping("/home")
 	public ModelAndView accountPage(HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
-		if(session.isNew()) {
+      if (session.isNew() || ObjectUtils.isEmpty(session.getAttribute("entId"))) {
 			return redirectAccess();
 		}
 		String username = (String) session.getAttribute("entId");
@@ -83,14 +103,15 @@ public class PaginationController extends BaseController {
 
 
 	/**
-	 * Show form.
-	 *
-	 * @return the model and view
-	 */
+    * Insert interview.
+    *
+    * @param session the session
+    * @return the model and view
+    */
 	@GetMapping("/interview/new")
 	public ModelAndView insertInterview(HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
-		if(session.isNew()) {
+      if (session.isNew() || ObjectUtils.isEmpty(session.getAttribute("entId"))) {
 			return redirectAccess();
 		}
 		String username = (String) session.getAttribute("entId");
@@ -107,14 +128,15 @@ public class PaginationController extends BaseController {
 	}
 
 	/**
-	 * Search interview.
-	 *
-	 * @return the model and view
-	 */
+    * Search interview.
+    *
+    * @param session the session
+    * @return the model and view
+    */
 	@GetMapping("/interview/search")
 	public ModelAndView searchInterview(HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
-		if(session.isNew()) {
+      if (session.isNew() || ObjectUtils.isEmpty(session.getAttribute("entId"))) {
 			return redirectAccess();
 		}
 		String username = (String) session.getAttribute("entId");
@@ -130,15 +152,16 @@ public class PaginationController extends BaseController {
 	}
 
 	/**
-	 * Show tech feedback form.
-	 *
-	 * @param idColloquio  the id colloquio
-	 * @return the model and view
-	 */
+    * Show tech feedback form.
+    *
+    * @param idColloquio the id colloquio
+    * @param session     the session
+    * @return the model and view
+    */
 	@GetMapping("/feedback/technical")
 	public ModelAndView showTechFeedbackForm(@RequestParam("idColloquio") String idColloquio, HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
-		if(session.isNew()) {
+      if (session.isNew() || ObjectUtils.isEmpty(session.getAttribute("entId"))) {
 			return redirectAccess();
 		}
 		String username = (String) session.getAttribute("entId");
@@ -153,15 +176,16 @@ public class PaginationController extends BaseController {
 	}
 
 	/**
-	 * Show insert motivation feedback form.
-	 *
-	 * @param idColloquio  the id colloquio
-	 * @return the model and view
-	 */
+    * Show insert motivation feedback form.
+    *
+    * @param idColloquio the id colloquio
+    * @param session     the session
+    * @return the model and view
+    */
 	@GetMapping("/feedback/motivational")
 	public ModelAndView showInsertMotivationFeedbackForm(@RequestParam("idColloquio") String idColloquio, HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
-		if(session.isNew()) {
+      if (session.isNew() || ObjectUtils.isEmpty(session.getAttribute("entId"))) {
 			return redirectAccess();
 		}
 		String username = (String) session.getAttribute("entId");
@@ -176,14 +200,15 @@ public class PaginationController extends BaseController {
 	}
 
 	/**
-	 * My interviews page.
-	 *
-	 * @return the model and view
-	 */
+    * My interviews page.
+    *
+    * @param session the session
+    * @return the model and view
+    */
 	@GetMapping("/interview/completed")
 	public ModelAndView myInterviewsPage(HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
-		if(session.isNew()) {
+      if (session.isNew() || ObjectUtils.isEmpty(session.getAttribute("entId"))) {
 			return redirectAccess();
 		}
 		String username = (String) session.getAttribute("entId");
@@ -197,14 +222,15 @@ public class PaginationController extends BaseController {
 	}
 
 	/**
-	 * In progress page.
-	 *
-	 * @return the model and view
-	 */
+    * In progress page.
+    *
+    * @param session the session
+    * @return the model and view
+    */
 	@GetMapping("/interview/in-progress")
 	public ModelAndView inProgressPage(HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
-		if(session.isNew()) {
+      if (session.isNew() || ObjectUtils.isEmpty(session.getAttribute("entId"))) {
 			return redirectAccess();
 		}
 		String username = (String) session.getAttribute("entId");
@@ -218,20 +244,22 @@ public class PaginationController extends BaseController {
 	}
 
 	/**
-	 * Assigned page.
-	 *
-	 * @return the model and view
-	 */
-	@GetMapping("/interview/assigned")
+    * Assigned page.
+    *
+    * @param session the session
+    * @return the model and view
+    */
+   @GetMapping("/interview/search-assigned")
 	public ModelAndView assignedPage(HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
-		if(session.isNew()) {
+      if (session.isNew() || ObjectUtils.isEmpty(session.getAttribute("entId"))) {
 			return redirectAccess();
 		}
 		String username = (String) session.getAttribute("entId");
 		modelAndView.addObject(PaginationConstants.INTERVIEWER, interviewerFacade.interviewerInfo(username));
 		modelAndView.addObject(PaginationConstants.INTERVIEWER_LIST, interviewerFacade.findAllInterviewers());
       modelAndView.addObject(PaginationConstants.COMBO_SITES, interviewFacade.getComboSites());
+      modelAndView.addObject("searchInterviews", interviewFacade.searchAssignedInterviews(new SearchAssignedTO("", "", "", "", "", null)));
       modelAndView.addObject("searchAssignedTO", new SearchAssignedTO());
       modelAndView.addObject("comboStatus", InterviewStatusEnum.getInterviewStatusList());
 		modelAndView.addObject(PaginationConstants.REGISTER_USER_TO, new RegisterInterviewerTO());
@@ -244,14 +272,15 @@ public class PaginationController extends BaseController {
 	
 	
 	/**
-	 * Users page.
-	 *
-	 * @return the model and view
-	 */
+    * Users page.
+    *
+    * @param session the session
+    * @return the model and view
+    */
 	@GetMapping("/users")
 	public ModelAndView usersPage(HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
-		if(session.isNew()) {
+      if (session.isNew() || ObjectUtils.isEmpty(session.getAttribute("entId"))) {
 			return redirectAccess();
 		}
 		String username = (String) session.getAttribute("entId");
@@ -267,6 +296,11 @@ public class PaginationController extends BaseController {
 	}
 	
 	
+   /**
+    * Redirect access.
+    *
+    * @return the model and view
+    */
 	private ModelAndView redirectAccess() {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("accessUserTO", new AccessUserTO());

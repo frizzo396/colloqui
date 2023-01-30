@@ -1,6 +1,7 @@
 package com.accenture.interview.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,7 +66,10 @@ public class FeedbackService {
 		TechnicalFeedback techFeedback = new TechnicalFeedback(createTechFeedbackTO);
 		Optional<Interview> optInterview = interviewRepository.findInterviewById(interviewId);		
 		if(optInterview.isPresent()) {
-			techFeedback.setInterview(optInterview.get());
+         Interview interview = optInterview.get();
+         interview.setUpdatedDate(new Date());
+         techFeedback.setInterview(interview);
+         interviewRepository.save(interview);
 		}
 		return techFeedbackRepository.save(techFeedback);
 	}
@@ -82,7 +86,10 @@ public class FeedbackService {
 		MotivationFeedback motFeedback = new MotivationFeedback(feedbackTO);
 		Optional<Interview> optInterview = interviewRepository.findInterviewById(interviewId);		
 		if(optInterview.isPresent()) {
-			motFeedback.setInterview(optInterview.get());
+         Interview interview = optInterview.get();
+         interview.setUpdatedDate(new Date());
+         motFeedback.setInterview(interview);
+         interviewRepository.save(interview);
 		}
 		return motivationFeedbackRepository.save(motFeedback);
 	}

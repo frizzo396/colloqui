@@ -23,11 +23,15 @@ import com.accenture.interview.to.feedback.CreateMotivationFeedbackTO;
 import com.accenture.interview.to.feedback.CreateTechFeedbackTO;
 import com.accenture.interview.to.feedback.ScoreTechFeedbackTO;
 
+import kotlin.text.Charsets;
+
 /**
  * The Class CheckErrorsInsertMotivationFeedback.
  */
 @Component
 public class CheckErrorsInsertFeedback {
+
+   private static final Integer MAX_COMMENT_LENGHT = 5000;
 
 	/** The message source. */
 	@Autowired
@@ -60,6 +64,11 @@ public class CheckErrorsInsertFeedback {
 				errorMsg = messageSource.getMessage("feedback.error.interviewer.not-equal", null, Locale.getDefault());
 				return new ErrorRTO(errorMsg);
 			}
+         if (feedbackTO.getComment().getBytes(Charsets.UTF_8).length > MAX_COMMENT_LENGHT) {
+            errorMsg = messageSource.getMessage("feedback.error.comment.max-lenght", null, Locale.getDefault());
+            return new ErrorRTO(errorMsg);
+         }
+			
 		} catch (GenericException e) {
 			return new ErrorRTO("Errore generico");
 		}
@@ -97,6 +106,11 @@ public class CheckErrorsInsertFeedback {
 		if(!ObjectUtils.isEmpty(techListErr)) {
 			return techListErr;
 		}
+
+      if (createTechFeedbackTO.getComment().getBytes(Charsets.UTF_8).length > MAX_COMMENT_LENGHT) {
+         errorMsg = messageSource.getMessage("feedback.error.comment.max-lenght", null, Locale.getDefault());
+         return new ErrorRTO(errorMsg);
+      }
 
 		if(!isInterviewer(interviewId, enterpriseId)) {
 			errorMsg = messageSource.getMessage("feedback.interviewer.notequal", null, Locale.getDefault());

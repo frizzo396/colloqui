@@ -55,6 +55,9 @@ public class InterviewAndFeedbackRTO {
 	/** The motivational feedback. */
 	private MotivationalFeedbackRTO motivationalFeedback;
 
+   /** The cv id. */
+   private Long cvId;
+
 	/**
 	 * Instantiates a new interview and feedback RTO.
 	 *
@@ -69,7 +72,7 @@ public class InterviewAndFeedbackRTO {
 	 * @param finalFeedback the final feedback
 	 */
 	public InterviewAndFeedbackRTO(long idColloquio, String candidateName, String candidateSurname, String candidateLevel, long interviewType, Date scheduledDate, String site, String enterpriseId,
-			String finalFeedback, Integer status) {
+         String finalFeedback, Integer status) {
 		super();
 		this.idColloquio = idColloquio;
 		this.candidateName = candidateName;
@@ -83,6 +86,22 @@ public class InterviewAndFeedbackRTO {
 		this.status = status;
 	}
 	
+   public InterviewAndFeedbackRTO(long idColloquio, String candidateName, String candidateSurname, String candidateLevel, long interviewType, Date scheduledDate, String site, String enterpriseId,
+         String finalFeedback, Integer status, Long cvId) {
+      super();
+      this.idColloquio = idColloquio;
+      this.candidateName = candidateName;
+      this.candidateSurname = candidateSurname;
+      this.candidateLevel = candidateLevel;
+      this.interviewType = interviewType;
+      this.scheduledDate = scheduledDate;
+      this.site = site;
+      this.enterpriseId = enterpriseId;
+      this.finalFeedback = finalFeedback;
+      this.status = status;
+      this.cvId = cvId;
+   }
+
 	public InterviewAndFeedbackRTO(long idColloquio, String candidateName, String candidateSurname, String candidateLevel, long interviewType, Date scheduledDate, String site, String enterpriseId,
 			String finalFeedback) {
 		super();
@@ -111,7 +130,7 @@ public class InterviewAndFeedbackRTO {
 	 * @param status the status
 	 */
 	public InterviewAndFeedbackRTO(long idColloquio, String candidateName, String candidateSurname, String candidateLevel, 
-			long interviewType, Date scheduledDate, String site, String finalFeedback, Integer status) {
+         long interviewType, Date scheduledDate, String site, String finalFeedback, Integer status) {
 		super();
 		this.idColloquio = idColloquio;
 		this.candidateName = candidateName;

@@ -54,6 +54,10 @@
 						    </header>
                               <div class="col-lg-8 col-lg-offset-2" id="searchFormColumn">
                               <div class="row" id="searchFormRow">
+								<label id="assignedFilters"> Filters</label>
+											<button class="collapsible">
+												<em id="collapseIcon" class='bx bx-plus' style="margin-left: -30px"></em>
+								</button>
                                 <form id="searchInterview" class="inp-form" action="#" th:action="@{/interview/search-assigned}" th:object="${searchAssignedTO}" method="post" > 
                                     <div class="search-group">
                                         <div class="row">
@@ -121,9 +125,24 @@
                                                         </select>
                                                		</div>
                                                </div>
-                                        </div>                                                                                                             
+                                        </div>  
+                                        <div class="row" id="searchButtonRow">
+                                        	<input type="hidden" id="searchTO" th:value="${searchAssignedTO}"/>
+                                            <div class="button-column">
+                                                <div class="form-group">
+                                                    <button  class="search-button" form="searchInterview" type="submit" >Search</button>
+                                                </div>
+                                            </div>
+                                            <div class="button-column">
+                                                <div class="form-group">
+                                                    <button class="clear-button" form="searchInterview" type="reset" value="Reset" >Clear</button>
+                                                </div>
+                                            </div>
+                                </div> 
+                                                                                                                                                  
                                     </div>
                                 </form>
+
                                 <div id="searchTableContainer" class="responsive">
                                 <div th:if= "${not #lists.isEmpty(searchInterviews)}">
                                  <div class="table-row" id="tablePagRow">
@@ -137,6 +156,7 @@
                               <th class="remove" style="width: 10%;">Date</th>
                               <th style="width: 10%;">Site</th>
                               <th style="width: 14%;">Interviewer</th>
+                              <th style="width:  7%;">CV</th>  
                               <th style="width: 8%;">Status</th>
                               <th style="width: 9%;">Feedback</th>
                               <th style="width: 9%;">Detail</th>
@@ -164,6 +184,15 @@
                               </td>
                               <td th:text= "${interview.site}"/>
                               <td th:text= "${interview.enterpriseId}"/>
+                              <td>                                      		
+	                                  <form id="downloadCV" action="#" th:action="@{/interview/curriculum/download/} + ${{interview.idColloquio}}" method="get">
+		                                        	<span th:if="${interview.cvId != null}">
+											                <button th:id="'interview_child_button_' + ${interview.idColloquio}" type="submit" style="color: #0a58ca; background-color: white;">
+											                    <em class='bx bxs-download' style="font-size: 16px;"></em>
+											                </button>
+											         </span>
+										         </form>							            
+                                        </td>
                               <td>
                               	<span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).NEW.value}">
                                  <span>New</span>
@@ -207,19 +236,7 @@
                                      </div>
                                     </div>
                                 </div>
-                                 <div class="row" id="searchButtonRow">
-                                        	<input type="hidden" id="searchTO" th:value="${searchAssignedTO}"/>
-                                            <div class="button-column">
-                                                <div class="form-group">
-                                                    <button  class="search-button" form="searchInterview" type="submit" >Search</button>
-                                                </div>
-                                            </div>
-                                            <div class="button-column">
-                                                <div class="form-group">
-                                                    <button class="clear-button" form="searchInterview" type="reset" value="Reset" onclick="resetSearchTable()">Clear</button>
-                                                </div>
-                                            </div>
-                                </div>
+
                                 </div>
 
                             <div id="pagination"></div>
