@@ -55,7 +55,7 @@
 						    </header>
                               <div class="col-lg-8 col-lg-offset-2" id="searchFormColumn">
                               <div class="row" id="searchFormRow">
-                                <form id="searchInterview" class="inp-form" action="#" th:action="@{/interview/search}" th:object="${searchInterviewTO}" method="post" onsubmit="return validationSearch()" style="display:block" > 
+                                <form id="searchInterview" class="inp-form" action="#" th:action="@{/interview/search}" th:object="${searchInterviewTO}" method="post"  onsubmit="return validationSearch()" style="display:block" > 
                                     <div class="search-group">
                                         <div class="row">
                                             <div class="column">
@@ -146,7 +146,7 @@
                                             </div>
                                 </div>
                                 </form>
-                                <div id="searchTableContainer" class="responsive">
+                                <div id="searchTableContainer" class="responsive" style="padding-top: 0px;">
                                 <div th:if= "${not #lists.isEmpty(searchInterviews)}">
                                  <div class="table-row" id="tablePagRow">
                                     <table id="mytable" class="mytable paginated">
@@ -159,6 +159,7 @@
                                                 <th style="width: 10%;"  >Date </th>
                                                 <th style="width: 14%;">Interviewer</th>
                                                 <th style="width: 12%;">Site</th>
+                                                <th style="width:  7%;">CV</th> 
                                                 <th style="width: 8%;">Feedback</th>
                                                 <th style="width: 8%;">Detail</th>
                                             </tr>
@@ -173,13 +174,22 @@
                                                 </td>
                                                 <td   th:text="${#dates.format(interview.scheduledDate, 'dd-MM-YYYY HH:mm')}" />
                                                  <td th:text= "${interview.enterpriseId}"/>       
-                                                 <td th:text= "${interview.site}"/>                                                                         		 
+                                                 <td th:text= "${interview.site}"/> 
+                                      <td>                                      		
+	                                  <form id="downloadCV" action="#" th:action="@{/interview/curriculum/download/} + ${{interview.idColloquio}}" method="get">
+		                                        	<span th:if="${interview.cvId != null}">
+											                <button th:id="'interview_child_button_' + ${interview.idColloquio}" type="submit" style="color: #0a58ca; background-color: white;">
+											                    <em class='bx bxs-download' style="font-size: 16px;"></em>
+											                </button>
+											         </span>
+										         </form>							            
+                                        </td>                                                                        		 
                                            		 <td th:switch="${interview.finalFeedback}">
 												    <span th:case="'OK'" th:style="'color: #008000'">OK</span>
 												    <span th:case="'KO'" th:style="'color: #b20000'">KO</span>
 												    <span th:case="'STANDBY'" th:style="'color: #eed202'">STANDBY</span>
 												    <div th:case="*">
-												    <span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).SCHEDULED.value}">
+												    <span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).SCHEDULED.value && interviewer.enterpriseId == interview.enterpriseId}">
 												         <span th:if="${interview.interviewType == 1}">
 												         		<button type="submit" class="add-feed-button" th:data-parameter1="${interview.idColloquio}" onclick="goToMotivationalFeedback(this.getAttribute('data-parameter1'));"><em id="plusIcon" class='bx bx-plus'></em></button>
 												         </span>
@@ -188,7 +198,9 @@
                                                     	 </span>
                                                     </span>
 												    </div>
-												</td>                                 
+												</td>    
+
+                                                      
                                                  <td th:switch="${interview.interviewType}">
                                                  		<span th:case="'1'" >
                                                					 <span th:if="${interview.motivationalFeedback != null}">

@@ -1,4 +1,5 @@
 jQuery(document).ready(function ($) {
+	
 
 	//Salvataggio colloquio
 	$(document).ready(function (){
@@ -38,5 +39,6 @@ function validationSearch() {
 
 //Reset risultati ricerca colloquio
 function resetSearchTable() {
-	document.getElementById("searchTableContainer").style.display = 'none';
+	document.getElementById("searchTableContainer").style.display = 'none !important';
 }
+
