@@ -55,7 +55,7 @@
 						    </header>
                               <div class="col-lg-8 col-lg-offset-2" id="searchFormColumn">
                               <div class="row" id="searchFormRow">
-                                <form id="searchInterview" class="inp-form" action="#" th:action="@{/interview/search}" th:object="${searchInterviewTO}" method="post" onsubmit="return validationSearch()" > 
+                                <form id="searchInterview" class="inp-form" action="#" th:action="@{/interview/search}" th:object="${searchInterviewTO}" method="post" onsubmit="return validationSearch()" style="display:block" > 
                                     <div class="search-group">
                                         <div class="row">
                                             <div class="column">
@@ -132,6 +132,19 @@
                                         </div>                                      
                                         
                                     </div>
+                                  <div class="row" id="searchButtonRow">
+                                        	<input type="hidden" id="searchTO" th:value="${searchInterviewTO}"/>
+                                            <div class="button-column">
+                                                <div class="form-group">
+                                                    <button  class="search-button" form="searchInterview" type="submit" >Search</button>
+                                                </div>
+                                            </div>
+                                            <div class="button-column">
+                                                <div class="form-group">
+                                                    <button class="clear-button" form="searchInterview" type="reset" value="Reset" onclick="resetSearchTable()">Clear</button>
+                                                </div>
+                                            </div>
+                                </div>
                                 </form>
                                 <div id="searchTableContainer" class="responsive">
                                 <div th:if= "${not #lists.isEmpty(searchInterviews)}">
@@ -193,19 +206,6 @@
                                     </table>
                                      </div>
                                     </div>
-                                </div>
-                                 <div class="row" id="searchButtonRow">
-                                        	<input type="hidden" id="searchTO" th:value="${searchInterviewTO}"/>
-                                            <div class="button-column">
-                                                <div class="form-group">
-                                                    <button  class="search-button" form="searchInterview" type="submit" >Search</button>
-                                                </div>
-                                            </div>
-                                            <div class="button-column">
-                                                <div class="form-group">
-                                                    <button class="clear-button" form="searchInterview" type="reset" value="Reset" onclick="resetSearchTable()">Clear</button>
-                                                </div>
-                                            </div>
                                 </div>
                                 </div>
 
