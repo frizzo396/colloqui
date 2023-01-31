@@ -266,6 +266,7 @@ public class PaginationController extends BaseController {
 		modelAndView.addObject(PaginationConstants.APPROVE_AVAILABILITY_TO, new ApproveAvailabilityTO());
       modelAndView.addObject(PaginationConstants.REASSIGN_INTERVIEW_TO, new ReassignInterviewTO());
 		modelAndView.addObject(PaginationConstants.CHANGE_PASSWORD_INTERVIEWER_TO, new ChangePasswordInterviewerTO());
+      modelAndView.addObject(PaginationConstants.UPLOAD_CV_TO, new UploadCvTO());
 		modelAndView.setViewName("assigned.html");
 		return modelAndView;
 	}

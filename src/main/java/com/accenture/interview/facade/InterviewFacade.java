@@ -2,6 +2,7 @@ package com.accenture.interview.facade;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -84,14 +85,14 @@ public class InterviewFacade {
 		InterviewerRTO interviewer = interviewerService.findInterviewerByEnterpriseId(request.getEnterpriseId());
 		InterviewerRTO assigner = interviewerService.findInterviewerByEnterpriseId(enterpriseId);
 		SiteRTO site = siteService.findSiteById(Long.parseLong(request.getSite()));
-
+      List<String> responsibleMails = interviewerService.getAllResponsibles().stream().map(InterviewerRTO::getMail).collect(Collectors.toList());
 		if (!(ObjectUtils.isEmpty(interviewer))) {
 			Long interviewId = interviewService.addNewInterview(request, candidateType, interviewer, site, assigner);
 			response = new CreateInterviewRTO(request);
 			response.setInterviewId(interviewId);
 			
 			MailParametersTO mailParams = new MailParametersTO(Arrays.asList(interviewer.getMail()), 
-					Arrays.asList(assigner.getMail()), 
+               responsibleMails,
 					Arrays.asList(response.getCandidateName(), response.getCandidateSurname()), 
 					Arrays.asList(response.getCandidateName(), response.getCandidateSurname()), WebPaths.IN_PROGRESS);
 			mailService.sendMail(mailParams, MailTypeEnum.INTERVIEW_INSERT);		

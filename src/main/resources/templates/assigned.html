@@ -29,6 +29,7 @@
         <script type="text/javascript" th:src="@{/js/general.js}"></script>
         <script type="text/javascript" th:src="@{/js/interview.js}"></script>
         <script type="text/javascript" th:src="@{/js/table.js}"></script>
+        <script type="text/javascript" th:src="@{/js/upload.js}"></script>
         <script type="text/javascript" th:src="@{/js/feedback.js}"></script>
         <script type="text/javascript" th:src="@{/js/sidebar.js}"></script>
         <script type="text/javascript" th:src="@{/js/availability.js}"></script>
@@ -191,7 +192,14 @@
 											                    <em class='bx bxs-download' style="font-size: 16px;"></em>
 											                </button>
 											         </span>
-										         </form>							            
+									  </form>
+											         <span th:if="${interview.cvId == null}">
+											         	<button id="openCvModalAssigned"  th:onclick="|createUploadCVModal(${interview.idColloquio})|" style="background-color: white;">
+											         		<em class='bx bx-plus' style="font-size: 17px; color: #0a58ca" ></em> 
+											         	</button>
+											         </span>
+											         
+									  							            
                                         </td>
                               <td>
                               	<span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).NEW.value}">
@@ -256,6 +264,9 @@
                   			<div id="change-password-modal" class="cd-popup" role="alert">
 							     <div th:replace="fragments/changePasswordModal"></div>
 							</div> 
+							<div id="upload-cv-modal" class="cd-popup" role="alert">
+                 					<div th:replace="fragments/uploadCvModal"></div>
+        					</div>
                     </div>
                     
                                        <!-- New Interview -->

@@ -23,6 +23,7 @@ import com.accenture.interview.to.interview.CreateInterviewTO;
 import com.accenture.interview.to.interview.ReassignInterviewTO;
 import com.accenture.interview.to.interview.SearchAssignedTO;
 import com.accenture.interview.to.interview.SearchInterviewTO;
+import com.accenture.interview.to.interview.UploadCvTO;
 import com.accenture.interview.to.interviewer.AccessUserTO;
 import com.accenture.interview.to.interviewer.ChangePasswordInterviewerTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
@@ -121,6 +122,7 @@ public class InterviewController {
       model.addAttribute("comboStatus", InterviewStatusEnum.getInterviewStatusList());
       model.addAttribute("interviewerList", interviewerFacade.findAllInterviewers());
       model.addAttribute("registerUserTO", new RegisterInterviewerTO());
+      model.addAttribute(PaginationConstants.UPLOAD_CV_TO, new UploadCvTO());
       model.addAttribute(PaginationConstants.APPROVE_AVAILABILITY_TO, new ApproveAvailabilityTO());
       model.addAttribute(PaginationConstants.REASSIGN_INTERVIEW_TO, new ReassignInterviewTO());
       model.addAttribute(PaginationConstants.CHANGE_PASSWORD_INTERVIEWER_TO, new ChangePasswordInterviewerTO());
