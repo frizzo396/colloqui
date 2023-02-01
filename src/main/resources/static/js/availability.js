@@ -16,6 +16,13 @@ jQuery(document).ready(function($){
 			event.preventDefault();
 			$('#reassign-modal').addClass('is-visible');
     	});
+    	 //Rischedulazione
+    	 $('.reschedule-popup').on('click', function (event) {
+			event.preventDefault();
+			$('#rescheduled-modal').addClass('is-visible');
+    	});
+    	
+    	
 	
 });	
 
@@ -73,6 +80,30 @@ $(document).ready(function (){
 	});
 });
 
+
+//rifiuto intervista
+$(document).ready(function (){
+	var $form= $('#acceptRescheduling');
+	$form.submit(function (e) {
+		e.preventDefault(e);
+		$.post($(this).attr('action'), $(this).serialize(), function (response){
+			if(response.error == null){
+					showToast("Operazione avvenuta con successo", "SUCCESS", 3000);
+					setTimeout(function(){RedirectInProgress()}, 1500);
+				}
+				else {
+					if(response.error == "EXPIRED"){
+						redirectAccess();	
+					} else {
+						showToast(response.error, "ERROR", 3000);
+					}
+				}
+		}, 'json');
+		return false;
+	});
+});
+
+
 //rifiuto intervista
 $(document).ready(function (){
 	var $form= $('#refuseAvailability');
@@ -94,6 +125,30 @@ $(document).ready(function (){
 		return false;
 	});
 });
+
+
+//rifiuto intervista
+$(document).ready(function (){
+	var $form= $('#refuseAvailability2');
+	$form.submit(function (e) {
+		e.preventDefault(e);
+		$.post($(this).attr('action'), $(this).serialize(), function (response){
+			if(response.error == null){
+					showToast("Operazione avvenuta con successo", "SUCCESS", 3000);
+					setTimeout(function(){RedirectInProgress()}, 1500);
+				}
+				else {
+					if(response.error == "EXPIRED"){
+						redirectAccess();	
+					} else {
+						showToast(response.error, "ERROR", 3000);
+					}
+				}
+		}, 'json');
+		return false;
+	});
+});
+
 
 //Riassegnazione colloquio
 $(document).ready(function (){
@@ -125,12 +180,25 @@ function createAvailablityModal(interviewId){
 	document.getElementById("interviewIdHid2").value = interviewId;		
 }
 
+function createAcceptRescheduledModal(interviewId, rescheduledDate){
+	document.getElementById("rescheduleIntId").value = interviewId;
+	document.getElementById("rescheduleIntId2").value = interviewId;
+	if(rescheduledDate.includes(".")){
+		const array = rescheduledDate.split(".");
+		document.getElementById("rescheduleIntDate").value = array[0];
+	} else {				
+		document.getElementById("rescheduleIntDate").value = rescheduledDate;	
+	}
+	
+}
+
+
 //Creazione modale approvazione disponibilità
 function createApproveAvailablityModal(interviewId, dateInterviewList){
 	document.getElementById("approvedIntId").value = interviewId;	
 	let datesDropDown = document.getElementById("approvedDate");
 	datesDropDown.innerHTML = ""; //Clear
-	datesDropDown.add(new Option("Nothing selected", null)) ;
+	datesDropDown.add(new Option("Nothing selected", "")) ;
 	var obj = JSON.parse(dateInterviewList);	
 	let dateList = obj.availabilityDates;
 	

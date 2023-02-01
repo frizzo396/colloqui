@@ -1,5 +1,5 @@
 jQuery(document).ready(function($){
-	
+		
 	//Click su X per chiusura modali
 	$(document).on('click','#closeModal', function() {
   		$('.cd-popup').removeClass('is-visible');

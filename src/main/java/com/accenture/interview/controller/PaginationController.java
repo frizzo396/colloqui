@@ -19,6 +19,7 @@ import com.accenture.interview.to.interview.ApproveAvailabilityTO;
 import com.accenture.interview.to.interview.CreateInterviewTO;
 import com.accenture.interview.to.interview.InsertAvailabilityTO;
 import com.accenture.interview.to.interview.ReassignInterviewTO;
+import com.accenture.interview.to.interview.RescheduledAvailabilityTO;
 import com.accenture.interview.to.interview.SearchAssignedTO;
 import com.accenture.interview.to.interview.SearchInterviewTO;
 import com.accenture.interview.to.interview.UploadCvTO;
@@ -239,7 +240,8 @@ public class PaginationController extends BaseController {
 		modelAndView.addObject(PaginationConstants.REGISTER_USER_TO, new RegisterInterviewerTO());
 		modelAndView.addObject(PaginationConstants.INSERT_AVAILABILITY_TO, new InsertAvailabilityTO());
       modelAndView.addObject(PaginationConstants.CHANGE_PASSWORD_INTERVIEWER_TO, new ChangePasswordInterviewerTO());
-		modelAndView.setViewName("in-progress-interviews.html");
+      modelAndView.addObject("rescheduledAvailabilityTO", new RescheduledAvailabilityTO());
+      modelAndView.setViewName("in-progress-interviews.html");
 		return modelAndView;
 	}
 

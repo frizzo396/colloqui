@@ -371,6 +371,23 @@ public class InterviewService {
 		return null;
 	}
 	
+   /**
+    * Accept rescheduled.
+    *
+    * @param interviewId the interview id
+    * @return the long
+    */
+   public Long acceptRescheduled(Long interviewId) {
+      Optional<Interview> optInterview = interviewRepository.findInterviewById(interviewId);
+      if (optInterview.isPresent()) {
+         Interview interview = optInterview.get();
+         interview.setStatus(InterviewStatusEnum.SCHEDULED.getValue());
+         interview.setUpdatedDate(new Date());
+         interviewRepository.save(interview);
+         return interviewId;
+      }
+      return null;
+   }
 	
 	/**
 	 * Find last interview id.

@@ -1,5 +1,8 @@
 package com.accenture.interview.service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,7 +17,6 @@ import com.accenture.interview.repository.interview.AvailabilityRepository;
 import com.accenture.interview.repository.interview.InterviewRepository;
 import com.accenture.interview.rto.interview.DateListRTO;
 import com.accenture.interview.rto.interview.InterviewAndFeedbackRTO;
-import com.accenture.interview.to.interview.ApproveAvailabilityTO;
 import com.accenture.interview.to.interview.InsertAvailabilityTO;
 import com.accenture.interview.utils.enums.InterviewStatusEnum;
 
@@ -34,17 +36,20 @@ public class AvailabilityService {
 
 
 	/**
-	 * Adds the availabilty interview.
-	 *
-	 * @param insertAvailabilityTO the insert availability TO
-	 */
-	public void addAvailabiltyInterview(InsertAvailabilityTO insertAvailabilityTO) {
+    * Adds the availabilty interview.
+    *
+    * @param insertAvailabilityTO the insert availability TO
+    * @param firstDate            the first date
+    * @param secondDate           the second date
+    * @param thirdDate            the third date
+    */
+   public void addAvailabiltyInterview(InsertAvailabilityTO insertAvailabilityTO, Date firstDate, Date secondDate, Date thirdDate) {
 		Optional<Interview> optInterview = interviewRepository.findInterviewById(insertAvailabilityTO.getInterviewId());		
 		if(optInterview.isPresent()) {
 			Interview interview = optInterview.get();
          interview.setUpdatedDate(new Date());
 			interview.setStatus(InterviewStatusEnum.IN_PROGRESS.getValue());
-			List<Availability> availabilityList = createAvailabilityList(interview, insertAvailabilityTO);
+         List<Availability> availabilityList = createAvailabilityList(interview, firstDate, secondDate, thirdDate);
 			interviewRepository.save(interview);
 			availabilityRepository.saveAll(availabilityList);			
 		}
@@ -55,32 +60,41 @@ public class AvailabilityService {
 	 *
 	 * @param approveAvailabilityTO the approve availability TO
 	 */
-	public void approveAvailabilty(ApproveAvailabilityTO approveAvailabilityTO) {
-		Optional<Interview> optInterview = interviewRepository.findInterviewById(approveAvailabilityTO.getInterviewId());		
+   public void approveAvailabilty(Long interviewId, Date approvedDate, String newDate, boolean isReschedule) {
+      Optional<Interview> optInterview = interviewRepository.findInterviewById(interviewId);
 		if(optInterview.isPresent()) {
 			Interview interview = optInterview.get();
          interview.setUpdatedDate(new Date());
-			interview.setStatus(InterviewStatusEnum.SCHEDULED.getValue());
-			interview.setScheduledDate(approveAvailabilityTO.getApprovedDate());
+         if (!isReschedule) {
+            interview.setStatus(InterviewStatusEnum.SCHEDULED.getValue());
+            interview.setScheduledDate(approvedDate);
+         } else {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+            LocalDateTime newLocalDate = LocalDateTime.parse(newDate, formatter);
+            interview.setStatus(InterviewStatusEnum.RESCHEDULED.getValue());
+            interview.setScheduledDate(Date.from(newLocalDate.atZone(ZoneId.systemDefault()).toInstant()));
+         }
 			interviewRepository.save(interview);			
 		}
 	}
 	
 	/**
-	 * Creates the availability list.
-	 *
-	 * @param interview the interview
-	 * @param insertAvailabilityTO the insert availability TO
-	 * @return the list
-	 */
-	private List<Availability> createAvailabilityList(Interview interview, InsertAvailabilityTO insertAvailabilityTO){
+    * Creates the availability list.
+    *
+    * @param interview  the interview
+    * @param firstDate  the first date
+    * @param secondDate the second date
+    * @param thirdDate  the third date
+    * @return the list
+    */
+   private List<Availability> createAvailabilityList(Interview interview, Date firstDate, Date secondDate, Date thirdDate) {
 		List<Availability> availabilityList = new ArrayList<>();
-		Availability firstAvailability = new Availability(interview, insertAvailabilityTO.getFirstDate());
-		Availability secondAvailability = new Availability(interview, insertAvailabilityTO.getSecondDate());
-		Availability thirdAvailability = new Availability(interview, insertAvailabilityTO.getThirdDate());
-		availabilityList.add(firstAvailability);
-		availabilityList.add(secondAvailability);
-		availabilityList.add(thirdAvailability);		
+      Availability firstAvailability = new Availability(interview, firstDate);
+      Availability secondAvailability = new Availability(interview, secondDate);
+      Availability thirdAvailability = new Availability(interview, thirdDate);
+      availabilityList.add(firstAvailability);
+      availabilityList.add(secondAvailability);
+      availabilityList.add(thirdAvailability);
 		return availabilityList;	
 	}
 

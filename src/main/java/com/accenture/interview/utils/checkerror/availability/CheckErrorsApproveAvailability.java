@@ -53,6 +53,14 @@ public class CheckErrorsApproveAvailability {
 				String errorMsg = messageSource.getMessage("interview.error.not-found", null, Locale.getDefault());
 				return new ErrorRTO(errorMsg);
 			}
+         if (ObjectUtils.isEmpty(approveAvailabilityTO.getNewDate()) && ObjectUtils.isEmpty(approveAvailabilityTO.getApprovedDate())) {
+            String errorMsg = messageSource.getMessage("availability.error.two-dates", null, Locale.getDefault());
+            return new ErrorRTO(errorMsg);
+         }
+         if (!ObjectUtils.isEmpty(approveAvailabilityTO.getNewDate()) && !ObjectUtils.isEmpty(approveAvailabilityTO.getApprovedDate())) {
+            String errorMsg = messageSource.getMessage("availability.error.two-dates", null, Locale.getDefault());
+            return new ErrorRTO(errorMsg);
+         }
 		} catch (GenericException e) {
 			return new ErrorRTO("Errore generico");
 		}

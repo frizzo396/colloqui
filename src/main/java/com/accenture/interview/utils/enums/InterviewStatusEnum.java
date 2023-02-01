@@ -30,7 +30,10 @@ public enum InterviewStatusEnum
    COMPLETED(4, "Completed"),
 	
 	/** The refused. */
-   REFUSED(5, "Refused");
+   REFUSED(5, "Refused"),
+
+   /** The refused. */
+   RESCHEDULED(6, "Rescheduled");
 	
    /** The value. */
 	private Integer value;

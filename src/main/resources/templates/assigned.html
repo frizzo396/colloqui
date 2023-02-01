@@ -16,7 +16,7 @@
         <link th:href="@{/css/popup-container.css}" rel="stylesheet" />
         <link th:href="@{/css/cta_header.css}" rel="stylesheet" />
         <link th:href="@{/css/password-icons.css}" rel="stylesheet" />
-        
+        <link th:href="@{/css/datepicker.css}" rel="stylesheet" />
          <link href="https://fonts.cdnfonts.com/css/graphik" rel="stylesheet" type='text/css'>
         <link th:rel="stylesheet" th:href="@{assets/bootstrap-select-1.13.9/dist/css/bootstrap-select.css}" />
         <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
@@ -35,6 +35,9 @@
         <script type="text/javascript" th:src="@{/js/availability.js}"></script>
         <script type="text/javascript" th:src="@{/js/cta-header.js}"></script>
         <script type="text/javascript" th:src="@{/js/password.js}"></script>
+        <script type="text/javascript" th:src="@{/js/datepicker.js}"></script>
+        <script type="text/javascript" th:src="@{/js/datepicker-ie8.js}"></script>
+        <script type="text/javascript" th:src="@{/js/dt-assigned.js}"></script>
     </head>
     <body>
         <div class="interview-html">               
@@ -176,7 +179,7 @@
                                  <button id="approveDateBtn" th:data-parameter1="${interview.idColloquio}" th:data-parameter2="${interview.availabilityDates}" onclick="createApproveAvailablityModal(this.getAttribute('data-parameter1'), this.getAttribute('data-parameter2') )" type="submit" class="approve-popup">Approve</button>
                                  </span>
                                  <span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).SCHEDULED.value 
-                                    or interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).COMPLETED.value}">
+                                    or interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).COMPLETED.value or interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).RESCHEDULED.value}">
                                  <span th:text="${#dates.format(interview.scheduledDate, 'dd-MM-YYYY HH:mm')}"></span>
                                  </span>      
                                  <span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).REFUSED.value}">
@@ -216,6 +219,9 @@
                                  </span>
                                  <span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).REFUSED.value}">                                                  
                                  <span>Refused</span>
+                                 </span> 
+                                 <span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).RESCHEDULED.value}">                                                  
+                                 <span>Rescheduled</span>
                                  </span>                                             
                               </td>
                               <td>

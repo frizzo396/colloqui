@@ -20,6 +20,7 @@ public enum MailTypeEnum
 	/** The availability approve. */
 	AVAILABILITY_APPROVE("mail.body.availability.approve"),
 	
+   /** The availability refuse. */
 	AVAILABILITY_REFUSE("mail.body.availability.refuse"),
 
 	/** The feedback insert. */
@@ -29,7 +30,12 @@ public enum MailTypeEnum
 	USER_REGISTER("mail.body.user.register"),
 
 	/** The user welcome. */
-	USER_WELCOME("mail.body.user.welcome");
+   USER_WELCOME("mail.body.user.welcome"),
+	
+   /** The availability reschedule. */
+   AVAILABILITY_RESCHEDULE("mail.body.availability.reschedule"),
+
+   AVAILABILITY_RESCHEDULE_ACCEPTED("mail.body.availability.reschedule.accepted");
 
 	/** The value. */
 	private String value;
