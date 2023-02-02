@@ -22,9 +22,11 @@ import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.to.interviewer.AccessUserTO;
 import com.accenture.interview.to.interviewer.ChangePasswordInterviewerTO;
 import com.accenture.interview.to.interviewer.ModifyInterviewerTO;
+import com.accenture.interview.to.interviewer.RecoverPasswordTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 import com.accenture.interview.to.interviewer.RequestRegistrationTO;
 import com.accenture.interview.utils.checkerror.interviewer.CheckErrorsAccessInterviewer;
+import com.accenture.interview.utils.checkerror.interviewer.CheckErrorsRecoverPasswordInterviewer;
 import com.accenture.interview.utils.checkerror.interviewer.CheckErrorsRegisterInterviewer;
 import com.accenture.interview.utils.constants.PaginationConstants;
 
@@ -46,6 +48,11 @@ public class InterviewerController {
    /** The check errors access interviewer. */
    @Autowired
    private CheckErrorsAccessInterviewer checkErrorsAccessInterviewer;
+   
+   /** The check errors recover password interviewer. */
+   @Autowired
+   private CheckErrorsRecoverPasswordInterviewer checkErrorsRecoverPasswordInterviewer;   
+   
 
    /**
     * Interviewer info.
@@ -169,4 +176,23 @@ public class InterviewerController {
       return new ResponseEntity<>(new BaseResponseRTO(accessUserTO.getEnterpriseId(), null), HttpStatus.OK);		
    }	
 
+   
+   /**
+    * Recover password.
+    *
+    * @param recoverPasswordTO the recover user password TO
+    * @param session the session
+    * @return the response entity
+    */
+   @PostMapping("/recover-pwd")
+   public @ResponseBody ResponseEntity<Object> recoverPasswordInterviewer(@RequestBody @ModelAttribute RecoverPasswordTO recoverPasswordTO, HttpSession session) {		
+	  ErrorRTO errorRTO = checkErrorsRecoverPasswordInterviewer.validate(recoverPasswordTO);
+
+	  if (!ObjectUtils.isEmpty(errorRTO)) {
+		  return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
+	  } else {		  
+		  return new ResponseEntity<>(interviewerFacade.recoverPassword(recoverPasswordTO), HttpStatus.OK);  
+	  }
+   }
+   
 }

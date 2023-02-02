@@ -67,6 +67,9 @@ public class MailUtils {
 		else if(mailType.equals(MailTypeEnum.USER_WELCOME)) {
 			subject = messageSource.getMessage("mail.subject.welcome", null, Locale.getDefault());
 		}
+		else if(mailType.equals(MailTypeEnum.USER_RECOVER_PASSWORD)) {
+			subject = messageSource.getMessage("mail.subject.recover-pwd", null, Locale.getDefault());
+		}		
 
 		if(!ObjectUtils.isEmpty(subject)) {	
 			for(int i = 0; i < subjectParams.size(); i++) {

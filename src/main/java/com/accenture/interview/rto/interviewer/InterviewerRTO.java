@@ -2,6 +2,7 @@ package com.accenture.interview.rto.interviewer;
 
 import com.accenture.interview.entity.Interviewer;
 import com.accenture.interview.to.interviewer.ModifyInterviewerTO;
+import com.accenture.interview.to.interviewer.RecoverPasswordTO;
 import com.accenture.interview.to.interviewer.ChangePasswordInterviewerTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 
@@ -107,6 +108,16 @@ public class InterviewerRTO {
 		this.id = request.getId();		
 		this.enterpriseId = request.getEnterpriseId();		
 		this.password = request.getNewPassword();
+	}
+	
+	/**
+	 * Instantiates interviewer.
+	 *
+	 * @param request the recover interviewer password request
+	 */
+	public InterviewerRTO(RecoverPasswordTO request) {		
+		this.enterpriseId = request.getEnterpriseId();		
+		this.password = request.getPassword();
 	}	
 
 }

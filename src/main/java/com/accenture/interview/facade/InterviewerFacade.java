@@ -16,6 +16,7 @@ import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.service.InterviewerService;
 import com.accenture.interview.service.general.MailService;
 import com.accenture.interview.to.interviewer.ModifyInterviewerTO;
+import com.accenture.interview.to.interviewer.RecoverPasswordTO;
 import com.accenture.interview.to.interviewer.ChangePasswordInterviewerTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 import com.accenture.interview.to.interviewer.RequestRegistrationTO;
@@ -182,5 +183,34 @@ public class InterviewerFacade {
 	 */
 	public List<InterviewerRTO> findAllUsers(){		
 		return interviewerService.findAllUsers();
+	}
+	
+	
+	/**
+	 * Send mail for recover interviewer password.
+	 *
+	 * @param requestTO the request TO
+	 * @return the base response RTO
+	 */
+	public BaseResponseRTO recoverPassword(RecoverPasswordTO recoverPasswordTO) {
+		
+		InterviewerRTO interviewerRto = 
+		interviewerService.findInterviewerByEnterpriseIdAndMail(recoverPasswordTO.getEnterpriseId(), recoverPasswordTO.getMail());
+		
+		ArrayList<String> bodyParams = new ArrayList<>();
+		if(!ObjectUtils.isEmpty(interviewerRto.getPassword())) {
+			bodyParams.add(interviewerRto.getEnterpriseId());
+			bodyParams.add(interviewerRto.getMail());
+			bodyParams.add(interviewerRto.getPassword());
+		}		
+
+		MailParametersTO mailParams = new MailParametersTO(Arrays.asList(recoverPasswordTO.getMail()), 
+				new ArrayList<>(), bodyParams, new ArrayList<>(), WebPaths.HOME);
+		
+		boolean result = mailService.sendMail(mailParams, MailTypeEnum.USER_RECOVER_PASSWORD);	
+		if(!result) {
+			return new BaseResponseRTO(null, mailService.registrationRequestMailNotSend());
+		}
+		return new BaseResponseRTO(new InterviewerRTO(recoverPasswordTO), null);
 	}	
 }

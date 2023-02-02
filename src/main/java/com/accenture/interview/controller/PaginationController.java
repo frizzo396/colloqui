@@ -25,6 +25,7 @@ import com.accenture.interview.to.interview.UploadCvTO;
 import com.accenture.interview.to.interviewer.AccessUserTO;
 import com.accenture.interview.to.interviewer.ChangePasswordInterviewerTO;
 import com.accenture.interview.to.interviewer.ModifyInterviewerTO;
+import com.accenture.interview.to.interviewer.RecoverPasswordTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 import com.accenture.interview.to.interviewer.RequestRegistrationTO;
 import com.accenture.interview.utils.constants.PaginationConstants;
@@ -54,9 +55,22 @@ public class PaginationController extends BaseController {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("accessUserTO", new AccessUserTO());
 		modelAndView.addObject(PaginationConstants.REQUEST_REGISTRATION_TO, new RequestRegistrationTO());
-      modelAndView.setViewName("access.html");
+		modelAndView.setViewName("access.html");
 		return modelAndView;
 	}
+	
+	/**
+	 * Recover password page.
+	 *
+	 * @return the model and view
+	 */
+	@GetMapping("/recover-password")
+	public ModelAndView recoverPasswordPage() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("recoverPasswordTO", new RecoverPasswordTO());
+		modelAndView.setViewName("recover-password.html");
+		return modelAndView;
+	}	
 	
    /**
     * Logout.

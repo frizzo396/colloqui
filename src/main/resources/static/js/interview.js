@@ -13,15 +13,15 @@ jQuery(document).ready(function ($) {
 						           showToast("Colloquio inserito con successo", "SUCCESS", 3000); 
 						           document.getElementById('insertInterview').reset();
 						           createUploadCVModal(response.body.interviewId);}, 2000);
+				}
+				else {
+					if(response.error == "EXPIRED"){
+						redirectAccess();	
+					} else {
+						var submitBtn = document.getElementById('insertInterviewBtn');
+						setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); showToast(response.error, "ERROR", 3000);}, 2000);
 					}
-					else {
-						if(response.error == "EXPIRED"){
-							redirectAccess();	
-						} else {
-							var submitBtn = document.getElementById('insertInterviewBtn');
-							setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); showToast(response.error, "ERROR", 3000);}, 2000);
-						}
-					}
+				}
 	
 			}, 'json');
 			return false;

@@ -56,6 +56,17 @@ public interface InterviewerRepository extends JpaRepository<Interviewer, Long> 
 	InterviewerRTO findInterviewerByEnterpriseId(@Param("enterpriseId") String enterpriseId);
 		
 	/**
+	 * Find interviewer by enterprise id and by email (for recover password).
+	 *
+	 * @param enterpriseId the enterprise id
+	 * @param mail the email
+	 * @return the optional
+	 */
+	@Query("select new com.accenture.interview.rto.interviewer.InterviewerRTO(ier.id, ier.enterpriseId, ier.mail, ier.password, ier.type) "
+			+ "from Interviewer ier where ier.enterpriseId=:enterpriseId and ier.mail=:mail and ier.status=1")
+	InterviewerRTO findInterviewerByEnterpriseIdAndMail(@Param("enterpriseId") String enterpriseId, @Param("mail") String email);	
+		
+	/**
 	 * Find all responsibles.
 	 *
 	 * @return the list

@@ -29,7 +29,10 @@ public enum MailTypeEnum
 	USER_REGISTER("mail.body.user.register"),
 
 	/** The user welcome. */
-	USER_WELCOME("mail.body.user.welcome");
+	USER_WELCOME("mail.body.user.welcome"),
+	
+	/** The recover user password. */
+	USER_RECOVER_PASSWORD("mail.body.user.recover-pwd");	
 
 	/** The value. */
 	private String value;

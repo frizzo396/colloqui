@@ -30,6 +30,10 @@
 	padding-top:0px;
 }
 
+#recoverUserPassword {
+	padding-top:0px;
+}
+
 #accessBackGround {
 	position: relative;
     z-index: 1;

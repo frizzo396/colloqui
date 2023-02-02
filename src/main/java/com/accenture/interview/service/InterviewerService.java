@@ -37,6 +37,16 @@ public class InterviewerService {
 	public InterviewerRTO findInterviewerByEnterpriseId(String enterpriseId) {
 		return interviewerRepository.findInterviewerByEnterpriseId(enterpriseId);
 	}
+	
+	/**
+	 * Find interviewer by id and email (for recover password).
+	 *
+	 * @param enterpriseId the enterprise id
+	 * @return the interviewer
+	 */
+	public InterviewerRTO findInterviewerByEnterpriseIdAndMail(String enterpriseId, String email) {
+		return interviewerRepository.findInterviewerByEnterpriseIdAndMail(enterpriseId, email);
+	}	
 
 	/**
 	 * Adds the new interview.
