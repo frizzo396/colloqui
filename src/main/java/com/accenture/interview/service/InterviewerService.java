@@ -13,8 +13,8 @@ import com.accenture.interview.entity.Interviewer;
 import com.accenture.interview.repository.interviewer.InterviewerRepository;
 import com.accenture.interview.rto.general.BaseResponseRTO;
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
-import com.accenture.interview.to.interviewer.ModifyInterviewerTO;
 import com.accenture.interview.to.interviewer.ChangePasswordInterviewerTO;
+import com.accenture.interview.to.interviewer.ModifyInterviewerTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 import com.accenture.interview.utils.checkerror.interviewer.CheckNewPassword;
 
@@ -29,31 +29,32 @@ public class InterviewerService {
 	private InterviewerRepository interviewerRepository;
 
 	/**
-	 * Find interviewer by id.
-	 *
-	 * @param enterpriseId the enterprise id
-	 * @return the interviewer
-	 */
+    * Find interviewer by enterprise id.
+    *
+    * @param enterpriseId the enterprise id
+    * @return the interviewer RTO
+    */
 	public InterviewerRTO findInterviewerByEnterpriseId(String enterpriseId) {
 		return interviewerRepository.findInterviewerByEnterpriseId(enterpriseId);
 	}
 	
 	/**
-	 * Find interviewer by id and email (for recover password).
-	 *
-	 * @param enterpriseId the enterprise id
-	 * @return the interviewer
-	 */
+    * Find interviewer by enterprise id and mail.
+    *
+    * @param enterpriseId the enterprise id
+    * @param email        the email
+    * @return the interviewer RTO
+    */
 	public InterviewerRTO findInterviewerByEnterpriseIdAndMail(String enterpriseId, String email) {
 		return interviewerRepository.findInterviewerByEnterpriseIdAndMail(enterpriseId, email);
 	}	
 
 	/**
-	 * Adds the new interview.
-	 *
-	 * @param request       the request
-	 * @return the creates the interview response
-	 */
+    * Adds the new interviewer.
+    *
+    * @param request the request
+    * @return the string
+    */
 	public String addNewInterviewer(RegisterInterviewerTO request) {
 		Interviewer interviewer = null;
 		String password = null;
@@ -74,11 +75,10 @@ public class InterviewerService {
 	}
 	
 	/**
-	 * Modifies the interviewer.
-	 *
-	 * @param request       the request
-	 * @return the creates the interview response
-	 */
+    * Modify interviewer.
+    *
+    * @param request the request
+    */
 	public void modifyInterviewer(ModifyInterviewerTO request) {
 		Interviewer interviewer = null;
 		Optional<Interviewer> optInterviewer = interviewerRepository.findInterviewerEntityByEnterpriseId(request.getEnterpriseId());
@@ -92,11 +92,12 @@ public class InterviewerService {
 	}
 	
 	/**
-	 * Changes the password of interviewer.
-	 *
-	 * @param request       the request
-	 * @return the creates the interview response
-	 */
+    * Change password interviewer.
+    *
+    * @param request       the request
+    * @param messageSource the message source
+    * @return the base response RTO
+    */
 	public BaseResponseRTO changePasswordInterviewer(ChangePasswordInterviewerTO request, MessageSource messageSource) {
 		Interviewer interviewer = null;
 		Optional<Interviewer> optInterviewer = interviewerRepository.findInterviewerEntityByEnterpriseId(request.getEnterpriseId());		
@@ -133,11 +134,10 @@ public class InterviewerService {
 	}	
 	
 	/**
-	 * Enable/disable interviewer status.
-	 *
-	 * @param request       the request
-	 * @return the creates the interview response
-	 */
+    * Enable disable interviewer.
+    *
+    * @param request the request
+    */
 	public void enableDisableInterviewer(ModifyInterviewerTO request) {
 		Interviewer interviewer = null;
 		Optional<Interviewer> optInterviewer = interviewerRepository.findInterviewerEntityById(request.getId());
@@ -208,5 +208,21 @@ public class InterviewerService {
 	public List<InterviewerRTO> findAllUsers(){		
 		return interviewerRepository.findAllUsers();
 	}	
+
+   /**
+    * Recover password.
+    *
+    * @param userId   the user id
+    * @param password the password
+    */
+   public void recoverPassword(String enterpriseId, String password) {
+      InterviewerRTO interviewerRTO = interviewerRepository.findInterviewerByEnterpriseId(enterpriseId);
+      Optional<Interviewer> optInterview = interviewerRepository.findById(interviewerRTO.getId());
+      if (optInterview.isPresent()) {
+         Interviewer interviewer = optInterview.get();
+         interviewer.setPassword(password);
+         interviewerRepository.save(interviewer);
+      }
+   }
 
 }

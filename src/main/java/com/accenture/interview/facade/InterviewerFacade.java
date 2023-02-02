@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
@@ -15,9 +16,9 @@ import com.accenture.interview.rto.general.BaseResponseRTO;
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.service.InterviewerService;
 import com.accenture.interview.service.general.MailService;
+import com.accenture.interview.to.interviewer.ChangePasswordInterviewerTO;
 import com.accenture.interview.to.interviewer.ModifyInterviewerTO;
 import com.accenture.interview.to.interviewer.RecoverPasswordTO;
-import com.accenture.interview.to.interviewer.ChangePasswordInterviewerTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 import com.accenture.interview.to.interviewer.RequestRegistrationTO;
 import com.accenture.interview.to.mail.MailParametersTO;
@@ -193,19 +194,12 @@ public class InterviewerFacade {
 	 * @return the base response RTO
 	 */
 	public BaseResponseRTO recoverPassword(RecoverPasswordTO recoverPasswordTO) {
-		
-		InterviewerRTO interviewerRto = 
-		interviewerService.findInterviewerByEnterpriseIdAndMail(recoverPasswordTO.getEnterpriseId(), recoverPasswordTO.getMail());
-		
-		ArrayList<String> bodyParams = new ArrayList<>();
-		if(!ObjectUtils.isEmpty(interviewerRto.getPassword())) {
-			bodyParams.add(interviewerRto.getEnterpriseId());
-			bodyParams.add(interviewerRto.getMail());
-			bodyParams.add(interviewerRto.getPassword());
-		}		
+      String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%";
+      String password = RandomStringUtils.random(8, characters);
+      interviewerService.recoverPassword(recoverPasswordTO.getEnterpriseId(), password);
 
 		MailParametersTO mailParams = new MailParametersTO(Arrays.asList(recoverPasswordTO.getMail()), 
-				new ArrayList<>(), bodyParams, new ArrayList<>(), WebPaths.HOME);
+            new ArrayList<>(), Arrays.asList(password), new ArrayList<>(), WebPaths.HOME);
 		
 		boolean result = mailService.sendMail(mailParams, MailTypeEnum.USER_RECOVER_PASSWORD);	
 		if(!result) {

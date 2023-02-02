@@ -38,29 +38,29 @@
             </div>
             <div class="pageRow">
                 <div class="col-lg-8 col-lg-offset-2" id="accessPageColumn">
-                    <div class="container" id="containerAccess">
+                    <div class="container" id="containerAccess" style="width: 32%;">
                         <div class="row">
                             <header class="containerHeader">
-                                <label class="containerLabel">Access</label> 
+                                <label class="containerLabel" style="margin-left:2%">Access</label> 
                             </header>
-                            <form class="inp-form" id="userAccess" action="#" th:action="@{/interviewer/access}" th:object="${accessUserTO}" method="post">
+                            <form class="inp-form" id="userAccess" action="#" th:action="@{/interviewer/access}" th:object="${accessUserTO}" method="post" style="padding-top:0px; padding-bottom: 0px;">
                                 <div class="col-lg-8 col-lg-offset-2" id="accessFormColumn">
                                     <div class="row">
                                         <div class="column">
                                             <div class="form-group">
                                                 <label>Enterprise id</label> 
-                                                <input id="accessUsername" type="text" th:field="*{enterpriseId}"/> 
+                                                <input id="accessUsername" type="text" th:field="*{enterpriseId}" placeholder="enterprise.id"/> 
                                             </div>
                                         </div>
                                     </div>
                                      <div class="row">
-                                        <div class="column">
+                                        <div class="column" style="padding-bottom:0px">
                                             <div class="form-group">
                                             	<label>Password</label>                                            	
-                                            	<div class="input-icons">	                                                
+                                            	<div class="input-icons" style="margin-bottom:0px">	                                                
 	                                                <i class='bx bx-low-vision icon-access' id="toggleAccessPassword"></i> 
 	                                                <input class="input-field" id="accessPassword" type="password" th:field="*{password}"/>		                                                
-	                                                <br><a id="recoverPwdLink" th:href="@{recover-password}" style="color: #0a58ca; font-size: small; visibility: hidden;">Recover Password</a>		                                                		                                                
+	                                                <a id="recoverPwdLink" th:href="@{recover-password}" style="color: #0a58ca; font-size: small; visibility: hidden;">Recover Password</a>		                                                		                                                
 	                                            </div>		                                        
                                             </div>
                                         </div>
@@ -74,7 +74,6 @@
                                     </div>                                  
                                 </div>
                             </form>
-                            <br><br><br><br><br>
                         </div>
                     </div>
                     <div class="container" id="containerReqRegistrationAcc">

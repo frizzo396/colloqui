@@ -49,7 +49,7 @@ $(document).ready(function (){
 		$.post($(this).attr('action'), $(this).serialize(), function (response){
 			if(response.error == null){				
 				var submitBtn = document.getElementById('recoverPwdBtn');
-				showToast("Password inviata alla email fornita", "SUCCESS", 3000);
+				showToast("Nuova password inviata sulla mail inserita", "SUCCESS", 4000);
 				setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading");				            
 				           const url_string = window.location.href;
 				           const url = new URL(url_string);
