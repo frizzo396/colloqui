@@ -10,7 +10,6 @@ import lombok.Getter;
 @Getter
 public enum MailTypeEnum
 {
-
 	/** The interview insert. */
 	INTERVIEW_INSERT("mail.body.interview.insert"),
 
@@ -20,6 +19,7 @@ public enum MailTypeEnum
 	/** The availability approve. */
 	AVAILABILITY_APPROVE("mail.body.availability.approve"),
 	
+   /** The availability refuse. */
 	AVAILABILITY_REFUSE("mail.body.availability.refuse"),
 
 	/** The feedback insert. */
@@ -31,8 +31,15 @@ public enum MailTypeEnum
 	/** The user welcome. */
 	USER_WELCOME("mail.body.user.welcome"),
 	
-	/** The recover user password. */
-	USER_RECOVER_PASSWORD("mail.body.user.recover-pwd");	
+   /** The user recover password. */
+   USER_RECOVER_PASSWORD("mail.body.user.recover-pwd"),
+	
+   /** The availability reschedule. */
+   AVAILABILITY_RESCHEDULE("mail.body.availability.reschedule"),
+
+   /** The availability reschedule accepted. */
+   AVAILABILITY_RESCHEDULE_ACCEPTED("mail.body.availability.reschedule.accepted");
+
 
 	/** The value. */
 	private String value;

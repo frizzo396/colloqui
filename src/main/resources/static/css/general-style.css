@@ -337,3 +337,22 @@ input[type=file]::file-selector-button:hover {
     padding-top: 0px; 
     padding-bottom: 0px;
 }
+
+#manageRescheduledBtn {
+    color: white !important;
+    background-color: #FFC000 !important;
+    width: 80% !important;
+}
+
+#rescheduledModal {
+	max-width: 450px;
+}
+
+#rescheduleDateLabel{
+	font-family: 'Graphik', sans-serif;
+    font-size: 15px;
+    margin: 4px 4px 4px 0px;
+    padding: 2px 2px 2px 0;
+    display: inline-block;
+    color: black;
+}

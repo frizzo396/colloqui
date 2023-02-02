@@ -13,7 +13,7 @@
         <link th:href="@{/css/popup-container.css}" rel="stylesheet" />
         <link th:href="@{/css/table.css}" rel="stylesheet" />
         <link th:href="@{/css/snackbar.css}" rel="stylesheet" />
-        
+        <link th:href="@{/css/datepicker.css}" rel="stylesheet" />
         <link th:href="@{/css/cta_header.css}" rel="stylesheet" />
         <link th:href="@{/css/password-icons.css}" rel="stylesheet" />
         
@@ -32,9 +32,14 @@
       	<script type="text/javascript" th:src="@{/js/table.js}"></script>
       	<script type="text/javascript" th:src="@{/js/feedback.js}"></script>
         <script type="text/javascript" th:src="@{/js/sidebar.js}"></script>
-        
+        <script type="text/javascript" th:src="@{/js/dt-progress.js}"></script>
         <script type="text/javascript" th:src="@{/js/cta-header.js}"></script>
         <script type="text/javascript" th:src="@{/js/password.js}"></script>
+        <script type="text/javascript" th:src="@{/js/datepicker.js}"></script>
+        <script type="text/javascript" th:src="@{/js/datepicker-ie8.js}"></script>
+        
+
+
         
 		<style>
 		.tooltip {
@@ -116,6 +121,9 @@
                                         		</span>  
                                         		<span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).SCHEDULED.value}"  th:text="${#dates.format(interview.scheduledDate, 'dd-MM-YYYY HH:mm')}" >
                                         		</span>
+                                        		<span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).RESCHEDULED.value}">
+                                        			<button id="manageRescheduledBtn" class="reschedule-popup" type="submit" th:data-parameter1="${interview.id}" th:data-parameter2="${#dates.format(interview.scheduledDate, 'dd-MM-YYYY HH:mm')}" onclick="createAcceptRescheduledModal(this.getAttribute('data-parameter1'), this.getAttribute('data-parameter2'))">Manage</button>
+                                        		</span>
                                         </td>                                           
                                         <td>                                      		
 	                                        	<form id="downloadCV" action="#" th:action="@{/interview/curriculum/download/} + ${{interview.id}}" method="get">
@@ -149,7 +157,11 @@
                
 				<div id="change-password-modal" class="cd-popup" role="alert">
 				     <div th:replace="fragments/changePasswordModal"></div>
-				</div>              
+				</div> 
+				
+				<div id="rescheduled-modal" class="cd-popup" role="alert">
+                     <div th:replace="fragments/rescheduledModal"></div>
+               </div>            
             </div>
               <div  id="snackbar">
                		<div  id="snackbarRow">

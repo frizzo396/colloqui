@@ -74,10 +74,10 @@
 #inProgressTable button {
 	font-size: 12px !important;
     margin: auto !important;
-    width: 60% !important;
+    width: 60%;
     border-radius: 5px !important;
-	background-color: #ffdead00 !important;
-	color: #0a58ca !important;
+	background-color: #ffdead00;
+	color: #0a58ca;
     padding: 7px !important;
 }
 

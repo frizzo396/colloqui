@@ -189,7 +189,7 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 			+ "where i.interviewerId.enterpriseId=:enterpriseId "
 			+ "and i.candidateTypeId.id = ct.id "
 			+ "and s.id = i.site.id "
-			+ "and i.status in (1, 2, 3) "
+         + "and i.status in (1, 2, 3, 6) "
          + "ORDER BY i.updatedDate desc")
 	List<InProgressInterviewRTO> getInProgressInterviewsByEnterpriseId(@Param("enterpriseId") String enterpriseId);
 

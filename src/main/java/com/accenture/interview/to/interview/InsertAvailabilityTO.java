@@ -1,11 +1,7 @@
 package com.accenture.interview.to.interview;
 
-import java.util.Date;
-
-import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,22 +22,16 @@ public class InsertAvailabilityTO {
 	@NotNull(message = "availability.error.interview.not-found")
 	private Long interviewId;
 	
-	/** The first date. */
-	@NotNull(message = "availability.error.date.not-empty")
-	@FutureOrPresent(message = "availability.error.date.not-past")
-	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-	private Date firstDate;
-	
-	/** The second date. */
-	@NotNull(message = "availability.error.date.not-empty")
-	@FutureOrPresent(message = "availability.error.date.not-past")
-	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-	private Date secondDate;
-	
-	/** The third date. */
-	@NotNull(message = "availability.error.date.not-empty")
-	@FutureOrPresent(message = "availability.error.date.not-past")
-	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-	private Date thirdDate;
+   /** The first date. */
+   @NotEmpty(message = "availability.error.date.not-empty")
+   private String firstDate;
+
+   /** The second date. */
+   @NotEmpty(message = "availability.error.date.not-empty")
+   private String secondDate;
+
+   /** The third date. */
+   @NotEmpty(message = "availability.error.date.not-empty")
+   private String thirdDate;
 
 }

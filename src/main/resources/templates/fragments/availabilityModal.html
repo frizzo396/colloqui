@@ -23,42 +23,43 @@
 				<form class="modal-form" id="insertAvailability" action="#"
 					th:action="@{/availability/insert}"
 					th:object="${insertAvailabilityTO}" method="post">
+					<input id="interviewIdHid" type="hidden" th:name="interviewId"  value=0 /> 
 					<div class="col-lg-8 col-lg-offset-2" id="modalFormColumn">
 						<div class="row" id="availabilityDateRow">
 							<div class="column">
 								<div class="form-group">
-									<label>First date</label> <input id="interviewIdHid"
-										type="hidden" th:field="*{interviewId}" value=0 /> <input
-										id="firstAvDate" class="datePicker" type="datetime-local"
-										th:field="*{firstDate}" />
+									<label>First date</label> 
+										<input id="firstAvDate" type="text" data-field="datetime" th:field="*{firstDate}">
+										 <div id="avBox1"></div>
 								</div>
 							</div>
 							<div class="column">
 								<div class="form-group">
-									<label>Second date</label> <input id="secondAvDate"
-										class="datePicker" type="datetime-local"
-										th:field="*{secondDate}" />
+									<label>Second date</label>
+										<input id="secondAvDate" type="text" data-field="datetime" th:field="*{secondDate}">
+										 <div id="avBox2"></div>
 								</div>
 							</div>
 							<div class="column">
 								<div class="form-group">
-									<label>Third date</label> <input id="thirdAvDate"
-										class="datePicker" type="datetime-local"
-										th:field="*{thirdDate}" />
+									<label>Third date</label> 
+										 <input id="thirdAvDate" type="text" data-field="datetime" th:field="*{thirdDate}">
+										 <div id="avBox3"></div>
 								</div>
 							</div>
+							
 						</div>
 						<div class="row" id="twoButtonRow">
 							<div class="button-column">
 								<div class="form-group">
-									<button id="btn_submit" class="submit-spinner"   style="margin-left: 40%;"
+									<button id="btn_submit" class="submit-spinner"   style="margin-left: 40%; width: 45%;"
 									        type="submit" onclick="this.classList.toggle('submit-spinner--loading')">
 									<span class="button-text">Submit</span></button>		
 								</div>
 							</div>
 							<div class="button-column">
 								<div class="form-group">	
-									<button class="submit-button" form="refuseAvailability" type="submit"  style="margin-right: 40%;">Reject</button>													
+									<button class="submit-button" form="refuseAvailability" type="submit"  style="margin-right: 40%; width: 45%;">Reject</button>													
 								</div>
 							</div>
 						</div>

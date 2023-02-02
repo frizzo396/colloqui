@@ -93,7 +93,7 @@ public class InterviewFacade {
 			
 			MailParametersTO mailParams = new MailParametersTO(Arrays.asList(interviewer.getMail()), 
                responsibleMails,
-					Arrays.asList(response.getCandidateName(), response.getCandidateSurname()), 
+               Arrays.asList(response.getCandidateName(), response.getCandidateSurname(), request.getNote()),
 					Arrays.asList(response.getCandidateName(), response.getCandidateSurname()), WebPaths.IN_PROGRESS);
 			mailService.sendMail(mailParams, MailTypeEnum.INTERVIEW_INSERT);		
 		}

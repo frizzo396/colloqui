@@ -1,7 +1,5 @@
 package com.accenture.interview.to.interview;
 
-import java.util.Date;
-
 import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -23,7 +21,8 @@ public class ApproveAvailabilityTO {
 	private Long interviewId;
 	
 	/** The approved date. */
-	@NotNull(message = "availability.error.approve-date.not-empty")
-	private Date approvedDate;
+   private String approvedDate;
+
+   private String newDate;
 
 }

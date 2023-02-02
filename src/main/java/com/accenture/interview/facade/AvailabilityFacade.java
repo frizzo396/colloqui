@@ -1,7 +1,13 @@
 package com.accenture.interview.facade;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +24,7 @@ import com.accenture.interview.service.general.MailService;
 import com.accenture.interview.to.interview.ApproveAvailabilityTO;
 import com.accenture.interview.to.interview.InsertAvailabilityTO;
 import com.accenture.interview.to.interview.ReassignInterviewTO;
+import com.accenture.interview.to.interview.RescheduledAvailabilityTO;
 import com.accenture.interview.to.mail.MailParametersTO;
 import com.accenture.interview.utils.constants.WebPaths;
 import com.accenture.interview.utils.date.DateUtils;
@@ -29,137 +36,198 @@ import com.accenture.interview.utils.enums.MailTypeEnum;
 @Component
 public class AvailabilityFacade {
 
-	/** The availability service. */
-	@Autowired
-	private AvailabilityService availabilityService;
+   /** The availability service. */
+   @Autowired
+   private AvailabilityService availabilityService;
 
-	/** The interview service. */
-	@Autowired
-	private InterviewService interviewService;
+   /** The interview service. */
+   @Autowired
+   private InterviewService interviewService;
 
-	/** The interviewer service. */
-	@Autowired
-	private InterviewerService interviewerService;
+   /** The interviewer service. */
+   @Autowired
+   private InterviewerService interviewerService;
 
-	/** The mail service. */
-	@Autowired
-	private MailService mailService;
+   /** The mail service. */
+   @Autowired
+   private MailService mailService;
 
-	/**
-	 * Adds the availabilty interview.
-	 *
-	 * @param insertAvailabilityTO the insert availability TO
-	 * @return the base response RTO
-	 */
-	public BaseResponseRTO addAvailabiltyInterview(InsertAvailabilityTO insertAvailabilityTO) {
-		String errorMsg = null;
-		InterviewRTO interview = interviewService.findInterviewWithMailParams(insertAvailabilityTO.getInterviewId());		
-		availabilityService.addAvailabiltyInterview(insertAvailabilityTO);
+   /**
+    * Adds the availabilty interview.
+    *
+    * @param insertAvailabilityTO the insert availability TO
+    * @return the base response RTO
+    */
+   public BaseResponseRTO addAvailabiltyInterview(InsertAvailabilityTO insertAvailabilityTO) {
+      String errorMsg = null;
+      InterviewRTO interview = interviewService.findInterviewWithMailParams(insertAvailabilityTO.getInterviewId());		
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
-		MailParametersTO mailParams = new MailParametersTO(Arrays.asList(interview.getInterviewerMail()), Arrays.asList(interview.getAssignerMail()), 
-				Arrays.asList(interview.getCandidateName(), 
-						interview.getCandidateSurname(),
-						DateUtils.formatDateToString(insertAvailabilityTO.getFirstDate()),
-						DateUtils.formatDateToString(insertAvailabilityTO.getSecondDate()),
-						DateUtils.formatDateToString(insertAvailabilityTO.getThirdDate())), 
-				Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()), 
-				WebPaths.ASSIGNED);
-		boolean result = mailService.sendMail(mailParams, MailTypeEnum.AVAILABILITY_INSERT);		
+      LocalDateTime firstLocalDate = LocalDateTime.parse(insertAvailabilityTO.getFirstDate(), formatter);
+      LocalDateTime secondLocalDate = LocalDateTime.parse(insertAvailabilityTO.getSecondDate(), formatter);
+      LocalDateTime thirdLocalDate = LocalDateTime.parse(insertAvailabilityTO.getThirdDate(), formatter);
+      Date firstDate = Date.from(firstLocalDate.atZone(ZoneId.systemDefault()).toInstant());
+      Date secondDate = Date.from(secondLocalDate.atZone(ZoneId.systemDefault()).toInstant());
+      Date thirdDate = Date.from(thirdLocalDate.atZone(ZoneId.systemDefault()).toInstant());
 
-		if(!result) {
-			errorMsg = mailService.mailNotSend();
-		}		
-		return new BaseResponseRTO(insertAvailabilityTO.getInterviewId(), errorMsg);
-	}
+      availabilityService.addAvailabiltyInterview(insertAvailabilityTO, firstDate, secondDate, thirdDate);
 
-	/**
-	 * Approve availability.
-	 *
-	 * @param approveAvailabilityTO the approve availability TO
-	 * @return the base response RTO
-	 */
-	public BaseResponseRTO approveAvailability(ApproveAvailabilityTO approveAvailabilityTO) {
-		String errorMsg = null;
-		InterviewRTO interview = interviewService.findInterviewWithMailParams(approveAvailabilityTO.getInterviewId());
-		if(!ObjectUtils.isEmpty(interview)) {
-			availabilityService.approveAvailabilty(approveAvailabilityTO);
+      MailParametersTO mailParams = new MailParametersTO(Arrays.asList(interview.getInterviewerMail()),
+            Arrays.asList(interview.getAssignerMail()),
+            Arrays.asList(interview.getCandidateName(),
+                  interview.getCandidateSurname(),
+                  insertAvailabilityTO.getFirstDate(),
+                  insertAvailabilityTO.getSecondDate(),
+                  insertAvailabilityTO.getThirdDate()),
+            Arrays.asList(interview.getCandidateName(),
+                  interview.getCandidateSurname()),
+            WebPaths.ASSIGNED);
 
-			MailParametersTO mailParams = new MailParametersTO(Arrays.asList(interview.getInterviewerMail()), 
-					Arrays.asList(interview.getAssignerMail()), 
-					Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname(), DateUtils.formatDateToString(approveAvailabilityTO.getApprovedDate())), 
-					Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()), 
-					WebPaths.IN_PROGRESS);
-			boolean mailResult = mailService.sendMail(mailParams, MailTypeEnum.AVAILABILITY_APPROVE);	
+      boolean result = mailService.sendMail(mailParams, MailTypeEnum.AVAILABILITY_INSERT);
 
-			/*String webLink = eventService.createTeamsMeeting(approveAvailabilityTO.getApprovedDate());
-			String body = messageSource.getMessage("teams.event.body", null, Locale.getDefault()).replace("$link", webLink);
-			String candidate = interview.getCandidateName() + " " + interview.getCandidateSurname();
-			mailService.sendCalendarMail(new CalendarTO.Builder()
-		                    .withSubject("Colloquio " + candidate)
-		                    .withFrom(interview.getInterviewerMail())
-		                    .withCc(interview.getAssignerMail())
-		                    .withBody(body)
-		                    .withToEmail(interview.getCandidateMail())
-		                    .withMeetingStartTime(approveAvailabilityTO.getApprovedDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime())
-		                    .withMeetingEndTime(approveAvailabilityTO.getApprovedDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().plusHours(1))
-		                    .build());
-			
-			if(ObjectUtils.isEmpty(webLink)) {
-				errorMsg = eventService.eventNotSendErrorMessage();
-			}*/
-			if(!mailResult) {
-				errorMsg = mailService.mailNotSend();
-			}
-		}
-		return new BaseResponseRTO(approveAvailabilityTO.getInterviewId(), errorMsg);
-	}
+      if (!result) {
+         errorMsg = mailService.mailNotSend();
+      }
+      return new BaseResponseRTO(insertAvailabilityTO.getInterviewId(), errorMsg);
+   }
+
+   /**
+    * Approve availability.
+    *
+    * @param approveAvailabilityTO the approve availability TO
+    * @return the base response RTO
+    */
+   public BaseResponseRTO approveAvailability(ApproveAvailabilityTO approveAvailabilityTO) {
+      String errorMsg = null;
+      InterviewRTO interview = interviewService.findInterviewWithMailParams(approveAvailabilityTO.getInterviewId());
+      if (!ObjectUtils.isEmpty(interview)) {
+         boolean isReschedule = isReschedule(approveAvailabilityTO);
+         Date approvedDate = isReschedule ? null : DateUtils.createDateFromString(approveAvailabilityTO.getApprovedDate(), "MMM d, yyyy, h:mm:ss a", Locale.ENGLISH);
+         String dateString = isReschedule ? approveAvailabilityTO.getNewDate() : approvedDate.toString();
+
+         availabilityService.approveAvailabilty(approveAvailabilityTO.getInterviewId(), approvedDate, approveAvailabilityTO.getNewDate(), isReschedule);
+         MailTypeEnum mailType = isReschedule ? MailTypeEnum.AVAILABILITY_RESCHEDULE: MailTypeEnum.AVAILABILITY_APPROVE;
+         MailParametersTO mailParams = new MailParametersTO(Arrays.asList(interview.getInterviewerMail()),
+               Arrays.asList(interview.getAssignerMail()),
+               Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname(), dateString),
+               Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()),
+               WebPaths.IN_PROGRESS);
+         boolean mailResult = mailService.sendMail(mailParams, mailType);
 
 
-	/**
-	 * Refuse availability.
-	 *
-	 * @param interviewId the interview id
-	 * @return the base response RTO
-	 */
-	public BaseResponseRTO refuseAvailability(Long interviewId) {
-		String errorMsg = null;
-		InterviewRTO interview = interviewService.findInterviewWithMailParams(interviewId);		
-		Long refuseId = interviewService.refuseInterview(interviewId);
+         /*
+          * String webLink =
+          * eventService.createTeamsMeeting(approveAvailabilityTO.
+          * getApprovedDate()); String body =
+          * messageSource.getMessage("teams.event.body", null,
+          * Locale.getDefault()).replace("$link", webLink); String
+          * candidate = interview.getCandidateName() + " " +
+          * interview.getCandidateSurname();
+          * mailService.sendCalendarMail(new CalendarTO.Builder()
+          * .withSubject("Colloquio " + candidate)
+          * .withFrom(interview.getInterviewerMail())
+          * .withCc(interview.getAssignerMail()) .withBody(body)
+          * .withToEmail(interview.getCandidateMail())
+          * .withMeetingStartTime(approveAvailabilityTO.
+          * getApprovedDate().toInstant().atZone(ZoneId.systemDefault
+          * ()).toLocalDateTime())
+          * .withMeetingEndTime(approveAvailabilityTO.getApprovedDate
+          * ().toInstant().atZone(ZoneId.systemDefault()).
+          * toLocalDateTime().plusHours(1)) .build());
+          * 
+          * if(ObjectUtils.isEmpty(webLink)) { errorMsg =
+          * eventService.eventNotSendErrorMessage(); }
+          */
+         if (!mailResult) {
+            errorMsg = mailService.mailNotSend();
+         }
+      }
+      return new BaseResponseRTO(approveAvailabilityTO.getInterviewId(), errorMsg);
+   }
 
-		MailParametersTO mailParams = new MailParametersTO(Arrays.asList(interview.getInterviewerMail()), 
-				Arrays.asList(interview.getAssignerMail()), 
-				Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()), 
-				Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()), 
-				WebPaths.ASSIGNED);
-		boolean result = mailService.sendMail(mailParams, MailTypeEnum.AVAILABILITY_REFUSE);	
 
-		if(!result) {
-			errorMsg = mailService.mailNotSend();
-		}
-		return new BaseResponseRTO(refuseId, errorMsg);
-	}
+   /**
+    * Refuse availability.
+    *
+    * @param interviewId the interview id
+    * @return the base response RTO
+    */
+   public BaseResponseRTO refuseAvailability(Long interviewId) {
+      String errorMsg = null;
+      InterviewRTO interview = interviewService.findInterviewWithMailParams(interviewId);
+      Long refuseId = interviewService.refuseInterview(interviewId);
 
-	/**
-	 * Reassign availability.
-	 *
-	 * @param reassignTO the reassign TO
-	 * @return the base response RTO
-	 */
-	public BaseResponseRTO reassignAvailability(ReassignInterviewTO reassignTO) {
-		String errorMsg = null;
-		InterviewerRTO newInterviewer = interviewerService.findInterviewerByEnterpriseId(reassignTO.getEnterpriseId());
-		InterviewRTO interview = interviewService.findInterviewWithMailParams(reassignTO.getInterviewId());	
-		Long reassignedInterview = interviewService.reassignInterview(reassignTO.getInterviewId(), newInterviewer);
+      MailParametersTO mailParams = new MailParametersTO(Arrays.asList(interview.getInterviewerMail()),
+            Arrays.asList(interview.getAssignerMail()),
+            Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()),
+            Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()),
+            WebPaths.ASSIGNED);
+      boolean result = mailService.sendMail(mailParams, MailTypeEnum.AVAILABILITY_REFUSE);
+
+      if (!result) {
+         errorMsg = mailService.mailNotSend();
+      }
+      return new BaseResponseRTO(refuseId, errorMsg);
+   }
+
+   /**
+    * Reassign availability.
+    *
+    * @param reassignTO the reassign TO
+    * @return the base response RTO
+    */
+   public BaseResponseRTO reassignAvailability(ReassignInterviewTO reassignTO) {
+      String errorMsg = null;
+      InterviewerRTO newInterviewer = interviewerService.findInterviewerByEnterpriseId(reassignTO.getEnterpriseId());
+      InterviewRTO interview = interviewService.findInterviewWithMailParams(reassignTO.getInterviewId());
+      Long reassignedInterview = interviewService.reassignInterview(reassignTO.getInterviewId(), newInterviewer);
       List<String> responsibleMails = interviewerService.getAllResponsibles().stream().map(InterviewerRTO::getMail).collect(Collectors.toList());
-		MailParametersTO mailParams = new MailParametersTO(Arrays.asList(newInterviewer.getMail()), 
+      MailParametersTO mailParams = new MailParametersTO(Arrays.asList(newInterviewer.getMail()),
             responsibleMails,
-				Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()), 
-				Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()), WebPaths.IN_PROGRESS);
-		boolean result = mailService.sendMail(mailParams, MailTypeEnum.INTERVIEW_INSERT);	
-		if(!result) {
-			errorMsg = mailService.mailNotSend();
-		}
-		return new BaseResponseRTO(reassignedInterview, errorMsg);
-	}
+            Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()),
+            Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()), WebPaths.IN_PROGRESS);
+      boolean result = mailService.sendMail(mailParams, MailTypeEnum.INTERVIEW_INSERT);
+      if (!result) {
+         errorMsg = mailService.mailNotSend();
+      }
+      return new BaseResponseRTO(reassignedInterview, errorMsg);
+   }
 
+   /**
+    * Checks if is reschedule.
+    *
+    * @param approveAvailabilityTO the approve availability TO
+    * @return true, if is reschedule
+    */
+   private boolean isReschedule(ApproveAvailabilityTO approveAvailabilityTO) {
+      return ObjectUtils.isEmpty(approveAvailabilityTO.getApprovedDate())
+            && !ObjectUtils.isEmpty(approveAvailabilityTO.getNewDate());
+   }
+
+   /**
+    * Accept rescheduled.
+    *
+    * @param rescheduleTO the reschedule TO
+    * @return the base response RTO
+    */
+   public BaseResponseRTO acceptRescheduled(RescheduledAvailabilityTO rescheduleTO) {
+      String errorMsg = null;
+      InterviewRTO interview = interviewService.findInterviewWithMailParams(rescheduleTO.getInterviewId());
+      if (!ObjectUtils.isEmpty(interview)) {
+         LocalDateTime newLocalDate = LocalDateTime.parse(rescheduleTO.getNewDate(), new DateTimeFormatterBuilder()
+               .parseCaseInsensitive()
+               .appendPattern("yyyy-MM-dd HH:mm:ss").toFormatter());
+         String formattedDate = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm").format(newLocalDate);
+         interviewService.acceptRescheduled(rescheduleTO.getInterviewId());
+         MailParametersTO mailParams = new MailParametersTO(Arrays.asList(interview.getAssignerMail()),
+               Arrays.asList(interview.getInterviewerMail()),
+               Arrays.asList(formattedDate, interview.getCandidateName(), interview.getCandidateSurname()),
+               Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()), WebPaths.IN_PROGRESS);
+         boolean result = mailService.sendMail(mailParams, MailTypeEnum.AVAILABILITY_RESCHEDULE_ACCEPTED);
+         if (!result) {
+            errorMsg = mailService.mailNotSend();
+         }
+      }
+      return new BaseResponseRTO(interview.getId(), errorMsg);
+   }
 }
