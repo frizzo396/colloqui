@@ -156,7 +156,7 @@ public class AvailabilityFacade {
       String errorMsg = null;
       InterviewRTO interview = interviewService.findInterviewWithMailParams(interviewId);
       Long refuseId = interviewService.refuseInterview(interviewId);
-
+      availabilityService.clearAvailabilities(interviewId);
       MailParametersTO mailParams = new MailParametersTO(Arrays.asList(interview.getInterviewerMail()),
             Arrays.asList(interview.getAssignerMail()),
             Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()),
@@ -179,14 +179,18 @@ public class AvailabilityFacade {
    public BaseResponseRTO reassignAvailability(ReassignInterviewTO reassignTO) {
       String errorMsg = null;
       InterviewerRTO newInterviewer = interviewerService.findInterviewerByEnterpriseId(reassignTO.getEnterpriseId());
-      InterviewRTO interview = interviewService.findInterviewWithMailParams(reassignTO.getInterviewId());
+      InterviewRTO interview = interviewService.findInterviewToReassign(reassignTO.getInterviewId());
       Long reassignedInterview = interviewService.reassignInterview(reassignTO.getInterviewId(), newInterviewer);
       List<String> responsibleMails = interviewerService.getAllResponsibles().stream().map(InterviewerRTO::getMail).collect(Collectors.toList());
+      List<String> bodyParams = !ObjectUtils.isEmpty(interview.getNote()) ? Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname(), interview.getNote())
+            : Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname());
+      MailTypeEnum mailType = !ObjectUtils.isEmpty(interview.getNote()) ? MailTypeEnum.INTERVIEW_INSERT : MailTypeEnum.INTERVIEW_INSERT_WITHOUT_NOTES;
       MailParametersTO mailParams = new MailParametersTO(Arrays.asList(newInterviewer.getMail()),
             responsibleMails,
-            Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()),
+            bodyParams,
             Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()), WebPaths.IN_PROGRESS);
-      boolean result = mailService.sendMail(mailParams, MailTypeEnum.INTERVIEW_INSERT);
+
+      boolean result = mailService.sendMail(mailParams, mailType);
       if (!result) {
          errorMsg = mailService.mailNotSend();
       }
@@ -216,7 +220,7 @@ public class AvailabilityFacade {
       if (!ObjectUtils.isEmpty(interview)) {
          LocalDateTime newLocalDate = LocalDateTime.parse(rescheduleTO.getNewDate(), new DateTimeFormatterBuilder()
                .parseCaseInsensitive()
-               .appendPattern("yyyy-MM-dd HH:mm:ss").toFormatter());
+               .appendPattern("MM-dd-yyyy HH:mm").toFormatter());
          String formattedDate = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm").format(newLocalDate);
          interviewService.acceptRescheduled(rescheduleTO.getInterviewId());
          MailParametersTO mailParams = new MailParametersTO(Arrays.asList(interview.getAssignerMail()),

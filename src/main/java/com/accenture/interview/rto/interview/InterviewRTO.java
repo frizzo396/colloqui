@@ -35,4 +35,18 @@ public class InterviewRTO {
 	/** The assigner mail. */
 	private String assignerMail;
 
+   /** The note. */
+   private String note;
+
+   public InterviewRTO(Long id, String site, String candidateName, String candidateSurname, String candidateMail, String interviewerMail, String assignerMail) {
+      super();
+      this.id = id;
+      this.site = site;
+      this.candidateName = candidateName;
+      this.candidateSurname = candidateSurname;
+      this.candidateMail = candidateMail;
+      this.interviewerMail = interviewerMail;
+      this.assignerMail = assignerMail;
+   }
+
 }

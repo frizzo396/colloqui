@@ -255,13 +255,30 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 			+ "i.candidateSurname, "
 			+ "i.mail, "
 			+ "i.interviewerId.mail, "
-			+ "ass.mail) "
+         + "ass.mail) "
 			+ "FROM Interview i, Interviewer ass, Site s WHERE "
 			+ "s.id = i.site.id and "
 			+ "ass.id = i.assigner and "
 			+ "i.id = :interviewId")
 	InterviewRTO findInterviewWithMailParams(@Param("interviewId") Long interviewId);
 	
+   /**
+    * Find interview to reassign.
+    *
+    * @param interviewId the interview id
+    * @return the interview RTO
+    */
+   @Query("SELECT new com.accenture.interview.rto.interview.InterviewRTO(i.id, s.siteName, i.candidateName, "
+         + "i.candidateSurname, "
+         + "i.mail, "
+         + "i.interviewerId.mail, "
+         + "ass.mail, "
+         + "i.note) "
+         + "FROM Interview i, Interviewer ass, Site s WHERE "
+         + "s.id = i.site.id and "
+         + "ass.id = i.assigner and "
+         + "i.id = :interviewId")
+   InterviewRTO findInterviewToReassign(@Param("interviewId") Long interviewId);
 
 	/**
 	 * Find last interview by enterprise id.

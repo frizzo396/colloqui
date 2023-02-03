@@ -58,7 +58,7 @@ public class MailUtils {
 
 		if(mailType.equals(MailTypeEnum.AVAILABILITY_APPROVE) || mailType.equals(MailTypeEnum.AVAILABILITY_INSERT) ||
             mailType.equals(MailTypeEnum.FEEDBACK_INSERT) || mailType.equals(MailTypeEnum.INTERVIEW_INSERT) || mailType.equals(MailTypeEnum.AVAILABILITY_RESCHEDULE)
-            || mailType.equals(MailTypeEnum.AVAILABILITY_REFUSE) || mailType.equals(MailTypeEnum.AVAILABILITY_RESCHEDULE_ACCEPTED)) {
+            || mailType.equals(MailTypeEnum.AVAILABILITY_REFUSE) || mailType.equals(MailTypeEnum.AVAILABILITY_RESCHEDULE_ACCEPTED) || mailType.equals(MailTypeEnum.INTERVIEW_INSERT_WITHOUT_NOTES)) {
 			subject = messageSource.getMessage("mail.subject.interview", null, Locale.getDefault());			
 		} 
 		else if(mailType.equals(MailTypeEnum.USER_REGISTER)) {

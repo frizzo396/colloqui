@@ -13,6 +13,9 @@ public enum MailTypeEnum
 	/** The interview insert. */
 	INTERVIEW_INSERT("mail.body.interview.insert"),
 
+   /** The availability insert. */
+   INTERVIEW_INSERT_WITHOUT_NOTES("mail.body.interview.insert.without.notes"),
+
 	/** The availability insert. */
 	AVAILABILITY_INSERT("mail.body.availability.insert"),
 

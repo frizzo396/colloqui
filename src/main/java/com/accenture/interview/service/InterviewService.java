@@ -279,6 +279,16 @@ public class InterviewService {
 		return interviewRepository.findInterviewWithMailParams(interviewId);
 	}
 
+   /**
+    * Find interview to reassign.
+    *
+    * @param interviewId the interview id
+    * @return the interview RTO
+    */
+   public InterviewRTO findInterviewToReassign(Long interviewId) {
+      return interviewRepository.findInterviewToReassign(interviewId);
+   }
+
 	/**
 	 * Gets the completed year interviews.
 	 *

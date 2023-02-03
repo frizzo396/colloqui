@@ -89,13 +89,15 @@ public class InterviewFacade {
 		if (!(ObjectUtils.isEmpty(interviewer))) {
 			Long interviewId = interviewService.addNewInterview(request, candidateType, interviewer, site, assigner);
 			response = new CreateInterviewRTO(request);
-			response.setInterviewId(interviewId);
-			
+         response.setInterviewId(interviewId);
+         List<String> bodyParams = !ObjectUtils.isEmpty(request.getNote()) ? Arrays.asList(response.getCandidateName(), response.getCandidateSurname(), request.getNote())
+               : Arrays.asList(response.getCandidateName(), response.getCandidateSurname());
+         MailTypeEnum mailType = !ObjectUtils.isEmpty(request.getNote()) ? MailTypeEnum.INTERVIEW_INSERT : MailTypeEnum.INTERVIEW_INSERT_WITHOUT_NOTES;
 			MailParametersTO mailParams = new MailParametersTO(Arrays.asList(interviewer.getMail()), 
                responsibleMails,
-               Arrays.asList(response.getCandidateName(), response.getCandidateSurname(), request.getNote()),
+               bodyParams,
 					Arrays.asList(response.getCandidateName(), response.getCandidateSurname()), WebPaths.IN_PROGRESS);
-			mailService.sendMail(mailParams, MailTypeEnum.INTERVIEW_INSERT);		
+         mailService.sendMail(mailParams, mailType);
 		}
 		return response;
 	}

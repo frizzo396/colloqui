@@ -25,4 +25,13 @@ public interface AvailabilityRepository extends JpaRepository<Availability, Long
 	@Query("SELECT a.availabileDate FROM Availability a where a.interview.id = :interviewId")
 	List<Date> findAvailabilityDatesByInterviewId(@Param("interviewId") Long interviewId);
 
+   /**
+    * Find availability by interview id.
+    *
+    * @param interviewId the interview id
+    * @return the list
+    */
+   @Query("SELECT a FROM Availability a where a.interview.id = :interviewId")
+   List<Availability> findAvailabilityByInterviewId(@Param("interviewId") Long interviewId);
+
 }

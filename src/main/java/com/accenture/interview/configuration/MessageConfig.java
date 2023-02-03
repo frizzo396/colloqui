@@ -1,5 +1,7 @@
 package com.accenture.interview.configuration;
 
+import java.util.Properties;
+
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,8 +14,6 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 @Configuration
 public class MessageConfig {
     
-    /** The Constant MESSAGE_SOURCE_PATH. */
-    private static final String MESSAGE_SOURCE_PATH = "classpath:/messages";
 
     /**
      * Message source.
@@ -23,8 +23,11 @@ public class MessageConfig {
     @Bean
     public MessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.setBasename(MESSAGE_SOURCE_PATH);
+        messageSource.setBasename("classpath:messages");
         messageSource.setDefaultEncoding("UTF-8");
+        final Properties properties = new Properties();
+        properties.setProperty("fileEncodings", "UTF-8");
+        messageSource.setFileEncodings(properties);
         return messageSource;
     }
     

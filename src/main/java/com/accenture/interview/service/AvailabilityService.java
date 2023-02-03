@@ -56,10 +56,13 @@ public class AvailabilityService {
 	} 
 	
 	/**
-	 * Approve availabilty.
-	 *
-	 * @param approveAvailabilityTO the approve availability TO
-	 */
+    * Approve availabilty.
+    *
+    * @param interviewId  the interview id
+    * @param approvedDate the approved date
+    * @param newDate      the new date
+    * @param isReschedule the is reschedule
+    */
    public void approveAvailabilty(Long interviewId, Date approvedDate, String newDate, boolean isReschedule) {
       Optional<Interview> optInterview = interviewRepository.findInterviewById(interviewId);
 		if(optInterview.isPresent()) {
@@ -110,6 +113,16 @@ public class AvailabilityService {
          interview.setAvailabilityDates(new DateListRTO(availabilities));
       }
       return interviews;
+   }
+
+   /**
+    * Clear availabilities.
+    *
+    * @param interviewId the interview id
+    */
+   public void clearAvailabilities(Long interviewId) {
+      List<Availability> availabilities = availabilityRepository.findAvailabilityByInterviewId(interviewId);
+      availabilities.forEach(a -> availabilityRepository.delete(a));
    }
 
 }
