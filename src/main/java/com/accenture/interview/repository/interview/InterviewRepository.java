@@ -289,5 +289,23 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 	@Query("select i from Interview i where i.interviewerId.enterpriseId=:enterpriseId and i.id = (SELECT MAX(t.id) FROM Interview t)")
 	Interview findLastInterviewByEnterpriseId(@Param("enterpriseId") String enterpriseId);
 
-
+	/**
+	 * Find completed interviews with final feedback OK or STAND-BY.
+	 *
+	 * @return the list
+	 */
+	@Query("select new com.accenture.interview.rto.interview.InterviewAndFeedbackRTO(i.id, i.candidateName, "
+			+ "i.candidateSurname, "
+			+ "ct.description, "
+			+ "i.interviewType, "
+			+ "i.scheduledDate, "
+			+ "s.siteName, "
+			+ "i.finalFeedback)" 
+			+ "from Interview i, CandidateType ct, Site s "
+			+ "where i.candidateTypeId.id = ct.id "
+			+ "and s.id = i.site.id "
+			+ "and i.status = 4 "
+			+ "and (i.finalFeedback = 'OK' or i.finalFeedback = 'STAND-BY') "
+         + "ORDER BY i.updatedDate desc")
+	List<InterviewAndFeedbackRTO> findCompletedInterviews();
 }
