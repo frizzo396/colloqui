@@ -121,14 +121,16 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 	         + "(i.site.siteName = :site OR :site = '') AND "
 	         + "(:intType is null OR i.interviewType = :intType) AND "
          + "(i.status = :status OR :status is null) AND "
-         + "(i.interviewerId.enterpriseId = :entId OR :entId = '') "
+         + "(i.interviewerId.enterpriseId = :entId OR :entId = '') AND "
+         + "(i.finalFeedback = :feedback OR :feedback = '') "
          + "ORDER BY i.updatedDate desc")
 	   List<InterviewAndFeedbackRTO> findInterviewByParams(@Param("candidateName") String candidateName,
 	         @Param("intType") Long interviewType,
 	         @Param("entId") String enterpriseId,
 	         @Param("candidateType") String candidateType,
             @Param("site") String site,
-            @Param("status") Integer status);
+            @Param("status") Integer status,
+            @Param("feedback") String feedback);
 
 	/**
 	 * Find assigned interviews.

@@ -275,7 +275,7 @@ public class PaginationController extends BaseController {
 		modelAndView.addObject(PaginationConstants.INTERVIEWER, interviewerFacade.interviewerInfo(username));
 		modelAndView.addObject(PaginationConstants.INTERVIEWER_LIST, interviewerFacade.findAllInterviewers());
       modelAndView.addObject(PaginationConstants.COMBO_SITES, interviewFacade.getComboSites());
-      modelAndView.addObject("searchInterviews", interviewFacade.searchAssignedInterviews(new SearchAssignedTO("", "", "", "", "", null)));
+      modelAndView.addObject("searchInterviews", interviewFacade.searchAssignedInterviews(new SearchAssignedTO("", "", "", "", "", null, "")));
       modelAndView.addObject("searchAssignedTO", new SearchAssignedTO());
       modelAndView.addObject("comboStatus", InterviewStatusEnum.getInterviewStatusList());
 		modelAndView.addObject(PaginationConstants.REGISTER_USER_TO, new RegisterInterviewerTO());

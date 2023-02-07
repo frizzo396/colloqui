@@ -130,6 +130,19 @@
                                                		</div>
                                                </div>
                                         </div>  
+                                        <div class="row">
+                                        	<div class="column">
+                                        		<div class="form-group">
+                                        			<label>Feedback</label>
+                                        		 	<select class="formcontrol selectpicker" th:field="*{feedback}">
+                                                             <option value="">Nothing selected</option>
+                                                   			<option value="OK">OK</option>
+                                                    		<option value="KO">KO</option>
+                                                    		<option value="STANDBY">STAND-BY</option>                                                           
+                                                	</select>
+                                                </div>
+                                        	 </div> 
+                                        </div> 
                                         <div class="row" id="searchButtonRow">
                                         	<input type="hidden" id="searchTO" th:value="${searchAssignedTO}"/>
                                             <div class="button-column">

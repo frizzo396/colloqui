@@ -30,15 +30,18 @@
 }
 
 #inProgressContainer {
-	height: 450px;
+	height: 590px;
+    min-height: 590px;
 }
 
 #assignedContainer {
-	height: 450px;
+	height: 590px;
+    min-height: 590px;
 }
 
 #completedContainer  {
-	height: 450px;
+	height: 590px;
+    min-height: 590px;
 }
 
 .containerLabel {
@@ -81,7 +84,7 @@
 	background-color: white;
 	border-radius: 5px;
 	padding: 40px 40px 0px 40px;
-	height: 90%;
+	height: 92%;
 }
 
 #registerUserColumn {
@@ -305,7 +308,7 @@
 
 #containerSearchColumn {
 	width: 70%;
-	height: 500px;
+	height: 600px;
 	overflow-y: scroll;
 }
 

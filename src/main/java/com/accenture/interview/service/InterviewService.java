@@ -187,7 +187,8 @@ public class InterviewService {
             searchInterviewTO.getEnterpriseId(),
             searchInterviewTO.getCandidateType(),
             searchInterviewTO.getSite(),
-            searchInterviewTO.getStatus());
+            searchInterviewTO.getStatus(),
+            searchInterviewTO.getFeedback());
    }
 
 	/**

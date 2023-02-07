@@ -32,4 +32,7 @@ public class SearchAssignedTO {
    /** The status. */
    private Integer status;
 
+   /** The status. */
+   private String feedback;
+
 }

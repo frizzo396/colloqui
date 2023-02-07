@@ -8,7 +8,7 @@ function pagination(){
         var $table = $(this);
         var tablePagRow = $(".table-row");
         var tableColumnPag = $("#tableFormColumn");
-        var itemsPerPage = 4;
+        var itemsPerPage = 7;
         var currentPage = 0;
         var pages = Math.ceil($table.find("tr:not(:has(th))").length / itemsPerPage);
         $table.bind('repaginate', function () {
@@ -66,11 +66,11 @@ function pagination(){
                 //Border radius ultima riga tabella
                 let rows = document.querySelectorAll('.tableRows');
                 setRoundedBorders(rows[rows.length -1]);
-                let rowToRound = 3;
+                let rowToRound = 6;
 				for (var i = 0; i < rows.length; i++) {					
 				  	if(i == rowToRound){
 						setRoundedBorders(rows[i]);
-						rowToRound = rowToRound+4;
+						rowToRound = rowToRound+7;
 					}
 				}
         });
