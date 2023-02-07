@@ -411,4 +411,13 @@ public class InterviewService {
 		return interview.getId();
 	}
 	
+	/**
+	 * Gets the completed interviews with final feedback OK or STAND-BY.
+	 *
+	 * @return the completed interviews
+	 */
+	public List<InterviewAndFeedbackRTO> getCompletedInterviews() {
+		return this.interviewRepository.findCompletedInterviews();
+	}	
+	
 }

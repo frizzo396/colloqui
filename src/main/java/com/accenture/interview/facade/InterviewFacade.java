@@ -208,4 +208,14 @@ public class InterviewFacade {
 	public List<InterviewMonthRTO> getYearCompletedInterviews(String enterpriseId) {
 		return interviewService.getCompletedYearInterviews(enterpriseId);
 	}
+	
+	/**
+	 * Gets completed interviews with final feedback OK or STAND-BY.
+	 *
+	 * @return the completed interviews with status COMPLETED and final feedback OK or STAND-BY
+	 */	
+	public List<InterviewAndFeedbackRTO> getHiringCandidates() {
+		List<InterviewAndFeedbackRTO> interviewAndFeedbackList = interviewService.getCompletedInterviews();		
+		return feedbackService.getFeedbacks(interviewAndFeedbackList);
+	}
 }
