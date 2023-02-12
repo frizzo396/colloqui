@@ -15,7 +15,6 @@ import org.springframework.util.ObjectUtils;
 import com.accenture.interview.exception.GenericException;
 import com.accenture.interview.rto.candidate.CandidateTypeRTO;
 import com.accenture.interview.rto.general.ErrorRTO;
-import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.service.CandidateService;
 import com.accenture.interview.service.InterviewService;
 import com.accenture.interview.service.InterviewerService;
@@ -68,9 +67,6 @@ public class CheckErrorsInsertInterview {
 				return new ErrorRTO(messageSource.getMessage("interview.error.candidate.type.invalid", null, Locale.getDefault()));
 			}
 
-			if(!interviewerExists(createInterviewTO.getEnterpriseId())) {
-				return new ErrorRTO(messageSource.getMessage("interviewer.not-found", null, Locale.getDefault())); 
-			}
 		} catch (GenericException e) {
 			return new ErrorRTO("Errore generico");
 		}
@@ -88,18 +84,6 @@ public class CheckErrorsInsertInterview {
 	 */
 	private boolean interviewAlreadyExists(String mail) {
 		return !ObjectUtils.isEmpty(interviewService.findInterviewByMail(mail));
-	}
-
-
-	/**
-	 * Interviewer exists.
-	 *
-	 * @param enterpriseId the enterprise id
-	 * @return true, if successful
-	 */
-	private boolean interviewerExists(String enterpriseId) {
-		InterviewerRTO interviewer = interviewerService.findInterviewerByEnterpriseId(enterpriseId);
-		return interviewer != null;	
 	}
 
 

@@ -92,12 +92,9 @@ public class AvailabilityService {
     */
    private List<Availability> createAvailabilityList(Interview interview, Date firstDate, Date secondDate, Date thirdDate) {
 		List<Availability> availabilityList = new ArrayList<>();
-      Availability firstAvailability = new Availability(interview, firstDate);
-      Availability secondAvailability = new Availability(interview, secondDate);
-      Availability thirdAvailability = new Availability(interview, thirdDate);
-      availabilityList.add(firstAvailability);
-      availabilityList.add(secondAvailability);
-      availabilityList.add(thirdAvailability);
+      availabilityList.add(new Availability(interview, firstDate));
+      availabilityList.add(new Availability(interview, secondDate));
+      availabilityList.add(new Availability(interview, thirdDate));
 		return availabilityList;	
 	}
 

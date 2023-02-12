@@ -1,4 +1,4 @@
-package com.accenture.interview.controller;
+package com.accenture.interview.controller.interview;
 
 import javax.servlet.http.HttpSession;
 
@@ -19,6 +19,7 @@ import com.accenture.interview.facade.InterviewerFacade;
 import com.accenture.interview.rto.general.BaseResponseRTO;
 import com.accenture.interview.rto.general.ErrorRTO;
 import com.accenture.interview.to.interview.ApproveAvailabilityTO;
+import com.accenture.interview.to.interview.AssignInterviewTO;
 import com.accenture.interview.to.interview.CreateInterviewTO;
 import com.accenture.interview.to.interview.ReassignInterviewTO;
 import com.accenture.interview.to.interview.SearchAssignedTO;
@@ -28,6 +29,7 @@ import com.accenture.interview.to.interviewer.AccessUserTO;
 import com.accenture.interview.to.interviewer.ChangePasswordInterviewerTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 import com.accenture.interview.to.interviewer.RequestRegistrationTO;
+import com.accenture.interview.utils.checkerror.interview.CheckErrorsAssignInterview;
 import com.accenture.interview.utils.checkerror.interview.CheckErrorsInsertInterview;
 import com.accenture.interview.utils.constants.PaginationConstants;
 import com.accenture.interview.utils.enums.InterviewStatusEnum;
@@ -51,6 +53,9 @@ public class InterviewController {
 	@Autowired
 	private CheckErrorsInsertInterview checkErrorsInsertInterview;
 
+   @Autowired
+   private CheckErrorsAssignInterview checkErrorsAssignInterview;
+
 
 	/**
     * Creates the interview.
@@ -71,6 +76,25 @@ public class InterviewController {
 		}
 		return new ResponseEntity<>(new BaseResponseRTO(interviewFacade.addNewInterview(createInterviewTO, (String) session.getAttribute("entId"))), HttpStatus.OK);
 	}
+
+   /**
+    * Assign interview.
+    *
+    * @param assignInterviewTO the assign interview TO
+    * @param session           the session
+    * @return the response entity
+    */
+   @PostMapping(path = "/assign")
+   public @ResponseBody ResponseEntity<Object> assignInterview(@RequestBody @ModelAttribute AssignInterviewTO assignInterviewTO, HttpSession session) {
+      if (ObjectUtils.isEmpty(session.getAttribute("entId"))) {
+         return new ResponseEntity<>(new BaseResponseRTO(null, PaginationConstants.EXPIRED), HttpStatus.OK);
+      }
+      ErrorRTO errorRTO = checkErrorsAssignInterview.validate(assignInterviewTO);
+      if (!ObjectUtils.isEmpty(errorRTO)) {
+         return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
+      }
+      return new ResponseEntity<>(new BaseResponseRTO(interviewFacade.assignInterview(assignInterviewTO)), HttpStatus.OK);
+   }
 
 
 	/**
@@ -93,7 +117,7 @@ public class InterviewController {
 		model.addAttribute("searchInterviewTO", new SearchInterviewTO());
 		model.addAttribute("comboSitesDB", interviewFacade.getComboSites());
 		model.addAttribute("interviewerList", interviewerFacade.findAllInterviewers());
-		model.addAttribute("registerUserTO", new RegisterInterviewerTO());
+      model.addAttribute("registerUserTO", new RegisterInterviewerTO());
       model.addAttribute(PaginationConstants.APPROVE_AVAILABILITY_TO, new ApproveAvailabilityTO());
       model.addAttribute(PaginationConstants.REASSIGN_INTERVIEW_TO, new ReassignInterviewTO());
       model.addAttribute(PaginationConstants.CHANGE_PASSWORD_INTERVIEWER_TO, new ChangePasswordInterviewerTO());
@@ -122,6 +146,7 @@ public class InterviewController {
       model.addAttribute("comboStatus", InterviewStatusEnum.getInterviewStatusList());
       model.addAttribute("interviewerList", interviewerFacade.findAllInterviewers());
       model.addAttribute("registerUserTO", new RegisterInterviewerTO());
+      model.addAttribute("assignInterviewTO", new AssignInterviewTO());
       model.addAttribute(PaginationConstants.UPLOAD_CV_TO, new UploadCvTO());
       model.addAttribute(PaginationConstants.APPROVE_AVAILABILITY_TO, new ApproveAvailabilityTO());
       model.addAttribute(PaginationConstants.REASSIGN_INTERVIEW_TO, new ReassignInterviewTO());

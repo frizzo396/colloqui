@@ -27,6 +27,32 @@ jQuery(document).ready(function ($) {
 			return false;
 		});
 	});
+	
+	$(document).ready(function (){
+		var $form= $('#assignInterview');
+		$form.submit(function (e) {
+			e.preventDefault(e);
+				$.post($(this).attr('action'), $(this).serialize(), function (response){
+					if(response.error == null){
+						// PER TOGLIERE ROTELLINA SPINNER - START
+						var submitBtn = document.getElementById('btn_assign_submit');
+						setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); 
+						           showToast("Operazione avvenuta con successo", "SUCCESS", 3000); 
+						           setTimeout(function(){RedirectSearchAssigned()}, 1700);}, 2000);
+					}
+					else {
+						if(response.error == "EXPIRED"){
+							redirectAccess();	
+						} else {
+							var submitBtn = document.getElementById('btn_assign_submit');
+							setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); showToast(response.error, "ERROR", 3000);}, 2000);
+						}
+					}
+	
+			}, 'json');
+			return false;
+		});
+	});
 
 });	
 
@@ -40,5 +66,11 @@ function validationSearch() {
 //Reset risultati ricerca colloquio
 function resetSearchTable() {
 	document.getElementById("searchTableContainer").style.display = 'none !important';
+}
+
+
+function createInterviewerModal(interviewId){
+	document.getElementById("assignIntId").value = interviewId;	
+	document.getElementById("assign-modal").classList.add("is-visible");
 }
 

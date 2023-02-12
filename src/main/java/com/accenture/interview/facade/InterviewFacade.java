@@ -13,6 +13,7 @@ import com.accenture.interview.rto.interview.CreateInterviewRTO;
 import com.accenture.interview.rto.interview.InProgressInterviewRTO;
 import com.accenture.interview.rto.interview.InterviewAndFeedbackRTO;
 import com.accenture.interview.rto.interview.InterviewMonthRTO;
+import com.accenture.interview.rto.interview.InterviewRTO;
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.rto.site.SiteRTO;
 import com.accenture.interview.service.AvailabilityService;
@@ -22,12 +23,14 @@ import com.accenture.interview.service.InterviewService;
 import com.accenture.interview.service.InterviewerService;
 import com.accenture.interview.service.SiteService;
 import com.accenture.interview.service.general.MailService;
+import com.accenture.interview.to.interview.AssignInterviewTO;
 import com.accenture.interview.to.interview.CreateInterviewTO;
 import com.accenture.interview.to.interview.SearchAssignedTO;
 import com.accenture.interview.to.interview.SearchInterviewTO;
 import com.accenture.interview.to.mail.MailParametersTO;
 import com.accenture.interview.utils.constants.WebPaths;
 import com.accenture.interview.utils.enums.MailTypeEnum;
+import com.accenture.interview.utils.mail.MailUtils;
 
 /**
  * The Class InterviewFacade.
@@ -63,6 +66,10 @@ public class InterviewFacade {
 	@Autowired
 	private MailService mailService;
 	
+   /** The mail utils. */
+   @Autowired
+   private MailUtils mailUtils;
+
 	/**
 	 * Gets the combo sites.
 	 *
@@ -86,10 +93,10 @@ public class InterviewFacade {
 		InterviewerRTO assigner = interviewerService.findInterviewerByEnterpriseId(enterpriseId);
 		SiteRTO site = siteService.findSiteById(Long.parseLong(request.getSite()));
       List<String> responsibleMails = interviewerService.getAllResponsibles().stream().map(InterviewerRTO::getMail).collect(Collectors.toList());
-		if (!(ObjectUtils.isEmpty(interviewer))) {
-			Long interviewId = interviewService.addNewInterview(request, candidateType, interviewer, site, assigner);
-			response = new CreateInterviewRTO(request);
-         response.setInterviewId(interviewId);
+      Long interviewId = interviewService.addNewInterview(request, candidateType, interviewer, site, assigner);
+      response = new CreateInterviewRTO(request);
+      response.setInterviewId(interviewId);
+      if (!(ObjectUtils.isEmpty(interviewer))) {
          List<String> bodyParams = !ObjectUtils.isEmpty(request.getNote()) ? Arrays.asList(response.getCandidateName(), response.getCandidateSurname(), request.getNote())
                : Arrays.asList(response.getCandidateName(), response.getCandidateSurname());
          MailTypeEnum mailType = !ObjectUtils.isEmpty(request.getNote()) ? MailTypeEnum.INTERVIEW_INSERT : MailTypeEnum.INTERVIEW_INSERT_WITHOUT_NOTES;
@@ -209,13 +216,27 @@ public class InterviewFacade {
 		return interviewService.getCompletedYearInterviews(enterpriseId);
 	}
 	
-	/**
-	 * Gets completed interviews with final feedback OK or STAND-BY.
-	 *
-	 * @return the completed interviews with status COMPLETED and final feedback OK or STAND-BY
-	 */	
-	public List<InterviewAndFeedbackRTO> getHiringCandidates() {
-		List<InterviewAndFeedbackRTO> interviewAndFeedbackList = interviewService.getCompletedInterviews();		
-		return feedbackService.getFeedbacks(interviewAndFeedbackList);
-	}
+   /**
+    * Assign interview.
+    *
+    * @param assignInterviewTO the assign interview TO
+    * @return the long
+    */
+   public Long assignInterview(AssignInterviewTO assignInterviewTO) {
+      InterviewRTO interview = interviewService.assignInterview(assignInterviewTO);
+      List<String> responsibleMails = interviewerService.getAllResponsibles().stream().map(InterviewerRTO::getMail).collect(Collectors.toList());
+      if (!ObjectUtils.isEmpty(interview)) {
+         List<String> bodyParams = mailUtils.checkBodyParamsToAssignInterview(interview, assignInterviewTO.getInterviewDate());
+
+         MailTypeEnum mailType = mailUtils.checkMailTypeToAssignInterview(interview.getNote(), assignInterviewTO.getInterviewDate());
+         MailParametersTO mailParams = new MailParametersTO(Arrays.asList(interview.getInterviewerMail()),
+               responsibleMails,
+               bodyParams,
+               Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()), WebPaths.IN_PROGRESS);
+         mailService.sendMail(mailParams, mailType);
+      }
+      return null;
+   }
+
+
 }

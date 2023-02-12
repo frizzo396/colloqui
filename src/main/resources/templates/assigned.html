@@ -200,7 +200,15 @@
                                  </span>                                 		
                               </td>
                               <td th:text= "${interview.site}"/>
-                              <td th:text= "${interview.enterpriseId}"/>
+                              <td> 
+                              	<span th:if="${interview.enterpriseId != null}" th:text= "${interview.enterpriseId}"></span>
+                              	
+                              	<span th:if="${interview.enterpriseId == null}">
+                              		<button id="openAssignInterviewerModal"  th:onclick="|createInterviewerModal(${interview.idColloquio})|" style="background-color: white;">
+											         		<em class='bx bx-plus' style="font-size: 17px; color: #0a58ca" ></em> 
+									</button>
+                              	</span>
+                              </td>
                               <td>                                      		
 	                                  <form id="downloadCV" action="#" th:action="@{/interview/curriculum/download/} + ${{interview.idColloquio}}" method="get">
 		                                        	<span th:if="${interview.cvId != null}">
@@ -285,6 +293,9 @@
 							</div> 
 							<div id="upload-cv-modal" class="cd-popup" role="alert">
                  					<div th:replace="fragments/uploadCvModal"></div>
+        					</div>
+        					<div id="assign-modal" class="cd-popup" role="alert">
+                 					<div th:replace="fragments/interviewersModal"></div>
         					</div>
                     </div>
                     

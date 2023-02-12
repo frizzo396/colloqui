@@ -72,7 +72,7 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 			+ "i.interviewerId.enterpriseId, "
 			+ "i.finalFeedback, "
          + "i.status, "
-         + "i.curriculumId) FROM Interview i, CandidateType ct, Site s WHERE "
+         + "i.curriculumId) FROM Interview i LEFT JOIN i.interviewerId interviewer, CandidateType ct, Site s WHERE "
 			+ "i.candidateTypeId.id = ct.id and "
 			+ "s.id = i.site.id and "
          + "(i.candidateName LIKE CONCAT('%',:name,'%') OR :name = '') AND "
@@ -80,7 +80,7 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 			+ "(i.candidateTypeId.description = :candidateType OR :candidateType = '') AND "
 			+ "(i.site.siteName = :site OR :site = '') AND "
 			+ "(:intType is null OR i.interviewType = :intType) AND "
-			+ "(i.interviewerId.enterpriseId = :entId OR :entId = '') AND "
+         + "(i.interviewerId.enterpriseId = :entId OR :entId = '' OR i.interviewerId.enterpriseId is null) AND "
 			+ "(:schedDate is null OR i.scheduledDate>=:schedDate) AND "
 			+ "(i.dueDate is null OR :dueDate is null OR i.dueDate<=:dueDate) "
          + "ORDER BY i.updatedDate desc")
@@ -113,7 +113,8 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 	         + "i.interviewerId.enterpriseId, "
 	         + "i.finalFeedback, "
          + "i.status, "
-         + "i.curriculumId) FROM Interview i, CandidateType ct, Site s WHERE "
+         + "i.curriculumId) "
+         + "FROM Interview i LEFT JOIN i.interviewerId interviewer, CandidateType ct, Site s WHERE "
 	         + "i.candidateTypeId.id = ct.id and "
 	         + "s.id = i.site.id and "
          + "(i.candidateName LIKE CONCAT('%',:candidateName,'%') OR i.candidateSurname LIKE CONCAT('%',:candidateName,'%') OR :candidateName = '') AND "
@@ -121,12 +122,12 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 	         + "(i.site.siteName = :site OR :site = '') AND "
 	         + "(:intType is null OR i.interviewType = :intType) AND "
          + "(i.status = :status OR :status is null) AND "
-         + "(i.interviewerId.enterpriseId = :entId OR :entId = '') AND "
+         + "(:entId = '' OR i.interviewerId.enterpriseId = :entId) AND "
          + "(i.finalFeedback = :feedback OR :feedback = '') "
          + "ORDER BY i.updatedDate desc")
 	   List<InterviewAndFeedbackRTO> findInterviewByParams(@Param("candidateName") String candidateName,
 	         @Param("intType") Long interviewType,
-	         @Param("entId") String enterpriseId,
+            @Param("entId") String enterpriseId,
 	         @Param("candidateType") String candidateType,
             @Param("site") String site,
             @Param("status") Integer status,

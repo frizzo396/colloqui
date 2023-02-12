@@ -222,6 +222,13 @@
 	width: 70%;
 }
 
+#assignModal {
+	border-radius: 5px !important;
+	margin-top: 3.1%;	
+	max-width: 400px;
+	width: 70%;
+}
+
 #modalFormColumn {
 	padding: 20px;
 	background-color: white;

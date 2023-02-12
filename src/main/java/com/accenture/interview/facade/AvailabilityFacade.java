@@ -83,11 +83,7 @@ public class AvailabilityFacade {
                   interview.getCandidateSurname()),
             WebPaths.ASSIGNED);
 
-      boolean result = mailService.sendMail(mailParams, MailTypeEnum.AVAILABILITY_INSERT);
-
-      if (!result) {
-         errorMsg = mailService.mailNotSend();
-      }
+      mailService.sendMail(mailParams, MailTypeEnum.AVAILABILITY_INSERT);
       return new BaseResponseRTO(insertAvailabilityTO.getInterviewId(), errorMsg);
    }
 
@@ -112,38 +108,34 @@ public class AvailabilityFacade {
                Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname(), dateString),
                Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()),
                WebPaths.IN_PROGRESS);
-         boolean mailResult = mailService.sendMail(mailParams, mailType);
-
-
-         /*
-          * String webLink =
-          * eventService.createTeamsMeeting(approveAvailabilityTO.
-          * getApprovedDate()); String body =
-          * messageSource.getMessage("teams.event.body", null,
-          * Locale.getDefault()).replace("$link", webLink); String
-          * candidate = interview.getCandidateName() + " " +
-          * interview.getCandidateSurname();
-          * mailService.sendCalendarMail(new CalendarTO.Builder()
-          * .withSubject("Colloquio " + candidate)
-          * .withFrom(interview.getInterviewerMail())
-          * .withCc(interview.getAssignerMail()) .withBody(body)
-          * .withToEmail(interview.getCandidateMail())
-          * .withMeetingStartTime(approveAvailabilityTO.
-          * getApprovedDate().toInstant().atZone(ZoneId.systemDefault
-          * ()).toLocalDateTime())
-          * .withMeetingEndTime(approveAvailabilityTO.getApprovedDate
-          * ().toInstant().atZone(ZoneId.systemDefault()).
-          * toLocalDateTime().plusHours(1)) .build());
-          * 
-          * if(ObjectUtils.isEmpty(webLink)) { errorMsg =
-          * eventService.eventNotSendErrorMessage(); }
-          */
-         if (!mailResult) {
-            errorMsg = mailService.mailNotSend();
-         }
+         mailService.sendMail(mailParams, mailType);
       }
       return new BaseResponseRTO(approveAvailabilityTO.getInterviewId(), errorMsg);
    }
+   /*
+    * String webLink =
+    * eventService.createTeamsMeeting(approveAvailabilityTO.
+    * getApprovedDate()); String body =
+    * messageSource.getMessage("teams.event.body", null,
+    * Locale.getDefault()).replace("$link", webLink); String
+    * candidate = interview.getCandidateName() + " " +
+    * interview.getCandidateSurname();
+    * mailService.sendCalendarMail(new CalendarTO.Builder()
+    * .withSubject("Colloquio " + candidate)
+    * .withFrom(interview.getInterviewerMail())
+    * .withCc(interview.getAssignerMail()) .withBody(body)
+    * .withToEmail(interview.getCandidateMail())
+    * .withMeetingStartTime(approveAvailabilityTO.
+    * getApprovedDate().toInstant().atZone(ZoneId.systemDefault
+    * ()).toLocalDateTime())
+    * .withMeetingEndTime(approveAvailabilityTO.getApprovedDate
+    * ().toInstant().atZone(ZoneId.systemDefault()).
+    * toLocalDateTime().plusHours(1)) .build());
+    * 
+    * if(ObjectUtils.isEmpty(webLink)) { errorMsg =
+    * eventService.eventNotSendErrorMessage(); }
+    */
+
 
 
    /**
@@ -162,11 +154,7 @@ public class AvailabilityFacade {
             Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()),
             Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()),
             WebPaths.ASSIGNED);
-      boolean result = mailService.sendMail(mailParams, MailTypeEnum.AVAILABILITY_REFUSE);
-
-      if (!result) {
-         errorMsg = mailService.mailNotSend();
-      }
+      mailService.sendMail(mailParams, MailTypeEnum.AVAILABILITY_REFUSE);
       return new BaseResponseRTO(refuseId, errorMsg);
    }
 
@@ -190,10 +178,7 @@ public class AvailabilityFacade {
             bodyParams,
             Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()), WebPaths.IN_PROGRESS);
 
-      boolean result = mailService.sendMail(mailParams, mailType);
-      if (!result) {
-         errorMsg = mailService.mailNotSend();
-      }
+      mailService.sendMail(mailParams, mailType);
       return new BaseResponseRTO(reassignedInterview, errorMsg);
    }
 
@@ -227,10 +212,7 @@ public class AvailabilityFacade {
                Arrays.asList(interview.getInterviewerMail()),
                Arrays.asList(formattedDate, interview.getCandidateName(), interview.getCandidateSurname()),
                Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()), WebPaths.IN_PROGRESS);
-         boolean result = mailService.sendMail(mailParams, MailTypeEnum.AVAILABILITY_RESCHEDULE_ACCEPTED);
-         if (!result) {
-            errorMsg = mailService.mailNotSend();
-         }
+         mailService.sendMail(mailParams, MailTypeEnum.AVAILABILITY_RESCHEDULE_ACCEPTED);
       }
       return new BaseResponseRTO(interview.getId(), errorMsg);
    }

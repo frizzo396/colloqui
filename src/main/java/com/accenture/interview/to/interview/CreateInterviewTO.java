@@ -57,7 +57,8 @@ public class CreateInterviewTO {
 	private String interviewType;
 
 	/** The enterprise id. */
-	@NotEmpty(message = "interview.error.enterpriseid.not-empty")
+   // @NotEmpty(message =
+   // "interview.error.enterpriseid.not-empty")
 	private String enterpriseId;
 	
 	/** The note. */	

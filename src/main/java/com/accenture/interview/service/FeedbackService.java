@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,96 +29,89 @@ import com.google.gson.Gson;
 @Service
 public class FeedbackService {
 
-	/** The motivation feedback repository. */
-	@Autowired
-	private MotivationFeedbackRepository motivationFeedbackRepository;
+   /** The motivation feedback repository. */
+   @Autowired
+   private MotivationFeedbackRepository motivationFeedbackRepository;
 
-	/** The tech feedback repository. */
-	@Autowired
-	private TechFeedbackRepository techFeedbackRepository;
-	
-	/** The interview repository. */
-	@Autowired
-	private InterviewRepository interviewRepository;
+   /** The tech feedback repository. */
+   @Autowired
+   private TechFeedbackRepository techFeedbackRepository;
 
-	/**
-	 * Insert tech feedback.
-	 *
-	 * @param createTechFeedbackTO the create tech feedback TO
-	 * @param interview   the interview
-	 * @param interviewId the id colloquio
-	 * @return the creates the tech feedback response
-	 */
-	public TechnicalFeedback insertTechFeedback(CreateTechFeedbackTO createTechFeedbackTO, Long interviewId) {
-		
-		// TRASFORMAZIONE IN JSON CAMPO SCORES - START
-		List<ScoreTechFeedbackTO> listFeedTO = createTechFeedbackTO.getTechList();		
-		List<ScoreTechFeedbackTO> filterList = new ArrayList<>();
-		
-		for(ScoreTechFeedbackTO feedScore : listFeedTO) {
-			if (!feedScore.getTechnology().trim().equals("")) {
-				filterList.add(feedScore);
-			}
-		}		
-		String json = new Gson().toJson(filterList);
-		createTechFeedbackTO.setScores(json);
-		// TRASFORMAZIONE IN JSON CAMPO SCORES - END
-		
-		TechnicalFeedback techFeedback = new TechnicalFeedback(createTechFeedbackTO);
-		Optional<Interview> optInterview = interviewRepository.findInterviewById(interviewId);		
-		if(optInterview.isPresent()) {
+   /** The interview repository. */
+   @Autowired
+   private InterviewRepository interviewRepository;
+
+   /**
+    * Insert tech feedback.
+    *
+    * @param createTechFeedbackTO the create tech feedback TO
+    * @param interview            the interview
+    * @param interviewId          the id colloquio
+    * @return the creates the tech feedback response
+    */
+   public TechnicalFeedback insertTechFeedback(CreateTechFeedbackTO createTechFeedbackTO, Long interviewId) {
+      Optional<Interview> optInterview = interviewRepository.findInterviewById(interviewId);
+
+      if (optInterview.isPresent()) {
+         List<ScoreTechFeedbackTO> listFeedTO = createTechFeedbackTO.getTechList();
+         List<ScoreTechFeedbackTO> filterList = listFeedTO.stream().filter(a -> !a.getTechnology().trim().equals("")).collect(Collectors.toList());
+         createTechFeedbackTO.setScores(new Gson().toJson(filterList));
+
+         TechnicalFeedback techFeedback = new TechnicalFeedback(createTechFeedbackTO);
          Interview interview = optInterview.get();
          interview.setUpdatedDate(new Date());
          techFeedback.setInterview(interview);
          interviewRepository.save(interview);
-		}
-		return techFeedbackRepository.save(techFeedback);
-	}
+         return techFeedbackRepository.save(techFeedback);
+      }
+      return null;
+   }
 
-	/**
-	 * Insert motivation feedback.
-	 *
-	 * @param feedbackTO the feedback TO
-	 * @param interview   the interview
-	 * @param interviewId the id colloquio
-	 * @return the creates the motivation feedback response
-	 */
-	public MotivationFeedback insertMotivationFeedback(CreateMotivationFeedbackTO feedbackTO, Long interviewId) {
-		MotivationFeedback motFeedback = new MotivationFeedback(feedbackTO);
-		Optional<Interview> optInterview = interviewRepository.findInterviewById(interviewId);		
-		if(optInterview.isPresent()) {
+   /**
+    * Insert motivation feedback.
+    *
+    * @param feedbackTO  the feedback TO
+    * @param interview   the interview
+    * @param interviewId the id colloquio
+    * @return the creates the motivation feedback response
+    */
+   public MotivationFeedback insertMotivationFeedback(CreateMotivationFeedbackTO feedbackTO, Long interviewId) {
+      MotivationFeedback motFeedback = new MotivationFeedback(feedbackTO);
+      Optional<Interview> optInterview = interviewRepository.findInterviewById(interviewId);
+      if (optInterview.isPresent()) {
          Interview interview = optInterview.get();
          interview.setUpdatedDate(new Date());
          motFeedback.setInterview(interview);
          interviewRepository.save(interview);
-		}
-		return motivationFeedbackRepository.save(motFeedback);
-	}
+         return motivationFeedbackRepository.save(motFeedback);
+      }
+      return null;
+   }
 
-	/**
-	 * Gets the feedbacks.
-	 *
-	 * @param interviewList the interview list
-	 * @return the feedbacks
-	 */
-	public List<InterviewAndFeedbackRTO> getFeedbacks(List<InterviewAndFeedbackRTO> interviewList) {
-		List<InterviewAndFeedbackRTO> myInterviews = new ArrayList<>();
-		for (InterviewAndFeedbackRTO interview : interviewList) {
-			// 1 --> Motivazionale
-			if (interview.getInterviewType() == 1) {
-				MotivationalFeedbackRTO motivationalFeedback = motivationFeedbackRepository.getMotivationFeedbackRTOByIdInterview(interview.getIdColloquio());
-				if (motivationalFeedback != null) {
-					interview.setMotivationalFeedback(motivationalFeedback);
-				}
+   /**
+    * Gets the feedbacks.
+    *
+    * @param interviewList the interview list
+    * @return the feedbacks
+    */
+   public List<InterviewAndFeedbackRTO> getFeedbacks(List<InterviewAndFeedbackRTO> interviewList) {
+      List<InterviewAndFeedbackRTO> myInterviews = new ArrayList<>();
+      for (InterviewAndFeedbackRTO interview : interviewList) {
+         // 1 --> Motivazionale
+         if (interview.getInterviewType() == 1) {
+            MotivationalFeedbackRTO motivationalFeedback = motivationFeedbackRepository.getMotivationFeedbackRTOByIdInterview(interview.getIdColloquio());
+            if (motivationalFeedback != null) {
+               interview.setMotivationalFeedback(motivationalFeedback);
+            }
 
-			} else if (interview.getInterviewType() == 2) {
-				TechnicalFeedbackRTO technicalFeedback = techFeedbackRepository.getTechFeedbackRTOByIdInterview(interview.getIdColloquio());
-				if (technicalFeedback != null) {
-					interview.setTechnicalFeedback(technicalFeedback);
-				}
-			}
-			myInterviews.add(interview);
-		}
-		return myInterviews;
-	}
+         } else if (interview.getInterviewType() == 2) {
+            TechnicalFeedbackRTO technicalFeedback = techFeedbackRepository.getTechFeedbackRTOByIdInterview(interview.getIdColloquio());
+            if (technicalFeedback != null) {
+               interview.setTechnicalFeedback(technicalFeedback);
+            }
+         }
+         myInterviews.add(interview);
+      }
+      return myInterviews;
+   }
 }

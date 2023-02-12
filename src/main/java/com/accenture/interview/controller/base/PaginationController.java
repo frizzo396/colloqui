@@ -1,4 +1,4 @@
-package com.accenture.interview.controller;
+package com.accenture.interview.controller.base;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.accenture.interview.controller.base.BaseController;
 import com.accenture.interview.facade.InterviewFacade;
 import com.accenture.interview.facade.InterviewerFacade;
 import com.accenture.interview.to.feedback.CreateMotivationFeedbackTO;
 import com.accenture.interview.to.feedback.CreateTechFeedbackTO;
 import com.accenture.interview.to.interview.ApproveAvailabilityTO;
+import com.accenture.interview.to.interview.AssignInterviewTO;
 import com.accenture.interview.to.interview.CreateInterviewTO;
 import com.accenture.interview.to.interview.InsertAvailabilityTO;
 import com.accenture.interview.to.interview.ReassignInterviewTO;
@@ -278,6 +278,7 @@ public class PaginationController extends BaseController {
       modelAndView.addObject("searchInterviews", interviewFacade.searchAssignedInterviews(new SearchAssignedTO("", "", "", "", "", null, "")));
       modelAndView.addObject("searchAssignedTO", new SearchAssignedTO());
       modelAndView.addObject("comboStatus", InterviewStatusEnum.getInterviewStatusList());
+      modelAndView.addObject("assignInterviewTO", new AssignInterviewTO());
 		modelAndView.addObject(PaginationConstants.REGISTER_USER_TO, new RegisterInterviewerTO());
 		modelAndView.addObject(PaginationConstants.APPROVE_AVAILABILITY_TO, new ApproveAvailabilityTO());
       modelAndView.addObject(PaginationConstants.REASSIGN_INTERVIEW_TO, new ReassignInterviewTO());

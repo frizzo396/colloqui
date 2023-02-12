@@ -356,3 +356,12 @@ input[type=file]::file-selector-button:hover {
     display: inline-block;
     color: black;
 }
+
+#assignInterviewerLabel {
+	font-family: 'Graphik', sans-serif;
+    font-size: 15px;
+    margin: 4px 4px 4px 0px;
+    padding: 2px 2px 2px 0px;
+    display: inline-block;
+    color: black;
+}

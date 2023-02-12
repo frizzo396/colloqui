@@ -1,5 +1,6 @@
 package com.accenture.interview.utils.mail;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -8,6 +9,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
+import com.accenture.interview.rto.interview.InterviewRTO;
 import com.accenture.interview.utils.enums.MailTypeEnum;
 
 /**
@@ -56,12 +58,7 @@ public class MailUtils {
 	public String getMailSubject(List<String> subjectParams, MailTypeEnum mailType) {
 		String subject = null;
 
-		if(mailType.equals(MailTypeEnum.AVAILABILITY_APPROVE) || mailType.equals(MailTypeEnum.AVAILABILITY_INSERT) ||
-            mailType.equals(MailTypeEnum.FEEDBACK_INSERT) || mailType.equals(MailTypeEnum.INTERVIEW_INSERT) || mailType.equals(MailTypeEnum.AVAILABILITY_RESCHEDULE)
-            || mailType.equals(MailTypeEnum.AVAILABILITY_REFUSE) || mailType.equals(MailTypeEnum.AVAILABILITY_RESCHEDULE_ACCEPTED) || mailType.equals(MailTypeEnum.INTERVIEW_INSERT_WITHOUT_NOTES)) {
-			subject = messageSource.getMessage("mail.subject.interview", null, Locale.getDefault());			
-		} 
-		else if(mailType.equals(MailTypeEnum.USER_REGISTER)) {
+      if (mailType.equals(MailTypeEnum.USER_REGISTER)) {
 			subject = messageSource.getMessage("mail.subject.registration", null, Locale.getDefault());
 		}
 		else if(mailType.equals(MailTypeEnum.USER_WELCOME)) {
@@ -69,7 +66,9 @@ public class MailUtils {
 		}
 		else if(mailType.equals(MailTypeEnum.USER_RECOVER_PASSWORD)) {
 			subject = messageSource.getMessage("mail.subject.recover-pwd", null, Locale.getDefault());
-		}		
+      } else {
+         subject = messageSource.getMessage("mail.subject.interview", null, Locale.getDefault());
+      }
 
 		if(!ObjectUtils.isEmpty(subject)) {	
 			for(int i = 0; i < subjectParams.size(); i++) {
@@ -99,5 +98,44 @@ public class MailUtils {
 	public String registrationRequestMailNotSend() {
 		return messageSource.getMessage("interviewer.req.registration.mail.notsend", null, Locale.getDefault());
 	}
+
+   /**
+    * Check body params to assign interview.
+    *
+    * @param interview     the interview
+    * @param interviewDate the interview date
+    * @return the list
+    */
+   public List<String> checkBodyParamsToAssignInterview(InterviewRTO interview, String interviewDate) {
+      List<String> bodyParams = Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname());
+      if (!ObjectUtils.isEmpty(interview.getNote())) {
+         bodyParams.add(interview.getNote());
+      }
+      if (!ObjectUtils.isEmpty(interviewDate)) {
+         bodyParams.add(interviewDate);
+      }
+      return bodyParams;
+   }
+
+   /**
+    * Check mail type to assign interview.
+    *
+    * @param notes the notes
+    * @param date  the date
+    * @return the mail type enum
+    */
+   public MailTypeEnum checkMailTypeToAssignInterview(String notes, String date) {
+
+      if (ObjectUtils.isEmpty(notes) && ObjectUtils.isEmpty(date)) {
+         return MailTypeEnum.INTERVIEW_INSERT_WITHOUT_NOTES;
+      }
+      if (ObjectUtils.isEmpty(notes) && !ObjectUtils.isEmpty(date)) {
+         return MailTypeEnum.INTERVIEW_ASSIGNED;
+      }
+      if (!ObjectUtils.isEmpty(notes) && ObjectUtils.isEmpty(date)) {
+         return MailTypeEnum.INTERVIEW_INSERT;
+      }
+      return MailTypeEnum.INTERVIEW_ASSIGNED_WITH_NOTES;
+   }
 
 }

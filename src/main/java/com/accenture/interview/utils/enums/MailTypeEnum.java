@@ -10,10 +10,11 @@ import lombok.Getter;
 @Getter
 public enum MailTypeEnum
 {
+
 	/** The interview insert. */
 	INTERVIEW_INSERT("mail.body.interview.insert"),
 
-   /** The availability insert. */
+   /** The interview insert without notes. */
    INTERVIEW_INSERT_WITHOUT_NOTES("mail.body.interview.insert.without.notes"),
 
 	/** The availability insert. */
@@ -41,7 +42,13 @@ public enum MailTypeEnum
    AVAILABILITY_RESCHEDULE("mail.body.availability.reschedule"),
 
    /** The availability reschedule accepted. */
-   AVAILABILITY_RESCHEDULE_ACCEPTED("mail.body.availability.reschedule.accepted");
+   AVAILABILITY_RESCHEDULE_ACCEPTED("mail.body.availability.reschedule.accepted"),
+
+   /** The interview assigned. */
+   INTERVIEW_ASSIGNED("mail.body.interview.assigned"),
+
+   /** The interview assigned with notes. */
+   INTERVIEW_ASSIGNED_WITH_NOTES("mail.body.interview.assigned.notes");
 
 
 	/** The value. */

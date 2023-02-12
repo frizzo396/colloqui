@@ -74,6 +74,10 @@ function RedirectSearch() {
    window.location.href = "/interview-ms/interview/search";
 }
 
+function RedirectSearchAssigned() {
+   window.location.href = "/interview-ms/interview/search-assigned";
+}
+
 function RedirectMyInterviews() {
     window.location.href = "/interview-ms/interview/completed";
 }

@@ -1,5 +1,8 @@
 package com.accenture.interview.service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +22,7 @@ import com.accenture.interview.entity.Site;
 import com.accenture.interview.entity.TechnicalFeedback;
 import com.accenture.interview.repository.interview.AvailabilityRepository;
 import com.accenture.interview.repository.interview.InterviewRepository;
+import com.accenture.interview.repository.interviewer.InterviewerRepository;
 import com.accenture.interview.rto.candidate.CandidateTypeRTO;
 import com.accenture.interview.rto.general.StartEndDateRTO;
 import com.accenture.interview.rto.interview.DateListRTO;
@@ -28,6 +32,7 @@ import com.accenture.interview.rto.interview.InterviewMonthRTO;
 import com.accenture.interview.rto.interview.InterviewRTO;
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.rto.site.SiteRTO;
+import com.accenture.interview.to.interview.AssignInterviewTO;
 import com.accenture.interview.to.interview.CreateInterviewTO;
 import com.accenture.interview.to.interview.SearchAssignedTO;
 import com.accenture.interview.to.interview.SearchInterviewTO;
@@ -48,6 +53,10 @@ public class InterviewService {
 	/** The availability repository. */
 	@Autowired
 	private AvailabilityRepository availabilityRepository;
+
+   /** The interviewer repository. */
+   @Autowired
+   private InterviewerRepository interviewerRepository;
 
 	/**
 	 * Find interview by id.
@@ -152,7 +161,7 @@ public class InterviewService {
 		interview.setSite(new Site(site.getId(), site.getName()));
 		interview.setCandidateTypeId(new CandidateType(type.getId(), type.getDescription()));
 		interview.setAssigner(assigner.getId());		
-		interview.setInterviewerId(new Interviewer(interviewer.getId(), interviewer.getEnterpriseId(), interviewer.getMail(), interviewer.getType()));				
+      interview.setInterviewerId(interviewer != null ? new Interviewer(interviewer.getId(), interviewer.getEnterpriseId(), interviewer.getMail(), interviewer.getType()) : null);
 		interview.setInterviewType(getInterviewTypeFromString(request.getInterviewType()));
 		interview.setStatus(InterviewStatusEnum.NEW.getValue());
 		Interview saved = interviewRepository.save(interview);
@@ -412,12 +421,40 @@ public class InterviewService {
 	}
 	
 	/**
-	 * Gets the completed interviews with final feedback OK or STAND-BY.
-	 *
-	 * @return the completed interviews
-	 */
+    * Gets the completed interviews.
+    *
+    * @return the completed interviews
+    */
 	public List<InterviewAndFeedbackRTO> getCompletedInterviews() {
 		return this.interviewRepository.findCompletedInterviews();
 	}	
-	
+
+   /**
+    * Assign interview.
+    *
+    * @param assignInterviewTO the assign interview TO
+    * @return the interview RTO
+    */
+   public InterviewRTO assignInterview(AssignInterviewTO assignInterviewTO) {
+      Optional<Interviewer> optInterviewer = interviewerRepository.findInterviewerEntityByEnterpriseId(assignInterviewTO.getEnterpriseId());
+      Optional<Interview> optInterview = interviewRepository.findById(assignInterviewTO.getInterviewId());
+      if (optInterviewer.isPresent() && optInterview.isPresent()) {
+         Interview interview = optInterview.get();
+         interview.setInterviewerId(optInterviewer.get());
+
+         if (!ObjectUtils.isEmpty(assignInterviewTO.getInterviewDate())) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+            LocalDateTime interviewLocalDate = LocalDateTime.parse(assignInterviewTO.getInterviewDate(), formatter);
+            Date interviewDate = Date.from(interviewLocalDate.atZone(ZoneId.systemDefault()).toInstant());
+            interview.setStatus(InterviewStatusEnum.SCHEDULED.getValue());
+            interview.setScheduledDate(interviewDate);
+         }
+         interviewRepository.save(interview);
+         Optional<Interviewer> assigner = interviewerRepository.findById(interview.getAssigner());
+         return new InterviewRTO(interview.getId(), interview.getSite().getSiteName(), interview.getCandidateName(), interview.getCandidateSurname(), interview.getMail(),
+               optInterviewer.get().getMail(), assigner.get().getMail(), interview.getNote());
+      }
+      return null;
+   }
+
 }
