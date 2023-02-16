@@ -32,7 +32,6 @@
       	<script type="text/javascript" th:src="@{/js/table.js}"></script>
       	<script type="text/javascript" th:src="@{/js/feedback.js}"></script>
         <script type="text/javascript" th:src="@{/js/sidebar.js}"></script>
-        <script type="text/javascript" th:src="@{/js/dt-progress.js}"></script>
         <script type="text/javascript" th:src="@{/js/cta-header.js}"></script>
         <script type="text/javascript" th:src="@{/js/password.js}"></script>
         <script type="text/javascript" th:src="@{/js/datepicker.js}"></script>
@@ -114,7 +113,7 @@
                                         </td>                                        
                                         <td>
                                         		<span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).NEW.value}">
-                                        			<button type="submit" class="av-popup" th:data-parameter1="${interview.id}" onclick="createAvailablityModal(this.getAttribute('data-parameter1'));"><em id="plusIcon" class='bx bx-plus'></em></button>
+                                        			<button id="insertAvailabilityBtn" type="submit" class="av-popup" th:data-parameter1="${interview.id}" onclick="createAvailablityModal(this.getAttribute('data-parameter1'));"><em id="plusIcon" class='bx bx-plus'></em></button>
                                         		</span>
                                         		<span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).IN_PROGRESS.value}">
                                         			Sent to approval

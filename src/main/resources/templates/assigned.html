@@ -37,11 +37,10 @@
         <script type="text/javascript" th:src="@{/js/password.js}"></script>
         <script type="text/javascript" th:src="@{/js/datepicker.js}"></script>
         <script type="text/javascript" th:src="@{/js/datepicker-ie8.js}"></script>
-        <script type="text/javascript" th:src="@{/js/dt-assigned.js}"></script>
     </head>
     <body>
         <div class="interview-html">               
-        
+        	
 			<!-- NUOVO DIV PER HEADER SUPERIORE -->
 			<div th:replace="fragments/header"></div>        
         
@@ -201,13 +200,24 @@
                               </td>
                               <td th:text= "${interview.site}"/>
                               <td> 
-                              	<span th:if="${interview.enterpriseId != null}" th:text= "${interview.enterpriseId}"></span>
-                              	
+                              	<span th:if="${interview.enterpriseId != null and (interview.status != T(com.accenture.interview.utils.enums.InterviewStatusEnum).NEW.value and interview.status != T(com.accenture.interview.utils.enums.InterviewStatusEnum).IN_PROGRESS.value)}" th:text= "${interview.enterpriseId}">
+	                            	
+	                            </span>
+                              	<form id="unassignInterview" action="#" th:action="@{'/interview/'+ ${interview.idColloquio} + '/unassign'} " method="post">
+	                                   <span th:if="${interview.enterpriseId != null and (interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).NEW.value or interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).IN_PROGRESS.value)}" >
+	                                   		<span th:text= "${interview.enterpriseId}"></span> 
+	                                   		<button th:id="'interview_unassign_button_' + ${interview.idColloquio}" type="submit" style="color: #0a58ca; background-color: white; padding:0px; margin-right: 0px; margin-left: 0px; width: 5%"> <em class='bx bx-eraser' style="font-size: 16px; color: #ad1010"></em></button>
+										     
+										</span>
+										
+								</form>
                               	<span th:if="${interview.enterpriseId == null}">
-                              		<button id="openAssignInterviewerModal"  th:onclick="|createInterviewerModal(${interview.idColloquio})|" style="background-color: white;">
+                              					<button id="openAssignInterviewerModal"  th:onclick="|createInterviewerModal(${interview.idColloquio})|" style="background-color: white;">
 											         		<em class='bx bx-plus' style="font-size: 17px; color: #0a58ca" ></em> 
-									</button>
+											</button>
                               	</span>
+                              	
+                              
                               </td>
                               <td>                                      		
 	                                  <form id="downloadCV" action="#" th:action="@{/interview/curriculum/download/} + ${{interview.idColloquio}}" method="get">

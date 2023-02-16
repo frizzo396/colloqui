@@ -1,9 +1,10 @@
 package com.accenture.interview.utils.mail;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
@@ -107,15 +108,21 @@ public class MailUtils {
     * @return the list
     */
    public List<String> checkBodyParamsToAssignInterview(InterviewRTO interview, String interviewDate) {
-      List<String> bodyParams = Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname());
-      if (!ObjectUtils.isEmpty(interview.getNote())) {
-         bodyParams.add(interview.getNote());
-      }
-      if (!ObjectUtils.isEmpty(interviewDate)) {
+      List<String> bodyParams = new ArrayList<>();
+      bodyParams.add(interview.getCandidateName());
+      bodyParams.add(interview.getCandidateSurname());
+
+      if (!StringUtils.isBlank(interviewDate)) {
          bodyParams.add(interviewDate);
+      }
+
+      if (!ObjectUtils.isEmpty(interview.getNote())) {
+         String note = interview.getNote();
+         bodyParams.add(note);
       }
       return bodyParams;
    }
+
 
    /**
     * Check mail type to assign interview.

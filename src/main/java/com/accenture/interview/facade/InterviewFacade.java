@@ -238,5 +238,16 @@ public class InterviewFacade {
       return null;
    }
 
+   /**
+    * Unassign interview.
+    *
+    * @param interviewId the interview id
+    * @return the long
+    */
+   public Long unassignInterview(Long interviewId) {
+      interviewService.unassignInterview(interviewId);
+      return interviewId;
+   }
+
 
 }

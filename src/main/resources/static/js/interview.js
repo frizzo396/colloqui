@@ -1,6 +1,11 @@
 jQuery(document).ready(function ($) {
 	
+	
 
+		$('#openAssignInterviewerModal').on('click', function (event) {
+			event.preventDefault();
+			$("#avBox2").DateTimePicker();
+    	});
 	//Salvataggio colloquio
 	$(document).ready(function (){
 		var $form= $('#insertInterview');
@@ -53,6 +58,7 @@ jQuery(document).ready(function ($) {
 			return false;
 		});
 	});
+	
 
 });	
 

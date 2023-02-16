@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import com.accenture.interview.entity.Availability;
 import com.accenture.interview.entity.CandidateType;
 import com.accenture.interview.entity.Interview;
 import com.accenture.interview.entity.Interviewer;
@@ -447,6 +448,7 @@ public class InterviewService {
             LocalDateTime interviewLocalDate = LocalDateTime.parse(assignInterviewTO.getInterviewDate(), formatter);
             Date interviewDate = Date.from(interviewLocalDate.atZone(ZoneId.systemDefault()).toInstant());
             interview.setStatus(InterviewStatusEnum.SCHEDULED.getValue());
+            interview.setUpdatedDate(new Date());
             interview.setScheduledDate(interviewDate);
          }
          interviewRepository.save(interview);
@@ -455,6 +457,24 @@ public class InterviewService {
                optInterviewer.get().getMail(), assigner.get().getMail(), interview.getNote());
       }
       return null;
+   }
+
+   /**
+    * Unassign interview.
+    *
+    * @param interviewId the interview id
+    */
+   public void unassignInterview(Long interviewId) {
+      Optional<Interview> optInterview = interviewRepository.findById(interviewId);
+      List<Availability> availabilityList = availabilityRepository.findAvailabilityByInterviewId(interviewId);
+      if (optInterview.isPresent()) {
+         Interview interview = optInterview.get();
+         interview.setInterviewerId(null);
+         interview.setStatus(InterviewStatusEnum.NEW.getValue());
+         interview.setUpdatedDate(new Date());
+         interviewRepository.save(interview);
+      }
+      availabilityRepository.deleteAll(availabilityList);
    }
 
 }

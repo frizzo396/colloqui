@@ -22,6 +22,48 @@ jQuery(document).ready(function($){
 			$('#rescheduled-modal').addClass('is-visible');
     	});
     	
+    	$('#approveDateBtn').on('click', function (event) {
+			event.preventDefault();
+			$("#avBox1").DateTimePicker();
+    	});
+    	
+    	
+    	
+    	var dtPick3 = $('<div id="avBox3"></div>');
+    	var dtPick4 = $('<div id="avBox4"></div>');
+    	var dtPick5 = $('<div id="avBox5"></div>');
+    	$('#firstAvDate').hover(function (e) {
+			$('#avBox4').remove();
+			$('#avBox5').remove();
+			$( "#firstDateForm" ).append(dtPick3);
+			$("#avBox3").DateTimePicker();
+			
+    	});
+    	$('#secondAvDate').hover(function (e) {
+			$('#avBox3').remove();
+			$('#avBox5').remove();
+			$( "#secondDateForm" ).append(dtPick4);
+			$("#avBox4").DateTimePicker();
+			
+    	});
+    	$('#thirdAvDate').hover(function (e) {
+			$('#avBox3').remove();
+			$('#avBox4').remove();
+			$( "#thirdDateForm" ).append(dtPick5);
+			$("#avBox5").DateTimePicker();
+
+			
+    	});
+    	
+    	$('#closeAvModal').on('click', function (event) {
+			$('#avBox3').remove();
+			$('#avBox4').remove();
+			$('#avBox5').remove();
+			$('#firstAvDate').val('');
+			$('#secondAvDate').val('');
+			$('#thirdAvDate').val('');
+			$('.cd-popup').removeClass('is-visible');
+    	});
     	
 	
 });	

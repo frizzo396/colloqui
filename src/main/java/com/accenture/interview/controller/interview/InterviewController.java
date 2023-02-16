@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,6 +54,7 @@ public class InterviewController {
 	@Autowired
 	private CheckErrorsInsertInterview checkErrorsInsertInterview;
 
+   /** The check errors assign interview. */
    @Autowired
    private CheckErrorsAssignInterview checkErrorsAssignInterview;
 
@@ -96,6 +98,38 @@ public class InterviewController {
       return new ResponseEntity<>(new BaseResponseRTO(interviewFacade.assignInterview(assignInterviewTO)), HttpStatus.OK);
    }
 
+   /**
+    * Unassign interview.
+    *
+    * @param interviewId the interview id
+    * @param session     the session
+    * @return the response entity
+    */
+   @PostMapping(path = "{interviewId}/unassign")
+   public String unassignInterview(@PathVariable(name = "interviewId") Long interviewId, Model model, HttpSession session) {
+
+      if (ObjectUtils.isEmpty(session.getAttribute("entId"))) {
+         model.addAttribute("accessUserTO", new AccessUserTO());
+         model.addAttribute(PaginationConstants.REQUEST_REGISTRATION_TO, new RequestRegistrationTO());
+         return "access";
+      }
+      interviewFacade.unassignInterview(interviewId);
+      String username = (String) session.getAttribute("entId");
+      model.addAttribute(PaginationConstants.INTERVIEWER, interviewerFacade.interviewerInfo(username));
+      model.addAttribute(PaginationConstants.INTERVIEWER_LIST, interviewerFacade.findAllInterviewers());
+      model.addAttribute(PaginationConstants.COMBO_SITES, interviewFacade.getComboSites());
+      model.addAttribute("searchInterviews", interviewFacade.searchAssignedInterviews(new SearchAssignedTO("", "", "", "", "", null, "")));
+      model.addAttribute("searchAssignedTO", new SearchAssignedTO());
+      model.addAttribute("comboStatus", InterviewStatusEnum.getInterviewStatusList());
+      model.addAttribute("assignInterviewTO", new AssignInterviewTO());
+      model.addAttribute(PaginationConstants.REGISTER_USER_TO, new RegisterInterviewerTO());
+      model.addAttribute(PaginationConstants.APPROVE_AVAILABILITY_TO, new ApproveAvailabilityTO());
+      model.addAttribute(PaginationConstants.REASSIGN_INTERVIEW_TO, new ReassignInterviewTO());
+      model.addAttribute(PaginationConstants.CHANGE_PASSWORD_INTERVIEWER_TO, new ChangePasswordInterviewerTO());
+      model.addAttribute(PaginationConstants.UPLOAD_CV_TO, new UploadCvTO());
+      return "assigned";
+   }
+
 
 	/**
     * Search interview.
@@ -112,11 +146,11 @@ public class InterviewController {
 		   model.addAttribute(PaginationConstants.REQUEST_REGISTRATION_TO, new RequestRegistrationTO());
 		   return "access";
 		}	   
-	   model.addAttribute("interviewer", interviewerFacade.interviewerInfo((String) session.getAttribute("entId")));
-		model.addAttribute("searchInterviews", interviewFacade.searchInterviews(searchInterviewTO));
-		model.addAttribute("searchInterviewTO", new SearchInterviewTO());
-		model.addAttribute("comboSitesDB", interviewFacade.getComboSites());
-		model.addAttribute("interviewerList", interviewerFacade.findAllInterviewers());
+      model.addAttribute("interviewer", interviewerFacade.interviewerInfo((String) session.getAttribute("entId")));
+      model.addAttribute("searchInterviews", interviewFacade.searchInterviews(searchInterviewTO));
+      model.addAttribute("searchInterviewTO", new SearchInterviewTO());
+      model.addAttribute("comboSitesDB", interviewFacade.getComboSites());
+      model.addAttribute("interviewerList", interviewerFacade.findAllInterviewers());
       model.addAttribute("registerUserTO", new RegisterInterviewerTO());
       model.addAttribute(PaginationConstants.APPROVE_AVAILABILITY_TO, new ApproveAvailabilityTO());
       model.addAttribute(PaginationConstants.REASSIGN_INTERVIEW_TO, new ReassignInterviewTO());

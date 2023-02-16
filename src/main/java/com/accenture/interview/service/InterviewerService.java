@@ -66,7 +66,8 @@ public class InterviewerService {
          interviewer.setType(request.getIsResponsible());
       } else {
          String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%";
-         request.setPassword(RandomStringUtils.random(8, characters));
+         password = RandomStringUtils.random(8, characters);
+         request.setPassword(password);
          interviewer = new Interviewer(request);
       }
       interviewerRepository.save(interviewer);

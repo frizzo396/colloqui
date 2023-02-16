@@ -99,7 +99,7 @@ public class AvailabilityFacade {
       if (!ObjectUtils.isEmpty(interview)) {
          boolean isReschedule = isReschedule(approveAvailabilityTO);
          Date approvedDate = isReschedule ? null : DateUtils.createDateFromString(approveAvailabilityTO.getApprovedDate(), "MMM d, yyyy, h:mm:ss a", Locale.ENGLISH);
-         String dateString = isReschedule ? approveAvailabilityTO.getNewDate() : approvedDate.toString();
+         String dateString = isReschedule ? approveAvailabilityTO.getNewDate() : approvedDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
 
          availabilityService.approveAvailabilty(approveAvailabilityTO.getInterviewId(), approvedDate, approveAvailabilityTO.getNewDate(), isReschedule);
          MailTypeEnum mailType = isReschedule ? MailTypeEnum.AVAILABILITY_RESCHEDULE: MailTypeEnum.AVAILABILITY_APPROVE;
