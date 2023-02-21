@@ -268,10 +268,10 @@
                               <td>
                                  <span th:if="${interview.finalFeedback != null}">
                                  <span th:if="${interview.interviewType == 1}">
-                                 <button th:data-parameter1="${interview.motivationalFeedback}" onclick="createMotivationalModal(this.getAttribute('data-parameter1'))" type="submit" class="motiv-popup"><em id="detailIcon" class='bx bx-search'></em></button>
+                                 <button th:data-parameter1="${interview.motivationalFeedback}" th:data-parameter2="${interview.idColloquio}" th:data-parameter3="${interview.enterpriseId}" onclick="createMotivationalModal(this.getAttribute('data-parameter1'), this.getAttribute('data-parameter2'), this.getAttribute('data-parameter3'), true)" type="submit" class="motiv-popup"><em id="detailIcon" class='bx bx-search'></em></button>
                                  </span>
                                  <span th:unless="${interview.interviewType == 1}">
-                                 <button th:data-parameter2="${interview.technicalFeedback}" onclick="createTechnicalModal(this.getAttribute('data-parameter2'))" type="submit" class="tech-popup"><em id="detailIcon" class='bx bx-search'></em></button>
+                                 <button th:data-parameter1="${interview.idColloquio}" th:data-parameter2="${interview.technicalFeedback}" th:data-parameter3="${interview.enterpriseId}" onclick="createTechnicalModal(this.getAttribute('data-parameter1'), this.getAttribute('data-parameter2'), this.getAttribute('data-parameter3'), true)" type="submit" class="tech-popup"><em id="detailIcon" class='bx bx-search'></em></button>
                                  </span>
                                  </span>
                               </td>

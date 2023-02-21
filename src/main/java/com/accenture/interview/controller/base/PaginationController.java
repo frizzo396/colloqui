@@ -1,5 +1,7 @@
 package com.accenture.interview.controller.base;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +12,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.accenture.interview.facade.FeedbackFacade;
 import com.accenture.interview.facade.InterviewFacade;
 import com.accenture.interview.facade.InterviewerFacade;
+import com.accenture.interview.rto.feedback.MotivationalFeedbackRTO;
+import com.accenture.interview.rto.feedback.TechnicalFeedbackRTO;
 import com.accenture.interview.to.feedback.CreateMotivationFeedbackTO;
 import com.accenture.interview.to.feedback.CreateTechFeedbackTO;
+import com.accenture.interview.to.feedback.ScoreTechFeedbackTO;
 import com.accenture.interview.to.interview.ApproveAvailabilityTO;
 import com.accenture.interview.to.interview.AssignInterviewTO;
 import com.accenture.interview.to.interview.CreateInterviewTO;
@@ -31,6 +37,10 @@ import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 import com.accenture.interview.to.interviewer.RequestRegistrationTO;
 import com.accenture.interview.utils.constants.PaginationConstants;
 import com.accenture.interview.utils.enums.InterviewStatusEnum;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * The Class PaginationController.
@@ -46,6 +56,9 @@ public class PaginationController extends BaseController {
 	@Autowired
 	private InterviewerFacade interviewerFacade;	
 	
+   @Autowired
+   private FeedbackFacade feedbackFacade;
+
 	/**
 	 * Access page.
 	 *
@@ -172,17 +185,30 @@ public class PaginationController extends BaseController {
     * @param idColloquio the id colloquio
     * @param session     the session
     * @return the model and view
+    * @throws JsonProcessingException
+    * @throws JsonMappingException
     */
 	@GetMapping("/feedback/technical")
-	public ModelAndView showTechFeedbackForm(@RequestParam("idColloquio") String idColloquio, HttpSession session) {
+   public ModelAndView showTechFeedbackForm(@RequestParam("idColloquio") String idColloquio, HttpSession session) throws JsonProcessingException {
 		ModelAndView modelAndView = new ModelAndView();
       if (session.isNew() || ObjectUtils.isEmpty(session.getAttribute("entId"))) {
 			return redirectAccess();
 		}
 		String username = (String) session.getAttribute("entId");
 		updateInterviewId(Long.parseLong(idColloquio));
-		modelAndView.addObject(PaginationConstants.INTERVIEWER, interviewerFacade.interviewerInfo(username));
-		modelAndView.addObject(PaginationConstants.CREATE_TECH_FEED_TO, new CreateTechFeedbackTO());
+      modelAndView.addObject(PaginationConstants.INTERVIEWER, interviewerFacade.interviewerInfo(username));
+      TechnicalFeedbackRTO techFeedback = feedbackFacade.findTechnicalFeedback(Long.parseLong(idColloquio));
+      if(!ObjectUtils.isEmpty(techFeedback)) {
+         CreateTechFeedbackTO createTechFeedbackTO = new CreateTechFeedbackTO();
+         List<ScoreTechFeedbackTO> scores = new ObjectMapper().readValue(techFeedback.getScores(), new TypeReference<List<ScoreTechFeedbackTO>>() {
+         });
+         createTechFeedbackTO.setTechList(scores);
+         createTechFeedbackTO.setScores(techFeedback.getScores());
+         createTechFeedbackTO.setComment(techFeedback.getComment());
+         modelAndView.addObject(PaginationConstants.CREATE_TECH_FEED_TO, createTechFeedbackTO);
+      } else {
+         modelAndView.addObject(PaginationConstants.CREATE_TECH_FEED_TO, new CreateTechFeedbackTO());
+      }
 		modelAndView.addObject(PaginationConstants.REGISTER_USER_TO, new RegisterInterviewerTO());
 		
 		modelAndView.addObject(PaginationConstants.CHANGE_PASSWORD_INTERVIEWER_TO, new ChangePasswordInterviewerTO());
@@ -200,13 +226,18 @@ public class PaginationController extends BaseController {
 	@GetMapping("/feedback/motivational")
 	public ModelAndView showInsertMotivationFeedbackForm(@RequestParam("idColloquio") String idColloquio, HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
+		MotivationalFeedbackRTO motFeedbackRTO = feedbackFacade.findMotivationalFeedback(Long.parseLong(idColloquio));
       if (session.isNew() || ObjectUtils.isEmpty(session.getAttribute("entId"))) {
 			return redirectAccess();
 		}
 		String username = (String) session.getAttribute("entId");
 		updateInterviewId(Long.parseLong(idColloquio));
 		modelAndView.addObject(PaginationConstants.INTERVIEWER, interviewerFacade.interviewerInfo(username));
-		modelAndView.addObject(PaginationConstants.CREATE_MOT_FEED_TO, new CreateMotivationFeedbackTO());
+
+      modelAndView.addObject(PaginationConstants.CREATE_MOT_FEED_TO,
+            !ObjectUtils.isEmpty(motFeedbackRTO) ? new CreateMotivationFeedbackTO(motFeedbackRTO.getStanding(), motFeedbackRTO.getSchoolBackground(), motFeedbackRTO.getMotivation(),
+                  motFeedbackRTO.getSoftSkills(), motFeedbackRTO.getEnglishLevel(), motFeedbackRTO.getLogicQuestion(), motFeedbackRTO.getTechQuestion(), "", motFeedbackRTO.getComment())
+                  : new CreateMotivationFeedbackTO());
 		modelAndView.addObject(PaginationConstants.REGISTER_USER_TO, new RegisterInterviewerTO());
 		
 		modelAndView.addObject(PaginationConstants.CHANGE_PASSWORD_INTERVIEWER_TO, new ChangePasswordInterviewerTO());

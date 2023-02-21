@@ -23,7 +23,7 @@ public interface MotivationFeedbackRepository extends JpaRepository<MotivationFe
 	 * @return the motivation feedback by id interview
 	 */
 	@Query("select mf from Motivation_feedback mf where mf.interview.id=:idColloquio")
-	Optional<MotivationFeedback> getMotivationFeedbackByIdInterview(@Param("idColloquio") Long idColloquio);
+	Optional<MotivationFeedback> findMotivationFeedbackByIdInterview(@Param("idColloquio") Long idColloquio);
 
 	/**
 	 * Gets the motivation feedback RTO by id interview.

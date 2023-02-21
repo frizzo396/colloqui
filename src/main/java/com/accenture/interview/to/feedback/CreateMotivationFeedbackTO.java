@@ -3,6 +3,7 @@ package com.accenture.interview.to.feedback;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class CreateMotivationFeedbackTO {
 
 	/** The standing. */

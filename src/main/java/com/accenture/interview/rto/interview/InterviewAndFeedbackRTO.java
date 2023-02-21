@@ -143,18 +143,20 @@ public class InterviewAndFeedbackRTO {
 		this.status = status;
 	}
 	
+
 	/**
-	 * Instantiates a new interview and feedback RTO.
-	 *
-	 * @param idColloquio the id colloquio
-	 * @param candidateName the candidate name
-	 * @param candidateSurname the candidate surname
-	 * @param candidateLevel the candidate level
-	 * @param interviewType the interview type
-	 * @param scheduledDate the scheduled date
-	 * @param site the site
-	 * @param finalFeedback the final feedback
-	 */
+    * Instantiates a new interview and feedback RTO.
+    * (COMPLETED)
+    *
+    * @param idColloquio      the id colloquio
+    * @param candidateName    the candidate name
+    * @param candidateSurname the candidate surname
+    * @param candidateLevel   the candidate level
+    * @param interviewType    the interview type
+    * @param scheduledDate    the scheduled date
+    * @param site             the site
+    * @param finalFeedback    the final feedback
+    */
 	public InterviewAndFeedbackRTO(long idColloquio, String candidateName, String candidateSurname, String candidateLevel, 
 			long interviewType, Date scheduledDate, String site, String finalFeedback) {
 		super();

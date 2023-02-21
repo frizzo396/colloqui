@@ -18,63 +18,71 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "technical_feedback")
 public class TechnicalFeedback {
 
-	/** The id. */
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+   /** The id. */
+   @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   private long id;
 
-	/** The comment. */
-	private String comment;
+   /** The comment. */
+   private String comment;
 
-	/** The interview. */
-	@OneToOne(mappedBy = "techFeedbackId")
-	@JsonIgnore
-	private Interview interview;
-	
-	/** The scores in JSON format */
-	@Column(name = "scores")
-	private String scores;
+   /** The interview. */
+   @OneToOne(mappedBy = "techFeedbackId")
+   @JsonIgnore
+   private Interview interview;
 
-	/**
-	 * Instantiates a new tech feedback.
-	 */
-	public TechnicalFeedback() {
-	}
+   /** The scores in JSON format */
+   @Column(name = "scores")
+   private String scores;
 
-	/**
-	 * Instantiates a new tech feedback.
-	 *
-	 * @param createTechFeedbackRequest the create tech feedback
-	 *                                  request
-	 */
-	public TechnicalFeedback(CreateTechFeedbackTO createTechFeedbackRequest) {
-		this.comment = createTechFeedbackRequest.getComment();
-		
-		// NUOVO CAMPO PER FORMATO JSON
-		this.scores = createTechFeedbackRequest.getScores();
-	}
+   /**
+    * Instantiates a new tech feedback.
+    */
+   public TechnicalFeedback() {
+   }
 
-	public long getId() {
-		return id;
-	}
+   /**
+    * Instantiates a new tech feedback.
+    *
+    * @param createTechFeedbackRequest the create tech feedback
+    *                                  request
+    */
+   public TechnicalFeedback(CreateTechFeedbackTO createTechFeedbackRequest) {
+      this.comment = createTechFeedbackRequest.getComment();
 
-	public void setId(long id) {
-		this.id = id;
-	}
+      // NUOVO CAMPO PER FORMATO JSON
+      this.scores = createTechFeedbackRequest.getScores();
+   }
 
-	public String getComment() {
-		return comment;
-	}
+   public TechnicalFeedback(Long id, CreateTechFeedbackTO createTechFeedbackRequest) {
+      this.id = id;
+      this.comment = createTechFeedbackRequest.getComment();
 
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
+      // NUOVO CAMPO PER FORMATO JSON
+      this.scores = createTechFeedbackRequest.getScores();
+   }
 
-	public Interview getInterview() {
-		return interview;
-	}
+   public long getId() {
+      return id;
+   }
 
-	public void setInterview(Interview interview) {
-		this.interview = interview;
-	}
+   public void setId(long id) {
+      this.id = id;
+   }
+
+   public String getComment() {
+      return comment;
+   }
+
+   public void setComment(String comment) {
+      this.comment = comment;
+   }
+
+   public Interview getInterview() {
+      return interview;
+   }
+
+   public void setInterview(Interview interview) {
+      this.interview = interview;
+   }
 }

@@ -45,19 +45,18 @@ public class FeedbackService {
     * Insert tech feedback.
     *
     * @param createTechFeedbackTO the create tech feedback TO
-    * @param interview            the interview
-    * @param interviewId          the id colloquio
-    * @return the creates the tech feedback response
+    * @param interviewId          the interview id
+    * @return the technical feedback
     */
    public TechnicalFeedback insertTechFeedback(CreateTechFeedbackTO createTechFeedbackTO, Long interviewId) {
       Optional<Interview> optInterview = interviewRepository.findInterviewById(interviewId);
-
+      Optional<TechnicalFeedback> optTechFeed = techFeedbackRepository.findTechFeedbackByIdInterview(interviewId);
       if (optInterview.isPresent()) {
          List<ScoreTechFeedbackTO> listFeedTO = createTechFeedbackTO.getTechList();
          List<ScoreTechFeedbackTO> filterList = listFeedTO.stream().filter(a -> !a.getTechnology().trim().equals("")).collect(Collectors.toList());
          createTechFeedbackTO.setScores(new Gson().toJson(filterList));
 
-         TechnicalFeedback techFeedback = new TechnicalFeedback(createTechFeedbackTO);
+         TechnicalFeedback techFeedback = optTechFeed.isPresent() ? new TechnicalFeedback(optTechFeed.get().getId(), createTechFeedbackTO) : new TechnicalFeedback(createTechFeedbackTO);
          Interview interview = optInterview.get();
          interview.setUpdatedDate(new Date());
          techFeedback.setInterview(interview);
@@ -71,12 +70,12 @@ public class FeedbackService {
     * Insert motivation feedback.
     *
     * @param feedbackTO  the feedback TO
-    * @param interview   the interview
-    * @param interviewId the id colloquio
-    * @return the creates the motivation feedback response
+    * @param interviewId the interview id
+    * @return the motivation feedback
     */
    public MotivationFeedback insertMotivationFeedback(CreateMotivationFeedbackTO feedbackTO, Long interviewId) {
-      MotivationFeedback motFeedback = new MotivationFeedback(feedbackTO);
+      Optional<MotivationFeedback> optFeedback = motivationFeedbackRepository.findMotivationFeedbackByIdInterview(interviewId);
+      MotivationFeedback motFeedback = optFeedback.isPresent() ? new MotivationFeedback(optFeedback.get().getId(), feedbackTO) : new MotivationFeedback(feedbackTO);
       Optional<Interview> optInterview = interviewRepository.findInterviewById(interviewId);
       if (optInterview.isPresent()) {
          Interview interview = optInterview.get();
@@ -113,5 +112,25 @@ public class FeedbackService {
          myInterviews.add(interview);
       }
       return myInterviews;
+   }
+
+   /**
+    * Find motivational feedback.
+    *
+    * @param interviewId the interview id
+    * @return the motivational feedback RTO
+    */
+   public MotivationalFeedbackRTO findMotivationalFeedback(Long interviewId) {
+      return motivationFeedbackRepository.getMotivationFeedbackRTOByIdInterview(interviewId);
+   }
+
+   /**
+    * Find technical feedback.
+    *
+    * @param interviewId the interview id
+    * @return the technical feedback RTO
+    */
+   public TechnicalFeedbackRTO findTechnicalFeedback(Long interviewId) {
+      return techFeedbackRepository.getTechFeedbackRTOByIdInterview(interviewId);
    }
 }

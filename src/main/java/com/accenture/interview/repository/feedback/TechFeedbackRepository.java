@@ -23,7 +23,7 @@ public interface TechFeedbackRepository extends JpaRepository<TechnicalFeedback,
 	 * @return the tech feedback by id interview
 	 */
 	@Query("select tf from Tech_feedback tf where tf.interview.id=:idColloquio")
-	Optional<TechnicalFeedback> getTechFeedbackByIdInterview(@Param("idColloquio") Long idColloquio);
+	Optional<TechnicalFeedback> findTechFeedbackByIdInterview(@Param("idColloquio") Long idColloquio);
 	
 	/**
 	 * Gets the tech feedback RTO by id interview.

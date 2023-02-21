@@ -56,22 +56,22 @@
                                             <div class="column">
                                                 <div class="form-group">
                                                     <label>Standing</label>
-                                                    <input class ="num-input" type="number" th:field="*{standing}" placeholder="standing" />
-                                                    <small th:if="${#fields.hasErrors('standing')}" th:errors="*{standing}">Standing Error</small>
+                                                    <input class ="num-input" type="number" th:field="*{standing}" th:value="*{standing}" placeholder="standing" />
+                                                    
                                                 </div>
                                             </div>
                                              <div class="column">
                                                 <div class="form-group">
                                                     <label>Motivation</label>
-                                                    <input class ="num-input" type="number" th:field="*{motivation}" placeholder="motivation" />
-                                                    <small th:if="${#fields.hasErrors('motivation')}" th:errors="*{motivation}">Motivation Error</small>
+                                                    <input class ="num-input" type="number" th:field="*{motivation}" th:value="*{motivation}" placeholder="motivation" />
+                                     
                                                 </div>
                                             </div>
                                              <div class="column">
                                                 <div class="form-group">
                                                     <label>School background</label>
-                                                    <input class ="num-input" type="number" th:field="*{schoolBackground}" placeholder="School background" />
-                                                    <small th:if="${#fields.hasErrors('schoolBackground')}" th:errors="*{schoolBackground}">School Background Error</small>
+                                                    <input class ="num-input" type="number" th:field="*{schoolBackground}" th:value="*{schoolBackground}" placeholder="School background" />
+                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -79,22 +79,21 @@
                                      		<div class="column">
                                                 <div class="form-group">
                                                     <label>English level</label>
-                                                    <input class ="num-input" type="number" th:field="*{englishLevel}" placeholder="English level" />
-                                                    <small th:if="${#fields.hasErrors('englishLevel')}" th:errors="*{englishLevel}">English Level Error</small>
+                                                    <input class ="num-input" type="number" th:field="*{englishLevel}" th:value="*{englishLevel}" placeholder="English level" />
                                                 </div>
                                             </div>
                                             <div class="column">
                                                 <div class="form-group">
                                                     <label>Soft skills</label>
-                                                    <input class ="num-input" type="number" th:field="*{softSkills}" placeholder="Soft skills" />
-                                                    <small th:if="${#fields.hasErrors('softSkills')}" th:errors="*{softSkills}">Soft Skills Error</small>
+                                                    <input class ="num-input" type="number" th:field="*{softSkills}" th:value="*{softSkills}" placeholder="Soft skills" />
+                                                    
                                                 </div>
                                             </div>
                                             <div class="column">
                                                 <div class="form-group">
                                                     <label>Logic question</label>
-                                                    <input class ="num-input" type="number" th:field="*{logicQuestion}" placeholder="Logic question" />
-                                                    <small th:if="${#fields.hasErrors('logicQuestion')}" th:errors="*{logicQuestion}">Logic Question Error</small>
+                                                    <input class ="num-input" type="number" th:field="*{logicQuestion}" th:value="*{logicQuestion}" placeholder="Logic question" />
+                                                    
                                                 </div>
                                             </div>
                                            
@@ -103,8 +102,8 @@
                                            <div class="column">
                                             <div class="form-group">
                                                 <label>Tech question</label>
-                                                <input class ="num-input" type="number" th:field="*{techQuestion}" placeholder="Tech question" />
-                                                <small th:if="${#fields.hasErrors('techQuestion')}" th:errors="*{techQuestion}">Tech Question Error</small>
+                                                <input class ="num-input" type="number" th:field="*{techQuestion}" th:value="*{techQuestion}" placeholder="Tech question" />
+                                                
                                             </div>
                                         </div>
                                         <div class="column">
@@ -116,7 +115,7 @@
                                                     <option value="KO">KO</option>
                                                     <option value="STANDBY">STAND-BY</option>
                                                 </select>
-                                                <small th:if="${#fields.hasErrors('finalFeedback')}" th:errors="*{finalFeedback}">Final feedback Error</small>
+                                                
                                             </div>
                                         </div>
                                         </div>
@@ -125,8 +124,8 @@
                                             <div class="one-column">
                                                 <div class="form-group">
                                                     <label>Comment</label>
-                                                    <textarea id="subject" th:field="*{comment}" name="subject" placeholder="Write something.." style="height: 200px;"></textarea>
-                                                    <small th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}">Comment Error</small>
+                                                    <textarea id="subject" th:field="*{comment}" th:text="*{comment}" name="subject" placeholder="Write something.." style="height: 200px;"></textarea>
+                                                   
                                                 </div>
                                             </div>
                                         </div>

@@ -2,6 +2,7 @@ package com.accenture.interview.rto.feedback;
 
 import com.accenture.interview.to.feedback.CreateMotivationFeedbackTO;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class CreateMotivationFeedbackRTO {
 
 	/** The standing. */

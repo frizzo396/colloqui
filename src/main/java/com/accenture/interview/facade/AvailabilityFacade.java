@@ -205,7 +205,7 @@ public class AvailabilityFacade {
       if (!ObjectUtils.isEmpty(interview)) {
          LocalDateTime newLocalDate = LocalDateTime.parse(rescheduleTO.getNewDate(), new DateTimeFormatterBuilder()
                .parseCaseInsensitive()
-               .appendPattern("MM-dd-yyyy HH:mm").toFormatter());
+               .appendPattern("dd-MM-yyyy HH:mm").toFormatter());
          String formattedDate = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm").format(newLocalDate);
          interviewService.acceptRescheduled(rescheduleTO.getInterviewId());
          MailParametersTO mailParams = new MailParametersTO(Arrays.asList(interview.getAssignerMail()),

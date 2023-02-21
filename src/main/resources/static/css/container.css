@@ -124,6 +124,17 @@
     text-align: center;
 }
 
+#editMotivFeedbackRow {
+	padding-top: 15px;
+    padding-bottom: 3px;
+    text-align: center;
+}
+
+#editTechFeedbackRow {
+	padding-top: 15px;
+    padding-bottom: 3px;
+    text-align: center;
+}
 
 #registerSingleButtonRow {
     padding-top: 5px;
@@ -142,11 +153,11 @@
     margin-right: auto;
 }
 
-#singleButtonRow .button-column{
+#singleButtonRow .button-column, #editMotivFeedbackRow .button-column, #editTechFeedbackRow .button-column {
 	width: 100%;
 }
 
-#singleButtonRow button {
+#singleButtonRow button, #editMotivFeedbackRow button, #editTechFeedbackRow  button{
 	 width: 35%;  
     float: none;
     margin-left: auto;

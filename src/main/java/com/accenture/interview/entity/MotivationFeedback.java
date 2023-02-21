@@ -19,154 +19,166 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "motivation_feedback")
 public class MotivationFeedback {
 
-	/** The id. */
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+   /** The id. */
+   @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   private long id;
 
-	/** The standing. */
-	@NotNull
-	private int standing;
+   /** The standing. */
+   @NotNull
+   private int standing;
 
-	/** The school background. */
-	@NotNull
-	@Column(name = "school_background")
-	private int schoolBackground;
+   /** The school background. */
+   @NotNull
+   @Column(name = "school_background")
+   private int schoolBackground;
 
-	/** The motivation. */
-	@NotNull
-	private int motivation;
+   /** The motivation. */
+   @NotNull
+   private int motivation;
 
-	/** The soft skills. */
-	@NotNull
-	@Column(name = "soft_skills")
-	private int softSkills;
+   /** The soft skills. */
+   @NotNull
+   @Column(name = "soft_skills")
+   private int softSkills;
 
-	/** The english level. */
-	@NotNull
-	@Column(name = "english_level")
-	private int englishLevel;
+   /** The english level. */
+   @NotNull
+   @Column(name = "english_level")
+   private int englishLevel;
 
-	/** The logic question. */
-	@NotNull
-	@Column(name = "logic_question")
-	private int logicQuestion;
+   /** The logic question. */
+   @NotNull
+   @Column(name = "logic_question")
+   private int logicQuestion;
 
-	/** The tech question. */
-	@NotNull
-	@Column(name = "tech_question")
-	private int techQuestion;
+   /** The tech question. */
+   @NotNull
+   @Column(name = "tech_question")
+   private int techQuestion;
 
-	/** The comment. */
-	@NotNull
-	private String comment;
+   /** The comment. */
+   @NotNull
+   private String comment;
 
-	/** The interview. */
-	@OneToOne(mappedBy = "motivationFeedbackId")
-	@JsonIgnore
-	private Interview interview;
+   /** The interview. */
+   @OneToOne(mappedBy = "motivationFeedbackId")
+   @JsonIgnore
+   private Interview interview;
 
-	/**
-	 * Instantiates a new motivation feedback.
-	 */
-	public MotivationFeedback() {
-	}
+   /**
+    * Instantiates a new motivation feedback.
+    */
+   public MotivationFeedback() {
+   }
 
-	/**
-	 * Instantiates a new motivation feedback.
-	 *
-	 * @param createMotivationFeedbackRequest the create
-	 *                                        motivation
-	 *                                        feedback request
-	 */
-	public MotivationFeedback(CreateMotivationFeedbackTO createMotivationFeedbackRequest) {
-		this.standing = createMotivationFeedbackRequest.getStanding();
-		this.schoolBackground = createMotivationFeedbackRequest.getSchoolBackground();
-		this.motivation = createMotivationFeedbackRequest.getMotivation();
-		this.softSkills = createMotivationFeedbackRequest.getSoftSkills();
-		this.englishLevel = createMotivationFeedbackRequest.getEnglishLevel();
-		this.logicQuestion = createMotivationFeedbackRequest.getLogicQuestion();
-		this.techQuestion = createMotivationFeedbackRequest.getTechQuestion();
-		this.comment = createMotivationFeedbackRequest.getComment();
-	}
+   /**
+    * Instantiates a new motivation feedback.
+    *
+    * @param createMotivationFeedbackRequest the create
+    *                                        motivation
+    *                                        feedback request
+    */
+   public MotivationFeedback(CreateMotivationFeedbackTO createMotivationFeedbackRequest) {
+      this.standing = createMotivationFeedbackRequest.getStanding();
+      this.schoolBackground = createMotivationFeedbackRequest.getSchoolBackground();
+      this.motivation = createMotivationFeedbackRequest.getMotivation();
+      this.softSkills = createMotivationFeedbackRequest.getSoftSkills();
+      this.englishLevel = createMotivationFeedbackRequest.getEnglishLevel();
+      this.logicQuestion = createMotivationFeedbackRequest.getLogicQuestion();
+      this.techQuestion = createMotivationFeedbackRequest.getTechQuestion();
+      this.comment = createMotivationFeedbackRequest.getComment();
+   }
 
-	public long getId() {
-		return id;
-	}
+   public MotivationFeedback(Long id, CreateMotivationFeedbackTO createMotivationFeedbackRequest) {
+      this.id = id;
+      this.standing = createMotivationFeedbackRequest.getStanding();
+      this.schoolBackground = createMotivationFeedbackRequest.getSchoolBackground();
+      this.motivation = createMotivationFeedbackRequest.getMotivation();
+      this.softSkills = createMotivationFeedbackRequest.getSoftSkills();
+      this.englishLevel = createMotivationFeedbackRequest.getEnglishLevel();
+      this.logicQuestion = createMotivationFeedbackRequest.getLogicQuestion();
+      this.techQuestion = createMotivationFeedbackRequest.getTechQuestion();
+      this.comment = createMotivationFeedbackRequest.getComment();
+   }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+   public long getId() {
+      return id;
+   }
 
-	public int getStanding() {
-		return standing;
-	}
+   public void setId(long id) {
+      this.id = id;
+   }
 
-	public void setStanding(int standing) {
-		this.standing = standing;
-	}
+   public int getStanding() {
+      return standing;
+   }
 
-	public int getSchoolBackground() {
-		return schoolBackground;
-	}
+   public void setStanding(int standing) {
+      this.standing = standing;
+   }
 
-	public void setSchoolBackground(int schoolBackground) {
-		this.schoolBackground = schoolBackground;
-	}
+   public int getSchoolBackground() {
+      return schoolBackground;
+   }
 
-	public int getMotivation() {
-		return motivation;
-	}
+   public void setSchoolBackground(int schoolBackground) {
+      this.schoolBackground = schoolBackground;
+   }
 
-	public void setMotivation(int motivation) {
-		this.motivation = motivation;
-	}
+   public int getMotivation() {
+      return motivation;
+   }
 
-	public int getSoftSkills() {
-		return softSkills;
-	}
+   public void setMotivation(int motivation) {
+      this.motivation = motivation;
+   }
 
-	public void setSoftSkills(int softSkills) {
-		this.softSkills = softSkills;
-	}
+   public int getSoftSkills() {
+      return softSkills;
+   }
 
-	public int getEnglishLevel() {
-		return englishLevel;
-	}
+   public void setSoftSkills(int softSkills) {
+      this.softSkills = softSkills;
+   }
 
-	public void setEnglishLevel(int englishLevel) {
-		this.englishLevel = englishLevel;
-	}
+   public int getEnglishLevel() {
+      return englishLevel;
+   }
 
-	public int getLogicQuestion() {
-		return logicQuestion;
-	}
+   public void setEnglishLevel(int englishLevel) {
+      this.englishLevel = englishLevel;
+   }
 
-	public void setLogicQuestion(int logicQuestion) {
-		this.logicQuestion = logicQuestion;
-	}
+   public int getLogicQuestion() {
+      return logicQuestion;
+   }
 
-	public int getTechQuestion() {
-		return techQuestion;
-	}
+   public void setLogicQuestion(int logicQuestion) {
+      this.logicQuestion = logicQuestion;
+   }
 
-	public void setTechQuestion(int techQuestion) {
-		this.techQuestion = techQuestion;
-	}
+   public int getTechQuestion() {
+      return techQuestion;
+   }
 
-	public String getComment() {
-		return comment;
-	}
+   public void setTechQuestion(int techQuestion) {
+      this.techQuestion = techQuestion;
+   }
 
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
+   public String getComment() {
+      return comment;
+   }
 
-	public Interview getInterview() {
-		return interview;
-	}
+   public void setComment(String comment) {
+      this.comment = comment;
+   }
 
-	public void setInterview(Interview interview) {
-		this.interview = interview;
-	}
+   public Interview getInterview() {
+      return interview;
+   }
+
+   public void setInterview(Interview interview) {
+      this.interview = interview;
+   }
 }

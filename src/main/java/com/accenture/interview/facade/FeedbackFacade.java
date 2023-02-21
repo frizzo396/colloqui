@@ -11,6 +11,8 @@ import com.accenture.interview.entity.MotivationFeedback;
 import com.accenture.interview.entity.TechnicalFeedback;
 import com.accenture.interview.rto.feedback.CreateMotivationFeedbackRTO;
 import com.accenture.interview.rto.feedback.CreateTechFeedbackRTO;
+import com.accenture.interview.rto.feedback.MotivationalFeedbackRTO;
+import com.accenture.interview.rto.feedback.TechnicalFeedbackRTO;
 import com.accenture.interview.rto.interview.InterviewRTO;
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.service.FeedbackService;
@@ -89,5 +91,25 @@ public class FeedbackFacade {
 		mailService.sendMail(mailParams, MailTypeEnum.FEEDBACK_INSERT);	
 		return new CreateMotivationFeedbackRTO(feedbackTO);
 	}
+
+   /**
+    * Find motivational feedback.
+    *
+    * @param interviewId the interview id
+    * @return the motivational feedback RTO
+    */
+   public MotivationalFeedbackRTO findMotivationalFeedback(Long interviewId) {
+      return feedbackService.findMotivationalFeedback(interviewId);
+   }
+
+   /**
+    * Find technical feedback.
+    *
+    * @param interviewId the interview id
+    * @return the technical feedback RTO
+    */
+   public TechnicalFeedbackRTO findTechnicalFeedback(Long interviewId) {
+      return feedbackService.findTechnicalFeedback(interviewId);
+   }
 
 }
