@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.accenture.interview.to.interview.InterviewStatusTO;
+import com.accenture.interview.rto.interview.InterviewStatusRTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -48,9 +48,9 @@ public enum InterviewStatusEnum
     *
     * @return the interview status list
     */
-   public static List<InterviewStatusTO> getInterviewStatusList() {
+   public static List<InterviewStatusRTO> getInterviewStatusList() {
       return Arrays.asList(InterviewStatusEnum.values()).stream()
-            .map(a -> new InterviewStatusTO(a.getValue(), a.getDescription()))
+            .map(a -> new InterviewStatusRTO(a.getValue(), a.getDescription()))
             .collect(Collectors.toList());
    }
 }

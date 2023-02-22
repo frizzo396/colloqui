@@ -186,13 +186,10 @@ public class InterviewerController {
     */
    @PostMapping("/recover-pwd")
    public @ResponseBody ResponseEntity<Object> recoverPasswordInterviewer(@RequestBody @ModelAttribute RecoverPasswordTO recoverPasswordTO, HttpSession session) {		
-	  ErrorRTO errorRTO = checkErrorsRecoverPasswordInterviewer.validate(recoverPasswordTO);
+      // ErrorRTO errorRTO =
+      // checkErrorsRecoverPasswordInterviewer.validate(recoverPasswordTO);
 
-	  if (!ObjectUtils.isEmpty(errorRTO)) {
-		  return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
-	  } else {		  
-		  return new ResponseEntity<>(interviewerFacade.recoverPassword(recoverPasswordTO), HttpStatus.OK);  
-	  }
+      return null;
    }
    
 }

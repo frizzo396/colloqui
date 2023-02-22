@@ -17,13 +17,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.accenture.interview.facade.InterviewFacade;
 import com.accenture.interview.facade.InterviewerFacade;
+import com.accenture.interview.facade.SearchInterviewFacade;
 import com.accenture.interview.rto.general.BaseResponseRTO;
 import com.accenture.interview.rto.general.ErrorRTO;
 import com.accenture.interview.to.interview.ApproveAvailabilityTO;
 import com.accenture.interview.to.interview.AssignInterviewTO;
 import com.accenture.interview.to.interview.CreateInterviewTO;
 import com.accenture.interview.to.interview.ReassignInterviewTO;
-import com.accenture.interview.to.interview.SearchAssignedTO;
+import com.accenture.interview.to.interview.SearchInterviewResponsibleTO;
 import com.accenture.interview.to.interview.SearchInterviewTO;
 import com.accenture.interview.to.interview.UploadCvTO;
 import com.accenture.interview.to.interviewer.AccessUserTO;
@@ -57,6 +58,10 @@ public class InterviewController {
    /** The check errors assign interview. */
    @Autowired
    private CheckErrorsAssignInterview checkErrorsAssignInterview;
+
+   /** The interview facade. */
+   @Autowired
+   private SearchInterviewFacade searchInterviewFacade;
 
 
 	/**
@@ -118,8 +123,11 @@ public class InterviewController {
       model.addAttribute(PaginationConstants.INTERVIEWER, interviewerFacade.interviewerInfo(username));
       model.addAttribute(PaginationConstants.INTERVIEWER_LIST, interviewerFacade.findAllInterviewers());
       model.addAttribute(PaginationConstants.COMBO_SITES, interviewFacade.getComboSites());
-      model.addAttribute("searchInterviews", interviewFacade.searchAssignedInterviews(new SearchAssignedTO("", "", "", "", "", null, "")));
-      model.addAttribute("searchAssignedTO", new SearchAssignedTO());
+      // model.addAttribute("searchInterviews",
+      // searchInterviewFacade.searchInterviewsResponsible(new
+      // SearchInterviewResponsibleTO("", "", "", "", "", null,
+      // "")));
+      model.addAttribute("searchAssignedTO", new SearchInterviewResponsibleTO());
       model.addAttribute("comboStatus", InterviewStatusEnum.getInterviewStatusList());
       model.addAttribute("assignInterviewTO", new AssignInterviewTO());
       model.addAttribute(PaginationConstants.REGISTER_USER_TO, new RegisterInterviewerTO());
@@ -147,7 +155,7 @@ public class InterviewController {
 		   return "access";
 		}	   
       model.addAttribute("interviewer", interviewerFacade.interviewerInfo((String) session.getAttribute("entId")));
-      model.addAttribute("searchInterviews", interviewFacade.searchInterviews(searchInterviewTO));
+      model.addAttribute("searchInterviews", searchInterviewFacade.searchInterviewsInterviewer(searchInterviewTO));
       model.addAttribute("searchInterviewTO", new SearchInterviewTO());
       model.addAttribute("comboSitesDB", interviewFacade.getComboSites());
       model.addAttribute("interviewerList", interviewerFacade.findAllInterviewers());
@@ -167,15 +175,15 @@ public class InterviewController {
     * @return the string
     */
    @PostMapping("/search-assigned")
-   public String searchAssignedInterview(@RequestBody @ModelAttribute SearchAssignedTO searchInterviewTO, Model model, HttpSession session) {
+   public String searchAssignedInterview(@RequestBody @ModelAttribute SearchInterviewResponsibleTO searchInterviewTO, Model model, HttpSession session) {
       if (ObjectUtils.isEmpty(session.getAttribute("entId"))) {
          model.addAttribute("accessUserTO", new AccessUserTO());
          model.addAttribute(PaginationConstants.REQUEST_REGISTRATION_TO, new RequestRegistrationTO());
          return "access";
       }
       model.addAttribute("interviewer", interviewerFacade.interviewerInfo((String) session.getAttribute("entId")));
-      model.addAttribute("searchInterviews", interviewFacade.searchAssignedInterviews(searchInterviewTO));
-      model.addAttribute("searchAssignedTO", new SearchAssignedTO());
+      model.addAttribute("searchInterviews", searchInterviewFacade.searchInterviewsResponsible(searchInterviewTO));
+      model.addAttribute("searchAssignedTO", new SearchInterviewResponsibleTO());
       model.addAttribute("comboSitesDB", interviewFacade.getComboSites());
       model.addAttribute("comboStatus", InterviewStatusEnum.getInterviewStatusList());
       model.addAttribute("interviewerList", interviewerFacade.findAllInterviewers());

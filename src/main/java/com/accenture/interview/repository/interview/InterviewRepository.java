@@ -78,7 +78,7 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
          + "(i.candidateName LIKE CONCAT('%',:name,'%') OR :name = '') AND "
          + "(i.candidateSurname LIKE CONCAT('%',:surname,'%') OR :surname = '') AND "
 			+ "(i.candidateTypeId.description = :candidateType OR :candidateType = '') AND "
-			+ "(i.site.siteName = :site OR :site = '') AND "
+         + "(i.site.id = :site OR :site = '') AND "
 			+ "(:intType is null OR i.interviewType = :intType) AND "
          + "(i.interviewerId.enterpriseId = :entId OR :entId = '' OR i.interviewerId.enterpriseId is null) AND "
 			+ "(:schedDate is null OR i.scheduledDate>=:schedDate) AND "
@@ -91,7 +91,7 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 			@Param("dueDate") Date secondDate,
 			@Param("entId") String enterpriseId,
 			@Param("candidateType") String candidateType,
-			@Param("site") String site);
+         @Param("site") Long site);
 
    /**
     * Find interview by params.
@@ -119,17 +119,17 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 	         + "s.id = i.site.id and "
          + "(i.candidateName LIKE CONCAT('%',:candidateName,'%') OR i.candidateSurname LIKE CONCAT('%',:candidateName,'%') OR :candidateName = '') AND "
 	         + "(i.candidateTypeId.description = :candidateType OR :candidateType = '') AND "
-	         + "(i.site.siteName = :site OR :site = '') AND "
+         + "(i.site.id = :site OR :site = '') AND "
 	         + "(:intType is null OR i.interviewType = :intType) AND "
          + "(i.status = :status OR :status is null) AND "
          + "(:entId = '' OR i.interviewerId.enterpriseId = :entId) AND "
          + "(i.finalFeedback = :feedback OR :feedback = '') "
          + "ORDER BY i.updatedDate desc")
 	   List<InterviewAndFeedbackRTO> findInterviewByParams(@Param("candidateName") String candidateName,
-	         @Param("intType") Long interviewType,
+            @Param("intType") Long interviewType,
             @Param("entId") String enterpriseId,
 	         @Param("candidateType") String candidateType,
-            @Param("site") String site,
+            @Param("site") Long site,
             @Param("status") Integer status,
             @Param("feedback") String feedback);
 

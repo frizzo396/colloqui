@@ -26,8 +26,6 @@ public class RecoverPasswordTO {
 	/** The mail. For recover password. */
 	@Email(message = "interviewer.error.mail.invalid")
 	@NotEmpty(message = "interviewer.error.mail.not-empty")	
-	private String mail;
-	
-	private String password;
+   private String mail;
 
 }

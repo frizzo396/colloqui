@@ -13,11 +13,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
 import com.accenture.interview.exception.GenericException;
-import com.accenture.interview.rto.candidate.CandidateTypeRTO;
 import com.accenture.interview.rto.general.ErrorRTO;
 import com.accenture.interview.service.CandidateService;
 import com.accenture.interview.service.InterviewService;
-import com.accenture.interview.service.InterviewerService;
 import com.accenture.interview.to.interview.CreateInterviewTO;
 
 /**
@@ -34,20 +32,16 @@ public class CheckErrorsInsertInterview {
 	@Autowired
 	private CandidateService candidateService;
 
-	/** The interviewer service. */
-	@Autowired
-	private InterviewerService interviewerService;
-
 	/** The message source. */
 	@Autowired
 	private MessageSource messageSource;
 
 	/**
-	 * Validate insert interview request.
-	 *
-	 * @param createInterviewTO the create interview TO
-	 * @return the sets the
-	 */
+    * Validate.
+    *
+    * @param createInterviewTO the create interview TO
+    * @return the error RTO
+    */
 	public ErrorRTO validate(CreateInterviewTO createInterviewTO) {
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Set<ConstraintViolation<CreateInterviewTO>> violations = factory.getValidator().validate(createInterviewTO);
@@ -77,8 +71,6 @@ public class CheckErrorsInsertInterview {
 	/**
 	 * Interview already exists.
 	 *
-	 * @param name the name
-	 * @param surname the surname
 	 * @param mail the mail
 	 * @return true, if successful
 	 */
@@ -88,14 +80,13 @@ public class CheckErrorsInsertInterview {
 
 
 	/**
-	 * Candidate type exists.
-	 *
-	 * @param candidateTypeName the candidate type name
-	 * @return true, if successful
-	 */
-	private boolean candidateTypeExists(String candidateTypeName) {
-		CandidateTypeRTO candidateType = candidateService.getCandidateType(candidateTypeName);
-		return candidateType != null;	
+    * Candidate type exists.
+    *
+    * @param candidateTypeId the candidate type id
+    * @return true, if successful
+    */
+   private boolean candidateTypeExists(Long candidateTypeId) {
+      return candidateService.getCandidateType(candidateTypeId) != null;
 	}
 
 }

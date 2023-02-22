@@ -1,7 +1,11 @@
 package com.accenture.interview.utils.enums;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import com.accenture.interview.rto.interview.InterviewTypeRTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -38,4 +42,15 @@ public enum InterviewTypeEnum
 				.map(InterviewTypeEnum::getId)
 				.findFirst();
 	}
+
+   /**
+    * Gets the interview type list.
+    *
+    * @return the interview type list
+    */
+   public static List<InterviewTypeRTO> getInterviewTypeList() {
+      return Arrays.stream(InterviewTypeEnum.values())
+            .map(a -> new InterviewTypeRTO(a.getId(), a.getDescription()))
+            .collect(Collectors.toList());
+   }
 }

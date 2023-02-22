@@ -26,7 +26,7 @@ import com.accenture.interview.to.interview.CreateInterviewTO;
 import com.accenture.interview.to.interview.InsertAvailabilityTO;
 import com.accenture.interview.to.interview.ReassignInterviewTO;
 import com.accenture.interview.to.interview.RescheduledAvailabilityTO;
-import com.accenture.interview.to.interview.SearchAssignedTO;
+import com.accenture.interview.to.interview.SearchInterviewResponsibleTO;
 import com.accenture.interview.to.interview.SearchInterviewTO;
 import com.accenture.interview.to.interview.UploadCvTO;
 import com.accenture.interview.to.interviewer.AccessUserTO;
@@ -306,8 +306,11 @@ public class PaginationController extends BaseController {
 		modelAndView.addObject(PaginationConstants.INTERVIEWER, interviewerFacade.interviewerInfo(username));
 		modelAndView.addObject(PaginationConstants.INTERVIEWER_LIST, interviewerFacade.findAllInterviewers());
       modelAndView.addObject(PaginationConstants.COMBO_SITES, interviewFacade.getComboSites());
-      modelAndView.addObject("searchInterviews", interviewFacade.searchAssignedInterviews(new SearchAssignedTO("", "", "", "", "", null, "")));
-      modelAndView.addObject("searchAssignedTO", new SearchAssignedTO());
+      // modelAndView.addObject("searchInterviews",
+      // interviewFacade.searchInterviewsResponsible(new
+      // SearchInterviewResponsibleTO("", "", "", "", "", null,
+      // "")));
+      modelAndView.addObject("searchAssignedTO", new SearchInterviewResponsibleTO());
       modelAndView.addObject("comboStatus", InterviewStatusEnum.getInterviewStatusList());
       modelAndView.addObject("assignInterviewTO", new AssignInterviewTO());
 		modelAndView.addObject(PaginationConstants.REGISTER_USER_TO, new RegisterInterviewerTO());

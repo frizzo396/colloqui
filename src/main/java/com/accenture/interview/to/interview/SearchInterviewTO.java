@@ -2,8 +2,6 @@ package com.accenture.interview.to.interview;
 
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,14 +21,12 @@ public class SearchInterviewTO {
 	private String candidateSurname;
 
 	/** The interview type. */
-	private String interviewType;
+   private Long interviewType;
 
 	/** The first date. */
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date firstDate;
 
 	/** The second date. */
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date secondDate;
 
 	/** The enterprise id. */
@@ -40,6 +36,6 @@ public class SearchInterviewTO {
 	private String candidateType;
 	
 	/** The site. */
-	private String site;
+   private Long site;
 
 }

@@ -182,14 +182,17 @@ public class InterviewerService {
     *
     * @param enterpriseId the enterprise id
     * @param password     the password
+    * @return the string
     */
-   public void recoverPassword(String enterpriseId, String password) {
+   public String recoverPassword(String enterpriseId, String password) {
       Optional<Interviewer> optInterview = interviewerRepository.findInterviewerEntityByEnterpriseId(enterpriseId);
       if (optInterview.isPresent()) {
          Interviewer interviewer = optInterview.get();
          interviewer.setPassword(password);
          interviewerRepository.save(interviewer);
+         return interviewer.getMail();
       }
+      return null;
    }
 
 }

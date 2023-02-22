@@ -1,4 +1,4 @@
-package com.accenture.interview.to.interview;
+package com.accenture.interview.rto.interview;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class InterviewStatusTO {
+public class InterviewStatusRTO {
 
    /** The id. */
    private Integer id;

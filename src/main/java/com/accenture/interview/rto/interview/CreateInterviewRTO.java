@@ -40,17 +40,13 @@ public class CreateInterviewRTO {
 	private String eduQualification;
 
 	/** The candidate type. */
-	private String candidateType;
+   private Long candidateType;
 
 	/** The interview type. */
-	private String interviewType;
+   private Long interviewType;
 
 	/** The enterprise id. */
 	private String enterpriseId;
-
-	/** The scheduled date. */
-	@JsonFormat(pattern = "MM-dd-YYYY HH:mm", timezone = "Europe/Rome")
-	private Date scheduledDate;
 
 	/**
 	 * Instantiates a new creates the interview response.

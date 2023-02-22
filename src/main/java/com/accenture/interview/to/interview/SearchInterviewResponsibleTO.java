@@ -12,13 +12,13 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SearchAssignedTO {
+public class SearchInterviewResponsibleTO {
 
    /** The candidate name. */
    private String candidateName;
 
    /** The interview type. */
-   private String interviewType;
+   private Long interviewType;
 
    /** The enterprise id. */
    private String enterpriseId;
@@ -27,7 +27,7 @@ public class SearchAssignedTO {
    private String candidateType;
 
    /** The site. */
-   private String site;
+   private Long site;
 
    /** The status. */
    private Integer status;

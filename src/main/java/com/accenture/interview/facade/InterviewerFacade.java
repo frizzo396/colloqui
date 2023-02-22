@@ -18,7 +18,6 @@ import com.accenture.interview.service.InterviewerService;
 import com.accenture.interview.service.general.MailService;
 import com.accenture.interview.to.interviewer.ChangePasswordInterviewerTO;
 import com.accenture.interview.to.interviewer.ModifyInterviewerTO;
-import com.accenture.interview.to.interviewer.RecoverPasswordTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 import com.accenture.interview.to.interviewer.RequestRegistrationTO;
 import com.accenture.interview.to.mail.MailParametersTO;
@@ -44,11 +43,11 @@ public class InterviewerFacade {
 	private MessageSource messageSource;
 
 	/**
-	 * Adds the new interviewer.
-	 *
-	 * @param request the request
-	 * @return the creates the interviewer response
-	 */
+    * Adds the new interviewer.
+    *
+    * @param request the request
+    * @return the base response RTO
+    */
 	public BaseResponseRTO addNewInterviewer(RegisterInterviewerTO request) {
 		InterviewerRTO interviewer = interviewerService.findInterviewerByEnterpriseIdOrMail(request.getEnterpriseId(), request.getMail());	
 
@@ -75,57 +74,55 @@ public class InterviewerFacade {
 	}
 	
 	/**
-	 * Modifies the interviewer.
-	 *
-	 * @param request the request
-	 * @return the interviewer response
-	 */
+    * Modify interviewer.
+    *
+    * @param request the request
+    * @return the base response RTO
+    */
 	public BaseResponseRTO modifyInterviewer(ModifyInterviewerTO request) {
 		interviewerService.modifyInterviewer(request);		
 		return new BaseResponseRTO(new InterviewerRTO(request), null);
 	}
 	
 	/**
-	 * Changes the password of interviewer.
-	 *
-	 * @param request the request
-	 * @return the interviewer response
-	 */
+    * Change password interviewer.
+    *
+    * @param request the request
+    * @return the base response RTO
+    */
 	public BaseResponseRTO changePasswordInterviewer(ChangePasswordInterviewerTO request) {
       return interviewerService.changePasswordInterviewer(request, messageSource);
 	}	
 	
 	/**
-	 * Enable/disable interviewer status.
-	 *
-	 * @param request the request
-	 * @return the interviewer response
-	 */
+    * Enable disable interviewer.
+    *
+    * @param request the request
+    * @return the base response RTO
+    */
 	public BaseResponseRTO enableDisableInterviewer(ModifyInterviewerTO request) {
 		interviewerService.enableDisableInterviewer(request);		
 		return new BaseResponseRTO(new InterviewerRTO(request), null);
 	}	
 	
 	/**
-	 * Check enterprise id and mail.
-	 *
-	 * @param registerTO the register TO
-	 * @param enterpriseId the enterprise id
-	 * @param mail the mail
-	 * @return true, if successful
-	 */
+    * Checks if is enterpriseid and mail equal.
+    *
+    * @param registerTO   the register TO
+    * @param enterpriseId the enterprise id
+    * @param mail         the mail
+    * @return true, if is enterpriseid and mail equal
+    */
 	private boolean isEnterpriseidAndMailEqual(RegisterInterviewerTO registerTO, String enterpriseId, String mail) {
 		return registerTO.getEnterpriseId().equalsIgnoreCase(enterpriseId) && registerTO.getMail().equalsIgnoreCase(mail);
 	}
 
 	/**
-	 * Search interviewer.
-	 *
-	 * @param candidateName    the candidate name
-	 * @param candidateSurname the candidate surname
-	 * @param mail             the mail
-	 * @return the search interviewer response
-	 */
+    * Search interviewer.
+    *
+    * @param mail the mail
+    * @return the interviewer RTO
+    */
 	public InterviewerRTO searchInterviewer(String mail) {
 		InterviewerRTO interviewer = interviewerService.findInterviewerByMail(mail);
 		if (!ObjectUtils.isEmpty(interviewer)) {
@@ -136,11 +133,11 @@ public class InterviewerFacade {
 	}
 
 	/**
-	 * Interviewer info.
-	 *
-	 * @param enterpriseId the enterprise id
-	 * @return the interviewer
-	 */
+    * Interviewer info.
+    *
+    * @param enterpriseId the enterprise id
+    * @return the interviewer RTO
+    */
 	public InterviewerRTO interviewerInfo(String enterpriseId) {
 		return interviewerService.findInterviewerByEnterpriseId(enterpriseId);
 	}
@@ -187,23 +184,30 @@ public class InterviewerFacade {
 	
 	
 	/**
-	 * Send mail for recover interviewer password.
-	 *
-	 * @param requestTO the request TO
-	 * @return the base response RTO
-	 */
-	public BaseResponseRTO recoverPassword(RecoverPasswordTO recoverPasswordTO) {
+    * Recover password.
+    *
+    * @param enterpriseId the enterprise id
+    * @return the string
+    */
+   public String recoverPassword(String enterpriseId) {
       String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%";
       String password = RandomStringUtils.random(8, characters);
-      interviewerService.recoverPassword(recoverPasswordTO.getEnterpriseId(), password);
+      String mail = interviewerService.recoverPassword(enterpriseId, password);
 
-		MailParametersTO mailParams = new MailParametersTO(Arrays.asList(recoverPasswordTO.getMail()), 
+      MailParametersTO mailParams = new MailParametersTO(Arrays.asList(mail),
             new ArrayList<>(), Arrays.asList(password), new ArrayList<>(), WebPaths.HOME);
-		
-		boolean result = mailService.sendMail(mailParams, MailTypeEnum.USER_RECOVER_PASSWORD);	
-		if(!result) {
-			return new BaseResponseRTO(null, mailService.registrationRequestMailNotSend());
-		}
-		return new BaseResponseRTO(new InterviewerRTO(recoverPasswordTO), null);
+      mailService.sendMail(mailParams, MailTypeEnum.USER_RECOVER_PASSWORD);
+      return enterpriseId;
 	}	
+
+   /**
+    * Login.
+    *
+    * @param enterpriseId the enterprise id
+    * @return the interviewer RTO
+    */
+   public InterviewerRTO login(String enterpriseId) {
+      return interviewerService.findInterviewerByEnterpriseId(enterpriseId);
+   }
+
 }

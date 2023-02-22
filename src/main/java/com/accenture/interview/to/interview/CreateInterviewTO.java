@@ -22,8 +22,8 @@ import lombok.Setter;
 public class CreateInterviewTO {
 	
     /** The site. */
-	@NotEmpty(message = "interview.error.site.not-empty")
-	private String site;
+    @NotNull(message = "interview.error.site.not-empty")
+   private Long site;
 
 	/** The candidate name. */
 	@NotEmpty(message = "interview.error.candidate.name.not-empty")
@@ -49,16 +49,14 @@ public class CreateInterviewTO {
 	private String eduQualification;
 
 	/** The candidate type. */
-	@NotEmpty(message = "interview.error.candidate.type.not-empty")
-	private String candidateType;
+   @NotNull(message = "interview.error.candidate.type.not-empty")
+   private Long candidateType;
 
 	/** The interview type. */
-	@NotEmpty(message = "interview.error.type.not-empty")
-	private String interviewType;
+   @NotNull(message = "interview.error.type.not-empty")
+   private Long interviewType;
 
 	/** The enterprise id. */
-   // @NotEmpty(message =
-   // "interview.error.enterpriseid.not-empty")
 	private String enterpriseId;
 	
 	/** The note. */	

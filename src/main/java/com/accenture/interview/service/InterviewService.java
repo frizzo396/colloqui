@@ -35,7 +35,7 @@ import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.rto.site.SiteRTO;
 import com.accenture.interview.to.interview.AssignInterviewTO;
 import com.accenture.interview.to.interview.CreateInterviewTO;
-import com.accenture.interview.to.interview.SearchAssignedTO;
+import com.accenture.interview.to.interview.SearchInterviewResponsibleTO;
 import com.accenture.interview.to.interview.SearchInterviewTO;
 import com.accenture.interview.utils.date.DateUtils;
 import com.accenture.interview.utils.enums.InterviewStatusEnum;
@@ -163,7 +163,7 @@ public class InterviewService {
 		interview.setCandidateTypeId(new CandidateType(type.getId(), type.getDescription()));
 		interview.setAssigner(assigner.getId());		
       interview.setInterviewerId(interviewer != null ? new Interviewer(interviewer.getId(), interviewer.getEnterpriseId(), interviewer.getMail(), interviewer.getType()) : null);
-		interview.setInterviewType(getInterviewTypeFromString(request.getInterviewType()));
+      interview.setInterviewType(request.getInterviewType());
 		interview.setStatus(InterviewStatusEnum.NEW.getValue());
 		Interview saved = interviewRepository.save(interview);
 		return saved.getId();
@@ -175,11 +175,10 @@ public class InterviewService {
 	 * @param searchInterviewTO the search interview TO
 	 * @return the list
 	 */
-	public List<InterviewAndFeedbackRTO> searchInterview(SearchInterviewTO searchInterviewTO) {
-		Long interviewType = getInterviewTypeFromString(searchInterviewTO.getInterviewType());
+   public List<InterviewAndFeedbackRTO> searchInterviews(SearchInterviewTO searchInterviewTO) {
 		return interviewRepository.findInterviewByParams(searchInterviewTO.getCandidateName(), 
 				searchInterviewTO.getCandidateSurname(),
-				interviewType, searchInterviewTO.getFirstDate(),
+            searchInterviewTO.getInterviewType(), searchInterviewTO.getFirstDate(),
 				searchInterviewTO.getSecondDate(), searchInterviewTO.getEnterpriseId(),
 				searchInterviewTO.getCandidateType(), searchInterviewTO.getSite());
 	}
@@ -190,10 +189,9 @@ public class InterviewService {
     * @param searchInterviewTO the search interview TO
     * @return the list
     */
-   public List<InterviewAndFeedbackRTO> searchAssignedInterviews(SearchAssignedTO searchInterviewTO) {
-      Long interviewType = getInterviewTypeFromString(searchInterviewTO.getInterviewType());
+   public List<InterviewAndFeedbackRTO> searchInterviews(SearchInterviewResponsibleTO searchInterviewTO) {
       return interviewRepository.findInterviewByParams(searchInterviewTO.getCandidateName(),
-            interviewType,
+            searchInterviewTO.getInterviewType(),
             searchInterviewTO.getEnterpriseId(),
             searchInterviewTO.getCandidateType(),
             searchInterviewTO.getSite(),
