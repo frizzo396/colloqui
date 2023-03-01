@@ -14,6 +14,7 @@ import com.accenture.interview.rto.interview.InProgressInterviewRTO;
 import com.accenture.interview.rto.interview.InterviewAndFeedbackRTO;
 import com.accenture.interview.rto.interview.InterviewMonthRTO;
 import com.accenture.interview.rto.interview.InterviewRTO;
+import com.accenture.interview.rto.interview.UpdateInterviewRTO;
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.rto.site.SiteRTO;
 import com.accenture.interview.service.AvailabilityService;
@@ -29,6 +30,7 @@ import com.accenture.interview.to.interview.SearchAssignedTO;
 import com.accenture.interview.to.interview.SearchInterviewTO;
 import com.accenture.interview.to.mail.MailParametersTO;
 import com.accenture.interview.utils.constants.WebPaths;
+import com.accenture.interview.utils.enums.InterviewTypeEnum;
 import com.accenture.interview.utils.enums.MailTypeEnum;
 import com.accenture.interview.utils.mail.MailUtils;
 
@@ -79,6 +81,18 @@ public class InterviewFacade {
 		return siteService.findAllSites();
 	}
 
+   /**
+    * Find interview for update.
+    *
+    * @param id the id
+    * @return the creates the interview TO
+    */
+   public CreateInterviewTO findInterviewForUpdate(Long id) {
+      UpdateInterviewRTO interview = interviewService.findInterviewForUpdate(id);
+      interview.setInterviewTypeString(interview.getInterviewType() == 1 ? InterviewTypeEnum.MOTIVAZIONALE.getDescription() : InterviewTypeEnum.TECNICO.getDescription());
+      return new CreateInterviewTO(interview);
+   }
+
 	/**
     * Adds the new interview.
     *
@@ -108,6 +122,36 @@ public class InterviewFacade {
 		}
 		return response;
 	}
+
+   /**
+    * Update interview.
+    *
+    * @param request      the request
+    * @param enterpriseId the enterprise id
+    * @return the creates the interview RTO
+    */
+   public CreateInterviewRTO updateInterview(CreateInterviewTO request, String enterpriseId) {
+      CreateInterviewRTO response = null;
+      CandidateTypeRTO candidateType = candidateService.getCandidateType(request.getCandidateType());
+      InterviewerRTO interviewer = interviewerService.findInterviewerByEnterpriseId(request.getEnterpriseId());
+      SiteRTO site = siteService.findSiteById(Long.parseLong(request.getSite()));
+      String oldInterviewer = interviewService.updateInterview(request, candidateType, interviewer, site);
+      response = new CreateInterviewRTO(request);
+      response.setInterviewId(request.getInterviewId());
+
+      if ((oldInterviewer == null && request.getEnterpriseId() != null) || (oldInterviewer != null && !oldInterviewer.equals(request.getEnterpriseId()))) {
+         List<String> bodyParams = !ObjectUtils.isEmpty(request.getNote()) ? Arrays.asList(response.getCandidateName(), response.getCandidateSurname(), request.getNote())
+               : Arrays.asList(response.getCandidateName(), response.getCandidateSurname());
+         MailTypeEnum mailType = !ObjectUtils.isEmpty(request.getNote()) ? MailTypeEnum.INTERVIEW_INSERT : MailTypeEnum.INTERVIEW_INSERT_WITHOUT_NOTES;
+         MailParametersTO mailParams = new MailParametersTO(Arrays.asList(interviewer.getMail()),
+               interviewerService.getAllResponsibles().stream().map(InterviewerRTO::getMail).collect(Collectors.toList()),
+               bodyParams,
+               Arrays.asList(response.getCandidateName(), response.getCandidateSurname()), WebPaths.IN_PROGRESS);
+         mailService.sendMail(mailParams, mailType);
+      }
+
+      return response;
+   }
 
 	/**
 	 * Search interviews.
@@ -246,6 +290,17 @@ public class InterviewFacade {
     */
    public Long unassignInterview(Long interviewId) {
       interviewService.unassignInterview(interviewId);
+      return interviewId;
+   }
+
+   /**
+    * Cancel interview.
+    *
+    * @param interviewId the interview id
+    * @return the long
+    */
+   public Long cancelInterview(Long interviewId) {
+      interviewService.cancelInterview(interviewId);
       return interviewId;
    }
 

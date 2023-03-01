@@ -136,10 +136,10 @@
                                         <td>
 	                                        <span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).SCHEDULED.value}">
 	                                            <span th:if="${interview.interviewType == 1}">
-	                                                <button type="submit" class="motiv-popup" th:data-parameter1="${interview.id}" onclick="goToMotivationalFeedback(this.getAttribute('data-parameter1'));"><em id="plusIcon" class='bx bx-plus'></em></button>
+	                                                <button type="submit" class="motiv-popup" th:data-parameter1="${interview.id}" onclick="goToMotFeedback(this.getAttribute('data-parameter1'));"><em id="plusIcon" class='bx bx-plus'></em></button>
 	                                            </span>
 	                                            <span th:unless="${interview.interviewType == 1}">
-	                                                <button type="submit" class="tech-popup" th:data-parameter1="${interview.id}" onclick="goToTechnicalFeedback(this.getAttribute('data-parameter1'));"><em id="plusIcon" class='bx bx-plus'></em></button>
+	                                                <button type="submit" class="tech-popup" th:data-parameter1="${interview.id}" onclick="goToTechFeedback(this.getAttribute('data-parameter1'));"><em id="plusIcon" class='bx bx-plus'></em></button>
 	                                            </span>
 	                                            </span>
                                         </td>

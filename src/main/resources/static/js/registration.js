@@ -66,7 +66,7 @@ $(document).ready(function (){
 				} else {
 					var submitBtn = document.getElementById('btn_modify_submit');
 					setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); showToast(response.error, "ERROR", 3000);
-					setTimeout(function(){RedirectUsers()}, 1700);}, 2000);
+					}, 2000);
 				}
 			}
 

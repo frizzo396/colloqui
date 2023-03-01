@@ -32,8 +32,11 @@ public enum InterviewStatusEnum
 	/** The refused. */
    REFUSED(5, "Refused"),
 
-   /** The refused. */
-   RESCHEDULED(6, "Rescheduled");
+   /** The rescheduled. */
+   RESCHEDULED(6, "Rescheduled"),
+
+   /** The canceled. */
+   CANCELED(7, "Canceled");
 	
    /** The value. */
 	private Integer value;

@@ -80,10 +80,12 @@ public class InterviewerService {
     * @param request the request
     */
    public void modifyInterviewer(ModifyInterviewerTO request) {
-      Optional<Interviewer> optInterviewer = interviewerRepository.findInterviewerEntityByEnterpriseId(request.getEnterpriseId());
+      Optional<Interviewer> optInterviewer = interviewerRepository.findById(request.getId());
       if (optInterviewer.isPresent()) {
          Interviewer interviewer = optInterviewer.get();
          interviewer.setType(request.getIsResponsible());
+         interviewer.setEnterpriseId(request.getEnterpriseId());
+         interviewer.setMail(request.getMail());
          interviewerRepository.save(interviewer);
       }
    }

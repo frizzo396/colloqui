@@ -9,6 +9,9 @@ import javax.validation.constraints.PastOrPresent;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.accenture.interview.rto.interview.UpdateInterviewRTO;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,7 +22,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class CreateInterviewTO {
+
+   private Long interviewId;
 	
     /** The site. */
 	@NotEmpty(message = "interview.error.site.not-empty")
@@ -57,10 +63,22 @@ public class CreateInterviewTO {
 	private String interviewType;
 
 	/** The enterprise id. */
-   // @NotEmpty(message =
-   // "interview.error.enterpriseid.not-empty")
 	private String enterpriseId;
 	
 	/** The note. */	
 	private String note;
+
+   public CreateInterviewTO(UpdateInterviewRTO rto) {
+      this.interviewId = rto.getInterviewId();
+      this.candidateBirth = rto.getCandidateBirth();
+      this.candidateName = rto.getCandidateName();
+      this.candidateSurname = rto.getCandidateSurname();
+      this.candidateType = rto.getCandidateType();
+      this.eduQualification = rto.getEduQualification();
+      this.enterpriseId = rto.getEnterpriseId();
+      this.interviewType = rto.getInterviewTypeString();
+      this.mail = rto.getMail();
+      this.note = rto.getNote();
+      this.site = rto.getSite();
+   }
 }

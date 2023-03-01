@@ -67,6 +67,15 @@ public class MailUtils {
 		}
 		else if(mailType.equals(MailTypeEnum.USER_RECOVER_PASSWORD)) {
 			subject = messageSource.getMessage("mail.subject.recover-pwd", null, Locale.getDefault());
+      } else if (mailType.equals(MailTypeEnum.INTERVIEW_ASSIGNED) || mailType.equals(MailTypeEnum.INTERVIEW_ASSIGNED_WITH_NOTES)
+            || mailType.equals(MailTypeEnum.INTERVIEW_INSERT)
+            || mailType.equals(MailTypeEnum.INTERVIEW_INSERT_WITHOUT_NOTES)) {
+         subject = messageSource.getMessage("mail.subject.interview.assigned", null, Locale.getDefault());
+      } else if (mailType.equals(MailTypeEnum.AVAILABILITY_APPROVE) || mailType.equals(MailTypeEnum.AVAILABILITY_INSERT)
+            || mailType.equals(MailTypeEnum.AVAILABILITY_REFUSE) || mailType.equals(MailTypeEnum.AVAILABILITY_RESCHEDULE) || mailType.equals(MailTypeEnum.AVAILABILITY_RESCHEDULE_ACCEPTED)) {
+         subject = messageSource.getMessage("mail.subject.interview.availability", null, Locale.getDefault());
+      } else if (mailType.equals(MailTypeEnum.FEEDBACK_INSERT)) {
+         subject = messageSource.getMessage("mail.subject.interview.feedback", null, Locale.getDefault());
       } else {
          subject = messageSource.getMessage("mail.subject.interview", null, Locale.getDefault());
       }

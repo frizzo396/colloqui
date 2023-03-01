@@ -31,6 +31,7 @@ import com.accenture.interview.rto.interview.InProgressInterviewRTO;
 import com.accenture.interview.rto.interview.InterviewAndFeedbackRTO;
 import com.accenture.interview.rto.interview.InterviewMonthRTO;
 import com.accenture.interview.rto.interview.InterviewRTO;
+import com.accenture.interview.rto.interview.UpdateInterviewRTO;
 import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.rto.site.SiteRTO;
 import com.accenture.interview.to.interview.AssignInterviewTO;
@@ -82,7 +83,7 @@ public class InterviewService {
 	 * @param finalFeedback the final feedback
 	 */
 	public void updateInterviewTechFeedback(Long idColloquio, TechnicalFeedback feedback, String finalFeedback) {
-		Optional<Interview> optInterview = interviewRepository.findInterviewById(idColloquio);
+      Optional<Interview> optInterview = interviewRepository.findById(idColloquio);
 		if(optInterview.isPresent()) {
 			Interview interview = optInterview.get();
 			interview.setFinalFeedback(finalFeedback);
@@ -102,7 +103,7 @@ public class InterviewService {
 	 * @param finalFeedback the final feedback
 	 */
 	public void updateInterviewMotFeedback(Long idColloquio, MotivationFeedback feedback, String finalFeedback) {
-		Optional<Interview> optInterview = interviewRepository.findInterviewById(idColloquio);
+      Optional<Interview> optInterview = interviewRepository.findById(idColloquio);
 		if(optInterview.isPresent()) {
 			Interview interview = optInterview.get();
 			interview.setFinalFeedback(finalFeedback);
@@ -165,9 +166,40 @@ public class InterviewService {
       interview.setInterviewerId(interviewer != null ? new Interviewer(interviewer.getId(), interviewer.getEnterpriseId(), interviewer.getMail(), interviewer.getType()) : null);
 		interview.setInterviewType(getInterviewTypeFromString(request.getInterviewType()));
 		interview.setStatus(InterviewStatusEnum.NEW.getValue());
+      interview.setUpdatedDate(new Date());
 		Interview saved = interviewRepository.save(interview);
 		return saved.getId();
 	}
+
+   /**
+    * Update interview.
+    *
+    * @param request     the request
+    * @param type        the type
+    * @param interviewer the interviewer
+    * @param site        the site
+    * @return the long
+    */
+   public String updateInterview(CreateInterviewTO request, CandidateTypeRTO type, InterviewerRTO interviewer, SiteRTO site) {
+      Optional<Interview> opt = interviewRepository.findById(request.getInterviewId());
+      if (opt.isPresent()) {
+         Interview interview = opt.get();
+         String oldInterview = interview.getInterviewerId() != null ? interview.getInterviewerId().getEnterpriseId() : null;
+         interview.setCandidateName(request.getCandidateName());
+         interview.setCandidateSurname(request.getCandidateSurname());
+         interview.setCandidateBirth(request.getCandidateBirth());
+         interview.setUpdatedDate(new Date());
+         interview.setMail(request.getMail());
+         interview.setNote(request.getNote());
+         interview.setSite(new Site(site.getId(), site.getName()));
+         interview.setCandidateTypeId(new CandidateType(type.getId(), type.getDescription()));
+         interview.setInterviewerId(interviewer != null ? new Interviewer(interviewer.getId(), interviewer.getEnterpriseId(), interviewer.getMail(), interviewer.getType()) : null);
+         interview.setInterviewType(getInterviewTypeFromString(request.getInterviewType()));
+         interviewRepository.save(interview);
+         return oldInterview;
+      }
+      return null;
+   }
 
 	/**
 	 * Search interview.
@@ -336,7 +368,7 @@ public class InterviewService {
 
 			try {
 				Optional<Long> optType = Optional
-						.of(InterviewTypeEnum.valueOf(description))
+                  .of(InterviewTypeEnum.valueOf(description.toUpperCase()))
 						.map(InterviewTypeEnum::getId);
 
 				if (optType.isPresent()) {
@@ -358,7 +390,7 @@ public class InterviewService {
 	 * @return the long
 	 */
 	public Long refuseInterview(Long interviewId) {
-		Optional<Interview> optInterview = interviewRepository.findInterviewById(interviewId);
+      Optional<Interview> optInterview = interviewRepository.findById(interviewId);
 		if(optInterview.isPresent()) {
 			Interview interview = optInterview.get();
          interview.setUpdatedDate(new Date());
@@ -377,7 +409,7 @@ public class InterviewService {
 	 * @return the long
 	 */
 	public Long reassignInterview(Long interviewId, InterviewerRTO newInterviewer) {
-		Optional<Interview> optInterview = interviewRepository.findInterviewById(interviewId);
+      Optional<Interview> optInterview = interviewRepository.findById(interviewId);
 		if(optInterview.isPresent()) {
 			Interview interview = optInterview.get();
 			interview.setInterviewerId(new Interviewer(newInterviewer.getId(), 
@@ -399,7 +431,7 @@ public class InterviewService {
     * @return the long
     */
    public Long acceptRescheduled(Long interviewId) {
-      Optional<Interview> optInterview = interviewRepository.findInterviewById(interviewId);
+      Optional<Interview> optInterview = interviewRepository.findById(interviewId);
       if (optInterview.isPresent()) {
          Interview interview = optInterview.get();
          interview.setStatus(InterviewStatusEnum.SCHEDULED.getValue());
@@ -475,6 +507,49 @@ public class InterviewService {
          interviewRepository.save(interview);
       }
       availabilityRepository.deleteAll(availabilityList);
+   }
+
+   /**
+    * Cancel interview.
+    *
+    * @param interviewId the interview id
+    */
+   public void cancelInterview(Long interviewId) {
+      Optional<Interview> optInterview = interviewRepository.findById(interviewId);
+      List<Availability> availabilityList = availabilityRepository.findAvailabilityByInterviewId(interviewId);
+      if (optInterview.isPresent()) {
+         Interview interview = optInterview.get();
+         interview.setStatus(InterviewStatusEnum.CANCELED.getValue());
+         interview.setUpdatedDate(new Date());
+         interviewRepository.save(interview);
+      }
+      availabilityRepository.deleteAll(availabilityList);
+   }
+
+   /**
+    * Find interview for update.
+    *
+    * @param interviewId the interview id
+    * @return the update interview RTO
+    */
+   public UpdateInterviewRTO findInterviewForUpdate(Long interviewId) {
+      UpdateInterviewRTO rto = new UpdateInterviewRTO();
+      Optional<Interview> optInterview = interviewRepository.findById(interviewId);
+      if (optInterview.isPresent()) {
+         Interview interview = optInterview.get();
+         rto.setCandidateBirth(interview.getCandidateBirth());
+         rto.setCandidateName(interview.getCandidateName());
+         rto.setCandidateSurname(interview.getCandidateSurname());
+         rto.setCandidateType(interview.getCandidateTypeId().getDescription());
+         rto.setInterviewId(interview.getId());
+         rto.setMail(interview.getMail());
+         rto.setNote(interview.getNote());
+         rto.setEduQualification(interview.getQualification());
+         rto.setEnterpriseId(interview.getInterviewerId() != null ? interview.getInterviewerId().getEnterpriseId() : null);
+         rto.setSite(interview.getSite().getSiteName());
+         rto.setInterviewType(interview.getInterviewType());
+      }
+      return rto;
    }
 
 }

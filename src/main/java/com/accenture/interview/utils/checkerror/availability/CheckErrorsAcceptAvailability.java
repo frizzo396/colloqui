@@ -47,7 +47,7 @@ public class CheckErrorsAcceptAvailability {
             String errorMsg = messageSource.getMessage(violation.getMessage(), null, Locale.getDefault());
             return new ErrorRTO(errorMsg);
          }
-         if (ObjectUtils.isEmpty(interviewService.findInterviewById(rescheduleTO.getInterviewId()))) {
+         if (ObjectUtils.isEmpty(interviewService.findInterviewForUpdate(rescheduleTO.getInterviewId()))) {
             String errorMsg = messageSource.getMessage("interview.error.not-found", null, Locale.getDefault());
             return new ErrorRTO(errorMsg);
          }

@@ -8,14 +8,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * The Class CreateInterviewRequest.
+ * The Class ModifyInterviewerTO.
  */
 @Getter
 @Setter
 @NoArgsConstructor
 public class ModifyInterviewerTO {	
 
-	/** Responsible. */
+   /** The is responsible. */
 	@NotNull(message = "interviewer.error.responsible.not-null")
 	private Long isResponsible;
 
@@ -23,9 +23,13 @@ public class ModifyInterviewerTO {
 	@NotEmpty(message = "interviewer.error.enterpriseid.not-empty")
 	private String enterpriseId;
 	
+   /** The mail. */
+   @NotEmpty(message = "interviewer.error.mail.not-empty")
+   private String mail;
+
 	/** The status. */
 	private long status;
 	
-	/** The id (primary key). */
+   /** The id. */
 	private long id;
 }

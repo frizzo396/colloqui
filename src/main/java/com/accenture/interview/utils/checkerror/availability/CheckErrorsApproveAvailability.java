@@ -49,7 +49,7 @@ public class CheckErrorsApproveAvailability {
 				String errorMsg = messageSource.getMessage(violation.getMessage(), null, Locale.getDefault());
 				return new ErrorRTO(errorMsg);
 			}
-			if(ObjectUtils.isEmpty(interviewService.findInterviewById(approveAvailabilityTO.getInterviewId()))) {
+			if(ObjectUtils.isEmpty(interviewService.findInterviewForUpdate(approveAvailabilityTO.getInterviewId()))) {
 				String errorMsg = messageSource.getMessage("interview.error.not-found", null, Locale.getDefault());
 				return new ErrorRTO(errorMsg);
 			}

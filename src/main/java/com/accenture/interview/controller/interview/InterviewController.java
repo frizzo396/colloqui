@@ -80,6 +80,26 @@ public class InterviewController {
 	}
 
    /**
+    * Update interview.
+    *
+    * @param createInterviewTO the create interview TO
+    * @param session           the session
+    * @return the response entity
+    */
+   @PostMapping(path = "/update")
+   public @ResponseBody ResponseEntity<Object> updateInterview(@RequestBody @ModelAttribute CreateInterviewTO createInterviewTO, HttpSession session) {
+      if (ObjectUtils.isEmpty(session.getAttribute("entId"))) {
+         return new ResponseEntity<>(new BaseResponseRTO(null, PaginationConstants.EXPIRED), HttpStatus.OK);
+      }
+      ErrorRTO errorRTO = checkErrorsInsertInterview.validateUpdate(createInterviewTO);
+
+      if (!ObjectUtils.isEmpty(errorRTO)) {
+         return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
+      }
+      return new ResponseEntity<>(new BaseResponseRTO(interviewFacade.updateInterview(createInterviewTO, (String) session.getAttribute("entId"))), HttpStatus.OK);
+   }
+
+   /**
     * Assign interview.
     *
     * @param assignInterviewTO the assign interview TO
@@ -102,8 +122,9 @@ public class InterviewController {
     * Unassign interview.
     *
     * @param interviewId the interview id
+    * @param model       the model
     * @param session     the session
-    * @return the response entity
+    * @return the string
     */
    @PostMapping(path = "{interviewId}/unassign")
    public String unassignInterview(@PathVariable(name = "interviewId") Long interviewId, Model model, HttpSession session) {
@@ -114,6 +135,39 @@ public class InterviewController {
          return "access";
       }
       interviewFacade.unassignInterview(interviewId);
+      String username = (String) session.getAttribute("entId");
+      model.addAttribute(PaginationConstants.INTERVIEWER, interviewerFacade.interviewerInfo(username));
+      model.addAttribute(PaginationConstants.INTERVIEWER_LIST, interviewerFacade.findAllInterviewers());
+      model.addAttribute(PaginationConstants.COMBO_SITES, interviewFacade.getComboSites());
+      model.addAttribute("searchInterviews", interviewFacade.searchAssignedInterviews(new SearchAssignedTO("", "", "", "", "", null, "")));
+      model.addAttribute("searchAssignedTO", new SearchAssignedTO());
+      model.addAttribute("comboStatus", InterviewStatusEnum.getInterviewStatusList());
+      model.addAttribute("assignInterviewTO", new AssignInterviewTO());
+      model.addAttribute(PaginationConstants.REGISTER_USER_TO, new RegisterInterviewerTO());
+      model.addAttribute(PaginationConstants.APPROVE_AVAILABILITY_TO, new ApproveAvailabilityTO());
+      model.addAttribute(PaginationConstants.REASSIGN_INTERVIEW_TO, new ReassignInterviewTO());
+      model.addAttribute(PaginationConstants.CHANGE_PASSWORD_INTERVIEWER_TO, new ChangePasswordInterviewerTO());
+      model.addAttribute(PaginationConstants.UPLOAD_CV_TO, new UploadCvTO());
+      return "assigned";
+   }
+
+   /**
+    * Cancel interview.
+    *
+    * @param interviewId the interview id
+    * @param model       the model
+    * @param session     the session
+    * @return the string
+    */
+   @PostMapping(path = "{interviewId}/cancel")
+   public String cancelInterview(@PathVariable(name = "interviewId") Long interviewId, Model model, HttpSession session) {
+
+      if (ObjectUtils.isEmpty(session.getAttribute("entId"))) {
+         model.addAttribute("accessUserTO", new AccessUserTO());
+         model.addAttribute(PaginationConstants.REQUEST_REGISTRATION_TO, new RequestRegistrationTO());
+         return "access";
+      }
+      interviewFacade.cancelInterview(interviewId);
       String username = (String) session.getAttribute("entId");
       model.addAttribute(PaginationConstants.INTERVIEWER, interviewerFacade.interviewerInfo(username));
       model.addAttribute(PaginationConstants.INTERVIEWER_LIST, interviewerFacade.findAllInterviewers());

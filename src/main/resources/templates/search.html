@@ -191,10 +191,10 @@
 												    <div th:case="*">
 												    <span th:if="${interview.status == T(com.accenture.interview.utils.enums.InterviewStatusEnum).SCHEDULED.value && interviewer.enterpriseId == interview.enterpriseId}">
 												         <span th:if="${interview.interviewType == 1}">
-												         		<button type="submit" class="add-feed-button" th:data-parameter1="${interview.idColloquio}" onclick="goToMotivationalFeedback(this.getAttribute('data-parameter1'));"><em id="plusIcon" class='bx bx-plus'></em></button>
+												         		<button type="submit" class="add-feed-button" th:data-parameter1="${interview.idColloquio}" onclick="goToMotFeedback(this.getAttribute('data-parameter1'));"><em id="plusIcon" class='bx bx-plus'></em></button>
 												         </span>
                                                     	 <span th:unless="${interview.interviewType == 1}">
-                                                    	 		 <button type="submit" class="add-feed-button" th:data-parameter1="${interview.idColloquio}" onclick="goToTechnicalFeedback(this.getAttribute('data-parameter1'));"><em id="plusIcon" class='bx bx-plus'></em></button>
+                                                    	 		 <button type="submit" class="add-feed-button" th:data-parameter1="${interview.idColloquio}" onclick="goToTechFeedback(this.getAttribute('data-parameter1'));"><em id="plusIcon" class='bx bx-plus'></em></button>
                                                     	 </span>
                                                     </span>
 												    </div>

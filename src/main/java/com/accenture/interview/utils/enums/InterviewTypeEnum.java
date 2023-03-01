@@ -1,7 +1,10 @@
 package com.accenture.interview.utils.enums;
 
 import java.util.Arrays;
-import java.util.Optional;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.accenture.interview.rto.BaseTypeRTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,10 +35,16 @@ public enum InterviewTypeEnum
 	 * @param description the description
 	 * @return the id from description
 	 */
-	public Optional<Long> getIdFromDescription(String description) {
+   public static Long getIdFromDescription(String description) {
 		return Arrays.stream(InterviewTypeEnum.values())
 				.filter(interviewTypeEnum -> interviewTypeEnum.description.equals(description))
 				.map(InterviewTypeEnum::getId)
-				.findFirst();
+            .findFirst().orElse(null);
 	}
+
+   public static List<BaseTypeRTO> getTypeList() {
+      return Arrays.stream(InterviewTypeEnum.values())
+            .map(a -> new BaseTypeRTO(a.getId(), a.getDescription()))
+            .collect(Collectors.toList());
+   }
 }

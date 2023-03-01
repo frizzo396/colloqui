@@ -44,7 +44,7 @@ public class AvailabilityService {
     * @param thirdDate            the third date
     */
    public void addAvailabiltyInterview(InsertAvailabilityTO insertAvailabilityTO, Date firstDate, Date secondDate, Date thirdDate) {
-		Optional<Interview> optInterview = interviewRepository.findInterviewById(insertAvailabilityTO.getInterviewId());		
+      Optional<Interview> optInterview = interviewRepository.findById(insertAvailabilityTO.getInterviewId());
 		if(optInterview.isPresent()) {
 			Interview interview = optInterview.get();
          interview.setUpdatedDate(new Date());
@@ -64,7 +64,7 @@ public class AvailabilityService {
     * @param isReschedule the is reschedule
     */
    public void approveAvailabilty(Long interviewId, Date approvedDate, String newDate, boolean isReschedule) {
-      Optional<Interview> optInterview = interviewRepository.findInterviewById(interviewId);
+      Optional<Interview> optInterview = interviewRepository.findById(interviewId);
 		if(optInterview.isPresent()) {
 			Interview interview = optInterview.get();
          interview.setUpdatedDate(new Date());

@@ -51,15 +51,16 @@ function abilitaDisabilita(userId, event) {
     });			
 }
 		
-function openPopupUser(userId, event) {		
+function openPopupUser(userId, enterpriseId, mail, event) {		
 	event.preventDefault();
 	$('#modify-modal').addClass('is-visible');
-	document.getElementById('userEntId').value = document.getElementById("modificaLink_" + userId).getAttribute('data-eid');
-	document.getElementById('userEntId').readOnly = true;
+	document.getElementById('userEntId').value = enterpriseId;
+	document.getElementById('userEntId').readOnly = false;
+	document.getElementById('userMail').value = mail;
 	
 	/* il campo userId in realtà era stato pensato all'inizio, si usa invece come chiave la enterprise id */
 	document.getElementById('userId').value = userId;
-	document.getElementById('userId').readOnly = true;
+	document.getElementById('userId').readOnly = false;
 }		
 
 // Quando l'utente clicca sulla CTA, mostra o nasconde la dropdown

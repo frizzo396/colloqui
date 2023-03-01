@@ -91,8 +91,8 @@
  											<div class="dropdown"> 										
  												<em th:id="'ctaImg_' + ${interviewer.id}" class='bx bx-dots-vertical-rounded bx-sm' style="cursor: pointer;"
  												   th:onclick="'ctaFunction(\'' + 'ctaDropdown_' + ${interviewer.id} + '\')'"></em>
-												<div th:id="'ctaDropdown_' + ${interviewer.id}" class="dropdown-content">											    												    	
-											    	<a th:id="'modificaLink_' + ${interviewer.id}" th:attr="data-eid=${interviewer.enterpriseId}" th:onclick="'openPopupUser(' + ${interviewer.id} + ', event)'">Edit</a>
+												<div th:id="'ctaDropdown_' + ${interviewer.id}" class="dropdown-content">										    												    	
+											    	<a th:id="'modificaLink_' + ${interviewer.id}" th:data-parameter1="${interviewer.id}" th:data-parameter2="${interviewer.enterpriseId}" th:data-parameter3="${interviewer.mail}" onclick="openPopupUser(this.getAttribute('data-parameter1'), this.getAttribute('data-parameter2'), this.getAttribute('data-parameter3'), event)">Edit</a>
 											    	<a th:id="'abilita-disabilitaLink_' + ${interviewer.id}" th:onclick="'abilitaDisabilita(' + ${interviewer.id} + ', event)'">Enable/Disable</a>
 												</div>									
  											</div>

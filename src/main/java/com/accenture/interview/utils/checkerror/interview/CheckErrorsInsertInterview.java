@@ -17,7 +17,6 @@ import com.accenture.interview.rto.candidate.CandidateTypeRTO;
 import com.accenture.interview.rto.general.ErrorRTO;
 import com.accenture.interview.service.CandidateService;
 import com.accenture.interview.service.InterviewService;
-import com.accenture.interview.service.InterviewerService;
 import com.accenture.interview.to.interview.CreateInterviewTO;
 
 /**
@@ -34,20 +33,16 @@ public class CheckErrorsInsertInterview {
 	@Autowired
 	private CandidateService candidateService;
 
-	/** The interviewer service. */
-	@Autowired
-	private InterviewerService interviewerService;
-
 	/** The message source. */
 	@Autowired
 	private MessageSource messageSource;
 
 	/**
-	 * Validate insert interview request.
-	 *
-	 * @param createInterviewTO the create interview TO
-	 * @return the sets the
-	 */
+    * Validate.
+    *
+    * @param createInterviewTO the create interview TO
+    * @return the error RTO
+    */
 	public ErrorRTO validate(CreateInterviewTO createInterviewTO) {
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Set<ConstraintViolation<CreateInterviewTO>> violations = factory.getValidator().validate(createInterviewTO);
@@ -73,12 +68,37 @@ public class CheckErrorsInsertInterview {
 		return null;
 	}
 
+   /**
+    * Validate update.
+    *
+    * @param createInterviewTO the create interview TO
+    * @return the error RTO
+    */
+   public ErrorRTO validateUpdate(CreateInterviewTO createInterviewTO) {
+      ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+      Set<ConstraintViolation<CreateInterviewTO>> violations = factory.getValidator().validate(createInterviewTO);
+
+      try {
+         if (!violations.isEmpty()) {
+            ConstraintViolation<CreateInterviewTO> violation = violations.stream().findFirst().orElseThrow(GenericException::new);
+            String errorMsg = messageSource.getMessage(violation.getMessage(), null, Locale.getDefault());
+            return new ErrorRTO(errorMsg);
+         }
+
+         if (!candidateTypeExists(createInterviewTO.getCandidateType())) {
+            return new ErrorRTO(messageSource.getMessage("interview.error.candidate.type.invalid", null, Locale.getDefault()));
+         }
+
+      } catch (GenericException e) {
+         return new ErrorRTO("Errore generico");
+      }
+      return null;
+   }
+
 
 	/**
 	 * Interview already exists.
 	 *
-	 * @param name the name
-	 * @param surname the surname
 	 * @param mail the mail
 	 * @return true, if successful
 	 */

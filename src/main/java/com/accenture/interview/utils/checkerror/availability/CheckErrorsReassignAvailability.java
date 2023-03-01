@@ -49,7 +49,7 @@ public class CheckErrorsReassignAvailability {
 				String errorMsg = messageSource.getMessage(violation.getMessage(), null, Locale.getDefault());
 				return new ErrorRTO(errorMsg);
 			}
-			if(ObjectUtils.isEmpty(interviewService.findInterviewById(reassignTO.getInterviewId()))) {
+			if(ObjectUtils.isEmpty(interviewService.findInterviewForUpdate(reassignTO.getInterviewId()))) {
 				String errorMsg = messageSource.getMessage("interview.error.not-found", null, Locale.getDefault());
 				return new ErrorRTO(errorMsg);
 			}

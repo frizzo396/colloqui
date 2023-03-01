@@ -98,11 +98,11 @@ function closeMotivationModal(){
     $(motivation).removeClass("is-visible");
 }
 
-function goToTechnicalFeedback(id) {
+function goToTechFeedback(id) {
     window.location.href = "/interview-ms/feedback/technical?idColloquio=" + id;
 }
 
-function goToMotivationalFeedback(id) {
+function goToMotFeedback(id) {
     window.location.href = "/interview-ms/feedback/motivational?idColloquio="+id;
 }
 

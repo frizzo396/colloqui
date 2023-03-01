@@ -34,7 +34,7 @@ public class CheckErrorsRefuseAvailability {
 		if(ObjectUtils.isEmpty(interviewId)) { 
 			return new ErrorRTO(messageSource.getMessage("availability.error.refuse.interview.empty", null, Locale.getDefault()));
 		}
-		if(ObjectUtils.isEmpty(interviewService.findInterviewById(interviewId))){
+		if(ObjectUtils.isEmpty(interviewService.findInterviewForUpdate(interviewId))){
 			return new ErrorRTO(messageSource.getMessage("interview.error.not-found", null, Locale.getDefault()));
 		}
 		return null;

@@ -102,6 +102,7 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
     * @param candidateType the candidate type
     * @param site          the site
     * @param status        the status
+    * @param feedback      the feedback
     * @return the list
     */
    @Query("SELECT new com.accenture.interview.rto.interview.InterviewAndFeedbackRTO(i.id, i.candidateName, "
@@ -293,10 +294,10 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 	Interview findLastInterviewByEnterpriseId(@Param("enterpriseId") String enterpriseId);
 
 	/**
-	 * Find completed interviews with final feedback OK or STAND-BY.
-	 *
-	 * @return the list
-	 */
+    * Find completed interviews.
+    *
+    * @return the list
+    */
 	@Query("select new com.accenture.interview.rto.interview.InterviewAndFeedbackRTO(i.id, i.candidateName, "
 			+ "i.candidateSurname, "
 			+ "ct.description, "
@@ -311,4 +312,5 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 			+ "and (i.finalFeedback = 'OK' or i.finalFeedback = 'STAND-BY') "
          + "ORDER BY i.updatedDate desc")
 	List<InterviewAndFeedbackRTO> findCompletedInterviews();
+
 }

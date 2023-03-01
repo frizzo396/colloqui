@@ -33,6 +33,33 @@ jQuery(document).ready(function ($) {
 		});
 	});
 	
+		//Salvataggio colloquio
+	$(document).ready(function (){
+		var $form= $('#updateInterview');
+		$form.submit(function (e) {
+			e.preventDefault(e);
+			$.post($(this).attr('action'), $(this).serialize(), function (response){
+				if(response.error == null){					
+						var submitBtn = document.getElementById('insertInterviewBtn');
+						setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); 
+						           showToast("Colloquio modificato con successo", "SUCCESS", 3000); 
+						           document.getElementById('updateInterview').reset();
+						           setTimeout(function(){RedirectSearchAssigned()}, 1700);}, 2000);
+				}
+				else {
+					if(response.error == "EXPIRED"){
+						redirectAccess();	
+					} else {
+						var submitBtn = document.getElementById('insertInterviewBtn');
+						setTimeout(function(){submitBtn.classList.remove("submit-spinner--loading"); showToast(response.error, "ERROR", 3000);}, 2000);
+					}
+				}
+	
+			}, 'json');
+			return false;
+		});
+	});
+	
 	$(document).ready(function (){
 		var $form= $('#assignInterview');
 		$form.submit(function (e) {
@@ -78,5 +105,10 @@ function resetSearchTable() {
 function createInterviewerModal(interviewId){
 	document.getElementById("assignIntId").value = interviewId;	
 	document.getElementById("assign-modal").classList.add("is-visible");
+}
+
+
+function goToEditInterview(interviewId){
+	window.location.href = "/interview-ms/interview/"+interviewId+"/edit";
 }
 

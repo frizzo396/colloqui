@@ -49,7 +49,7 @@ public class FeedbackService {
     * @return the technical feedback
     */
    public TechnicalFeedback insertTechFeedback(CreateTechFeedbackTO createTechFeedbackTO, Long interviewId) {
-      Optional<Interview> optInterview = interviewRepository.findInterviewById(interviewId);
+      Optional<Interview> optInterview = interviewRepository.findById(interviewId);
       Optional<TechnicalFeedback> optTechFeed = techFeedbackRepository.findTechFeedbackByIdInterview(interviewId);
       if (optInterview.isPresent()) {
          List<ScoreTechFeedbackTO> listFeedTO = createTechFeedbackTO.getTechList();
@@ -76,7 +76,7 @@ public class FeedbackService {
    public MotivationFeedback insertMotivationFeedback(CreateMotivationFeedbackTO feedbackTO, Long interviewId) {
       Optional<MotivationFeedback> optFeedback = motivationFeedbackRepository.findMotivationFeedbackByIdInterview(interviewId);
       MotivationFeedback motFeedback = optFeedback.isPresent() ? new MotivationFeedback(optFeedback.get().getId(), feedbackTO) : new MotivationFeedback(feedbackTO);
-      Optional<Interview> optInterview = interviewRepository.findInterviewById(interviewId);
+      Optional<Interview> optInterview = interviewRepository.findById(interviewId);
       if (optInterview.isPresent()) {
          Interview interview = optInterview.get();
          interview.setUpdatedDate(new Date());

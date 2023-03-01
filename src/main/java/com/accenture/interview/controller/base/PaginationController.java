@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,7 @@ import com.accenture.interview.facade.InterviewFacade;
 import com.accenture.interview.facade.InterviewerFacade;
 import com.accenture.interview.rto.feedback.MotivationalFeedbackRTO;
 import com.accenture.interview.rto.feedback.TechnicalFeedbackRTO;
+import com.accenture.interview.rto.interviewer.InterviewerRTO;
 import com.accenture.interview.to.feedback.CreateMotivationFeedbackTO;
 import com.accenture.interview.to.feedback.CreateTechFeedbackTO;
 import com.accenture.interview.to.feedback.ScoreTechFeedbackTO;
@@ -36,7 +38,11 @@ import com.accenture.interview.to.interviewer.RecoverPasswordTO;
 import com.accenture.interview.to.interviewer.RegisterInterviewerTO;
 import com.accenture.interview.to.interviewer.RequestRegistrationTO;
 import com.accenture.interview.utils.constants.PaginationConstants;
+import com.accenture.interview.utils.enums.CandidateTypeEnum;
 import com.accenture.interview.utils.enums.InterviewStatusEnum;
+import com.accenture.interview.utils.enums.InterviewTypeEnum;
+import com.accenture.interview.utils.enums.InterviewerTypeEnum;
+import com.accenture.interview.utils.enums.SiteEnum;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -154,6 +160,28 @@ public class PaginationController extends BaseController {
 		modelAndView.setViewName("insert.html");
 		return modelAndView;
 	}
+
+   @GetMapping("/interview/{interviewId}/edit")
+   public ModelAndView editInterview(@PathVariable(name = "interviewId") Long interviewId, HttpSession session) {
+      ModelAndView modelAndView = new ModelAndView();
+      if (session.isNew() || ObjectUtils.isEmpty(session.getAttribute("entId"))) {
+         return redirectAccess();
+      }
+      String username = (String) session.getAttribute("entId");
+      CreateInterviewTO interview = interviewFacade.findInterviewForUpdate(interviewId);
+      modelAndView.addObject("interviewTypeList", InterviewTypeEnum.getTypeList());
+      modelAndView.addObject("candidateTypeList", CandidateTypeEnum.getTypeList());
+      modelAndView.addObject("siteId", SiteEnum.getIdFromDescription(interview.getSite()));
+      modelAndView.addObject(PaginationConstants.INTERVIEWER, interviewerFacade.interviewerInfo(username));
+      modelAndView.addObject(PaginationConstants.INTERVIEWER_LIST, interviewerFacade.findAllInterviewers());
+      modelAndView.addObject(PaginationConstants.CREATE_INTERVIEW_TO, interview);
+      modelAndView.addObject(PaginationConstants.COMBO_SITES, interviewFacade.getComboSites());
+      modelAndView.addObject(PaginationConstants.REGISTER_USER_TO, new RegisterInterviewerTO());
+      modelAndView.addObject(PaginationConstants.UPLOAD_CV_TO, new UploadCvTO());
+      modelAndView.addObject(PaginationConstants.CHANGE_PASSWORD_INTERVIEWER_TO, new ChangePasswordInterviewerTO());
+      modelAndView.setViewName("edit.html");
+      return modelAndView;
+   }
 
 	/**
     * Search interview.
@@ -303,19 +331,25 @@ public class PaginationController extends BaseController {
 			return redirectAccess();
 		}
 		String username = (String) session.getAttribute("entId");
-		modelAndView.addObject(PaginationConstants.INTERVIEWER, interviewerFacade.interviewerInfo(username));
-		modelAndView.addObject(PaginationConstants.INTERVIEWER_LIST, interviewerFacade.findAllInterviewers());
+      InterviewerRTO interviewer = interviewerFacade.interviewerInfo(username);
+      modelAndView.addObject(PaginationConstants.INTERVIEWER, interviewer);
+      modelAndView.addObject(PaginationConstants.INTERVIEWER_LIST, interviewerFacade.findAllInterviewers());
       modelAndView.addObject(PaginationConstants.COMBO_SITES, interviewFacade.getComboSites());
-      modelAndView.addObject("searchInterviews", interviewFacade.searchAssignedInterviews(new SearchAssignedTO("", "", "", "", "", null, "")));
-      modelAndView.addObject("searchAssignedTO", new SearchAssignedTO());
-      modelAndView.addObject("comboStatus", InterviewStatusEnum.getInterviewStatusList());
-      modelAndView.addObject("assignInterviewTO", new AssignInterviewTO());
-		modelAndView.addObject(PaginationConstants.REGISTER_USER_TO, new RegisterInterviewerTO());
-		modelAndView.addObject(PaginationConstants.APPROVE_AVAILABILITY_TO, new ApproveAvailabilityTO());
-      modelAndView.addObject(PaginationConstants.REASSIGN_INTERVIEW_TO, new ReassignInterviewTO());
-		modelAndView.addObject(PaginationConstants.CHANGE_PASSWORD_INTERVIEWER_TO, new ChangePasswordInterviewerTO());
-      modelAndView.addObject(PaginationConstants.UPLOAD_CV_TO, new UploadCvTO());
-		modelAndView.setViewName("assigned.html");
+      modelAndView.addObject(PaginationConstants.REGISTER_USER_TO, new RegisterInterviewerTO());
+      modelAndView.addObject(PaginationConstants.CHANGE_PASSWORD_INTERVIEWER_TO, new ChangePasswordInterviewerTO());
+      if (interviewer.getType() != InterviewerTypeEnum.RESPONSABILE.getId()) {
+         modelAndView.addObject(PaginationConstants.SEARCH_INTERVIEW_TO, new SearchInterviewTO());
+         modelAndView.setViewName("search.html");
+      } else {
+         modelAndView.addObject("searchInterviews", interviewFacade.searchAssignedInterviews(new SearchAssignedTO("", "", "", "", "", null, "")));
+         modelAndView.addObject("searchAssignedTO", new SearchAssignedTO());
+         modelAndView.addObject("comboStatus", InterviewStatusEnum.getInterviewStatusList());
+         modelAndView.addObject("assignInterviewTO", new AssignInterviewTO());
+         modelAndView.addObject(PaginationConstants.APPROVE_AVAILABILITY_TO, new ApproveAvailabilityTO());
+         modelAndView.addObject(PaginationConstants.REASSIGN_INTERVIEW_TO, new ReassignInterviewTO());
+         modelAndView.addObject(PaginationConstants.UPLOAD_CV_TO, new UploadCvTO());
+         modelAndView.setViewName("assigned.html");
+      }
 		return modelAndView;
 	}
 	
