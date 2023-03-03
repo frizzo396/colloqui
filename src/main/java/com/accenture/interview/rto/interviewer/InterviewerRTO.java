@@ -109,4 +109,14 @@ public class InterviewerRTO {
 		this.password = request.getNewPassword();
 	}
 	
+   public InterviewerRTO(long id, String enterpriseId, String mail, String password, long type, long status) {
+      super();
+      this.id = id;
+      this.enterpriseId = enterpriseId;
+      this.mail = mail;
+      this.type = type;
+      this.status = status;
+      this.password = password;
+   }
+
 }
