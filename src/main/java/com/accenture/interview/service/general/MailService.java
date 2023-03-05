@@ -6,15 +6,20 @@ import java.time.format.DateTimeFormatter;
 import javax.activation.DataHandler;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.util.ByteArrayDataSource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
@@ -24,14 +29,29 @@ import com.accenture.interview.utils.enums.MailTypeEnum;
 import com.accenture.interview.utils.mail.MailUtils;
 
 /**
- * The Class EmailService.
+ * The Class MailService.
  */
 @Service
 public class MailService {
 
-	/** The user. */
-	@Value("${spring.mail.username}")
+   /** The Constant LOGGER. */
+   private static final Logger LOGGER = LoggerFactory.getLogger(MailService.class);
+
+   /** The from. */
+   @Value("${aws.ses.from}")
 	private String from;
+
+   /** The host. */
+   @Value("${aws.ses.host}")
+   private String host;
+
+   /** The user. */
+   @Value("${aws.ses.user}")
+   private String user;
+
+   /** The password. */
+   @Value("${aws.ses.password}")
+   private String password;
 
 	/** The mail sender. */
 	@Autowired
@@ -49,8 +69,10 @@ public class MailService {
 	 * @param type the type
 	 * @return true, if successful
 	 */
-	public boolean sendMail(MailParametersTO mailParams, MailTypeEnum type) {		
+   public boolean sendMail(MailParametersTO mailParams, MailTypeEnum type) {
+      LOGGER.info("[{}] sendMail", Thread.currentThread().getName());
 		try {
+		  JavaMailSenderImpl impl = (JavaMailSenderImpl) mailSender;
 			MimeMessage message = mailSender.createMimeMessage();
 			message.setSubject(mailUtils.getMailSubject(mailParams.getSubjectParams(), type));
 			MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
@@ -58,11 +80,16 @@ public class MailService {
 			helper.setCc(mailParams.getCc().toArray(new String[0])); 
 			helper.setTo(mailParams.getTo().toArray(new String[0]));
 			helper.setText(mailUtils.getMailBody(mailParams.getBodyParams(), mailParams.getLink(), type), true);
-			mailSender.send(message);
-		} catch (Exception e) {
-			return false;
+         Session session = Session.getDefaultInstance(impl.getJavaMailProperties());
+         Transport transport = session.getTransport();
+         transport.connect(host, user, password);
+         transport.sendMessage(message, message.getAllRecipients());
+         transport.close();
+      } catch (Exception e) {
+         e.printStackTrace();
+         return false;
 		}
-		return true;
+      return true;
 	}	
 
 	/**

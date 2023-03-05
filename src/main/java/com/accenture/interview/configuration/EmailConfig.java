@@ -13,9 +13,6 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
  */
 @Configuration
 public class EmailConfig {
-	
-    /** The Constant GMAIL_SMTP_PORT. */
-    private static final int GMAIL_SMTP_PORT = 587;
 
     /** The host. */
     @Value("${spring.mail.host}")
@@ -29,25 +26,29 @@ public class EmailConfig {
     @Value("${spring.mail.password}")
     private String password;
     
+    @Value("${spring.mail.port}")
+    private String port;
 	
 	/**
 	 * Gets the java mail sender.
 	 *
 	 * @return the java mail sender
 	 */
-	@Bean
+   @Bean
     public JavaMailSender getJavaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        // Set up Gmail config
+        // Set up config
         mailSender.setHost(host);
-        mailSender.setPort(GMAIL_SMTP_PORT);
+        mailSender.setPort(Integer.parseInt(port));
         mailSender.setUsername(user);
         mailSender.setPassword(password);
         Properties props = mailSender.getJavaMailProperties();
-        props.put("mail.transport.protocol", "smtp");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.default-encoding", "UTF-8");      
+        props.put("mail.transport.protocol", "smtps");
+        props.put("mail.smtp.port", Integer.parseInt(port));
+        props.put("mail.smtp.starttls.required", "true");
         return mailSender;
     }
 
