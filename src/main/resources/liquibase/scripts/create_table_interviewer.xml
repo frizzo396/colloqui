@@ -36,6 +36,8 @@
              <column name="TYPE" type="NUMBER">
                 <constraints nullable="false"/>
             </column>
+            <column name="MANAGEMENT" type="NUMBER">
+            </column>
         </createTable>
     </changeSet>
 

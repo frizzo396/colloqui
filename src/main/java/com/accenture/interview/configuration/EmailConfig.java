@@ -15,18 +15,18 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 public class EmailConfig {
 
     /** The host. */
-    @Value("${spring.mail.host}")
+    @Value("${aws.ses.host}")
     private String host;
 
     /** The user. */
-    @Value("${spring.mail.username}")
+    @Value("${aws.ses.user}")
     private String user;
 
     /** The password. */
-    @Value("${spring.mail.password}")
+    @Value("${aws.ses.password}")
     private String password;
     
-    @Value("${spring.mail.port}")
+    @Value("${aws.ses.port}")
     private String port;
 	
 	/**

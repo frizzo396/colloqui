@@ -2,8 +2,10 @@ package com.accenture.interview.facade;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.RandomStringUtils;
@@ -65,12 +67,9 @@ public class InterviewerFacade {
 			bodyParams.add(password);
 		}
 		MailParametersTO mailParams = new MailParametersTO(Arrays.asList(request.getMail()), 
-				new ArrayList<>(), bodyParams, new ArrayList<>(), WebPaths.HOME);
+            new HashSet<>(), bodyParams, new ArrayList<>(), WebPaths.HOME);
 		
-		boolean result = mailService.sendMail(mailParams, MailTypeEnum.USER_WELCOME);	
-		if(!result) {
-			return new BaseResponseRTO(null, mailService.registrationRequestMailNotSend());
-		}
+      mailService.sendMail(mailParams, MailTypeEnum.USER_WELCOME);
 		return new BaseResponseRTO(new InterviewerRTO(request), null);
 	}
 	
@@ -153,16 +152,15 @@ public class InterviewerFacade {
 	 * @return the base response RTO
 	 */
 	public BaseResponseRTO requestRegistration(RequestRegistrationTO requestTO) {
-		List<InterviewerRTO> allResponsibles = interviewerService.getAllResponsibles();		
+		List<InterviewerRTO> allResponsibles = interviewerService.findAllManagement();		
+      Set<String> requester = new HashSet<>();
+      requester.add(requestTO.getMail());
 		MailParametersTO mailParams = new MailParametersTO(allResponsibles.stream().map(InterviewerRTO::getMail).collect(Collectors.toList()), 
-				Arrays.asList(requestTO.getMail()), 
+            requester,
 				Arrays.asList(requestTO.getEnterpriseId(), requestTO.getMail()),
 				Arrays.asList(requestTO.getEnterpriseId()), null);
 		
-		boolean result = mailService.sendMail(mailParams, MailTypeEnum.USER_REGISTER);	
-		if(!result) {
-			return new BaseResponseRTO(null, mailService.registrationRequestMailNotSend());
-		}
+      mailService.sendMail(mailParams, MailTypeEnum.USER_REGISTER);
 		return new BaseResponseRTO(requestTO.getEnterpriseId(), null);
 	}
 	
@@ -198,12 +196,9 @@ public class InterviewerFacade {
       interviewerService.recoverPassword(recoverPasswordTO.getEnterpriseId(), password);
 
 		MailParametersTO mailParams = new MailParametersTO(Arrays.asList(recoverPasswordTO.getMail()), 
-            new ArrayList<>(), Arrays.asList(password), new ArrayList<>(), WebPaths.HOME);
+            new HashSet<>(), Arrays.asList(password), new ArrayList<>(), WebPaths.HOME);
 		
-		boolean result = mailService.sendMail(mailParams, MailTypeEnum.USER_RECOVER_PASSWORD);	
-		if(!result) {
-			return new BaseResponseRTO(null, mailService.registrationRequestMailNotSend());
-		}
+      mailService.sendMail(mailParams, MailTypeEnum.USER_RECOVER_PASSWORD);
 		return new BaseResponseRTO(new InterviewerRTO(recoverPasswordTO), null);
 	}	
 }

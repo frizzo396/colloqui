@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.accenture.interview.to.mail.CalendarTO;
@@ -69,7 +70,8 @@ public class MailService {
 	 * @param type the type
 	 * @return true, if successful
 	 */
-   public boolean sendMail(MailParametersTO mailParams, MailTypeEnum type) {
+   @Async
+   public void sendMail(MailParametersTO mailParams, MailTypeEnum type) {
       LOGGER.info("[{}] sendMail", Thread.currentThread().getName());
 		try {
 		  JavaMailSenderImpl impl = (JavaMailSenderImpl) mailSender;
@@ -80,16 +82,15 @@ public class MailService {
 			helper.setCc(mailParams.getCc().toArray(new String[0])); 
 			helper.setTo(mailParams.getTo().toArray(new String[0]));
 			helper.setText(mailUtils.getMailBody(mailParams.getBodyParams(), mailParams.getLink(), type), true);
+         Thread.sleep(40000);
          Session session = Session.getDefaultInstance(impl.getJavaMailProperties());
          Transport transport = session.getTransport();
          transport.connect(host, user, password);
          transport.sendMessage(message, message.getAllRecipients());
-         transport.close();
+         // transport.close();
       } catch (Exception e) {
          e.printStackTrace();
-         return false;
 		}
-      return true;
 	}	
 
 	/**

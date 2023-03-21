@@ -58,11 +58,11 @@ public class FeedbackFacade {
 	public CreateTechFeedbackRTO insertTechFeedback(CreateTechFeedbackTO createTechFeedbackTO, Long interviewId) {
       InterviewRTO interview = interviewService.findInterviewWithMailParams(interviewId);
 		TechnicalFeedback techFeedback = feedbackService.insertTechFeedback(createTechFeedbackTO, interviewId);
-      List<String> responsibleMails = interviewerService.getAllResponsibles().stream().map(InterviewerRTO::getMail).collect(Collectors.toList());
+      List<String> responsibleMails = interviewerService.findAllManagement().stream().map(InterviewerRTO::getMail).collect(Collectors.toList());
 		interviewService.updateInterviewTechFeedback(interviewId, techFeedback, createTechFeedbackTO.getFinalFeedback());
 		
 		MailParametersTO mailParams = new MailParametersTO(Arrays.asList(interview.getInterviewerMail()), 
-            responsibleMails,
+            responsibleMails.stream().collect(Collectors.toSet()),
             Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname(), createTechFeedbackTO.getFinalFeedback(), createTechFeedbackTO.getComment()),
             Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()),
 				WebPaths.ASSIGNED);
@@ -80,11 +80,11 @@ public class FeedbackFacade {
 	public CreateMotivationFeedbackRTO insertMotivationFeedback(CreateMotivationFeedbackTO feedbackTO, Long interviewId) {
 		InterviewRTO interview = interviewService.findInterviewWithMailParams((long) interviewId);
 		MotivationFeedback motFeedback = feedbackService.insertMotivationFeedback(feedbackTO, interviewId);
-      List<String> responsibleMails = interviewerService.getAllResponsibles().stream().map(InterviewerRTO::getMail).collect(Collectors.toList());
+      List<String> responsibleMails = interviewerService.findAllManagement().stream().map(InterviewerRTO::getMail).collect(Collectors.toList());
 		interviewService.updateInterviewMotFeedback(interviewId, motFeedback, feedbackTO.getFinalFeedback());
 		
 		MailParametersTO mailParams = new MailParametersTO(Arrays.asList(interview.getInterviewerMail()), 
-            responsibleMails,
+            responsibleMails.stream().collect(Collectors.toSet()),
             Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname(), feedbackTO.getFinalFeedback(), feedbackTO.getComment()),
 				Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()), 
 				WebPaths.ASSIGNED);

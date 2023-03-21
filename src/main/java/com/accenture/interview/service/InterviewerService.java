@@ -136,8 +136,8 @@ public class InterviewerService {
     *
     * @return the all responsibles
     */
-   public List<InterviewerRTO> getAllResponsibles() {
-      return interviewerRepository.findAllResponsibles();
+   public List<InterviewerRTO> findAllManagement() {
+      return interviewerRepository.findAllManagements();
    }
 
    /**

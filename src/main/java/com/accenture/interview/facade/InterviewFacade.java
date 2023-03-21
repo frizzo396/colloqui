@@ -106,7 +106,7 @@ public class InterviewFacade {
 		InterviewerRTO interviewer = interviewerService.findInterviewerByEnterpriseId(request.getEnterpriseId());
 		InterviewerRTO assigner = interviewerService.findInterviewerByEnterpriseId(enterpriseId);
 		SiteRTO site = siteService.findSiteById(Long.parseLong(request.getSite()));
-      List<String> responsibleMails = interviewerService.getAllResponsibles().stream().map(InterviewerRTO::getMail).collect(Collectors.toList());
+      List<String> responsibleMails = interviewerService.findAllManagement().stream().map(InterviewerRTO::getMail).collect(Collectors.toList());
       Long interviewId = interviewService.addNewInterview(request, candidateType, interviewer, site, assigner);
       response = new CreateInterviewRTO(request);
       response.setInterviewId(interviewId);
@@ -115,7 +115,7 @@ public class InterviewFacade {
                : Arrays.asList(response.getCandidateName(), response.getCandidateSurname());
          MailTypeEnum mailType = !ObjectUtils.isEmpty(request.getNote()) ? MailTypeEnum.INTERVIEW_INSERT : MailTypeEnum.INTERVIEW_INSERT_WITHOUT_NOTES;
 			MailParametersTO mailParams = new MailParametersTO(Arrays.asList(interviewer.getMail()), 
-               responsibleMails,
+               responsibleMails.stream().collect(Collectors.toSet()),
                bodyParams,
 					Arrays.asList(response.getCandidateName(), response.getCandidateSurname()), WebPaths.IN_PROGRESS);
          mailService.sendMail(mailParams, mailType);
@@ -144,7 +144,7 @@ public class InterviewFacade {
                : Arrays.asList(response.getCandidateName(), response.getCandidateSurname());
          MailTypeEnum mailType = !ObjectUtils.isEmpty(request.getNote()) ? MailTypeEnum.INTERVIEW_INSERT : MailTypeEnum.INTERVIEW_INSERT_WITHOUT_NOTES;
          MailParametersTO mailParams = new MailParametersTO(Arrays.asList(interviewer.getMail()),
-               interviewerService.getAllResponsibles().stream().map(InterviewerRTO::getMail).collect(Collectors.toList()),
+               interviewerService.findAllManagement().stream().map(InterviewerRTO::getMail).collect(Collectors.toSet()),
                bodyParams,
                Arrays.asList(response.getCandidateName(), response.getCandidateSurname()), WebPaths.IN_PROGRESS);
          mailService.sendMail(mailParams, mailType);
@@ -268,13 +268,13 @@ public class InterviewFacade {
     */
    public Long assignInterview(AssignInterviewTO assignInterviewTO) {
       InterviewRTO interview = interviewService.assignInterview(assignInterviewTO);
-      List<String> responsibleMails = interviewerService.getAllResponsibles().stream().map(InterviewerRTO::getMail).collect(Collectors.toList());
+      List<String> responsibleMails = interviewerService.findAllManagement().stream().map(InterviewerRTO::getMail).collect(Collectors.toList());
       if (!ObjectUtils.isEmpty(interview)) {
          List<String> bodyParams = mailUtils.checkBodyParamsToAssignInterview(interview, assignInterviewTO.getInterviewDate());
-
+         responsibleMails.add(interview.getAssignerMail());
          MailTypeEnum mailType = mailUtils.checkMailTypeToAssignInterview(interview.getNote(), assignInterviewTO.getInterviewDate());
          MailParametersTO mailParams = new MailParametersTO(Arrays.asList(interview.getInterviewerMail()),
-               responsibleMails,
+               responsibleMails.stream().collect(Collectors.toSet()),
                bodyParams,
                Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()), WebPaths.IN_PROGRESS);
          mailService.sendMail(mailParams, mailType);

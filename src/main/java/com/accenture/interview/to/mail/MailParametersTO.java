@@ -1,6 +1,7 @@
 package com.accenture.interview.to.mail;
 
 import java.util.List;
+import java.util.Set;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,7 +22,7 @@ public class MailParametersTO {
 	private List<String> to;
 	
 	/** The cc. */
-	private List<String> cc;
+   private Set<String> cc;
 	
 	/** The body params. */
 	private List<String> bodyParams;

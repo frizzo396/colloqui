@@ -71,8 +71,8 @@ public interface InterviewerRepository extends JpaRepository<Interviewer, Long> 
 	 *
 	 * @return the list
 	 */
-	@Query("select new com.accenture.interview.rto.interviewer.InterviewerRTO(ier.id, ier.enterpriseId, ier.mail, ier.type) from Interviewer ier where ier.type= 1")
-	List<InterviewerRTO> findAllResponsibles();
+   @Query("select new com.accenture.interview.rto.interviewer.InterviewerRTO(ier.id, ier.enterpriseId, ier.mail, ier.type) from Interviewer ier where ier.management= 1")
+	List<InterviewerRTO> findAllManagements();
 	
 	
 	/**

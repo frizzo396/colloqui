@@ -52,6 +52,9 @@ public class Interviewer {
 	@Column(name = "STATUS")	
 	private long status;
 
+   @Column(name = "MANAGEMENT")
+   private Integer management;
+
 	/**
 	 * Gets the id.
 	 *
@@ -178,6 +181,14 @@ public class Interviewer {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}	
+   }
+
+   public Integer getManagement() {
+      return management;
+   }
+
+   public void setManagement(Integer management) {
+      this.management = management;
+   }
 		
 }

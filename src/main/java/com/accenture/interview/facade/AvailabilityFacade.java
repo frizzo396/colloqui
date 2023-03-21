@@ -6,8 +6,10 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,9 +73,10 @@ public class AvailabilityFacade {
       Date thirdDate = Date.from(thirdLocalDate.atZone(ZoneId.systemDefault()).toInstant());
 
       availabilityService.addAvailabiltyInterview(insertAvailabilityTO, firstDate, secondDate, thirdDate);
-
+      Set<String> assigner = new HashSet<>();
+      assigner.add(interview.getAssignerMail());
       MailParametersTO mailParams = new MailParametersTO(Arrays.asList(interview.getInterviewerMail()),
-            Arrays.asList(interview.getAssignerMail()),
+            assigner,
             Arrays.asList(interview.getCandidateName(),
                   interview.getCandidateSurname(),
                   insertAvailabilityTO.getFirstDate(),
@@ -103,8 +106,10 @@ public class AvailabilityFacade {
 
          availabilityService.approveAvailabilty(approveAvailabilityTO.getInterviewId(), approvedDate, approveAvailabilityTO.getNewDate(), isReschedule);
          MailTypeEnum mailType = isReschedule ? MailTypeEnum.AVAILABILITY_RESCHEDULE: MailTypeEnum.AVAILABILITY_APPROVE;
+         Set<String> assigner = new HashSet<>();
+         assigner.add(interview.getAssignerMail());
          MailParametersTO mailParams = new MailParametersTO(Arrays.asList(interview.getInterviewerMail()),
-               Arrays.asList(interview.getAssignerMail()),
+               assigner,
                Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname(), dateString),
                Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()),
                WebPaths.IN_PROGRESS);
@@ -149,8 +154,10 @@ public class AvailabilityFacade {
       InterviewRTO interview = interviewService.findInterviewWithMailParams(interviewId);
       Long refuseId = interviewService.refuseInterview(interviewId);
       availabilityService.clearAvailabilities(interviewId);
+      Set<String> assigner = new HashSet<>();
+      assigner.add(interview.getAssignerMail());
       MailParametersTO mailParams = new MailParametersTO(Arrays.asList(interview.getInterviewerMail()),
-            Arrays.asList(interview.getAssignerMail()),
+            assigner,
             Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()),
             Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()),
             WebPaths.ASSIGNED);
@@ -169,12 +176,13 @@ public class AvailabilityFacade {
       InterviewerRTO newInterviewer = interviewerService.findInterviewerByEnterpriseId(reassignTO.getEnterpriseId());
       InterviewRTO interview = interviewService.findInterviewToReassign(reassignTO.getInterviewId());
       Long reassignedInterview = interviewService.reassignInterview(reassignTO.getInterviewId(), newInterviewer);
-      List<String> responsibleMails = interviewerService.getAllResponsibles().stream().map(InterviewerRTO::getMail).collect(Collectors.toList());
+      List<String> responsibleMails = interviewerService.findAllManagement().stream().map(InterviewerRTO::getMail).collect(Collectors.toList());
+      responsibleMails.add(interview.getAssignerMail());
       List<String> bodyParams = !ObjectUtils.isEmpty(interview.getNote()) ? Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname(), interview.getNote())
             : Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname());
       MailTypeEnum mailType = !ObjectUtils.isEmpty(interview.getNote()) ? MailTypeEnum.INTERVIEW_INSERT : MailTypeEnum.INTERVIEW_INSERT_WITHOUT_NOTES;
       MailParametersTO mailParams = new MailParametersTO(Arrays.asList(newInterviewer.getMail()),
-            responsibleMails,
+            responsibleMails.stream().collect(Collectors.toSet()),
             bodyParams,
             Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()), WebPaths.IN_PROGRESS);
 
@@ -208,8 +216,10 @@ public class AvailabilityFacade {
                .appendPattern("dd-MM-yyyy HH:mm").toFormatter());
          String formattedDate = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm").format(newLocalDate);
          interviewService.acceptRescheduled(rescheduleTO.getInterviewId());
+         Set<String> assigner = new HashSet<>();
+         assigner.add(interview.getInterviewerMail());
          MailParametersTO mailParams = new MailParametersTO(Arrays.asList(interview.getAssignerMail()),
-               Arrays.asList(interview.getInterviewerMail()),
+               assigner,
                Arrays.asList(formattedDate, interview.getCandidateName(), interview.getCandidateSurname()),
                Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()), WebPaths.IN_PROGRESS);
          mailService.sendMail(mailParams, MailTypeEnum.AVAILABILITY_RESCHEDULE_ACCEPTED);

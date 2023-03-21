@@ -13,19 +13,7 @@ import lombok.Getter;
  * The Enum CandidateTypeEnum.
  */
 
-/**
- * Gets the description.
- *
- * @return the description
- */
 @Getter
-
-/**
- * Instantiates a new candidate type enum.
- *
- * @param id          the id
- * @param description the description
- */
 @AllArgsConstructor
 public enum CandidateTypeEnum
 {
@@ -37,7 +25,13 @@ public enum CandidateTypeEnum
 	JUNIOR(2, "Junior"),
 
    /** The senior. */
-	SENIOR(3, "Senior");
+   SENIOR(3, "Senior"),
+
+   /** The stage. */
+   STAGE(4, "Stage"),
+
+   /** The academy. */
+   ACADEMY(5, "Academy");
 
 	/** The id. */
 	private final long id;
