@@ -2,6 +2,7 @@ package com.accenture.interview.to.feedback;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,6 +17,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateMotivationFeedbackTO {
+
+   @NotNull(message = "interview.error.id.not.null")
+   private Long interviewId;
 
 	/** The standing. */
 	@Max(value = 10, message = "feedback.error.max-score.value")

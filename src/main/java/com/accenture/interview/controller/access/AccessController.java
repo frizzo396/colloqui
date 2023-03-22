@@ -1,4 +1,4 @@
-package com.accenture.interview.controller2.access;
+package com.accenture.interview.controller.access;
 
 import javax.servlet.http.HttpSession;
 

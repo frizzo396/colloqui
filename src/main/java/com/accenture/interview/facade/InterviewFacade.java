@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
 import com.accenture.interview.rto.candidate.CandidateTypeRTO;
+import com.accenture.interview.rto.general.BaseResponseRTO;
 import com.accenture.interview.rto.init.InitInsertInterviewRTO;
 import com.accenture.interview.rto.interview.InProgressInterviewRTO;
 import com.accenture.interview.rto.interview.InterviewAndFeedbackRTO;
@@ -222,11 +223,11 @@ public class InterviewFacade {
     * Unassign interview.
     *
     * @param interviewId the interview id
-    * @return the long
+    * @return the base response RTO
     */
-   public Long unassignInterview(Long interviewId) {
+   public BaseResponseRTO unassignInterview(Long interviewId) {
       interviewService.unassignInterview(interviewId);
-      return interviewId;
+      return new BaseResponseRTO(interviewId);
    }
 
 

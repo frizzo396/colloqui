@@ -26,11 +26,12 @@ import com.accenture.interview.to.feedback.ScoreTechFeedbackTO;
 import kotlin.text.Charsets;
 
 /**
- * The Class CheckErrorsInsertMotivationFeedback.
+ * The Class CheckErrorsInsertFeedback.
  */
 @Component
 public class CheckErrorsInsertFeedback {
 
+   /** The Constant MAX_COMMENT_LENGHT. */
    private static final Integer MAX_COMMENT_LENGHT = 5000;
 
 	/** The message source. */
@@ -42,13 +43,13 @@ public class CheckErrorsInsertFeedback {
 	private InterviewService interviewService;
 
 	/**
-	 * Validate.
-	 *
-	 * @param feedbackTO the feedback TO
-	 * @param interviewId the interview id
-	 * @return the error RTO
-	 */
-	public ErrorRTO validate(CreateMotivationFeedbackTO feedbackTO, Long interviewId, String enterpriseId) {
+    * Validate.
+    *
+    * @param feedbackTO   the feedback TO
+    * @param enterpriseId the enterprise id
+    * @return the error RTO
+    */
+   public ErrorRTO validate(CreateMotivationFeedbackTO feedbackTO, String enterpriseId) {
 		String errorMsg = null;
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Set<ConstraintViolation<CreateMotivationFeedbackTO>> violations = factory.getValidator().validate(feedbackTO);
@@ -60,7 +61,7 @@ public class CheckErrorsInsertFeedback {
 				return new ErrorRTO(errorMsg);
 			}
 
-			if(!isInterviewer(interviewId, enterpriseId)) {
+         if (!isInterviewer(feedbackTO.getInterviewId(), enterpriseId)) {
 				errorMsg = messageSource.getMessage("feedback.error.interviewer.not-equal", null, Locale.getDefault());
 				return new ErrorRTO(errorMsg);
 			}
@@ -76,13 +77,13 @@ public class CheckErrorsInsertFeedback {
 	}
 
 	/**
-	 * Validate.
-	 *
-	 * @param createTechFeedbackTO the create tech feedback TO
-	 * @param interviewId the interview id
-	 * @return the error RTO
-	 */
-	public ErrorRTO validate(CreateTechFeedbackTO createTechFeedbackTO, Long interviewId, String enterpriseId) {
+    * Validate.
+    *
+    * @param createTechFeedbackTO the create tech feedback TO
+    * @param enterpriseId         the enterprise id
+    * @return the error RTO
+    */
+   public ErrorRTO validate(CreateTechFeedbackTO createTechFeedbackTO, String enterpriseId) {
 		String errorMsg = null;
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Set<ConstraintViolation<CreateTechFeedbackTO>> violations = factory.getValidator().validate(createTechFeedbackTO);
@@ -112,7 +113,7 @@ public class CheckErrorsInsertFeedback {
          return new ErrorRTO(errorMsg);
       }
 
-		if(!isInterviewer(interviewId, enterpriseId)) {
+      if (!isInterviewer(createTechFeedbackTO.getInterviewId(), enterpriseId)) {
 			errorMsg = messageSource.getMessage("feedback.interviewer.notequal", null, Locale.getDefault());
 			return new ErrorRTO(errorMsg);
 		}
@@ -120,6 +121,12 @@ public class CheckErrorsInsertFeedback {
 	}
 
 
+   /**
+    * Validate technologies list.
+    *
+    * @param techList the tech list
+    * @return the error RTO
+    */
 	private ErrorRTO validateTechnologiesList(List<ScoreTechFeedbackTO> techList) {
 		String errorMsg = null;
 		for (ScoreTechFeedbackTO scoreTO : techList) {
@@ -144,11 +151,12 @@ public class CheckErrorsInsertFeedback {
 
 
 	/**
-	 * Checks if is interviewer.
-	 *
-	 * @param interviewId the interview id
-	 * @return true, if is interviewer
-	 */
+    * Checks if is interviewer.
+    *
+    * @param interviewId  the interview id
+    * @param enterpriseId the enterprise id
+    * @return true, if is interviewer
+    */
 	private boolean isInterviewer(Long interviewId, String enterpriseId) {
 		Interview interview = interviewService.findInterviewById(interviewId);
 
@@ -162,6 +170,12 @@ public class CheckErrorsInsertFeedback {
 	}
 
 
+   /**
+    * Checks if is numeric.
+    *
+    * @param score the score
+    * @return true, if is numeric
+    */
 	private boolean isNumeric(String score) {
 		try {
 			Integer.parseInt(score);
@@ -170,4 +184,5 @@ public class CheckErrorsInsertFeedback {
 			return false;
 		}
 	}
+
 }

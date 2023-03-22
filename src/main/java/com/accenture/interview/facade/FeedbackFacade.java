@@ -55,11 +55,11 @@ public class FeedbackFacade {
     * @param interviewId          the interview id
     * @return the creates the tech feedback RTO
     */
-	public CreateTechFeedbackRTO insertTechFeedback(CreateTechFeedbackTO createTechFeedbackTO, Long interviewId) {
-      InterviewRTO interview = interviewService.findInterviewWithMailParams(interviewId);
-		TechnicalFeedback techFeedback = feedbackService.insertTechFeedback(createTechFeedbackTO, interviewId);
+   public CreateTechFeedbackRTO insertTechFeedback(CreateTechFeedbackTO createTechFeedbackTO) {
+      InterviewRTO interview = interviewService.findInterviewWithMailParams(createTechFeedbackTO.getInterviewId());
+      TechnicalFeedback techFeedback = feedbackService.insertTechFeedback(createTechFeedbackTO, createTechFeedbackTO.getInterviewId());
       List<String> responsibleMails = interviewerService.getAllResponsibles().stream().map(InterviewerRTO::getMail).collect(Collectors.toList());
-		interviewService.updateInterviewTechFeedback(interviewId, techFeedback, createTechFeedbackTO.getFinalFeedback());
+      interviewService.updateInterviewTechFeedback(createTechFeedbackTO.getInterviewId(), techFeedback, createTechFeedbackTO.getFinalFeedback());
 		
 		MailParametersTO mailParams = new MailParametersTO(Arrays.asList(interview.getInterviewerMail()), 
             responsibleMails,
@@ -77,11 +77,11 @@ public class FeedbackFacade {
     * @param interviewId the interview id
     * @return the creates the motivation feedback RTO
     */
-	public CreateMotivationFeedbackRTO insertMotivationFeedback(CreateMotivationFeedbackTO feedbackTO, Long interviewId) {
-		InterviewRTO interview = interviewService.findInterviewWithMailParams((long) interviewId);
-		MotivationFeedback motFeedback = feedbackService.insertMotivationFeedback(feedbackTO, interviewId);
+   public CreateMotivationFeedbackRTO insertMotivationFeedback(CreateMotivationFeedbackTO feedbackTO) {
+      InterviewRTO interview = interviewService.findInterviewWithMailParams(feedbackTO.getInterviewId());
+      MotivationFeedback motFeedback = feedbackService.insertMotivationFeedback(feedbackTO, feedbackTO.getInterviewId());
       List<String> responsibleMails = interviewerService.getAllResponsibles().stream().map(InterviewerRTO::getMail).collect(Collectors.toList());
-		interviewService.updateInterviewMotFeedback(interviewId, motFeedback, feedbackTO.getFinalFeedback());
+      interviewService.updateInterviewMotFeedback(feedbackTO.getInterviewId(), motFeedback, feedbackTO.getFinalFeedback());
 		
 		MailParametersTO mailParams = new MailParametersTO(Arrays.asList(interview.getInterviewerMail()), 
             responsibleMails,

@@ -1,12 +1,9 @@
-package com.accenture.interview.controller.interview;
-
-import javax.servlet.http.HttpSession;
+package com.accenture.interview.controller.availability;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,13 +22,12 @@ import com.accenture.interview.utils.checkerror.availability.CheckErrorsApproveA
 import com.accenture.interview.utils.checkerror.availability.CheckErrorsInsertAvailability;
 import com.accenture.interview.utils.checkerror.availability.CheckErrorsReassignAvailability;
 import com.accenture.interview.utils.checkerror.availability.CheckErrorsRefuseAvailability;
-import com.accenture.interview.utils.constants.PaginationConstants;
 
 /**
  * The Class AvailabilityController.
  */
 @RestController
-@RequestMapping("/availability")
+@RequestMapping("/interview/availability")
 public class AvailabilityController {
 
    /** The availability facade. */
@@ -66,14 +62,10 @@ public class AvailabilityController {
     * @return the response entity
     */
    @PostMapping("/insert")
-   public ResponseEntity<Object> insertAvailability(@RequestBody @ModelAttribute InsertAvailabilityTO insertAvailabilityTO, HttpSession session) {
-      if(ObjectUtils.isEmpty(session.getAttribute("entId"))) {
-         return new ResponseEntity<>(new BaseResponseRTO(null, PaginationConstants.EXPIRED), HttpStatus.OK);
-      }
+   public ResponseEntity<Object> insertAvailability(@RequestBody InsertAvailabilityTO insertAvailabilityTO) {
       ErrorRTO errorRTO = checkErrorsInsertAvailability.validate(insertAvailabilityTO);
-
       if (!ObjectUtils.isEmpty(errorRTO)) {
-         return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
+         return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.UNPROCESSABLE_ENTITY);
       }
       return new ResponseEntity<>(new BaseResponseRTO(availabilityFacade.addAvailabiltyInterview(insertAvailabilityTO)), HttpStatus.OK);
    }
@@ -86,14 +78,10 @@ public class AvailabilityController {
     * @return the response entity
     */
    @PostMapping("/approve")
-   public ResponseEntity<Object> approveAvailability(@RequestBody @ModelAttribute ApproveAvailabilityTO approveAvailabilityTO, HttpSession session) {				
-      if(ObjectUtils.isEmpty(session.getAttribute("entId"))) {
-         return new ResponseEntity<>(new BaseResponseRTO(null, PaginationConstants.EXPIRED), HttpStatus.OK);
-      }
+   public ResponseEntity<Object> approveAvailability(@RequestBody ApproveAvailabilityTO approveAvailabilityTO) {
       ErrorRTO errorRTO = checkErrorsApproveAvailability.validate(approveAvailabilityTO);
-
       if (!ObjectUtils.isEmpty(errorRTO)) {
-         return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
+         return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.UNPROCESSABLE_ENTITY);
       }
       return new ResponseEntity<>(new BaseResponseRTO(availabilityFacade.approveAvailability(approveAvailabilityTO)), HttpStatus.OK);
    }
@@ -106,14 +94,10 @@ public class AvailabilityController {
     * @return the response entity
     */
    @PostMapping("/refuse")
-   public ResponseEntity<Object> refuseAvailability(@RequestParam(value = "interviewId") Long interviewId, HttpSession session) {
-      if(ObjectUtils.isEmpty(session.getAttribute("entId"))) {
-         return new ResponseEntity<>(new BaseResponseRTO(null, PaginationConstants.EXPIRED), HttpStatus.OK);
-      }
+   public ResponseEntity<Object> refuseAvailability(@RequestParam(value = "interviewId") Long interviewId) {
       ErrorRTO errorRTO = checkErrorsRefuseAvailability.validate(interviewId);
-
       if (!ObjectUtils.isEmpty(errorRTO)) {
-         return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
+         return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.UNPROCESSABLE_ENTITY);
       }
       return new ResponseEntity<>(new BaseResponseRTO(availabilityFacade.refuseAvailability(interviewId)), HttpStatus.OK);
    }
@@ -126,14 +110,10 @@ public class AvailabilityController {
     * @return the response entity
     */
    @PostMapping("/reassign")
-   public ResponseEntity<Object> reassignAvailability(@RequestBody @ModelAttribute ReassignInterviewTO reassignTO, HttpSession session) {
-      if(ObjectUtils.isEmpty(session.getAttribute("entId"))) {
-         return new ResponseEntity<>(new BaseResponseRTO(null, PaginationConstants.EXPIRED), HttpStatus.OK);
-      }
+   public ResponseEntity<Object> reassignAvailability(@RequestBody ReassignInterviewTO reassignTO) {
       ErrorRTO errorRTO = checkErrorsReassignAvailability.validate(reassignTO);
-
       if (!ObjectUtils.isEmpty(errorRTO)) {
-         return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
+         return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.UNPROCESSABLE_ENTITY);
       }
       return new ResponseEntity<>(new BaseResponseRTO(availabilityFacade.reassignAvailability(reassignTO)), HttpStatus.OK);
    }
@@ -146,14 +126,10 @@ public class AvailabilityController {
     * @return the response entity
     */
    @PostMapping("/accept")
-   public ResponseEntity<Object> acceptRescheduledAvailability(@RequestBody @ModelAttribute RescheduledAvailabilityTO rescheduleTO, HttpSession session) {
-      if (ObjectUtils.isEmpty(session.getAttribute("entId"))) {
-         return new ResponseEntity<>(new BaseResponseRTO(null, PaginationConstants.EXPIRED), HttpStatus.OK);
-      }
+   public ResponseEntity<Object> acceptRescheduledAvailability(@RequestBody RescheduledAvailabilityTO rescheduleTO) {
       ErrorRTO errorRTO = checkErrorsAcceptAvailability.validate(rescheduleTO);
-
       if (!ObjectUtils.isEmpty(errorRTO)) {
-         return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
+         return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.UNPROCESSABLE_ENTITY);
       }
       return new ResponseEntity<>(new BaseResponseRTO(availabilityFacade.acceptRescheduled(rescheduleTO)), HttpStatus.OK);
    }

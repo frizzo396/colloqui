@@ -1,6 +1,4 @@
-package com.accenture.interview.controller2.interview;
-
-import javax.servlet.http.HttpSession;
+package com.accenture.interview.controller.interview;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +20,7 @@ import com.accenture.interview.to.interview.SearchInterviewTO;
 @RequestMapping("/interview/search")
 public class SearchInterviewController {
 
-   /** The interview facade. */
+   /** The search interview facade. */
    @Autowired
    private SearchInterviewFacade searchInterviewFacade;
 
@@ -50,15 +48,10 @@ public class SearchInterviewController {
     * Search interviewer.
     *
     * @param searchInterviewTO the search interview TO
-    * @param session           the session
     * @return the response entity
     */
    @PostMapping("/interviewer")
-   public ResponseEntity<Object> searchInterviewer(@RequestBody SearchInterviewTO searchInterviewTO, HttpSession session) {
-      /*
-       * if (ObjectUtils.isEmpty(session.getAttribute("entId"))) {
-       * return new ResponseEntity<>(HttpStatus.FORBIDDEN); }
-       */
+   public ResponseEntity<Object> searchInterviewer(@RequestBody SearchInterviewTO searchInterviewTO) {
       return new ResponseEntity<>(searchInterviewFacade.searchInterviewsInterviewer(searchInterviewTO), HttpStatus.OK);
    }
 
@@ -66,15 +59,10 @@ public class SearchInterviewController {
     * Search responsible.
     *
     * @param searchInterviewTO the search interview TO
-    * @param session           the session
     * @return the response entity
     */
    @PostMapping("/responsible")
-   public ResponseEntity<Object> searchResponsible(@RequestBody SearchInterviewResponsibleTO searchInterviewTO, HttpSession session) {
-      /*
-       * if (ObjectUtils.isEmpty(session.getAttribute("entId"))) {
-       * return new ResponseEntity<>(HttpStatus.FORBIDDEN); }
-       */
+   public ResponseEntity<Object> searchResponsible(@RequestBody SearchInterviewResponsibleTO searchInterviewTO) {
       return new ResponseEntity<>(searchInterviewFacade.searchInterviewsResponsible(searchInterviewTO), HttpStatus.OK);
    }
 

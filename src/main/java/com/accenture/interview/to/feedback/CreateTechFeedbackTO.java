@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +16,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CreateTechFeedbackTO {
+
+   @NotNull(message = "interview.error.id.not.null")
+   private Long interviewId;
 	
 	@Valid
 	private List<ScoreTechFeedbackTO> techList;
