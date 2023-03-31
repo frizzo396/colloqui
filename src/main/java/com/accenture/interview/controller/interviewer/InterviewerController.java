@@ -171,7 +171,7 @@ public class InterviewerController {
       if (!ObjectUtils.isEmpty(errorRTO)) {
          return new ResponseEntity<>(new BaseResponseRTO(null, errorRTO.getMessage()), HttpStatus.OK);
       }
-      session.setMaxInactiveInterval(1200);
+      session.setMaxInactiveInterval(10000);
       session.setAttribute("entId", accessUserTO.getEnterpriseId());
       return new ResponseEntity<>(new BaseResponseRTO(accessUserTO.getEnterpriseId(), null), HttpStatus.OK);		
    }	
