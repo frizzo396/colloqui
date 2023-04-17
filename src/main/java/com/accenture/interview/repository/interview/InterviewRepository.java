@@ -78,20 +78,21 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
          + "(i.candidateName LIKE CONCAT('%',:name,'%') OR :name = '') AND "
          + "(i.candidateSurname LIKE CONCAT('%',:surname,'%') OR :surname = '') AND "
 			+ "(i.candidateTypeId.description = :candidateType OR :candidateType = '') AND "
-         + "(i.site.id = :site OR :site = '') AND "
+         + "(i.site.id = :site OR :site is null) AND "
 			+ "(:intType is null OR i.interviewType = :intType) AND "
          + "(i.interviewerId.enterpriseId = :entId OR :entId = '' OR i.interviewerId.enterpriseId is null) AND "
 			+ "(:schedDate is null OR i.scheduledDate>=:schedDate) AND "
 			+ "(i.dueDate is null OR :dueDate is null OR i.dueDate<=:dueDate) "
          + "ORDER BY i.updatedDate desc")
-	List<InterviewAndFeedbackRTO> findInterviewByParams(@Param("name") String candidateName,
+	List<InterviewAndFeedbackRTO> findInterviewByParams(
+			@Param("name") String candidateName,
 			@Param("surname") String candidateSurname,
 			@Param("intType") Long interviewType,
 			@Param("schedDate") Date firstDate,
 			@Param("dueDate") Date secondDate,
 			@Param("entId") String enterpriseId,
 			@Param("candidateType") String candidateType,
-         @Param("site") Long site);
+			@Param("site") Long site);
 
    /**
     * Find interview by params.
@@ -119,7 +120,7 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 	         + "s.id = i.site.id and "
          + "(i.candidateName LIKE CONCAT('%',:candidateName,'%') OR i.candidateSurname LIKE CONCAT('%',:candidateName,'%') OR :candidateName = '') AND "
 	         + "(i.candidateTypeId.description = :candidateType OR :candidateType = '') AND "
-         + "(i.site.id = :site OR :site = '') AND "
+         + "(i.site.id = :site OR :site is null) AND "
 	         + "(:intType is null OR i.interviewType = :intType) AND "
          + "(i.status = :status OR :status is null) AND "
          + "(:entId = '' OR i.interviewerId.enterpriseId = :entId) AND "
