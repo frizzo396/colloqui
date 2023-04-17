@@ -59,6 +59,9 @@ public class CreateInterviewTO {
 	/** The enterprise id. */
 	private String enterpriseId;
 	
+	/** The assigner id. */
+	private String assignerEnterpriseId;
+	
 	/** The note. */	
 	private String note;
 }
