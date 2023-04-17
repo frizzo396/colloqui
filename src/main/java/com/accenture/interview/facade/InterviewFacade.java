@@ -96,24 +96,32 @@ public class InterviewFacade {
     * @param enterpriseId the enterprise id
     * @return the long
     */
-   public Long addNewInterview(CreateInterviewTO request, String enterpriseId) {
+	public Long addNewInterview(CreateInterviewTO request) {
 		CandidateTypeRTO candidateType = candidateService.getCandidateType(request.getCandidateType());
 		InterviewerRTO interviewer = interviewerService.findInterviewerByEnterpriseId(request.getEnterpriseId());
-		InterviewerRTO assigner = interviewerService.findInterviewerByEnterpriseId(enterpriseId);
-      SiteRTO site = siteService.findSiteById(request.getSite());
-      List<String> responsibleMails = interviewerService.getAllResponsibles().stream().map(InterviewerRTO::getMail).collect(Collectors.toList());
-      Long interviewId = interviewService.addNewInterview(request, candidateType, interviewer, site, assigner);
-      if (!(ObjectUtils.isEmpty(interviewer))) {
-         List<String> bodyParams = !ObjectUtils.isEmpty(request.getNote()) ? Arrays.asList(request.getCandidateName(), request.getCandidateSurname(), request.getNote())
-               : Arrays.asList(request.getCandidateName(), request.getCandidateSurname());
-         MailTypeEnum mailType = !ObjectUtils.isEmpty(request.getNote()) ? MailTypeEnum.INTERVIEW_INSERT : MailTypeEnum.INTERVIEW_INSERT_WITHOUT_NOTES;
-			MailParametersTO mailParams = new MailParametersTO(Arrays.asList(interviewer.getMail()), 
-               responsibleMails,
-               bodyParams,
-               Arrays.asList(request.getCandidateName(), request.getCandidateSurname()), WebPaths.IN_PROGRESS);
-         mailService.sendMail(mailParams, mailType);
+		InterviewerRTO assigner = interviewerService.findInterviewerByEnterpriseId(request.getAssignerEnterpriseId());
+		SiteRTO site = siteService.findSiteById(request.getSite());
+		List<String> responsibleMails = interviewerService.getAllResponsibles().stream().map(InterviewerRTO::getMail).collect(Collectors.toList());
+		Long interviewId = interviewService.addNewInterview(request, candidateType, interviewer, site, assigner);
+		
+		if (!(ObjectUtils.isEmpty(interviewer))) {
+			List<String> bodyParams = !ObjectUtils.isEmpty(request.getNote()) ? Arrays.asList(request.getCandidateName(), request.getCandidateSurname(), request.getNote())
+					: Arrays.asList(request.getCandidateName(), request.getCandidateSurname());
+			
+			MailTypeEnum mailType = !ObjectUtils.isEmpty(request.getNote()) ? MailTypeEnum.INTERVIEW_INSERT : MailTypeEnum.INTERVIEW_INSERT_WITHOUT_NOTES;
+			
+			MailParametersTO mailParams = new MailParametersTO(
+					Arrays.asList(interviewer.getMail()), 
+					responsibleMails,
+					bodyParams,
+					Arrays.asList(request.getCandidateName(), request.getCandidateSurname()), 
+					WebPaths.IN_PROGRESS
+			);
+			
+			mailService.sendMail(mailParams, mailType);
 		}
-      return interviewId;
+		
+		return interviewId;
 	}
 
 	/**
