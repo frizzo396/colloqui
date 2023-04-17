@@ -47,6 +47,10 @@ public class FeedbackFacade {
 	@Autowired
 	private MailService mailService;
 
+   /** The web paths. */
+   @Autowired
+   private WebPaths webPaths;
+
 
 	/**
     * Insert tech feedback.
@@ -65,7 +69,7 @@ public class FeedbackFacade {
             responsibleMails.stream().collect(Collectors.toSet()),
             Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname(), createTechFeedbackTO.getFinalFeedback(), createTechFeedbackTO.getComment()),
             Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()),
-				WebPaths.ASSIGNED);
+            webPaths.getAssignedUrl());
 		mailService.sendMail(mailParams, MailTypeEnum.FEEDBACK_INSERT);
 		return new CreateTechFeedbackRTO(createTechFeedbackTO);
 	}
@@ -87,7 +91,7 @@ public class FeedbackFacade {
             responsibleMails.stream().collect(Collectors.toSet()),
             Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname(), feedbackTO.getFinalFeedback(), feedbackTO.getComment()),
 				Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()), 
-				WebPaths.ASSIGNED);
+            webPaths.getAssignedUrl());
 		mailService.sendMail(mailParams, MailTypeEnum.FEEDBACK_INSERT);	
 		return new CreateMotivationFeedbackRTO(feedbackTO);
 	}

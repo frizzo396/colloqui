@@ -72,6 +72,9 @@ public class InterviewFacade {
    @Autowired
    private MailUtils mailUtils;
 
+   @Autowired
+   private WebPaths webPaths;
+
 	/**
 	 * Gets the combo sites.
 	 *
@@ -117,7 +120,7 @@ public class InterviewFacade {
 			MailParametersTO mailParams = new MailParametersTO(Arrays.asList(interviewer.getMail()), 
                responsibleMails.stream().collect(Collectors.toSet()),
                bodyParams,
-					Arrays.asList(response.getCandidateName(), response.getCandidateSurname()), WebPaths.IN_PROGRESS);
+               Arrays.asList(response.getCandidateName(), response.getCandidateSurname()), webPaths.getInProgressUrl());
          mailService.sendMail(mailParams, mailType);
 		}
 		return response;
@@ -146,7 +149,7 @@ public class InterviewFacade {
          MailParametersTO mailParams = new MailParametersTO(Arrays.asList(interviewer.getMail()),
                interviewerService.findAllManagement().stream().map(InterviewerRTO::getMail).collect(Collectors.toSet()),
                bodyParams,
-               Arrays.asList(response.getCandidateName(), response.getCandidateSurname()), WebPaths.IN_PROGRESS);
+               Arrays.asList(response.getCandidateName(), response.getCandidateSurname()), webPaths.getInProgressUrl());
          mailService.sendMail(mailParams, mailType);
       }
 
@@ -276,7 +279,7 @@ public class InterviewFacade {
          MailParametersTO mailParams = new MailParametersTO(Arrays.asList(interview.getInterviewerMail()),
                responsibleMails.stream().collect(Collectors.toSet()),
                bodyParams,
-               Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()), WebPaths.IN_PROGRESS);
+               Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()), webPaths.getInProgressUrl());
          mailService.sendMail(mailParams, mailType);
       }
       return null;

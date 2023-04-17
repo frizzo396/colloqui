@@ -54,6 +54,10 @@ public class AvailabilityFacade {
    @Autowired
    private MailService mailService;
 
+   /** The web paths. */
+   @Autowired
+   private WebPaths webPaths;
+
    /**
     * Adds the availabilty interview.
     *
@@ -84,7 +88,7 @@ public class AvailabilityFacade {
                   insertAvailabilityTO.getThirdDate()),
             Arrays.asList(interview.getCandidateName(),
                   interview.getCandidateSurname()),
-            WebPaths.ASSIGNED);
+            webPaths.getAssignedUrl());
 
       mailService.sendMail(mailParams, MailTypeEnum.AVAILABILITY_INSERT);
       return new BaseResponseRTO(insertAvailabilityTO.getInterviewId(), errorMsg);
@@ -112,7 +116,7 @@ public class AvailabilityFacade {
                assigner,
                Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname(), dateString),
                Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()),
-               WebPaths.IN_PROGRESS);
+               webPaths.getInProgressUrl());
          mailService.sendMail(mailParams, mailType);
       }
       return new BaseResponseRTO(approveAvailabilityTO.getInterviewId(), errorMsg);
@@ -160,7 +164,7 @@ public class AvailabilityFacade {
             assigner,
             Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()),
             Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()),
-            WebPaths.ASSIGNED);
+            webPaths.getAssignedUrl());
       mailService.sendMail(mailParams, MailTypeEnum.AVAILABILITY_REFUSE);
       return new BaseResponseRTO(refuseId, errorMsg);
    }
@@ -184,7 +188,7 @@ public class AvailabilityFacade {
       MailParametersTO mailParams = new MailParametersTO(Arrays.asList(newInterviewer.getMail()),
             responsibleMails.stream().collect(Collectors.toSet()),
             bodyParams,
-            Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()), WebPaths.IN_PROGRESS);
+            Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()), webPaths.getInProgressUrl());
 
       mailService.sendMail(mailParams, mailType);
       return new BaseResponseRTO(reassignedInterview, errorMsg);
@@ -221,7 +225,7 @@ public class AvailabilityFacade {
          MailParametersTO mailParams = new MailParametersTO(Arrays.asList(interview.getAssignerMail()),
                assigner,
                Arrays.asList(formattedDate, interview.getCandidateName(), interview.getCandidateSurname()),
-               Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()), WebPaths.IN_PROGRESS);
+               Arrays.asList(interview.getCandidateName(), interview.getCandidateSurname()), webPaths.getInProgressUrl());
          mailService.sendMail(mailParams, MailTypeEnum.AVAILABILITY_RESCHEDULE_ACCEPTED);
       }
       return new BaseResponseRTO(interview.getId(), errorMsg);

@@ -45,6 +45,10 @@ public class InterviewerFacade {
 	@Autowired 
 	private MessageSource messageSource;
 
+   /** The web paths. */
+   @Autowired
+   private WebPaths webPaths;
+
 	/**
 	 * Adds the new interviewer.
 	 *
@@ -67,7 +71,7 @@ public class InterviewerFacade {
 			bodyParams.add(password);
 		}
 		MailParametersTO mailParams = new MailParametersTO(Arrays.asList(request.getMail()), 
-            new HashSet<>(), bodyParams, new ArrayList<>(), WebPaths.HOME);
+            new HashSet<>(), bodyParams, new ArrayList<>(), webPaths.getHomeUrl());
 		
       mailService.sendMail(mailParams, MailTypeEnum.USER_WELCOME);
 		return new BaseResponseRTO(new InterviewerRTO(request), null);
@@ -120,8 +124,6 @@ public class InterviewerFacade {
 	/**
 	 * Search interviewer.
 	 *
-	 * @param candidateName    the candidate name
-	 * @param candidateSurname the candidate surname
 	 * @param mail             the mail
 	 * @return the search interviewer response
 	 */
@@ -185,18 +187,18 @@ public class InterviewerFacade {
 	
 	
 	/**
-	 * Send mail for recover interviewer password.
-	 *
-	 * @param requestTO the request TO
-	 * @return the base response RTO
-	 */
+    * Send mail for recover interviewer password.
+    *
+    * @param recoverPasswordTO the recover password TO
+    * @return the base response RTO
+    */
 	public BaseResponseRTO recoverPassword(RecoverPasswordTO recoverPasswordTO) {
       String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%";
       String password = RandomStringUtils.random(8, characters);
       interviewerService.recoverPassword(recoverPasswordTO.getEnterpriseId(), password);
 
 		MailParametersTO mailParams = new MailParametersTO(Arrays.asList(recoverPasswordTO.getMail()), 
-            new HashSet<>(), Arrays.asList(password), new ArrayList<>(), WebPaths.HOME);
+            new HashSet<>(), Arrays.asList(password), new ArrayList<>(), webPaths.getHomeUrl());
 		
       mailService.sendMail(mailParams, MailTypeEnum.USER_RECOVER_PASSWORD);
 		return new BaseResponseRTO(new InterviewerRTO(recoverPasswordTO), null);

@@ -113,7 +113,7 @@ public class CheckErrorsInsertFeedback {
       }
 
 		if(!isInterviewer(interviewId, enterpriseId)) {
-			errorMsg = messageSource.getMessage("feedback.interviewer.notequal", null, Locale.getDefault());
+         errorMsg = messageSource.getMessage("feedback.interviewer.not-equal", null, Locale.getDefault());
 			return new ErrorRTO(errorMsg);
 		}
 		return null;
