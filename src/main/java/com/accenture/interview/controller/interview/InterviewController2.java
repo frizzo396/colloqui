@@ -64,7 +64,8 @@ public class InterviewController2 {
       if (!ObjectUtils.isEmpty(errorRTO)) {
          return new ResponseEntity<>(errorRTO, HttpStatus.UNPROCESSABLE_ENTITY);
       }
-      return new ResponseEntity<>(interviewFacade.addNewInterview(createInterviewTO, (String) session.getAttribute("entId")), HttpStatus.OK);
+//      return new ResponseEntity<>(interviewFacade.addNewInterview(createInterviewTO, (String) session.getAttribute("entId")), HttpStatus.OK);
+      return new ResponseEntity<>(interviewFacade.addNewInterview(createInterviewTO), HttpStatus.OK);
    }
 
    /**
